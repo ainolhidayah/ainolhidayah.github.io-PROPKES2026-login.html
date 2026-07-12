@@ -113,17 +113,22 @@
                     <p class="text-[10px] text-slate-400 mb-2 font-semibold uppercase">Panduan Log Masuk (Kata Laluan: 123456)</p>
                     <ul class="text-[10px] text-slate-500 space-y-1 font-mono">
                         <li>Admin: <span class="text-blue-400">admin</span></li>
-                        <li>Peserta: <span class="text-blue-400">peserta1</span> hingga <span class="text-blue-400">peserta20</span></li>
                         <li>Pemandu Citra: <span class="text-blue-400">pemandu1</span> hingga <span class="text-blue-400">pemandu6</span></li>
                         <li>Mentor: <span class="text-blue-400">mentor</span></li>
                     </ul>
                 </div>
 
-                <!-- BUTANG LOG MASUK -->
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg shadow-blue-600/30 transition-all mt-4 flex justify-center items-center gap-2 cursor-pointer outline-none">
-                    Log Masuk
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </button>
+                <!-- BUTANG LOG MASUK & PENDAFTARAN -->
+                <div class="space-y-3 mt-4">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg shadow-blue-600/30 transition-all flex justify-center items-center gap-2 cursor-pointer outline-none">
+                        Log Masuk
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                    
+                    <div class="text-center pt-2">
+                        <p class="text-xs text-slate-400">Peserta (Permata Citra) baharu? <a href="register.html" class="text-emerald-400 hover:text-emerald-300 font-semibold underline underline-offset-2">Daftar di sini</a></p>
+                    </div>
+                </div>
 
             </form>
         </div>
@@ -131,39 +136,42 @@
 
     <script>
         document.getElementById("loginForm").addEventListener("submit", function(e) {
-            e.preventDefault();
+            e.preventDefault(); 
 
             const usernameInput = document.getElementById("username").value.toLowerCase().trim();
             const passwordInput = document.getElementById("password").value;
             const errorMsg = document.getElementById("errorMsg");
 
             const defaultPassword = "123456";
-
             errorMsg.classList.add("hidden");
 
-            // Semak kata laluan dahulu
+            // --- LOGIK LOG MASUK PESERTA YANG TELAH MENDAFTAR ---
+            // Semak jika ada data peserta yang disimpan di localStorage
+            const storedUserData = localStorage.getItem("propkes_registered_user");
+            
+            if (storedUserData) {
+                const registeredUser = JSON.parse(storedUserData);
+                // Jika emel dan kata laluan padan dengan pendaftaran
+                if (usernameInput === registeredUser.emel && passwordInput === registeredUser.kataLaluan) {
+                    // Simpan nama untuk dipaparkan di dashboard
+                    localStorage.setItem("propkes_active_peserta_name", registeredUser.namaPenuh);
+                    window.location.href = "dashboard_peserta.html";
+                    return; // Hentikan fungsi di sini supaya ia berjaya masuk
+                }
+            }
+
+            // --- LOGIK LOG MASUK DEMO (ADMIN/PEMANDU/MENTOR) ---
             if (passwordInput !== defaultPassword) {
                 errorMsg.classList.remove("hidden");
                 return;
             }
 
-            // Simpan sesi log masuk ke localStorage untuk digunakan oleh dashboard Pemandu Citra
-            localStorage.setItem("propkes_user", usernameInput);
-
-            // Logik penghalaan berdasarkan ID Pengguna
             if (usernameInput === "admin") {
                 window.location.href = "dashboard_admin.html";
-            } else if (usernameInput.startsWith("peserta")) {
-                const num = parseInt(usernameInput.replace("peserta", ""));
-                if (num >= 1 && num <= 20) {
-                    window.location.href = "dashboard_peserta.html";
-                } else {
-                    errorMsg.classList.remove("hidden");
-                }
             } else if (usernameInput.startsWith("pemandu")) {
                 const num = parseInt(usernameInput.replace("pemandu", ""));
-                // Hadkan sehingga pemandu6
                 if (num >= 1 && num <= 6) {
+                    localStorage.setItem("propkes_pemandu_id", usernameInput);
                     window.location.href = "dashboard_pemandu.html";
                 } else {
                     errorMsg.classList.remove("hidden");
