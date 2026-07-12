@@ -19,37 +19,32 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
         
-        /* Animasi pudar perlahan */
         .fade-in { animation: fadeIn 0.3s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Custom Toggle Checkbox */
+        .toggle-checkbox:checked { right: 0; border-color: #10b981; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
     </style>
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
+    <!-- Navbar -->
     <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <!-- Logo & System Name -->
                 <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-lg shadow-blue-500/20">
-                        IAB
-                    </div>
+                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-lg shadow-blue-500/20">IAB</div>
                     <span class="font-bold text-lg tracking-tight text-white hidden sm:block">PROPKES <span class="text-blue-400">2026</span></span>
-                    <span class="ml-2 bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:block">
-                        Mod Peserta
-                    </span>
+                    <span class="ml-2 bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:block">Mod Peserta</span>
                 </div>
                 
-                <!-- Profile Area -->
                 <div class="flex items-center gap-4">
                     <div class="text-right hidden md:block">
                         <p class="text-sm font-semibold text-white" id="navNameDisplay">Memuatkan...</p>
                         <p class="text-xs text-blue-400">Permata Citra</p>
                     </div>
-                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300" id="navInitials">
-                        ...
-                    </div>
-                    <!-- Logout Button -->
+                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300" id="navInitials">...</div>
                     <button onclick="logout()" class="ml-2 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-lg transition-colors cursor-pointer outline-none shadow-sm" title="Log Keluar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
@@ -66,11 +61,11 @@
             
             <div class="relative z-10">
                 <h1 class="text-2xl md:text-3xl font-bold text-white mb-2" id="welcomeMessage">Selamat Datang!</h1>
-                <p class="text-slate-400 text-sm max-w-2xl leading-relaxed">Ini adalah papan pemuka interaktif anda. Sila laksanakan senarai semak <strong class="text-slate-200">Lampiran A</strong> dan kemas kini <strong class="text-slate-200">Kalendar Log</strong> di bawah bagi memudahkan pemantauan Pemandu Citra anda.</p>
+                <p class="text-slate-400 text-sm max-w-2xl leading-relaxed">Ini adalah papan pemuka peribadi anda. Sila pastikan anda melengkapkan senarai tugasan <strong class="text-slate-200">Lampiran A</strong> dan mengemas kini <strong class="text-slate-200">Kalendar Log & Keberadaan</strong> setiap hari.</p>
             </div>
             
             <div class="bg-slate-950/50 border border-blue-500/30 rounded-xl p-4 shrink-0 text-center relative z-10 min-w-[150px]">
-                <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1">Status Keaktifan</p>
+                <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1">Status Anda</p>
                 <div class="text-xl font-bold text-emerald-400 flex items-center justify-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     Aktif
@@ -80,15 +75,14 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- BAHAGIAN KIRI (Profil, Akses Pantas, Keberadaan) -->
+            <!-- KIRI -->
             <div class="lg:col-span-1 space-y-6">
-                <!-- Profil Peribadi Card -->
+                <!-- Profil Peribadi -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-sm border-b border-slate-800 pb-3">
                         <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        Maklumat Didaftarkan (Urus Setia)
+                        Maklumat Didaftarkan (Admin)
                     </h3>
-                    
                     <div class="space-y-4">
                         <div>
                             <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">Nama Penuh</p>
@@ -103,17 +97,16 @@
                             <p class="text-sm font-medium text-slate-300" id="profileEmail">Memuatkan...</p>
                         </div>
                         <div class="bg-blue-950/30 p-4 rounded-xl border border-blue-900/50">
-                            <p class="text-[10px] text-blue-400 uppercase font-bold tracking-wider mb-1">Penempatan Sandaran</p>
+                            <p class="text-[10px] text-blue-400 uppercase font-bold tracking-wider mb-1">Sekolah Sandaran</p>
                             <p class="text-sm font-bold text-blue-100" id="profileSekolah">Memuatkan...</p>
-                            <div class="mt-2 flex items-center gap-2 text-xs text-blue-300 bg-blue-900/20 py-1.5 px-3 rounded-lg border border-blue-800/30 inline-flex">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <div class="mt-2 text-xs text-blue-300 bg-blue-900/20 py-1.5 px-3 rounded-lg border border-blue-800/30 inline-block">
                                 <span id="profilePPD">PPD: Memuatkan...</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Akses Pantas (Log Harian) -->
+                <!-- Butang Akses Pantas (Log) -->
                 <a href="https://forms.gle/qCPqGMydsUQ5Xmni9" target="_blank" class="block bg-gradient-to-br from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 p-5 rounded-2xl shadow-lg shadow-blue-900/50 transition-all group outline-none cursor-pointer">
                     <div class="flex items-center gap-4">
                         <div class="bg-white/20 p-3 rounded-xl text-white backdrop-blur-sm">
@@ -126,37 +119,48 @@
                     </div>
                 </a>
 
-                <!-- Penjejak Lokasi Mingguan -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col h-[400px]">
-                    <div class="p-4 border-b border-slate-800 bg-slate-950/50 shrink-0">
-                        <h3 class="font-bold text-white text-sm flex items-center gap-2">
-                            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            Status Keberadaan Mingguan
-                        </h3>
-                        <p class="text-[10px] text-slate-400 mt-1">Sila kemas kini lokasi tugas anda pada setiap minggu berkaitan.</p>
-                    </div>
-                    <div class="p-4 overflow-y-auto custom-scrollbar flex-1 space-y-3" id="weeklyLocationContainer">
-                        <!-- Senarai minggu dijana oleh JS -->
+                <!-- Ringkasan Keberadaan Bulan Ini (Baru) -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2 mb-4 border-b border-slate-800 pb-3">
+                        <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" /></svg>
+                        Statistik Keberadaan (Bulan <span id="statMonthLabel">Ini</span>)
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-blue-500"></div> Sekolah Sandaran</span>
+                            <span class="font-bold text-white" id="countSekolah">0 Hari</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-indigo-500"></div> Pejabat (PPD)</span>
+                            <span class="font-bold text-white" id="countPpd">0 Hari</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-purple-500"></div> IAB</span>
+                            <span class="font-bold text-white" id="countIab">0 Hari</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-slate-600"></div> Cuti / Lain-lain</span>
+                            <span class="font-bold text-white" id="countCuti">0 Hari</span>
+                        </div>
                     </div>
                 </div>
 
             </div>
 
-            <!-- BAHAGIAN KANAN (Kalendar & Lampiran A) -->
+            <!-- KANAN -->
             <div class="lg:col-span-2 space-y-6">
                 
-                <!-- Kalendar Log Harian -->
+                <!-- Kalendar Interaktif (Bersepadu) -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-slate-800 pb-4 mb-4 gap-4">
                         <div>
                             <h3 class="font-bold text-white text-sm flex items-center gap-2">
                                 <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                Perekod Log Harian (Kalendar)
+                                Rekod Log & Lokasi Harian
                             </h3>
-                            <p class="text-[10px] text-slate-400 mt-1">Sila klik pada tarikh untuk menanda <span class="text-emerald-400 font-bold">Selesai Isi Log</span> bagi hari tersebut (Sokongan pelbagai negeri).</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Sila klik pada mana-mana tarikh di bawah untuk merekodkan status harian anda.</p>
                         </div>
                         
-                        <!-- Navigasi Bulan -->
                         <div class="flex items-center gap-3 bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg shrink-0">
                             <button onclick="changeMonth(-1)" class="text-slate-400 hover:text-white transition-colors outline-none cursor-pointer p-1">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
@@ -168,7 +172,7 @@
                         </div>
                     </div>
 
-                    <!-- Pengepala Hari -->
+                    <!-- Header Hari -->
                     <div class="grid grid-cols-7 gap-1 text-center mb-2">
                         <div class="text-[10px] font-bold text-rose-400">Ahad</div>
                         <div class="text-[10px] font-bold text-slate-400">Isn</div>
@@ -179,205 +183,285 @@
                         <div class="text-[10px] font-bold text-slate-500">Sab</div>
                     </div>
                     
-                    <!-- Grid Tarikh (Dijana JS) -->
-                    <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center" id="calendarGrid">
-                        <!-- Cells dijana JS -->
-                    </div>
+                    <!-- Grid Tarikh (JS) -->
+                    <div class="grid grid-cols-7 gap-1.5 sm:gap-2 text-center" id="calendarGrid"></div>
                     
-                    <!-- Petunjuk -->
-                    <div class="mt-4 pt-4 border-t border-slate-800 flex items-center justify-end gap-4 text-[10px] font-medium text-slate-400">
-                        <div class="flex items-center gap-1.5"><div class="w-3 h-3 rounded bg-slate-800 border border-slate-700"></div> Belum / Cuti</div>
-                        <div class="flex items-center gap-1.5"><div class="w-3 h-3 rounded bg-emerald-500 shadow shadow-emerald-500/50"></div> Log Selesai</div>
+                    <!-- Petunjuk Warna -->
+                    <div class="mt-5 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[10px] font-medium text-slate-400">
+                        <div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-sm bg-blue-500"></div> Sekolah</div>
+                        <div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-sm bg-indigo-500"></div> PPD</div>
+                        <div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-sm bg-purple-500"></div> IAB</div>
+                        <div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-sm bg-slate-600"></div> Cuti/Lain</div>
+                        <div class="flex items-center gap-1.5 ml-4 border-l border-slate-700 pl-4"><div class="w-3 h-3 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-2 h-2 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></div> Selesai Isi Log</div>
                     </div>
                 </div>
 
+                <!-- Lampiran A (Tugas Peserta) -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
                     <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
                         <div>
-                            <h3 class="font-bold text-white text-sm">Tanggungjawab Peserta (Lampiran A)</h3>
-                            <p class="text-[11px] text-slate-400 mt-1">Sila sahkan penyempurnaan tugasan utama anda secara berperingkat.</p>
+                            <h3 class="font-bold text-white text-sm">Status Tugasan PROPKES (Lampiran A)</h3>
+                            <p class="text-[11px] text-slate-400 mt-1">Sahihkan pelaksanaan secara jujur apabila selesai sesuatu fasa.</p>
                         </div>
-                        <!-- Progress Circle -->
                         <div class="w-10 h-10 rounded-full border-4 border-slate-700 flex items-center justify-center shrink-0" id="progressCircle">
                             <span class="text-[10px] font-bold text-slate-300" id="progressText">0%</span>
                         </div>
                     </div>
-                    
-                    <div class="p-6 space-y-8" id="taskListContainer">
-                        <!-- Senarai tugasan akan dijana oleh JavaScript di sini -->
-                    </div>
+                    <div class="p-6 space-y-8" id="taskListContainer"></div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Toast Notification Container -->
+    <!-- MODAL KEMAS KINI HARIAN KALENDAR -->
+    <div id="dailyModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-900 border border-blue-500/30 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="dailyModalContent">
+            
+            <div class="flex justify-between items-start mb-5 border-b border-slate-800 pb-3">
+                <div>
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
+                        Rekod Harian
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1" id="modalDateTitle">Tarikh: --</p>
+                </div>
+                <button onclick="closeDailyModal()" class="text-slate-500 hover:text-slate-300 bg-slate-800 hover:bg-slate-700 p-1 rounded-lg transition-colors outline-none cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <div class="space-y-6">
+                <!-- 1. Lokasi Dropdown -->
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Lokasi Keberadaan Hari Ini</label>
+                    <select id="modalLocationSelect" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 outline-none cursor-pointer shadow-inner">
+                        <option value="">- Tiada Rekod / Belum Mula -</option>
+                        <option value="sekolah">Sekolah Sandaran</option>
+                        <option value="ppd">Pejabat Pendidikan Daerah (PPD)</option>
+                        <option value="iab">Institusi Aminuddin Baki (IAB)</option>
+                        <option value="cuti">Cuti Rehat / Cuti Umum / Tiada Aktiviti</option>
+                    </select>
+                </div>
+
+                <!-- 2. Log Toggle -->
+                <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-bold text-white">Status Log Harian</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Telah diisi di Google Form?</p>
+                    </div>
+                    <div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
+                        <input type="checkbox" name="toggle" id="modalLogToggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-slate-600 appearance-none cursor-pointer transition-all duration-300 z-10 top-0 left-0 outline-none"/>
+                        <label for="modalLogToggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-600 cursor-pointer transition-colors duration-300"></label>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="saveDailyData()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-blue-600/30 transition-all mt-6 cursor-pointer outline-none">
+                Simpan Rekod
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast -->
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none"></div>
 
     <script>
+        /* STREAMING_CHUNK:Sistem Pengawalan Utama... */
         let currentUser = "";
+        let currentEditingDateStr = "";
 
-        // --- 1. Data Struktur Mingguan (Keberadaan) ---
-        const propkesWeeks = [
-            { id: "w1", title: "Minggu 1 (Fasa 1)", date: "3 Ogos - 7 Ogos" },
-            { id: "w2", title: "Minggu 2 (Fasa 1)", date: "10 Ogos - 14 Ogos" },
-            { id: "w3", title: "Minggu 3 (Fasa 1)", date: "17 Ogos - 21 Ogos" },
-            { id: "w4", title: "Minggu 4 (Fasa 1)", date: "24 Ogos - 28 Ogos" },
-            { id: "w5", title: "Minggu 5 (Fasa 1)", date: "31 Ogos - 4 Sept" },
-            { id: "w6", title: "Minggu 6 (Fasa 1)", date: "7 Sept - 11 Sept" },
-            { id: "w7", title: "Minggu 7 (Fasa 2)", date: "14 Sept - 18 Sept" },
-            { id: "w8", title: "Minggu 8 (Fasa 2)", date: "21 Sept - 25 Sept" },
-            { id: "w9", title: "Minggu 9 (Fasa 2)", date: "28 Sept - 2 Okt" },
-            { id: "w10", title: "Minggu 10 (Fasa 2)", date: "5 Okt - 9 Okt" },
-            { id: "w11", title: "Minggu 11 (Fasa 2)", date: "12 Okt - 16 Okt" },
-            { id: "w12", title: "Minggu 12 (Fasa 2)", date: "19 Okt - 23 Okt" }
-        ];
-
-        // --- 2. Data Struktur Tugasan (Lampiran A) ---
+        // Definisi Tugasan (Lampiran A)
         const propkesTasks = [
             {
                 phase: "Pra-Program (Julai 2026)",
                 tasks: [
-                    { id: "task_1", title: "Mengenal pasti sekolah dan PPD sandaran", date: "20 Jul 2026", link: "https://docs.google.com/spreadsheets/d/17RQGW4PMAgX_91iwePaY6m6dTZZ9IuWecQWfVkNFibg/edit?usp=sharing", btnText: "Buka Sheet Pendaftaran" },
-                    { id: "task_2", title: "Menghadiri Taklimat Peserta", date: "20 Jul 2026", link: "https://meet.google.com/pcd-cixo-ize", btnText: "Sertai Meet" },
-                    { id: "task_3", title: "Menghadiri Taklimat Sekolah & PPD", date: "21 Jul 2026", link: "https://meet.google.com/pcd-cixo-ize", btnText: "Sertai Meet" },
-                    { id: "task_4", title: "Menjawab instrumen i-PROPKES (Pra)", date: "27 Jul 2026", link: "https://forms.gle/4HLwZKQKQT7mP3CL6", btnText: "Isi Borang Pra" }
+                    { id: "task_1", title: "Mengenal pasti sekolah dan PPD sandaran.", date: "20 Jul 2026", link: "https://docs.google.com/spreadsheets/d/17RQGW4PMAgX_91iwePaY6m6dTZZ9IuWecQWfVkNFibg/edit?usp=sharing", btnText: "Pautan Rasmi" },
+                    { id: "task_2", title: "Menghadiri taklimat kepada peserta.", date: "20 Jul 2026", link: "https://meet.google.com/pcd-cixo-ize", btnText: "Google Meet" },
+                    { id: "task_3", title: "Menghadiri taklimat kepada sekolah dan PPD.", date: "21 Jul 2026", link: "https://meet.google.com/pcd-cixo-ize", btnText: "Google Meet" },
+                    { id: "task_4", title: "Menjawab instrumen i-PROPKES (pra).", date: "27 Jul 2026", link: "https://forms.gle/4HLwZKQKQT7mP3CL6", btnText: "Isi Borang" }
                 ]
             },
             {
-                phase: "Pelaksanaan Fasa 1 (Ogos - Sept 2026)",
+                phase: "Fasa 1 (Ogos - Sept 2026)",
                 tasks: [
-                    { id: "task_5", title: "Mengikuti PROPKES Fasa 1 (Rujuk Modul/Slaid)", date: "3 Ogos - 11 Sept", link: "https://docs.google.com/presentation/d/1_2UDMyhisfLgJibcthj-USvpgLkGtTq9SwVAtPCkAXQ/edit?usp=sharing", btnText: "Slaid Panduan" },
-                    { id: "task_6", title: "Telah melengkapkan Jurnal Kepimpinan Fasa 1", date: "Setiap Minggu", link: "#", btnText: "", isStatic: true }
+                    { id: "task_5", title: "Mengikuti PROPKES Fasa 1 mengikut jadual.", date: "3 Ogo - 11 Sep", link: "https://docs.google.com/presentation/d/1_2UDMyhisfLgJibcthj-USvpgLkGtTq9SwVAtPCkAXQ/edit?usp=sharing", btnText: "Rujuk Slaid" },
+                    { id: "task_6", title: "Melengkapkan Log Kehadiran dan Harian (B&C)", date: "Setiap Hari", link: "https://forms.gle/qCPqGMydsUQ5Xmni9", btnText: "Borang Log" },
+                    { id: "task_7", title: "Melengkapkan Jurnal Kepimpinan (Lampiran D)", date: "Setiap Minggu", link: "#", btnText: "", isStatic: true }
                 ]
             },
             {
-                phase: "Pelaksanaan Fasa 2 (Sept - Okt 2026)",
+                phase: "Fasa 2 (Sept - Okt 2026)",
                 tasks: [
-                    { id: "task_7", title: "Mengikuti PROPKES Fasa 2 (Rujuk Modul/Slaid)", date: "14 Sept - 23 Okt", link: "https://docs.google.com/presentation/d/1_2UDMyhisfLgJibcthj-USvpgLkGtTq9SwVAtPCkAXQ/edit?usp=sharing", btnText: "Slaid Panduan" },
-                    { id: "task_8", title: "Telah melengkapkan Jurnal Kepimpinan Fasa 2", date: "Setiap Minggu", link: "#", btnText: "", isStatic: true }
+                    { id: "task_8", title: "Mengikuti PROPKES Fasa 2 mengikut jadual.", date: "14 Sep - 23 Okt", link: "https://docs.google.com/presentation/d/1_2UDMyhisfLgJibcthj-USvpgLkGtTq9SwVAtPCkAXQ/edit?usp=sharing", btnText: "Rujuk Slaid" },
+                    { id: "task_9", title: "Melengkapkan Log Kehadiran dan Harian (B&C)", date: "Setiap Hari", link: "https://forms.gle/qCPqGMydsUQ5Xmni9", btnText: "Borang Log" },
+                    { id: "task_10", title: "Melengkapkan Jurnal Kepimpinan (Lampiran D)", date: "Setiap Minggu", link: "#", btnText: "", isStatic: true }
                 ]
             },
             {
                 phase: "Pasca-Program (November 2026)",
                 tasks: [
-                    { id: "task_9", title: "Menjawab instrumen i-PROPKES (Pasca)", date: "2 Nov 2026", link: "https://forms.gle/f68ELKCxAZqEokvq9", btnText: "Isi Borang Pasca" },
-                    { id: "task_10", title: "Menghasilkan Artikel PROPKES", date: "Bermula 2 Nov", link: "#", btnText: "", isStatic: true },
-                    { id: "task_11", title: "Menghantar Lampiran D, E, F & G (Drive)", date: "Sebelum 14 Nov", link: "https://drive.google.com/drive/folders/1PfzBbH5CftPJJqoZGpPMD8n8O3UdpnXp?usp=sharing", btnText: "Buka Folder Drive" }
+                    { id: "task_11", title: "Menjawab instrumen i-PROPKES (pasca).", date: "2 Nov 2026", link: "https://forms.gle/f68ELKCxAZqEokvq9", btnText: "Isi Borang" },
+                    { id: "task_12", title: "Menghasilkan artikel PROPKES (Lampiran E).", date: "Bermula 2 Nov", link: "#", btnText: "", isStatic: true },
+                    { id: "task_13", title: "Mengisi Borang Maklum Balas Mentor (Lampiran F)", date: "Fasa 1 & 2", link: "#", btnText: "", isStatic: true },
+                    { id: "task_14", title: "Mengisi Borang Maklum Balas Coach (Lampiran G)", date: "Fasa 1 & 2", link: "#", btnText: "", isStatic: true },
+                    { id: "task_15", title: "Menghantar Lampiran D, E, F & G kepada Urus Setia.", date: "Sebelum 14 Nov", link: "https://drive.google.com/drive/folders/1PfzBbH5CftPJJqoZGpPMD8n8O3UdpnXp?usp=sharing", btnText: "Folder Drive" }
                 ]
             }
         ];
 
-        // --- STREAMING_CHUNK:Logik Kalendar Dinamik... ---
-        // Bulan Default: Ogos (7) Tahun 2026 (kerana Fasa 1 mula Ogos 2026)
-        let displayMonth = 7; 
+        /* STREAMING_CHUNK:Logik Kalendar Dinamik Baru... */
+        let displayMonth = 7; // Ogos (7) Tahun 2026
         let displayYear = 2026;
         const monthNames = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
+        
+        // Pemetaan warna berdasarkan lokasi
+        const locStyles = {
+            "sekolah": { bg: "bg-blue-600/90", border: "border-blue-500", text: "text-white" },
+            "ppd": { bg: "bg-indigo-600/90", border: "border-indigo-500", text: "text-white" },
+            "iab": { bg: "bg-purple-600/90", border: "border-purple-500", text: "text-white" },
+            "cuti": { bg: "bg-slate-700/90", border: "border-slate-500", text: "text-slate-200" }
+        };
 
         function changeMonth(dir) {
             displayMonth += dir;
             if(displayMonth > 11) { displayMonth = 0; displayYear++; }
             if(displayMonth < 0) { displayMonth = 11; displayYear--; }
             renderCalendar();
+            renderLocationSummary();
         }
 
         function renderCalendar() {
             const calGrid = document.getElementById("calendarGrid");
-            const header = document.getElementById("calendarMonthYear");
-            header.textContent = `${monthNames[displayMonth]} ${displayYear}`;
-            calGrid.innerHTML = ""; // Bersihkan
+            document.getElementById("calendarMonthYear").textContent = `${monthNames[displayMonth]} ${displayYear}`;
+            document.getElementById("statMonthLabel").textContent = monthNames[displayMonth];
+            calGrid.innerHTML = ""; 
 
-            // Dapatkan memori kalendar
-            const calKey = `propkes_calendar_${currentUser}`;
+            const calKey = `propkes_calendar_v2_${currentUser}`;
             const calData = JSON.parse(localStorage.getItem(calKey) || "{}");
 
-            const firstDay = new Date(displayYear, displayMonth, 1).getDay(); // 0(Sun) - 6(Sat)
+            const firstDay = new Date(displayYear, displayMonth, 1).getDay(); 
             const daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
 
-            // Isi kotak kosong (offset hari pertama)
+            // Offset hari pertama
             for(let i=0; i<firstDay; i++) {
-                const emptyCell = document.createElement("div");
-                calGrid.appendChild(emptyCell);
+                calGrid.appendChild(document.createElement("div"));
             }
 
-            // Jana tarikh
+            // Jana hari
             for(let d=1; d<=daysInMonth; d++) {
                 const dateString = `${displayYear}-${String(displayMonth+1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-                const isMarked = calData[dateString] === true;
+                const dayData = calData[dateString] || { log: false, loc: "" };
 
                 const cell = document.createElement("button");
-                // Gaya asas
-                cell.className = "w-8 h-8 sm:w-10 sm:h-10 mx-auto rounded-full flex items-center justify-center text-[11px] sm:text-xs font-medium outline-none transition-all duration-200 cursor-pointer";
+                cell.className = "relative w-full aspect-square max-w-[3rem] mx-auto rounded-xl flex items-center justify-center text-xs font-semibold outline-none transition-all duration-200 cursor-pointer border";
                 
-                if (isMarked) {
-                    cell.classList.add("bg-emerald-500", "text-white", "shadow-md", "shadow-emerald-500/40", "scale-105");
+                // Gayakan berdasarkan lokasi
+                if (dayData.loc && locStyles[dayData.loc]) {
+                    const style = locStyles[dayData.loc];
+                    cell.classList.add(style.bg, style.border, style.text, "hover:opacity-80");
                 } else {
-                    cell.classList.add("bg-slate-800/50", "text-slate-300", "border", "border-slate-700/50", "hover:bg-slate-700", "hover:text-white");
+                    cell.classList.add("bg-slate-800/40", "border-slate-700/50", "text-slate-300", "hover:bg-slate-700");
                 }
 
-                cell.textContent = d;
-                cell.onclick = () => toggleCalendarDate(dateString);
-                
+                // Masukkan nombor hari
+                cell.innerHTML = `<span>${d}</span>`;
+
+                // Jika log harian selesai, tambah lencana (badge) 'Tick' di bucu
+                if (dayData.log) {
+                    cell.innerHTML += `
+                        <div class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-slate-900 flex items-center justify-center shadow-sm">
+                            <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                    `;
+                }
+
+                cell.onclick = () => openDailyModal(dateString, d);
                 calGrid.appendChild(cell);
             }
         }
 
-        function toggleCalendarDate(dateString) {
-            const calKey = `propkes_calendar_${currentUser}`;
+        /* STREAMING_CHUNK:Logik Pengiraan dan Modal... */
+        function renderLocationSummary() {
+            const calKey = `propkes_calendar_v2_${currentUser}`;
             const calData = JSON.parse(localStorage.getItem(calKey) || "{}");
             
-            // Toggle
-            const newState = !(calData[dateString] === true);
-            calData[dateString] = newState;
-            
+            let counts = { sekolah: 0, ppd: 0, iab: 0, cuti: 0 };
+            const daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
+
+            for(let d=1; d<=daysInMonth; d++) {
+                const dateString = `${displayYear}-${String(displayMonth+1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                const dayData = calData[dateString];
+                if (dayData && dayData.loc && counts[dayData.loc] !== undefined) {
+                    counts[dayData.loc]++;
+                }
+            }
+
+            document.getElementById('countSekolah').textContent = counts.sekolah + " Hari";
+            document.getElementById('countPpd').textContent = counts.ppd + " Hari";
+            document.getElementById('countIab').textContent = counts.iab + " Hari";
+            document.getElementById('countCuti').textContent = counts.cuti + " Hari";
+        }
+
+        function openDailyModal(dateString, dayNumber) {
+            currentEditingDateStr = dateString;
+            document.getElementById('modalDateTitle').textContent = `${dayNumber} ${monthNames[displayMonth]} ${displayYear}`;
+
+            const calKey = `propkes_calendar_v2_${currentUser}`;
+            const calData = JSON.parse(localStorage.getItem(calKey) || "{}");
+            const dayData = calData[dateString] || { log: false, loc: "" };
+
+            document.getElementById('modalLogToggle').checked = dayData.log;
+            document.getElementById('modalLocationSelect').value = dayData.loc;
+
+            // Buka Modal Animasi
+            const modal = document.getElementById('dailyModal');
+            const content = document.getElementById('dailyModalContent');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeDailyModal() {
+            const modal = document.getElementById('dailyModal');
+            const content = document.getElementById('dailyModalContent');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function saveDailyData() {
+            const isLogDone = document.getElementById('modalLogToggle').checked;
+            const locationVal = document.getElementById('modalLocationSelect').value;
+
+            const calKey = `propkes_calendar_v2_${currentUser}`;
+            let calData = JSON.parse(localStorage.getItem(calKey) || "{}");
+
+            // Hanya simpan jika ada maklumat, jika tidak buang untuk jimat memori
+            if (!isLogDone && !locationVal) {
+                delete calData[currentEditingDateStr];
+            } else {
+                calData[currentEditingDateStr] = { log: isLogDone, loc: locationVal };
+            }
+
             localStorage.setItem(calKey, JSON.stringify(calData));
-            renderCalendar();
-
-            if(newState) showToast("Log harian untuk tarikh tersebut ditanda selesai.");
-        }
-
-        // --- STREAMING_CHUNK:Logik Pemaparan Status Mingguan... ---
-        function renderWeeklyLocation() {
-            const container = document.getElementById("weeklyLocationContainer");
-            container.innerHTML = "";
-
-            const locKey = `propkes_weekly_${currentUser}`;
-            const locData = JSON.parse(localStorage.getItem(locKey) || "{}");
-
-            propkesWeeks.forEach(week => {
-                const savedVal = locData[week.id] || "";
-                
-                const wrap = document.createElement("div");
-                wrap.className = "bg-slate-800/40 border border-slate-700/50 p-3 rounded-xl";
-                wrap.innerHTML = `
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-white">${week.title}</span>
-                        <span class="text-[9px] text-slate-500 bg-slate-800 px-1.5 py-0.5 rounded">${week.date}</span>
-                    </div>
-                    <select onchange="saveWeeklyLocation('${week.id}', this.value)" class="w-full bg-slate-900 border ${savedVal ? 'border-amber-500/50 text-amber-300' : 'border-slate-700 text-slate-400'} rounded-lg px-2 py-1.5 text-[11px] focus:outline-none focus:border-blue-500 cursor-pointer">
-                        <option value="" ${savedVal === "" ? "selected" : ""}>- Sila Pilih Lokasi -</option>
-                        <option value="Sekolah Sandaran" ${savedVal === "Sekolah Sandaran" ? "selected" : ""}>Sekolah Sandaran</option>
-                        <option value="Pejabat Pendidikan Daerah (PPD)" ${savedVal === "Pejabat Pendidikan Daerah (PPD)" ? "selected" : ""}>Pejabat Pendidikan Daerah (PPD)</option>
-                        <option value="IAB" ${savedVal === "IAB" ? "selected" : ""}>IAB (Institusi Aminuddin Baki)</option>
-                        <option value="Cuti/Tiada Aktiviti" ${savedVal === "Cuti/Tiada Aktiviti" ? "selected" : ""}>Cuti/Tiada Aktiviti</option>
-                    </select>
-                `;
-                container.appendChild(wrap);
-            });
-        }
-
-        function saveWeeklyLocation(weekId, val) {
-            const locKey = `propkes_weekly_${currentUser}`;
-            const locData = JSON.parse(localStorage.getItem(locKey) || "{}");
-            locData[weekId] = val;
-            localStorage.setItem(locKey, JSON.stringify(locData));
             
-            showToast("Maklumat keberadaan berjaya dikemas kini.");
-            // Re-render to update border color
-            renderWeeklyLocation();
+            closeDailyModal();
+            renderCalendar();
+            renderLocationSummary();
+            showToast("Rekod kalendar untuk tarikh tersebut telah dikemas kini.");
         }
 
-        // --- STREAMING_CHUNK:Logik Pemaparan Lampiran A... ---
+        /* STREAMING_CHUNK:Sistem Pengurusan Tugasan Lampiran A... */
         function renderTasks() {
             const container = document.getElementById("taskListContainer");
             container.innerHTML = ""; 
@@ -411,7 +495,7 @@
                     let linkButton = "";
                     if (!task.isStatic && task.btnText !== "") {
                         linkButton = `<a href="${task.link}" target="_blank" class="px-3 py-1.5 bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 text-[10px] font-bold rounded flex items-center gap-1 border border-blue-600/20 transition-colors">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"></path></svg>
                                         ${task.btnText}
                                       </a>`;
                     }
@@ -421,9 +505,9 @@
                                <svg class="w-4 h-4 group-hover:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
                                <svg class="w-4 h-4 hidden group-hover:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
                                <span class="group-hover:hidden">Selesai</span>
-                               <span class="hidden group-hover:block">Batal</span>
+                               <span class="hidden group-hover:block">Batal Selesai</span>
                            </button>`
-                        : `<button onclick="toggleTask('${task.id}', true)" class="px-4 py-2 bg-slate-700 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer outline-none shadow-sm shadow-slate-900">
+                        : `<button onclick="toggleTask('${task.id}', true)" class="px-4 py-2 bg-slate-700 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer outline-none shadow-sm shadow-slate-900 border border-slate-600">
                                Tandakan Selesai
                            </button>`;
 
@@ -431,15 +515,15 @@
                     taskEl.className = `flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border transition-all fade-in gap-4 ${bgClass}`;
                     taskEl.innerHTML = `
                         <div class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${iconClass}">
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 shadow-inner ${iconClass}">
                                 ${iconSVG}
                             </div>
                             <div>
-                                <h4 class="text-sm font-semibold text-white leading-snug ${isDone ? 'text-emerald-100/70 line-through' : ''}">${task.title}</h4>
-                                <div class="flex flex-wrap items-center gap-3 mt-1.5">
-                                    <span class="text-[10px] text-slate-500 font-medium flex items-center gap-1">
+                                <h4 class="text-sm font-semibold text-white leading-snug ${isDone ? 'text-emerald-100/70' : ''}">${task.title}</h4>
+                                <div class="flex flex-wrap items-center gap-3 mt-2">
+                                    <span class="text-[10px] text-slate-400 font-medium flex items-center gap-1 bg-slate-800/50 px-2 py-1 rounded">
                                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                        Tarik/Tempoh: ${task.date}
+                                        ${task.date}
                                     </span>
                                     ${linkButton}
                                 </div>
@@ -455,19 +539,17 @@
                 container.appendChild(taskListDiv);
             });
 
-            // Kemas kini Bulatan Progress
+            // Update Progress Circle
             const percentage = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
             document.getElementById("progressText").textContent = `${percentage}%`;
             
             const circle = document.getElementById("progressCircle");
             if(percentage === 100) {
-                circle.classList.add("border-emerald-500", "bg-emerald-500/10");
-                circle.classList.remove("border-slate-700");
-                document.getElementById("progressText").classList.replace("text-slate-300", "text-emerald-400");
+                circle.className = "w-10 h-10 rounded-full border-4 border-emerald-500 bg-emerald-500/10 flex items-center justify-center shrink-0";
+                document.getElementById("progressText").className = "text-[10px] font-bold text-emerald-400";
             } else if (percentage > 0) {
-                circle.classList.add("border-blue-500");
-                circle.classList.remove("border-slate-700");
-                document.getElementById("progressText").classList.replace("text-slate-300", "text-blue-400");
+                circle.className = "w-10 h-10 rounded-full border-4 border-blue-500 flex items-center justify-center shrink-0";
+                document.getElementById("progressText").className = "text-[10px] font-bold text-blue-400";
             } else {
                 circle.className = "w-10 h-10 rounded-full border-4 border-slate-700 flex items-center justify-center shrink-0";
                 document.getElementById("progressText").className = "text-[10px] font-bold text-slate-300";
@@ -482,15 +564,15 @@
             localStorage.setItem(userProgressKey, JSON.stringify(userProgress));
 
             renderTasks();
-            if (isCompleting) showToast("Tugasan ditanda Selesai dan direkodkan.");
+            if (isCompleting) showToast("Tahniah! Tugasan ditanda selesai.");
         }
 
-        // --- STREAMING_CHUNK:Logik Permulaan & Utiliti... ---
+        /* STREAMING_CHUNK:Permulaan Sistem (Init)... */
         document.addEventListener("DOMContentLoaded", () => {
             currentUser = localStorage.getItem("propkes_user");
             
             if (!currentUser) {
-                window.location.href = "index.html";
+                window.location.href = "index.html"; // Tendang keluar jika tiada sesi
                 return;
             }
 
@@ -512,23 +594,19 @@
                 document.getElementById("profileSekolah").textContent = myProfile.sekolah || "Belum Ditetapkan";
                 document.getElementById("profilePPD").textContent = myProfile.ppd ? `PPD: ${myProfile.ppd}` : "PPD: Belum Ditetapkan";
             } else {
-                document.getElementById("profileNama").textContent = "Ralat: Data Admin Tidak Ditemui.";
+                document.getElementById("profileNama").textContent = "Ralat: Data Anda Tidak Ditemui.";
             }
 
             renderTasks();
             renderCalendar();
-            renderWeeklyLocation();
+            renderLocationSummary();
         });
 
-        function showToast(message, type = 'success') {
+        function showToast(message) {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
-            
-            const bgColor = type === 'success' ? 'bg-emerald-600' : 'bg-slate-700';
-            const icon = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>`;
-
-            toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl shadow-black/20 text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3`;
-            toast.innerHTML = `${icon} <span>${message}</span>`;
+            toast.className = `bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-xl shadow-black/20 text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3`;
+            toast.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg> <span>${message}</span>`;
             
             container.appendChild(toast);
             
@@ -551,3 +629,4 @@
     </script>
 </body>
 </html>
+```eof
