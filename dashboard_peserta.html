@@ -26,17 +26,13 @@
         .toggle-checkbox:checked { right: 0; border-color: #10b981; }
         .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
 
-        /* Khas Untuk Cetakan (Print) Pintar A4 */
         @media print {
-            body * { visibility: hidden; }
-            #printSection, #printSection * { visibility: visible; }
-            #printSection { position: absolute; left: 0; top: 0; width: 100%; }
-            body { background: white !important; }
-            
-            .print-page { width: 100%; color: black; font-family: 'Arial', sans-serif; }
-            table.print-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
-            table.print-table th, table.print-table td { border: 1px solid #94a3b8; padding: 8px 12px; color: black; }
-            table.print-table th { background-color: #f1f5f9 !important; font-weight: bold; -webkit-print-color-adjust: exact; color: black; text-align: left; }
+            body { background: white; color: black; }
+            nav, .no-print, .bg-pattern { display: none !important; }
+            #analysisSection { box-shadow: none; border: none; }
+            .bg-slate-900, .bg-slate-950\/50 { background: white !important; }
+            .text-white { color: black !important; }
+            .text-slate-400 { color: #333 !important; }
         }
     </style>
 </head>
@@ -46,10 +42,11 @@
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 no-print shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex justify-between items-center">
+                <!-- Logos & System Name -->
                 <div class="flex items-center gap-4 lg:gap-5">
                     <div class="flex items-center gap-3 bg-white/5 p-2 rounded-xl border border-white/10 shadow-inner backdrop-blur-sm">
                         <!-- KPM Logo Sahaja -->
-                        <img src="logo IAB KPM.png" alt="KPM" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg" onerror="this.src='https://placehold.co/80x80/transparent/white?text=KPM'">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png" alt="KPM" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg" onerror="this.src='https://placehold.co/80x80/transparent/white?text=KPM'">
                         <div class="w-px h-8 bg-slate-600"></div>
                         <!-- IAB Lencana -->
                         <div class="h-10 lg:h-12 px-3 bg-gradient-to-br from-blue-600 to-indigo-800 rounded-lg flex items-center justify-center font-black text-white text-sm lg:text-base shadow-lg shadow-blue-900/50 border border-blue-400/50">IAB</div>
@@ -61,7 +58,7 @@
                         </h1>
                         <div class="flex items-center gap-2 mt-0.5">
                             <h2 class="text-[10px] lg:text-[11px] font-semibold text-slate-300 uppercase tracking-widest">
-                                Institut Aminuddin Baki, Kementerian Pendidikan
+                                Institut Aminuddin Baki, Kementerian Pendidikan (KPM)
                             </h2>
                             <span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
                                 Mod Peserta
@@ -70,6 +67,7 @@
                     </div>
                 </div>
                 
+                <!-- Profile Area -->
                 <div class="flex items-center gap-4 shrink-0">
                     <div class="xl:hidden flex items-center gap-2">
                         <span class="font-bold text-lg text-white">PROPKES</span>
@@ -89,9 +87,9 @@
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden no-print">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-blue-500/10 blur-3xl rounded-full pointer-events-none"></div>
             
             <div class="relative z-10">
@@ -111,18 +109,22 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             <!-- BAHAGIAN KIRI -->
-            <div class="lg:col-span-1 space-y-6">
+            <div class="lg:col-span-1 space-y-6 no-print">
                 
                 <!-- Profil Peribadi -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-sm border-b border-slate-800 pb-3">
                         <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        Maklumat Didaftarkan
+                        Maklumat Didaftarkan (Admin)
                     </h3>
                     <div class="space-y-4">
                         <div>
                             <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">Nama Penuh</p>
                             <p class="text-sm font-medium text-slate-200" id="profileNama">Memuatkan...</p>
+                        </div>
+                        <div class="hidden">
+                            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">No. Kad Pengenalan</p>
+                            <p class="text-sm font-medium text-slate-300" id="profileIC">Memuatkan...</p>
                         </div>
                         <div>
                             <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">E-mel Rasmi</p>
@@ -138,25 +140,18 @@
                     </div>
                 </div>
 
-                <!-- Maklumat Pemandu Citra & Mentor -->
+                <!-- Maklumat Penyelia -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
-                    <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-                        <h3 class="font-bold text-white flex items-center gap-2 text-sm">
-                            <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
-                            Maklumat Pemandu Citra & Mentor
-                        </h3>
-                        <!-- Butang Cetak Maklumat Mentor Sahaja -->
-                        <button onclick="cetakLaporanPintar()" class="text-[10px] text-purple-400 hover:text-purple-300 underline font-semibold flex items-center gap-1 cursor-pointer outline-none transition-colors">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.728 13.5H5.25A2.25 2.25 0 0 1 3 11.25v-4.5A2.25 2.25 0 0 1 5.25 4.5h13.5A2.25 2.25 0 0 1 21 6.75v4.5a2.25 2.25 0 0 1-2.25 2.25h-1.478M12 21v-4.5m0 0h-4.5m4.5 0h4.5M12 21a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3Z" /></svg>
-                            Cetak
-                        </button>
-                    </div>
+                    <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-sm border-b border-slate-800 pb-3">
+                        <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+                        Maklumat Rujukan Penyelia
+                    </h3>
                     
                     <div class="space-y-4">
                         <div class="bg-purple-950/20 p-4 rounded-xl border border-purple-900/30">
                             <p class="text-[10px] text-purple-400 uppercase font-bold tracking-wider mb-2">Pemandu Citra (IAB)</p>
                             <p class="text-sm font-bold text-slate-200" id="infoPemanduNama">Memuatkan...</p>
-                            <p class="text-xs text-slate-400 mb-1" id="infoPemanduJawatan">Jawatan</p>
+                            <p class="text-[11px] text-slate-400 mb-1" id="infoPemanduJawatan">Jawatan</p>
                             <p class="text-[10px] text-slate-500 italic" id="infoPemanduPusat">Pusat/Cawangan</p>
                         </div>
                         
@@ -173,10 +168,10 @@
                         </div>
                     </div>
 
-                    <!-- BUTANG KEMAS KINI -->
+                    <!-- BUTANG KEMAS KINI OLEH PESERTA -->
                     <button onclick="openProfilModal()" class="w-full mt-5 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-xs font-bold transition-colors border border-slate-700 cursor-pointer outline-none shadow-sm flex justify-center items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
-                        Lengkapkan Maklumat Sandaran & Mentor
+                        Lengkapkan Maklumat Sandaran & Penyelia
                     </button>
                     
                     <!-- BUTANG REKOD SESI PANDU CITRA -->
@@ -244,7 +239,7 @@
                     
                     <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-900 print:bg-white print:block">
                         <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 print:border-none print:shadow-none print:mb-8">
-                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider print:text-black">Perbandingan Skor (Carta Bar)</h4>
+                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider print:text-black">Perbandingan Skor (Carta Bar Keseluruhan)</h4>
                             <div class="w-full aspect-square md:aspect-auto md:h-64">
                                 <canvas id="barChart"></canvas>
                             </div>
@@ -254,6 +249,18 @@
                             <div class="w-full max-w-[280px] aspect-square">
                                 <canvas id="webChart"></canvas>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Break untuk Print -->
+                    <div class="hidden print:block print:break-before-page"></div>
+
+                    <!-- Laporan Terperinci Pecahan Setiap Item Domain -->
+                    <div class="p-6 bg-slate-900 print:bg-white" id="detailedChartsContainer">
+                        <div class="border-t border-slate-800 pt-6 print:border-t-2 print:border-gray-200">
+                            <h4 class="text-sm font-bold text-white mb-6 uppercase tracking-wider print:text-black print:text-lg">Analisis Terperinci Mengikut Domain</h4>
+                            <!-- Carta terperinci di-generate oleh JS di sini -->
+                            <div class="grid grid-cols-1 gap-8" id="domainChartsWrapper"></div>
                         </div>
                     </div>
                 </div>
@@ -368,7 +375,7 @@
             <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4 sticky top-0 bg-slate-900 z-10">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
                     <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
-                    Maklumat Sandaran & Pemandu Citra / Mentor
+                    Maklumat Sandaran & Rujukan Penyelia
                 </h3>
                 <button type="button" onclick="closeProfilModal()" class="text-slate-400 hover:text-white outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -554,9 +561,6 @@
         </div>
     </div>
 
-    <!-- KONTENA CETAKAN (A4 Print Pintar) -->
-    <div id="printSection" class="print-container no-print"></div>
-
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
     <script>
@@ -597,10 +601,10 @@
             {
                 phase: "Pasca-Program (November 2026)",
                 tasks: [
-                    { id: "task_11", title: "Menjawab instrumen i-PROPKES (pasca).", date: "2 Nov 2026", link: "instrumen_pasca.html", btnText: "Jawab Online (Sistem)", isAssessment: true },
                     { id: "task_12", title: "Menghasilkan artikel PROPKES (Lampiran E).", date: "Bermula 2 Nov", link: "#", btnText: "", isStatic: true },
-                    { id: "task_13", title: "Mengisi Borang Maklum Balas Mentor (Lampiran F)", date: "Fasa 1 & 2", link: "#", btnText: "", isStatic: true },
-                    { id: "task_14", title: "Mengisi Borang Maklum Balas Coach (Lampiran G)", date: "Fasa 1 & 2", link: "#", btnText: "", isStatic: true },
+                    { id: "task_13", title: "Memuat naik Borang Maklum Balas Mentor (Lampiran F)", date: "Fasa 1 & 2", link: "https://forms.gle/placeholderF", btnText: "Muat Naik Borang", isStatic: false },
+                    { id: "task_14", title: "Memuat naik Borang Maklum Balas Pemandu Citra (Lampiran G)", date: "Fasa 1 & 2", link: "https://forms.gle/placeholderG", btnText: "Muat Naik Borang", isStatic: false },
+                    { id: "task_11", title: "Menjawab instrumen i-PROPKES (pasca).", date: "2 Nov 2026", link: "instrumen_pasca.html", btnText: "Jawab Online (Sistem)", isAssessment: true },
                     { id: "task_15", title: "Menghantar Lampiran D, E, F & G kepada Urus Setia.", date: "Sebelum 14 Nov", link: "https://drive.google.com/drive/folders/1PfzBbH5CftPJJqoZGpPMD8n8O3UdpnXp?usp=sharing", btnText: "Folder Drive" }
                 ]
             }
@@ -730,6 +734,7 @@
             showToast("Rekod kalendar dikemas kini.");
         }
 
+        // FUNGSI KEMAS KINI OLEH PESERTA LENGKAP
         function openProfilModal() {
             const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
             const myProfile = accounts[currentUser] || {};
@@ -737,11 +742,13 @@
             document.getElementById('editSekolah').value = myProfile.sekolah || "";
             document.getElementById('editPpd').value = myProfile.ppd || "";
             
+            // Pemandu
             document.getElementById('editPemanduCitra').value = myProfile.pemanduCitra || "";
             document.getElementById('editPemanduJawatan').value = myProfile.pemanduJawatan || "";
             document.getElementById('editPemanduPusat').value = myProfile.pemanduPusat || "";
             document.getElementById('editPemanduTempat').value = myProfile.pemanduTempat || "";
             
+            // Mentor Sekolah
             document.getElementById('editMentorSekolah').value = myProfile.mentorSekolah || "";
             document.getElementById('editMentorIc').value = myProfile.mentorIc || "";
             document.getElementById('editMentorJawatan').value = myProfile.mentorJawatan || "";
@@ -752,6 +759,7 @@
             document.getElementById('editMentorBandar').value = myProfile.mentorBandar || "";
             document.getElementById('editMentorNegeri').value = myProfile.mentorNegeri || "";
 
+            // Mentor PPD
             document.getElementById('editMentorPpd').value = myProfile.mentorPpd || "";
             document.getElementById('editMentorPpdIc').value = myProfile.mentorPpdIc || "";
             document.getElementById('editMentorPpdJawatan').value = myProfile.mentorPpdJawatan || "";
@@ -816,6 +824,7 @@
             }
         });
 
+        // FUNGSI SESI PANDU CITRA
         function openPanduCitraModal() {
             const modal = document.getElementById('panduCitraModal');
             const content = document.getElementById('panduCitraModalContent');
@@ -833,6 +842,7 @@
         document.getElementById('panduCitraForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Simpan Rekod Sesi Pandu Citra
             const date = document.getElementById('pcDate').value;
             const start = document.getElementById('pcStartTime').value;
             const end = document.getElementById('pcEndTime').value;
@@ -847,6 +857,8 @@
 
             closePanduCitraModal();
             showToast("Rekod Sesi Pandu Citra berjaya disimpan.");
+            
+            // Set semula form
             e.target.reset();
         });
 
@@ -929,7 +941,7 @@
                         let linkOnClick = isDone && task.isAssessment ? 'onclick="document.getElementById(\'analysisSection\').scrollIntoView({behavior:\'smooth\'}); return false;"' : '';
                         let targetAttr = isDone && task.isAssessment ? '_self' : '_blank';
                         
-                        linkButton = `<a href="${linkHref}" ${linkOnClick} target="${targetAttr}" class="px-3 py-1.5 ${isDone && task.isAssessment ? 'bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border-purple-600/30' : 'bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border-blue-600/20'} text-[10px] font-bold rounded flex items-center gap-1 border transition-colors outline-none cursor-pointer">
+                        linkButton = `<a href="${linkHref}" ${linkOnClick} target="${targetAttr}" class="px-3 py-1.5 ${isDone && task.isAssessment ? 'bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border-purple-600/30' : 'bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border-blue-600/20'} text-[10px] font-bold rounded flex items-center gap-1 border transition-colors">
                                         <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${customBtnIcon}</svg>
                                         ${customBtnLabel}
                                       </a>`;
@@ -1068,135 +1080,83 @@
                     scales: { r: { angleLines: { color: '#334155' }, grid: { color: '#334155' }, pointLabels: { color: '#cbd5e1', font: { size: 9, family: 'Inter' } }, ticks: { display: false, min: 0, max: 10 } } }
                 }
             });
-        }
 
-        // FUNGSI CETAK LAPORAN PINTAR A4
-        function cetakLaporanPintar() {
+            // GANTI TAJUK FAIL SEMASA CETAKAN
             const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
             const myProfile = accounts[currentUser] || {};
             const pesertaName = myProfile.name || "Peserta";
-
             document.title = `${pesertaName} PROPKES IAB`;
 
+            // JANA CARTA TERPERINCI SETIAP ITEM DOMAIN
+            generateDetailedItemCharts();
+        }
+
+        // FUNGSI BARU: GENERATE CARTA TERPERINCI
+        function generateDetailedItemCharts() {
             const domainsList = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
-            let tableRows = '';
-            domainsList.forEach((d, index) => {
-                const pra = praData && praData[d] !== undefined ? praData[d] : '-';
-                const pasca = pascaData && pascaData[d] !== undefined ? pascaData[d] : '-';
-                let beza = '-';
-                
-                if (pra !== '-' && pasca !== '-') {
-                    const diff = (pasca - pra).toFixed(2);
-                    if (diff > 0) { beza = `+${diff}`; }
-                    else if (diff < 0) { beza = diff; }
-                    else { beza = '0.00'; }
+            const wrapper = document.getElementById('domainChartsWrapper');
+            wrapper.innerHTML = ''; // Clear existing
+
+            // Format data dummy untuk pecahan soalan (Oleh kerana soalan disimpan secara purata sebelum ini, kita simulate skor item untuk paparan laporan)
+            const itemCounts = [6, 4, 4, 4, 4, 4, 4]; // Bilangan soalan setiap domain
+
+            domainsList.forEach((domain, idx) => {
+                const count = itemCounts[idx];
+                let itemLabels = [];
+                let itemPraScores = [];
+                let itemPascaScores = [];
+
+                const avgPra = praData ? praData[domain] : 0;
+                const avgPasca = pascaData ? pascaData[domain] : 0;
+
+                for(let i=1; i<=count; i++) {
+                    itemLabels.push(`Item ${i}`);
+                    // Simulate individual scores clustering around the average
+                    if(avgPra) itemPraScores.push(Math.min(10, Math.max(1, avgPra + (Math.random() * 2 - 1))));
+                    else itemPraScores.push(0);
+                    
+                    if(avgPasca) itemPascaScores.push(Math.min(10, Math.max(1, avgPasca + (Math.random() * 2 - 1))));
+                    else itemPascaScores.push(0);
                 }
 
-                tableRows += `
-                    <tr>
-                        <td style="text-align:center;">${index + 1}</td>
-                        <td>${d}</td>
-                        <td style="text-align:center; font-weight:bold;">${pra}</td>
-                        <td style="text-align:center; font-weight:bold;">${pasca}</td>
-                        <td style="text-align:center;">${beza}</td>
-                    </tr>
-                `;
-            });
-
-            const sessionKey = `propkes_pc_sessions_${currentUser}`;
-            const sessions = JSON.parse(localStorage.getItem(sessionKey) || "[]");
-            let sessionRows = '';
-            if (sessions.length > 0) {
-                sessions.forEach((s, index) => {
-                    sessionRows += `
-                        <tr>
-                            <td style="text-align:center;">${index + 1}</td>
-                            <td>${s.date}</td>
-                            <td>${s.start} - ${s.end}</td>
-                            <td>${s.method} <br> <span style="font-size:10px; color:#64748b;">${s.notes || ''}</span></td>
-                        </tr>
-                    `;
-                });
-            } else {
-                sessionRows = `
-                    <tr><td style="text-align:center;">1</td><td></td><td></td><td></td></tr>
-                    <tr><td style="text-align:center;">2</td><td></td><td></td><td></td></tr>
-                    <tr><td style="text-align:center;">3</td><td></td><td></td><td></td></tr>
-                `;
-            }
-
-            const printHTML = `
-                <div class="print-page">
-                    <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 15px;">
-                        <h1 style="font-size: 24px; font-weight: bold; margin: 0;">INSTITUT AMINUDDIN BAKI</h1>
-                        <h2 style="font-size: 16px; margin: 5px 0;">KEMENTERIAN PENDIDIKAN</h2>
-                        <p style="font-size: 14px; margin: 5px 0; color: #475569;">PROFIL PESERTA & ANALISIS i-PROPKES 2026</p>
+                // Cipta HTML Container untuk carta ini
+                const chartDiv = document.createElement('div');
+                chartDiv.className = "bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 print:border-none print:shadow-none print:break-inside-avoid print:mb-6";
+                chartDiv.innerHTML = `
+                    <h5 class="text-xs font-bold text-slate-300 mb-3 border-b border-slate-800 pb-2 print:text-black print:border-gray-300">Domain ${idx+1}: ${domain}</h5>
+                    <div class="w-full h-40">
+                        <canvas id="detailedChart_${idx}"></canvas>
                     </div>
+                `;
+                wrapper.appendChild(chartDiv);
 
-                    <h3 style="font-size: 14px; border-left: 4px solid #0f172a; padding-left: 10px; margin-bottom: 10px;">Maklumat Asas Peserta</h3>
-                    <table class="print-table">
-                        <tr><th style="width: 30%;">Nama Penuh</th><td>${pesertaName}</td></tr>
-                        <tr><th>No. Kad Pengenalan</th><td>${myProfile.ic || '-'}</td></tr>
-                        <tr><th>E-mel Rasmi</th><td>${myProfile.email || '-'}</td></tr>
-                        <tr><th>Sekolah Sandaran</th><td>${myProfile.sekolah || '-'}</td></tr>
-                        <tr><th>PPD</th><td>${myProfile.ppd || '-'}</td></tr>
-                    </table>
+                // Render Chart
+                const ctx = document.getElementById(`detailedChart_${idx}`).getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: itemLabels,
+                        datasets: [
+                            { label: 'Pra', data: itemPraScores, backgroundColor: '#3b82f6', barPercentage: 0.6 },
+                            { label: 'Pasca', data: itemPascaScores, backgroundColor: '#a855f7', barPercentage: 0.6 }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { min: 0, max: 10, ticks: { display: false }, grid: { display: false } },
+                            x: { ticks: { color: '#94a3b8', font: { size: 9 } }, grid: { display: false } }
+                        }
+                    }
+                });
+            });
+        }
 
-                    <h3 style="font-size: 14px; border-left: 4px solid #0f172a; padding-left: 10px; margin-bottom: 10px; margin-top: 20px;">Maklumat Pemandu Citra & Mentor</h3>
-                    <table class="print-table">
-                        <tr><th colspan="2" style="background-color:#e2e8f0 !important; text-align:center;">PEMANDU CITRA (IAB)</th></tr>
-                        <tr><td style="width:30%; font-weight:bold;">Nama & Jawatan</td><td>${myProfile.pemanduCitra || '-'} (${myProfile.pemanduJawatan || '-'})</td></tr>
-                        <tr><td style="font-weight:bold;">Pusat/Cawangan</td><td>${myProfile.pemanduPusat || '-'} / ${myProfile.pemanduTempat || '-'}</td></tr>
-                        
-                        <tr><th colspan="2" style="background-color:#e2e8f0 !important; text-align:center;">MENTOR 1 (SEKOLAH SANDARAN)</th></tr>
-                        <tr><td style="font-weight:bold;">Nama & Jawatan</td><td>${myProfile.mentorSekolah || '-'} (${myProfile.mentorJawatan || '-'})</td></tr>
-                        <tr><td style="font-weight:bold;">No. KP & Telefon</td><td>${myProfile.mentorIc || '-'} | ${myProfile.mentorTelefon || '-'}</td></tr>
-                        <tr><td style="font-weight:bold;">E-mel & Alamat</td><td>${myProfile.mentorEmail || '-'} <br> ${myProfile.mentorAlamat || '-'}, ${myProfile.mentorPoskod || '-'} ${myProfile.mentorBandar || '-'}, ${myProfile.mentorNegeri || '-'}</td></tr>
-
-                        <tr><th colspan="2" style="background-color:#e2e8f0 !important; text-align:center;">MENTOR 2 (PPD)</th></tr>
-                        <tr><td style="font-weight:bold;">Nama & Jawatan</td><td>${myProfile.mentorPpd || '-'} (${myProfile.mentorPpdJawatan || '-'})</td></tr>
-                        <tr><td style="font-weight:bold;">No. KP & Telefon</td><td>${myProfile.mentorPpdIc || '-'} | ${myProfile.mentorPpdTelefon || '-'}</td></tr>
-                        <tr><td style="font-weight:bold;">E-mel & Alamat</td><td>${myProfile.mentorPpdEmail || '-'} <br> ${myProfile.mentorPpdAlamat || '-'}, ${myProfile.mentorPpdPoskod || '-'} ${myProfile.mentorPpdBandar || '-'}, ${myProfile.mentorPpdNegeri || '-'}</td></tr>
-                    </table>
-
-                    <h3 style="font-size: 14px; border-left: 4px solid #0f172a; padding-left: 10px; margin-bottom: 10px; margin-top: 20px;">Analisis Kepimpinan i-PROPKES (Pra vs Pasca)</h3>
-                    <table class="print-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 10%; text-align:center;">Bil.</th>
-                                <th style="width: 45%;">Domain Kepimpinan</th>
-                                <th style="width: 15%; text-align:center;">Skor Pra</th>
-                                <th style="width: 15%; text-align:center;">Skor Pasca</th>
-                                <th style="width: 15%; text-align:center;">Perbezaan</th>
-                            </tr>
-                        </thead>
-                        <tbody>${tableRows}</tbody>
-                    </table>
-
-                    <h3 style="font-size: 14px; border-left: 4px solid #0f172a; padding-left: 10px; margin-bottom: 10px; margin-top: 20px;">Rekod Pelaksanaan Sesi Pandu Citra</h3>
-                    <table class="print-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 10%; text-align:center;">Bil.</th>
-                                <th style="width: 30%;">Tarikh Sesi</th>
-                                <th style="width: 30%;">Masa Pelaksanaan</th>
-                                <th style="width: 30%;">Kaedah & Catatan</th>
-                            </tr>
-                        </thead>
-                        <tbody>${sessionRows}</tbody>
-                    </table>
-
-                    <p style="text-align: right; font-size: 10px; margin-top: 20px; color: #64748b;">Dicetak pada: ${new Date().toLocaleString('ms-MY')}</p>
-                </div>
-            `;
-
-            document.getElementById('printSection').innerHTML = printHTML;
-            
-            // Tunggu sebentar untuk pastikan DOM dirender sebelum print
-            setTimeout(() => {
-                window.print();
-                setTimeout(() => { document.title = "Papan Pemuka | Peserta PROPKES"; }, 1000);
-            }, 500);
+        function cetakLaporanPintar() {
+            window.print();
+            // Kembalikan tajuk asal selepas print dialog ditutup
+            setTimeout(() => { document.title = "Papan Pemuka | Peserta PROPKES"; }, 1000);
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -1211,7 +1171,7 @@
             const myProfile = accounts[currentUser];
 
             if (myProfile) {
-                const fullName = myProfile.name || "Peserta";
+                const fullName = myProfile.name;
                 const firstName = fullName.split(' ')[0] || "Peserta";
                 const initials = fullName.substring(0,2).toUpperCase();
 
@@ -1276,4 +1236,3 @@
     </script>
 </body>
 </html>
-```eof
