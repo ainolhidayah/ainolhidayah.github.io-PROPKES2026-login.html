@@ -40,11 +40,11 @@
                 <!-- Profile Area -->
                 <div class="flex items-center gap-4">
                     <div class="text-right hidden md:block">
-                        <p class="text-sm font-semibold text-white">En. Fakhrul Razi</p>
-                        <p class="text-xs text-teal-400">Pemandu Citra (Kohort 3)</p>
+                        <p class="text-sm font-semibold text-white" id="pemanduNameDisplay">Nama Pemandu</p>
+                        <p class="text-xs text-teal-400" id="pemanduRoleDisplay">Pemandu Citra</p>
                     </div>
-                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300">
-                        FR
+                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300" id="pemanduInitials">
+                        PC
                     </div>
                     <!-- Logout Button -->
                     <button onclick="window.location.href='index.html'" class="ml-2 bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg transition-colors cursor-pointer outline-none" title="Log Keluar">
@@ -60,12 +60,12 @@
         <!-- Welcome Banner -->
         <div class="bg-gradient-to-r from-teal-900/40 to-slate-900 border border-teal-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div>
-                <h1 class="text-2xl font-bold text-white mb-2">Pantauan Kohort 3</h1>
-                <p class="text-slate-400 text-sm max-w-xl">Anda ditugaskan memantau 15 orang peserta Permata Citra. Pastikan semua peserta di bawah jagaan anda melengkapkan tugasan Fasa 1 dan log harian mengikut jadual.</p>
+                <h1 class="text-2xl font-bold text-white mb-2" id="cohortTitle">Pantauan Pemandu Citra</h1>
+                <p class="text-slate-400 text-sm max-w-xl" id="cohortDesc">Anda ditugaskan memantau peserta Permata Citra. Pastikan semua peserta di bawah jagaan anda melengkapkan tugasan Fasa 1 dan log harian mengikut jadual.</p>
             </div>
             <div class="bg-slate-950/50 border border-teal-500/30 rounded-xl p-4 shrink-0 text-center">
                 <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">Status Kumpulan</p>
-                <div class="text-2xl font-bold text-teal-400">80% Siap</div>
+                <div class="text-2xl font-bold text-teal-400">Aktif</div>
             </div>
         </div>
 
@@ -79,7 +79,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </div>
                 </div>
-                <div class="text-3xl font-bold text-white">15 <span class="text-sm font-medium text-slate-500 ml-1">Peserta</span></div>
+                <div class="text-3xl font-bold text-white"><span id="metricTotal">0</span> <span class="text-sm font-medium text-slate-500 ml-1">Peserta</span></div>
             </div>
 
             <!-- Metric 2 -->
@@ -90,7 +90,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                 </div>
-                <div class="text-3xl font-bold text-emerald-400">12 <span class="text-sm font-medium text-slate-500 ml-1">/ 15</span></div>
+                <div class="text-3xl font-bold text-emerald-400"><span id="metricGood">0</span> <span class="text-sm font-medium text-slate-500 ml-1" id="metricGoodTotal">/ 0</span></div>
             </div>
 
             <!-- Metric 3 -->
@@ -102,7 +102,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     </div>
                 </div>
-                <div class="text-3xl font-bold text-rose-400 relative z-10">3 <span class="text-sm font-medium text-slate-500 ml-1">/ 15</span></div>
+                <div class="text-3xl font-bold text-rose-400 relative z-10"><span id="metricBad">0</span> <span class="text-sm font-medium text-slate-500 ml-1" id="metricBadTotal">/ 0</span></div>
             </div>
         </div>
 
@@ -112,8 +112,8 @@
             <div class="xl:col-span-2 space-y-6">
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
                     <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
-                        <h3 class="font-bold text-white flex items-center gap-2">
-                            Pemantauan Tugasan Kohort 3
+                        <h3 class="font-bold text-white flex items-center gap-2" id="tableTitle">
+                            Pemantauan Tugasan Peserta
                         </h3>
                         <input type="text" placeholder="Cari nama peserta..." class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-teal-500 w-48">
                     </div>
@@ -129,111 +129,13 @@
                                     <th class="py-3 px-4 text-center">Tindakan</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-800/50 text-slate-300">
-                                <!-- Participant 1: Excellent -->
-                                <tr class="hover:bg-slate-800/30 transition-colors">
-                                    <td class="py-3 px-4">
-                                        <p class="font-medium text-white">MOHD MALIM ESANUDDIN</p>
-                                        <p class="text-[10px] text-slate-500">Sekolah: SK BOLONG TUARAN</p>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="text-emerald-400 text-xs font-bold flex justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="text-emerald-400 text-xs font-bold">Lengkap</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">HANTAR</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <button class="text-slate-500 cursor-not-allowed text-[10px] px-2 py-1 rounded border border-slate-700 bg-slate-800/50" disabled>Tiada Isu</button>
-                                    </td>
-                                </tr>
-                                
-                                <!-- Participant 2: Behind on Log -->
-                                <tr class="hover:bg-slate-800/30 transition-colors bg-amber-950/10">
-                                    <td class="py-3 px-4">
-                                        <p class="font-medium text-white">Khairul Izad bin Abd Rahman</p>
-                                        <p class="text-[10px] text-slate-500">Sekolah: SMK Kuarters KLIA</p>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="text-emerald-400 text-xs font-bold flex justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="text-amber-400 text-xs font-bold">Cicir 2 Hari</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">HANTAR</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <button onclick="openModal('Khairul Izad bin Abd Rahman')" class="bg-teal-600 hover:bg-teal-700 text-white px-3 py-1 rounded text-[10px] outline-none cursor-pointer shadow shadow-teal-600/30 transition-colors">Nudge</button>
-                                    </td>
-                                </tr>
-
-                                <!-- Participant 3: Critical (Not answering Pra) -->
-                                <tr class="hover:bg-slate-800/30 transition-colors bg-rose-950/10">
-                                    <td class="py-3 px-4">
-                                        <p class="font-medium text-white">DR.UMA THEVI A/P VETRIVEILMANY</p>
-                                        <p class="text-[10px] text-slate-500">Sekolah: SMK ST.THERESA</p>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="text-rose-400 text-xs font-bold">Belum</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="text-emerald-400 text-xs font-bold">Lengkap</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded text-[10px] font-bold">TUNGGAK</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <button onclick="openModal('DR.UMA THEVI A/P VETRIVEILMANY')" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1 rounded text-[10px] outline-none cursor-pointer shadow shadow-rose-600/30 transition-colors">Nudge Segera</button>
-                                    </td>
-                                </tr>
-
-                                <!-- Participant 4: Good -->
-                                <tr class="hover:bg-slate-800/30 transition-colors">
-                                    <td class="py-3 px-4">
-                                        <p class="font-medium text-white">DR. MOHD YUSOF BIN MUSTAFFA KAMAL</p>
-                                        <p class="text-[10px] text-slate-500">Sekolah: SEKOLAH MENENGAH SAINS KEPALA BATAS</p>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="text-emerald-400 text-xs font-bold flex justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="text-emerald-400 text-xs font-bold">Lengkap</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">HANTAR</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <button class="text-slate-500 cursor-not-allowed text-[10px] px-2 py-1 rounded border border-slate-700 bg-slate-800/50" disabled>Tiada Isu</button>
-                                    </td>
-                                </tr>
-
-                                <!-- Participant 5: Good -->
-                                <tr class="hover:bg-slate-800/30 transition-colors">
-                                    <td class="py-3 px-4">
-                                        <p class="font-medium text-white">ROSZILAWATI BINTI ISMAIL</p>
-                                        <p class="text-[10px] text-slate-500">Sekolah: SK SULAIMAN, BENTONG</p>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="text-emerald-400 text-xs font-bold flex justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="text-emerald-400 text-xs font-bold">Lengkap</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">HANTAR</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-center">
-                                        <button class="text-slate-500 cursor-not-allowed text-[10px] px-2 py-1 rounded border border-slate-700 bg-slate-800/50" disabled>Tiada Isu</button>
-                                    </td>
-                                </tr>
+                            <tbody id="participantTableBody" class="divide-y divide-slate-800/50 text-slate-300">
+                                <!-- Data akan diisi oleh JavaScript -->
                             </tbody>
                         </table>
                     </div>
                     <div class="p-4 bg-slate-950/50 border-t border-slate-800 text-center">
-                        <button class="text-xs text-blue-400 hover:text-blue-300 font-medium">Lihat Semua 15 Peserta</button>
+                        <button class="text-xs text-blue-400 hover:text-blue-300 font-medium" id="lihatSemuaBtn">Lihat Semua Peserta</button>
                     </div>
                 </div>
             </div>
@@ -343,33 +245,36 @@
             // 1. Ambil ID pengguna yang log masuk (dari index.html)
             const loggedInUser = localStorage.getItem("propkes_user") || "pemandu1";
             
-            // 2. Data Profil Pemandu Citra
+            // 2. Data Profil Pemandu Citra (Berdasarkan PDF terkini)
             const pemanduProfiles = {
-                "pemandu1": { name: "Dr. Azman", initials: "AZ", role: "Pemandu Citra (Zon Borneo)", title: "Pantauan Kohort Borneo", desc: "Anda ditugaskan memantau peserta Permata Citra dari IAB Cawangan Sabah & Sarawak." },
-                "pemandu2": { name: "Pn. Salmah", initials: "SL", role: "Pemandu Citra (Zon Utara)", title: "Pantauan Kohort Utara", desc: "Anda ditugaskan memantau peserta Permata Citra dari IAB Cawangan Utara." },
-                "pemandu3": { name: "En. Fakhrul Razi", initials: "FR", role: "Pemandu Citra (Zon Tengah)", title: "Pantauan Kohort Tengah/Timur", desc: "Anda ditugaskan memantau peserta Permata Citra dari Genting Highlands & PPKP." }
+                "pemandu1": { name: "Pn. Farah Mardhy binti Aman", initials: "FM", role: "Pemandu Citra", title: "Pantauan Pusat Pembangunan", desc: "Anda ditugaskan memantau peserta dari Pusat Pembangunan Kepimpinan Pendidikan." },
+                "pemandu2": { name: "Tn. Hj. Md Rahaimi bin Rashid", initials: "MR", role: "Pemandu Citra", title: "Pantauan Pusat Pentaksiran", desc: "Anda ditugaskan memantau peserta dari Pusat Pentaksiran dan Pembangunan Bakat." },
+                "pemandu3": { name: "En. Norazmir bin Ahmad", initials: "NA", role: "Pemandu Citra", title: "Pantauan IAB Genting", desc: "Anda ditugaskan memantau peserta dari IAB Cawangan Genting Highlands." },
+                "pemandu4": { name: "En. Ayub bin Ahmad", initials: "AA", role: "Pemandu Citra", title: "Pantauan IAB Utara", desc: "Anda ditugaskan memantau peserta dari IAB Cawangan Utara." },
+                "pemandu5": { name: "Dr. Abdul Ghani bin Sani", initials: "AG", role: "Pemandu Citra", title: "Pantauan IAB Sabah", desc: "Anda ditugaskan memantau peserta dari IAB Cawangan Sabah." },
+                "pemandu6": { name: "Tn. Hj. Edmund Shah bin Thamb", initials: "ES", role: "Pemandu Citra", title: "Pantauan IAB Sarawak", desc: "Anda ditugaskan memantau peserta dari IAB Cawangan Sarawak." }
             };
 
-            // 3. Database Peserta Sebenar (Berdasarkan Google Sheet Lampiran)
+            // 3. Database Peserta Sebenar (12 Orang, Tepat mengikut PDF)
             const pesertaMasterData = [
-                // Pemandu 1 (Sabah/Sarawak)
-                { pemanduId: "pemandu1", nama: "MOHD MALIM ESANUDDIN", sekolah: "SK BOLONG TUARAN", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
-                { pemanduId: "pemandu1", nama: "DR CAMMELIA OTHMAN", sekolah: "SK AGAMA SRI AMAN", pra: "Belum", log: "Belum", jurnal: "TUNGGAK", status: "bad" },
-                { pemanduId: "pemandu1", nama: "SYAHIDA FARAH BINTI ABDUL RAHIM", sekolah: "SMA TUN AHMAD ZAIDI", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
-                { pemanduId: "pemandu1", nama: "DR. HAJAH ROSNANI BINTI SAINI", sekolah: "SMK MATANG JAYA", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
-                { pemanduId: "pemandu1", nama: "ABD HALIB BIN MOHD ALI", sekolah: "SK SUGUD PENAMPANG", pra: "Selesai", log: "Cicir 1 Hari", jurnal: "HANTAR", status: "warning" },
-                
-                // Pemandu 2 (Utara)
-                { pemanduId: "pemandu2", nama: "DR. MOHD YUSOF BIN MUSTAFFA KAMAL", sekolah: "SM SAINS KEPALA BATAS", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
-                { pemanduId: "pemandu2", nama: "DR MOHD HAFEZ BIN KAMARUDIN", sekolah: "SK BUKIT GELUGOR", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
-                { pemanduId: "pemandu2", nama: "DR BARIYAH BINTI BASIRAN", sekolah: "SMK BADLISHAH / SK AIR MERAH", pra: "Belum", log: "Lengkap", jurnal: "HANTAR", status: "warning" },
-                
-                // Pemandu 3 (Genting/Induk)
-                { pemanduId: "pemandu3", nama: "Khairul Izad bin Abd Rahman", sekolah: "SMK Kuarters KLIA", pra: "Selesai", log: "Cicir 2 Hari", jurnal: "HANTAR", status: "warning" },
-                { pemanduId: "pemandu3", nama: "DR.UMA THEVI A/P VETRIVEILMANY", sekolah: "SMK ST.THERESA", pra: "Belum", log: "Lengkap", jurnal: "TUNGGAK", status: "bad" },
-                { pemanduId: "pemandu3", nama: "ROSZILAWATI BINTI ISMAIL", sekolah: "SK SULAIMAN", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
-                { pemanduId: "pemandu3", nama: "SURIA BINTI IBRAHIM", sekolah: "SMK PEDAS", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
-                { pemanduId: "pemandu3", nama: "DR MD NIZAM BIN NASIR", sekolah: "SMK Rantau Panjang", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" }
+                // Pemandu 1
+                { pemanduId: "pemandu1", nama: "KHAIRUL IZAD BIN ABD RAHMAN", sekolah: "Pusat Pembangunan Kepimpinan Pendidikan", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                { pemanduId: "pemandu1", nama: "SURIA BINTI IBRAHIM", sekolah: "Pusat Pembangunan Kepimpinan Pendidikan", pra: "Selesai", log: "Cicir 2 Hari", jurnal: "HANTAR", status: "warning" },
+                // Pemandu 2
+                { pemanduId: "pemandu2", nama: "DR MD NIZAM BIN NASIR", sekolah: "Pusat Pentaksiran dan Pembangunan Bakat", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                // Pemandu 3
+                { pemanduId: "pemandu3", nama: "ROSZILAWATI BINTI ISMAIL", sekolah: "IAB Cawangan Genting Highlands", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                // Pemandu 4
+                { pemanduId: "pemandu4", nama: "DR MOHD YUSOF BIN MUSTAFFA KAMAL", sekolah: "IAB Cawangan Utara", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                { pemanduId: "pemandu4", nama: "DR MOHD HAFEZ BIN KAMARUDIN", sekolah: "IAB Cawangan Utara", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                { pemanduId: "pemandu4", nama: "DR.UMA THEVI A/P VETRIVEILMANY", sekolah: "IAB Cawangan Utara", pra: "Belum", log: "Lengkap", jurnal: "TUNGGAK", status: "bad" },
+                // Pemandu 5
+                { pemanduId: "pemandu5", nama: "MOHD MALIM ESANUDDIN", sekolah: "IAB Cawangan Sabah", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                { pemanduId: "pemandu5", nama: "ABD HALIB BIN MOHD ALI", sekolah: "IAB Cawangan Sabah", pra: "Selesai", log: "Cicir 1 Hari", jurnal: "HANTAR", status: "warning" },
+                // Pemandu 6
+                { pemanduId: "pemandu6", nama: "DR CAMMELIA OTHMAN", sekolah: "IAB Cawangan Sarawak", pra: "Belum", log: "Belum", jurnal: "TUNGGAK", status: "bad" },
+                { pemanduId: "pemandu6", nama: "SYAHIDA FARAH BINTI ABDUL RAHIM", sekolah: "IAB Cawangan Sarawak", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                { pemanduId: "pemandu6", nama: "DR. HAJAH ROSNANI BINTI SAINI", sekolah: "IAB Cawangan Sarawak", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" }
             ];
 
             // Update UI Profile Pemandu
@@ -389,7 +294,6 @@
             const goodCount = myPeserta.filter(p => p.status === "good").length;
             const badCount = myPeserta.filter(p => p.status === "bad" || p.status === "warning").length;
 
-            document.getElementById("totalJagaan").textContent = total + " Peserta";
             document.getElementById("metricTotal").textContent = total;
             document.getElementById("metricGood").textContent = goodCount;
             document.getElementById("metricGoodTotal").textContent = "/ " + total;
@@ -425,7 +329,7 @@
                 tr.innerHTML = `
                     <td class="py-3 px-4">
                         <p class="font-medium text-white">${p.nama}</p>
-                        <p class="text-[10px] text-slate-500">Sekolah: ${p.sekolah}</p>
+                        <p class="text-[10px] text-slate-500">${p.sekolah}</p>
                     </td>
                     <td class="py-3 px-4 text-center">${praIcon}</td>
                     <td class="py-3 px-4 text-center"><span class="${logClass} text-xs font-bold">${p.log}</span></td>
