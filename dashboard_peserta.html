@@ -1,14 +1,3 @@
-Saya faham sepenuhnya. Terdapat tiga isu utama di sini yang perlu kita selesaikan secara serentak untuk memastikan pengalaman anda sempurna:
-
-1. **Paparan Berserabut (Imej 1):** Carta bar kecil yang terlalu banyak itu membuatkan skrin semak. Kita akan **buang carta terperinci** tersebut dan hanya kekalkan dua carta utama (Bar Keseluruhan & Radar Web) seperti yang anda minta.
-2. **Cetakan Kosong (Imej 3):** Paparan PDF menjadi kosong kerana fungsi `window.print()` biasa tidak dapat menangkap grafik dengan baik dalam mod moden. Kita akan membina **sistem penjanaan dokumen A4 khusus** (seperti dalam Papan Pemuka Admin) untuk Peserta.
-3. **Maklumat Cetakan & Nama Fail (Imej 2):** Menukar perkataan "Penyelia" kepada "Pemandu Citra & Mentor", memastikan hanya "Kementerian Pendidikan" digunakan (tanpa Malaysia), dan meletakkan pautan khas untuk **Cetak Maklumat** yang akan memuat turun fail PDF bertajuk `[Nama Peserta] PROPKES IAB.pdf`. Laporan ini akan lengkap memaparkan profil Pemandu Citra, Mentor 1, Mentor 2 berserta graf i-PROPKES!
-
-Untuk memastikan tiada kod yang tertinggal atau tersilap tampal seperti sebelumnya, saya akan berikan **100% KOD PENUH** untuk fail **`dashboard_peserta.html`**.
-
-Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semuanya**, dan tampal (*paste*) kod dari kotak di bawah:
-
-```html:dashboard_peserta.html
 <!DOCTYPE html>
 <html lang="ms">
 <head>
@@ -72,7 +61,7 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
                         </h1>
                         <div class="flex items-center gap-2 mt-0.5">
                             <h2 class="text-[10px] lg:text-[11px] font-semibold text-slate-300 uppercase tracking-widest">
-                                Institut Aminuddin Baki, Kementerian Pendidikan (KPM)
+                                Institut Aminuddin Baki, Kementerian Pendidikan
                             </h2>
                             <span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
                                 Mod Peserta
@@ -156,6 +145,7 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
                             <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
                             Maklumat Pemandu Citra & Mentor
                         </h3>
+                        <!-- Butang Cetak Maklumat Mentor Sahaja -->
                         <button onclick="cetakLaporanPintar()" class="text-[10px] text-purple-400 hover:text-purple-300 underline font-semibold flex items-center gap-1 cursor-pointer outline-none transition-colors">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.728 13.5H5.25A2.25 2.25 0 0 1 3 11.25v-4.5A2.25 2.25 0 0 1 5.25 4.5h13.5A2.25 2.25 0 0 1 21 6.75v4.5a2.25 2.25 0 0 1-2.25 2.25h-1.478M12 21v-4.5m0 0h-4.5m4.5 0h4.5M12 21a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3Z" /></svg>
                             Cetak
@@ -166,7 +156,7 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
                         <div class="bg-purple-950/20 p-4 rounded-xl border border-purple-900/30">
                             <p class="text-[10px] text-purple-400 uppercase font-bold tracking-wider mb-2">Pemandu Citra (IAB)</p>
                             <p class="text-sm font-bold text-slate-200" id="infoPemanduNama">Memuatkan...</p>
-                            <p class="text-[11px] text-slate-400 mb-1" id="infoPemanduJawatan">Jawatan</p>
+                            <p class="text-xs text-slate-400 mb-1" id="infoPemanduJawatan">Jawatan</p>
                             <p class="text-[10px] text-slate-500 italic" id="infoPemanduPusat">Pusat/Cawangan</p>
                         </div>
                         
@@ -238,29 +228,29 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
             <div class="lg:col-span-2 space-y-6">
                 
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden hidden fade-in" id="analysisSection">
-                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
+                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center print:bg-white print:border-b-2 print:border-gray-200">
                         <div>
-                            <h3 class="font-bold text-white text-sm flex items-center gap-2">
-                                <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
+                            <h3 class="font-bold text-white text-sm flex items-center gap-2 print:text-black print:text-xl">
+                                <svg class="w-5 h-5 text-purple-500 no-print" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
                                 Laporan Analisis Kepimpinan i-PROPKES
                             </h3>
-                            <p class="text-[11px] text-slate-400 mt-1">Perbandingan skor Ujian Pra dan Pasca mengikut 7 domain utama.</p>
+                            <p class="text-[11px] text-slate-400 mt-1 print:text-gray-600">Perbandingan skor Ujian Pra dan Pasca mengikut 7 domain utama.</p>
                         </div>
-                        <button onclick="cetakLaporanPintar()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-600 transition-colors flex items-center gap-1.5 outline-none cursor-pointer">
+                        <button onclick="cetakLaporanPintar()" class="no-print bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-600 transition-colors flex items-center gap-1.5 outline-none cursor-pointer">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.728 13.5H5.25A2.25 2.25 0 0 1 3 11.25v-4.5A2.25 2.25 0 0 1 5.25 4.5h13.5A2.25 2.25 0 0 1 21 6.75v4.5a2.25 2.25 0 0 1-2.25 2.25h-1.478M12 21v-4.5m0 0h-4.5m4.5 0h4.5M12 21a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3Z" /></svg>
                             Cetak Laporan
                         </button>
                     </div>
                     
-                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-900">
-                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50">
-                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Perbandingan Skor (Carta Bar Keseluruhan)</h4>
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-900 print:bg-white print:block">
+                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 print:border-none print:shadow-none print:mb-8">
+                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider print:text-black">Perbandingan Skor (Carta Bar)</h4>
                             <div class="w-full aspect-square md:aspect-auto md:h-64">
                                 <canvas id="barChart"></canvas>
                             </div>
                         </div>
-                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 flex flex-col items-center">
-                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Profil Domain (Carta Web)</h4>
+                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 flex flex-col items-center print:border-none print:shadow-none">
+                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider print:text-black">Profil Domain (Carta Web)</h4>
                             <div class="w-full max-w-[280px] aspect-square">
                                 <canvas id="webChart"></canvas>
                             </div>
@@ -740,7 +730,6 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
             showToast("Rekod kalendar dikemas kini.");
         }
 
-        // FUNGSI KEMAS KINI OLEH PESERTA LENGKAP
         function openProfilModal() {
             const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
             const myProfile = accounts[currentUser] || {};
@@ -748,13 +737,11 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
             document.getElementById('editSekolah').value = myProfile.sekolah || "";
             document.getElementById('editPpd').value = myProfile.ppd || "";
             
-            // Pemandu
             document.getElementById('editPemanduCitra').value = myProfile.pemanduCitra || "";
             document.getElementById('editPemanduJawatan').value = myProfile.pemanduJawatan || "";
             document.getElementById('editPemanduPusat').value = myProfile.pemanduPusat || "";
             document.getElementById('editPemanduTempat').value = myProfile.pemanduTempat || "";
             
-            // Mentor Sekolah
             document.getElementById('editMentorSekolah').value = myProfile.mentorSekolah || "";
             document.getElementById('editMentorIc').value = myProfile.mentorIc || "";
             document.getElementById('editMentorJawatan').value = myProfile.mentorJawatan || "";
@@ -765,7 +752,6 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
             document.getElementById('editMentorBandar').value = myProfile.mentorBandar || "";
             document.getElementById('editMentorNegeri').value = myProfile.mentorNegeri || "";
 
-            // Mentor PPD
             document.getElementById('editMentorPpd').value = myProfile.mentorPpd || "";
             document.getElementById('editMentorPpdIc').value = myProfile.mentorPpdIc || "";
             document.getElementById('editMentorPpdJawatan').value = myProfile.mentorPpdJawatan || "";
@@ -830,7 +816,6 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
             }
         });
 
-        // FUNGSI SESI PANDU CITRA
         function openPanduCitraModal() {
             const modal = document.getElementById('panduCitraModal');
             const content = document.getElementById('panduCitraModalContent');
@@ -848,7 +833,6 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
         document.getElementById('panduCitraForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Simpan Rekod Sesi Pandu Citra
             const date = document.getElementById('pcDate').value;
             const start = document.getElementById('pcStartTime').value;
             const end = document.getElementById('pcEndTime').value;
@@ -863,8 +847,6 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
 
             closePanduCitraModal();
             showToast("Rekod Sesi Pandu Citra berjaya disimpan.");
-            
-            // Set semula form
             e.target.reset();
         });
 
@@ -1094,10 +1076,8 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
             const myProfile = accounts[currentUser] || {};
             const pesertaName = myProfile.name || "Peserta";
 
-            // Set document title for PDF
             document.title = `${pesertaName} PROPKES IAB`;
 
-            // Calculate differences for i-PROPKES
             const domainsList = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
             let tableRows = '';
             domainsList.forEach((d, index) => {
@@ -1123,7 +1103,6 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
                 `;
             });
 
-            // Get PC Sessions
             const sessionKey = `propkes_pc_sessions_${currentUser}`;
             const sessions = JSON.parse(localStorage.getItem(sessionKey) || "[]");
             let sessionRows = '';
@@ -1211,12 +1190,13 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
                 </div>
             `;
 
-            // Setup print section and trigger print
             document.getElementById('printSection').innerHTML = printHTML;
-            window.print();
             
-            // Revert the title after print dialog closes
-            setTimeout(() => { document.title = "Papan Pemuka | Peserta PROPKES"; }, 1000);
+            // Tunggu sebentar untuk pastikan DOM dirender sebelum print
+            setTimeout(() => {
+                window.print();
+                setTimeout(() => { document.title = "Papan Pemuka | Peserta PROPKES"; }, 1000);
+            }, 500);
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -1240,7 +1220,6 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
                 document.getElementById("navInitials").textContent = initials;
 
                 document.getElementById("profileNama").textContent = fullName;
-                document.getElementById("profileIC").textContent = myProfile.ic || "Tiada Maklumat";
                 document.getElementById("profileEmail").textContent = myProfile.email || "Tiada Maklumat";
                 document.getElementById("profileSekolah").textContent = myProfile.sekolah || "Belum Ditetapkan";
                 document.getElementById("profilePPD").textContent = myProfile.ppd ? `PPD: ${myProfile.ppd}` : "PPD: Belum Ditetapkan";
@@ -1298,5 +1277,3 @@ Sila tekan `Ctrl + A` di dalam fail `dashboard_peserta.html` anda, **padam semua
 </body>
 </html>
 ```eof
-
-```
