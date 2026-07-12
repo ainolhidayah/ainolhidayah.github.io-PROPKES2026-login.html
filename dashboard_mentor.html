@@ -18,9 +18,6 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
-        
-        .toggle-checkbox:checked { right: 0; border-color: #a855f7; }
-        .toggle-checkbox:checked + .toggle-label { background-color: #a855f7; }
     </style>
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
@@ -43,11 +40,11 @@
                 <!-- Profile Area -->
                 <div class="flex items-center gap-4">
                     <div class="text-right hidden md:block">
-                        <p class="text-sm font-semibold text-white" id="navNameDisplay">Memuatkan...</p>
-                        <p class="text-xs text-purple-400">Mentor PROPKES</p>
+                        <p class="text-sm font-semibold text-white">Datin Paduka Zaleha</p>
+                        <p class="text-xs text-purple-400">Mentor (Sekolah Sandaran)</p>
                     </div>
-                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300" id="navInitials">
-                        ...
+                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300">
+                        DZ
                     </div>
                     <!-- Logout Button -->
                     <button onclick="window.location.href='index.html'" class="ml-2 bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg transition-colors cursor-pointer outline-none" title="Log Keluar">
@@ -69,7 +66,7 @@
             <div class="bg-slate-950/50 border border-purple-500/30 rounded-xl p-4 shrink-0 text-center flex gap-4">
                 <div>
                     <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1">Peserta (Mentee)</p>
-                    <div class="text-2xl font-bold text-purple-400"><span id="menteeCount">0</span> <span class="text-sm font-normal text-slate-500">Orang</span></div>
+                    <div class="text-2xl font-bold text-purple-400">2 <span class="text-sm font-normal text-slate-500">Orang</span></div>
                 </div>
                 <div class="w-px bg-slate-800"></div>
                 <div>
@@ -97,15 +94,60 @@
                             <thead>
                                 <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 text-[11px] font-semibold tracking-wider uppercase">
                                     <th class="py-3 px-6">Nama Peserta (Mentee)</th>
-                                    <th class="py-3 px-6 text-center">Tempat Bertugas</th>
+                                    <th class="py-3 px-6 text-center">Sekolah Asal</th>
                                     <th class="py-3 px-6 text-center">Jurnal Terkini (Lampiran D)</th>
                                     <th class="py-3 px-6 text-center">Tindakan</th>
                                 </tr>
                             </thead>
-                            <!-- Jadual Dijana Secara Dinamik -->
-                            <tbody id="menteeTableBody" class="divide-y divide-slate-800/50 text-slate-300">
-                                <tr>
-                                    <td colspan="4" class="py-8 px-4 text-center text-slate-500 text-xs italic">Memuatkan senarai peserta...</td>
+                            <tbody class="divide-y divide-slate-800/50 text-slate-300">
+                                <!-- Mentee 1 -->
+                                <tr class="hover:bg-slate-800/30 transition-colors">
+                                    <td class="py-4 px-6">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-700">SN</div>
+                                            <div>
+                                                <p class="font-medium text-white">Siti Nurhaliza binti Tarudin</p>
+                                                <p class="text-[10px] text-slate-500">Kohort 3</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6 text-center text-xs text-slate-400">
+                                        SMK Bawang Merah
+                                    </td>
+                                    <td class="py-4 px-6 text-center">
+                                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-1 rounded text-[10px] font-bold">Telah Dihantar (Minggu 2)</span>
+                                    </td>
+                                    <td class="py-4 px-6 text-center">
+                                        <button onclick="openJournalModal('Siti Nurhaliza binti Tarudin', 'Minggu 2')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg text-xs outline-none cursor-pointer shadow shadow-purple-600/30 transition-colors flex items-center gap-1 mx-auto">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                            Baca Jurnal
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Mentee 2 -->
+                                <tr class="hover:bg-slate-800/30 transition-colors">
+                                    <td class="py-4 px-6">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-700">AK</div>
+                                            <div>
+                                                <p class="font-medium text-white">Ahmad Albab bin Kassim</p>
+                                                <p class="text-[10px] text-slate-500">Kohort 3</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6 text-center text-xs text-slate-400">
+                                        SK Durian Runtuh
+                                    </td>
+                                    <td class="py-4 px-6 text-center">
+                                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-1 rounded text-[10px] font-bold">Draf (Minggu 2)</span>
+                                    </td>
+                                    <td class="py-4 px-6 text-center">
+                                        <button onclick="openJournalModal('Ahmad Albab bin Kassim', 'Minggu 1')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-3 py-1.5 rounded-lg text-xs outline-none cursor-pointer transition-colors flex items-center gap-1 mx-auto">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                            Jurnal Terdahulu
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -119,36 +161,44 @@
                 
                 <!-- Feedback Submission Form -->
                 <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-purple-500/30 rounded-2xl shadow-xl p-6 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-2xl rounded-full pointer-events-none"></div>
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-2xl rounded-full"></div>
                     
                     <h3 class="font-bold text-white mb-2 text-sm flex items-center gap-2 relative z-10">
                         <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         Penyerahan Maklum Balas
                     </h3>
-                    <p class="text-[11px] text-slate-400 mb-5 relative z-10 leading-relaxed">Mentor perlu melengkapkan borang digital kemajuan peserta menggunakan <strong class="text-slate-200">Lampiran F</strong> bagi setiap fasa.</p>
+                    <p class="text-[11px] text-slate-400 mb-5 relative z-10 leading-relaxed">Pihak IAB mewajibkan Mentor untuk melengkapkan penilaian kemajuan peserta menggunakan <strong class="text-slate-200">Lampiran F</strong> bagi setiap fasa.</p>
                     
-                    <form class="space-y-4 relative z-10" onsubmit="openMaklumBalasModal(event)">
+                    <form id="feedbackForm" class="space-y-4 relative z-10" onsubmit="submitFeedback(event)">
                         
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pilih Peserta (Mentee)</label>
-                            <!-- Dropdown Dijana Secara Dinamik -->
-                            <select id="menteeSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500 outline-none cursor-pointer">
-                                <option value="" disabled selected>-- Memuatkan Senarai... --</option>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pilih Peserta</label>
+                            <select class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500 outline-none cursor-pointer">
+                                <option value="" disabled selected>-- Sila Pilih Mentee --</option>
+                                <option value="siti">Siti Nurhaliza binti Tarudin</option>
+                                <option value="ahmad">Ahmad Albab bin Kassim</option>
                             </select>
                         </div>
 
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Fasa Penilaian</label>
-                            <select id="fasaSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500 outline-none cursor-pointer">
-                                <option value="" disabled selected>-- Sila Pilih --</option>
-                                <option value="FASA 1">PROPKES Fasa 1</option>
-                                <option value="FASA 2">PROPKES Fasa 2</option>
+                            <select class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500 outline-none cursor-pointer">
+                                <option value="fasa1">PROPKES Fasa 1</option>
+                                <option value="fasa2">PROPKES Fasa 2</option>
                             </select>
                         </div>
 
-                        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg text-xs transition-colors outline-none cursor-pointer shadow-lg shadow-purple-600/30 mt-2 flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
-                            Isi Borang Digital Lampiran F
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Muat Naik Lampiran F (PDF/Word)</label>
+                            <div class="border-2 border-dashed border-slate-700 rounded-lg p-4 text-center hover:border-purple-500/50 transition-colors cursor-pointer bg-slate-900/50">
+                                <svg class="w-6 h-6 text-slate-500 mx-auto mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                <span class="text-xs text-purple-400 font-medium">Klik untuk pilih fail</span>
+                                <p class="text-[9px] text-slate-500 mt-1">Maksimum saiz fail: 5MB</p>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 rounded-lg text-xs transition-colors outline-none cursor-pointer shadow-lg shadow-purple-600/20 mt-2">
+                            Hantar Penilaian
                         </button>
                     </form>
                 </div>
@@ -211,293 +261,6 @@
                 <div class="bg-slate-950 rounded-xl p-4 border border-slate-800">
                     <h4 class="font-bold text-white mb-2 text-xs uppercase tracking-wider text-slate-500">Refleksi Kendiri</h4>
                     <p class="leading-relaxed">Melalui pemerhatian ini, saya menyedari bahawa kemahiran komunikasi strategik dan rundingan (*negotiation*) adalah amat kritikal. Mentor telah banyak memberi tunjuk ajar tentang cara mendekati guru senior dengan penuh diplomasi.</p>
-                </div>
-            </div>
-            
-            <div class="pt-4 border-t border-slate-800 mt-4 shrink-0 flex justify-end gap-3">
-                <button onclick="closeJournalModal()" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-xs font-semibold transition-colors outline-none cursor-pointer">Tutup</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL BORANG DIGITAL LAMPIRAN F -->
-    <div id="maklumBalasModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-slate-900 border border-purple-500/50 rounded-2xl shadow-2xl max-w-3xl w-full flex flex-col max-h-[95vh] transform scale-95 transition-transform duration-300" id="maklumBalasModalContent">
-            
-            <div class="p-6 border-b border-slate-800 shrink-0 bg-slate-950/50 rounded-t-2xl flex justify-between items-start">
-                <div>
-                    <h3 class="text-lg font-extrabold text-white">LAMPIRAN F: MAKLUM BALAS MENTOR</h3>
-                    <p class="text-xs text-purple-400 mt-1 uppercase font-semibold tracking-wide">PROPKES 2026 - <span id="mbFasaTitle">FASA 1</span></p>
-                </div>
-                <button onclick="closeMaklumBalasModal()" class="text-slate-500 hover:text-slate-300 bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg transition-colors outline-none cursor-pointer">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-            
-            <div class="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6">
-                
-                <!-- Bahagian 1: Maklumat Peserta -->
-                <div class="bg-slate-800/30 p-5 rounded-xl border border-slate-700/50">
-                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-700 pb-2">Maklumat Peserta (Mentee)</h4>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nama Peserta</label>
-                            <input type="text" id="mbNamaPeserta" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed font-semibold">
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Jawatan</label>
-                                <input type="text" id="mbJawatan" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Gred</label>
-                                <input type="text" id="mbGred" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tempat Bertugas</label>
-                                <input type="text" id="mbTempatBertugas" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Pusat / Cawangan</label>
-                                <input type="text" id="mbPusat" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tarikh Sandaran</label>
-                            <input type="text" id="mbTarikhSandaran" required placeholder="Cth: 3 Ogos 2026 hingga 4 September 2026" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bahagian 2: Maklum Balas -->
-                <div>
-                    <label class="block text-[11px] font-bold text-purple-400 uppercase tracking-wider mb-2 flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" /></svg>
-                        Maklum Balas Mentor
-                    </label>
-                    <textarea id="mbMaklumBalas" required rows="6" placeholder="Sila berikan ulasan ringkas mengenai prestasi, kepimpinan, dan komitmen peserta sepanjang tempoh sandaran..." class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors resize-y"></textarea>
-                </div>
-
-                <!-- Bahagian 3: Pengesahan Mentor -->
-                <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
-                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-700 pb-2">Perakuan Mentor</h4>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nama Penuh Mentor</label>
-                            <input type="text" id="mbNamaMentor" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed font-medium">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Jawatan Mentor</label>
-                            <input type="text" id="mbJawatanMentor" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-4 bg-slate-950 p-4 rounded-lg border border-slate-800">
-                        <div class="relative inline-block w-10 h-5 align-middle select-none transition duration-200 ease-in shrink-0">
-                            <input type="checkbox" id="mbPengesahan" required class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-600 appearance-none cursor-pointer transition-all duration-300 z-10 top-0 left-0 outline-none"/>
-                            <label for="mbPengesahan" class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-600 cursor-pointer transition-colors duration-300"></label>
-                        </div>
-                        <div>
-                            <label for="mbPengesahan" class="text-xs text-slate-300 font-medium cursor-pointer block">Saya mengesahkan bahawa maklum balas ini adalah benar dan mewakili penilaian profesional saya sebagai Mentor.</label>
-                            <p class="text-[10px] text-slate-500 mt-0.5">Tandatangan Digital <span id="mbTarikhDigital" class="text-purple-400 font-mono ml-1"></span></p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="p-6 border-t border-slate-800 shrink-0 bg-slate-950/50 rounded-b-2xl flex gap-3">
-                <button type="button" onclick="closeMaklumBalasModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-sm font-bold transition-colors outline-none cursor-pointer border border-slate-700">Batal</button>
-                <button type="button" onclick="submitDigitalFeedback()" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl text-sm font-bold transition-colors shadow-lg shadow-purple-900/50 outline-none cursor-pointer flex justify-center items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-                    Simpan & Hantar Penilaian
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Notification Container -->
-    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2"></div>
-
-    <!-- JavaScript Logik Dinamik -->
-    <script>
-        // Simpan senarai mentee secara global supaya boleh diakses oleh Modal
-        let menteeList = [];
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const currentUser = localStorage.getItem("propkes_user");
-            if (!currentUser) {
-                window.location.href = "index.html";
-                return;
-            }
-
-            // Dapatkan pangkalan data akaun
-            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            const myProfile = accounts[currentUser] || {};
-            const mentorName = myProfile.name || "Mentor";
-
-            // Kemas kini profil nama di atas kanan
-            document.getElementById('navNameDisplay').textContent = mentorName;
-            document.getElementById('navInitials').textContent = mentorName.substring(0, 2).toUpperCase();
-
-            // Tapis HANYA pengguna yang berstatus peserta dari localStorage
-            menteeList = Object.entries(accounts)
-                .filter(([username, data]) => data.role === 'peserta')
-                .map(([username, data]) => ({ username, ...data }));
-
-            renderMenteeTable();
-            populateMenteeDropdown();
-        });
-
-        // 1. FUNGSI JANA JADUAL PESERTA DINAMIK
-        function renderMenteeTable() {
-            const tbody = document.getElementById("menteeTableBody");
-            tbody.innerHTML = "";
-
-            document.getElementById("menteeCount").textContent = menteeList.length;
-
-            if (menteeList.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="py-8 px-4 text-center text-slate-500 text-xs italic">Tiada peserta didaftarkan di dalam pangkalan data buat masa ini.</td></tr>`;
-                return;
-            }
-
-            menteeList.forEach(mentee => {
-                const initials = mentee.name.substring(0, 2).toUpperCase();
-                // Tempat bertugas: Jika peserta dah isi sekolah sandaran
-                const tempatBertugas = mentee.sekolah || '<span class="text-rose-400 italic">Belum Diisi</span>';
-
-                const tr = document.createElement("tr");
-                tr.className = "hover:bg-slate-800/30 transition-colors";
-                tr.innerHTML = `
-                    <td class="py-4 px-6">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-700">${initials}</div>
-                            <div>
-                                <p class="font-medium text-white">${mentee.name}</p>
-                                <p class="text-[10px] text-slate-500">${mentee.email}</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="py-4 px-6 text-center text-xs text-slate-400">
-                        ${tempatBertugas}
-                    </td>
-                    <td class="py-4 px-6 text-center">
-                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-1 rounded text-[10px] font-bold">Menunggu Serahan</span>
-                    </td>
-                    <td class="py-4 px-6 text-center">
-                        <button onclick="openJournalModal('${mentee.name}', 'Terkini')" class="bg-slate-800 hover:bg-purple-600 text-slate-300 hover:text-white border border-slate-700 hover:border-purple-500 px-3 py-1.5 rounded-lg text-xs outline-none cursor-pointer transition-colors flex items-center gap-1 mx-auto">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                            Baca Jurnal
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        // 2. FUNGSI JANA SENARAI DROPDOWN BORANG F
-        function populateMenteeDropdown() {
-            const select = document.getElementById("menteeSelect");
-            select.innerHTML = '<option value="" disabled selected>-- Sila Pilih Mentee --</option>';
-            
-            menteeList.forEach(mentee => {
-                const option = document.createElement("option");
-                option.value = mentee.username; // Guna ID sebagai penanda
-                option.textContent = mentee.name;
-                select.appendChild(option);
-            });
-        }
-
-        // Modal Logic: Journal (Mockup)
-        const journalModal = document.getElementById('journalModal');
-        const journalModalContent = document.getElementById('journalModalContent');
-        const modalJournalSubtitle = document.getElementById('modalJournalSubtitle');
-
-        function openJournalModal(menteeName, week) {
-            modalJournalSubtitle.textContent = `Peserta: ${menteeName} | Catatan Jurnal ${week}`;
-            journalModal.classList.remove('hidden');
-            journalModal.classList.add('flex');
-            setTimeout(() => {
-                journalModal.classList.remove('opacity-0');
-                journalModal.classList.add('opacity-100');
-                journalModalContent.classList.remove('scale-95');
-                journalModalContent.classList.add('scale-100');
-            }, 10);
-        }
-
-        function closeJournalModal() {
-            journalModal.classList.remove('opacity-100');
-            journalModal.classList.add('opacity-0');
-            journalModalContent.classList.remove('scale-100');
-            journalModalContent.classList.add('scale-95');
-            setTimeout(() => {
-                journalModal.classList.remove('flex');
-                journalModal.classList.add('hidden');
-            }, 300);
-        }
-
-        // Modal Logic: Digital Feedback (Lampiran F) Terhubung Penuh
-        const maklumBalasModal = document.getElementById('maklumBalasModal');
-        const maklumBalasModalContent = document.getElementById('maklumBalasModalContent');
-
-        function openMaklumBalasModal(e) {
-            e.preventDefault();
-            const menteeUsername = document.getElementById('menteeSelect').value;
-            const fasa = document.getElementById('fasaSelect').value;
-            
-            if(!menteeUsername || !fasa) {
-                showToast("Sila pilih peserta dan fasa terlebih dahulu.", "info");
-                return;
-            }
-
-            // Cari data peserta yang dipilih dari menteeList
-            const mentee = menteeList.find(m => m.username === menteeUsername);
-            
-            // Dapatkan maklumat Mentor yang sedang log masuk
-            const currentUser = localStorage.getItem("propkes_user");
-            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            const mentorProfile = accounts[currentUser] || {};
-
-            // Isi Maklumat Asas & Automatik (Diisi Oleh Peserta dalam profilnya)
-            document.getElementById('mbFasaTitle').textContent = fasa;
-            document.getElementById('mbNamaPeserta').value = mentee.name;
-            document.getElementById('mbJawatan').value = mentee.pesertaJawatan || "Belum Diisi";
-            document.getElementById('mbGred').value = mentee.pesertaGred || "Belum Diisi";
-            document.getElementById('mbTempatBertugas').value = mentee.sekolah || "Belum Diisi";
-            document.getElementById('mbPusat').value = mentee.pesertaPusatAsal || "Belum Diisi";
-            
-            // Isi Maklumat Mentor secara automatik
-            document.getElementById('mbNamaMentor').value = mentorProfile.name || "Mentor PROPKES";
-            document.getElementById('mbJawatanMentor').value = "Mentor Terlantik";
-
-            // Set Tarikh Tandatangan Digital
-            const today = new Date();
-            const dateStr = today.toLocaleDateString('ms-MY', { day: 'numeric', month: 'long', year: 'numeric' });
-            document.getElementById('mbTarikhDigital').textContent = `(${dateStr})`;
-
-            // Kosongkan input lama untuk ruangan yang perlu ditaip mentor
-            document.getElementById('mbTarikhSandaran').value = "";
-            document.getElementById('mbMaklumBalas').value = "";
-            document.getElementById('mbPengesahan').checked = false;
-
-            // Buka Modal
-            maklumBalasModal.classList.remove('hidden');
-            maklumBalasModal.classList.add('flex');
-            setTimeout(() => {
-                maklumBalasModal.classList.remove('opacity-0');
-                maklumBalasModal.classList.add('opacity-100');
-                maklumBalasModalContent.classList.remove('scale-95');
-                maklumBalasModalContent.classList.add('scale-100');
-            }, 10);
-        }
-
         function closeMaklumBalasModal() {
             maklumBalasModal.classList.remove('opacity-100');
             maklumBalasModal.classList.add('opacity-0');
@@ -510,6 +273,8 @@
         }
 
         function submitDigitalFeedback() {
+            const menteeUsername = document.getElementById('menteeSelect').value;
+            const fasa = document.getElementById('fasaSelect').value;
             const tarikh = document.getElementById('mbTarikhSandaran').value;
             const maklumBalas = document.getElementById('mbMaklumBalas').value;
             const disahkan = document.getElementById('mbPengesahan').checked;
@@ -524,44 +289,79 @@
                 return;
             }
 
+            // SIMPAN DATA KE DALAM STORAN
+            const feedbackData = {
+                fasa: fasa,
+                namaPeserta: document.getElementById('mbNamaPeserta').value,
+                jawatan: document.getElementById('mbJawatan').value,
+                gred: document.getElementById('mbGred').value,
+                tempatBertugas: document.getElementById('mbTempatBertugas').value,
+                pusat: document.getElementById('mbPusat').value,
+                tarikhSandaran: tarikh,
+                maklumBalas: maklumBalas,
+                namaPenilai: document.getElementById('mbNamaMentor').value,
+                jawatanPenilai: document.getElementById('mbJawatanMentor').value,
+                tarikhTandatangan: document.getElementById('mbTarikhDigital').textContent
+            };
+            localStorage.setItem(`propkes_feedback_mentor_${menteeUsername}_${fasa.replace(/\s+/g, '')}`, JSON.stringify(feedbackData));
+
             closeMaklumBalasModal();
             
             setTimeout(() => {
                 showToast("Borang Maklum Balas (Lampiran F) berjaya disimpan dan dihantar ke Urus Setia.", "success");
             }, 300);
 
-            // Reset borang mula
             document.getElementById('menteeSelect').value = "";
             document.getElementById('fasaSelect').value = "";
         }
 
-        // Toast System
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             
+            // Set styles based on type
             const bgColor = type === 'success' ? 'bg-emerald-600' : 'bg-blue-600';
             const icon = type === 'success' 
-                ? `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0Z" /></svg>`
-                : `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0Zm-9-3.75h.008v.008H12V8.25Z" /></svg>`;
+                ? `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>`
+                : `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
 
             toast.className = `${bgColor} text-white px-4 py-3 rounded-lg shadow-xl text-sm font-medium transition-all duration-500 transform translate-y-10 opacity-0 flex items-center gap-3`;
             toast.innerHTML = `${icon} <span>${message}</span>`;
             
             container.appendChild(toast);
             
+            // Animate in
             setTimeout(() => {
                 toast.classList.remove('translate-y-10', 'opacity-0');
                 toast.classList.add('translate-y-0', 'opacity-100');
             }, 10);
             
+            // Animate out and remove
             setTimeout(() => {
                 toast.classList.remove('translate-y-0', 'opacity-100');
                 toast.classList.add('translate-y-2', 'opacity-0');
                 setTimeout(() => toast.remove(), 500);
             }, 4000);
         }
+
+        function submitFeedback(e) {
+            e.preventDefault(); // Prevent actual form submission
+            
+            // Validate basic select (mockup validation)
+            const form = e.target;
+            const menteeSelect = form.querySelector('select:nth-of-type(1)').value;
+            
+            if(!menteeSelect) {
+                showToast("Sila pilih peserta terlebih dahulu.", "info");
+                return;
+            }
+
+            // Simulate successful upload and submission
+            showToast("Maklum Balas (Lampiran F) berjaya dihantar ke Urus Setia.", "success");
+            
+            // Reset form visually
+            form.reset();
+        }
     </script>
 </body>
 </html>
-```eof
