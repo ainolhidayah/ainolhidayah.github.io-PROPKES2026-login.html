@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Papan Pemuka | Urus Setia (Admin)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
         .bg-pattern {
@@ -19,33 +20,29 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
-<body class="bg-pattern min-h-screen text-slate-200">
+<body class="bg-pattern min-h-screen text-slate-100 flex flex-col">
 
-    <!-- Top Navigation Bar -->
-    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+    <nav class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <!-- Logo & System Name -->
                 <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-lg shadow-blue-500/20">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-lg shadow-blue-500/30">
                         IAB
                     </div>
                     <span class="font-bold text-lg tracking-tight text-white hidden sm:block">PROPKES <span class="text-blue-400">2026</span></span>
-                    <span class="ml-2 bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:block">
-                        Mod Urus Setia
+                    <span class="ml-2 bg-rose-500/10 text-rose-400 border border-rose-500/30 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:block">
+                        Mod Urus Setia (Admin)
                     </span>
                 </div>
                 
-                <!-- Profile Area -->
                 <div class="flex items-center gap-4">
                     <div class="text-right hidden md:block">
-                        <p class="text-sm font-semibold text-white">Urus Setia Pusat</p>
-                        <p class="text-xs text-rose-400">Admin</p>
+                        <p class="text-sm font-bold text-white">Urus Setia Pusat</p>
+                        <p class="text-xs text-rose-400 font-medium">Administrator</p>
                     </div>
-                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300">
+                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-600 rounded-full flex items-center justify-center font-bold text-slate-200">
                         US
                     </div>
-                    <!-- Logout Button -->
                     <button onclick="window.location.href='index.html'" class="ml-2 bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg transition-colors cursor-pointer outline-none" title="Log Keluar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
@@ -54,482 +51,438 @@
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         
-        <!-- Summary Cards (Dynamic Numbers) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="text-xs font-semibold text-slate-400 uppercase">Jumlah Peserta (Permata Citra)</span>
-                    <div class="bg-blue-500/10 p-1.5 rounded text-blue-400">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    </div>
-                </div>
-                <div class="text-3xl font-bold text-white" id="statTotalPeserta">0</div>
-            </div>
-
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="text-xs font-semibold text-slate-400 uppercase">Menjawab i-PROPKES (Pra)</span>
-                    <div class="bg-emerald-500/10 p-1.5 rounded text-emerald-400">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                </div>
-                <div class="text-3xl font-bold text-white"><span id="statPra">0</span> <span class="text-sm font-medium text-emerald-500 ml-1">/ <span id="statPraTotal">0</span></span></div>
-                <div class="w-full bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
-                    <div class="bg-emerald-500 h-full rounded-full transition-all duration-1000" id="barPra" style="width: 0%"></div>
-                </div>
-            </div>
-
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="text-xs font-semibold text-slate-400 uppercase">Pendaftaran Sandaran</span>
-                    <div class="bg-amber-500/10 p-1.5 rounded text-amber-400">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                    </div>
-                </div>
-                <div class="text-3xl font-bold text-white"><span id="statSandaran">0</span> <span class="text-sm font-medium text-amber-500 ml-1">/ <span id="statSandaranTotal">0</span></span></div>
-                <div class="w-full bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
-                    <div class="bg-amber-500 h-full rounded-full transition-all duration-1000" id="barSandaran" style="width: 0%"></div>
-                </div>
-            </div>
-
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="text-xs font-semibold text-slate-400 uppercase">Kemas Kini Jurnal</span>
-                    <div class="bg-purple-500/10 p-1.5 rounded text-purple-400">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                    </div>
-                </div>
-                <div class="text-xl font-bold text-slate-500 italic mt-2">Menunggu Fasa 1</div>
-            </div>
-        </div>
-        
-        <!-- COUNTDOWN TIMERS -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <!-- Countdown: Fasa 1 -->
-            <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl p-6 shadow-lg flex items-center justify-between">
+            <div class="bg-gradient-to-r from-blue-900/60 to-slate-900 border border-blue-500/30 rounded-2xl p-6 shadow-xl flex items-center justify-between">
                 <div>
-                    <h3 class="text-sm font-bold text-white mb-1">Menjelang Fasa 1</h3>
-                    <p class="text-xs text-slate-400">3 Ogos 2026</p>
+                    <h3 class="text-base font-extrabold text-white mb-1">Mula Fasa 1 (Sekolah)</h3>
+                    <p class="text-xs text-blue-200 font-medium">3 Ogos 2026, 8:00 AM</p>
                 </div>
-                <div class="flex gap-3 text-center">
-                    <div class="bg-slate-950/80 border border-blue-500/30 rounded-lg p-2 min-w-[50px]">
-                        <span id="cdFasa1Days" class="block text-xl font-bold text-blue-400">00</span>
-                        <span class="text-[9px] text-slate-500 uppercase font-semibold">Hari</span>
+                <div class="flex gap-2 text-center">
+                    <div class="bg-slate-950/80 border border-blue-500/50 rounded-lg p-2 min-w-[55px] shadow-inner">
+                        <span id="cdFasa1Days" class="block text-2xl font-black text-blue-400">00</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Hari</span>
                     </div>
-                    <div class="bg-slate-950/80 border border-blue-500/30 rounded-lg p-2 min-w-[50px]">
-                        <span id="cdFasa1Hours" class="block text-xl font-bold text-blue-400">00</span>
-                        <span class="text-[9px] text-slate-500 uppercase font-semibold">Jam</span>
+                    <div class="bg-slate-950/80 border border-blue-500/50 rounded-lg p-2 min-w-[55px] shadow-inner">
+                        <span id="cdFasa1Hours" class="block text-2xl font-black text-blue-400">00</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Jam</span>
                     </div>
-                    <div class="bg-slate-950/80 border border-blue-500/30 rounded-lg p-2 min-w-[50px]">
-                        <span id="cdFasa1Mins" class="block text-xl font-bold text-blue-400">00</span>
-                        <span class="text-[9px] text-slate-500 uppercase font-semibold">Minit</span>
+                    <div class="bg-slate-950/80 border border-blue-500/50 rounded-lg p-2 min-w-[55px] shadow-inner">
+                        <span id="cdFasa1Mins" class="block text-2xl font-black text-blue-400">00</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Minit</span>
                     </div>
                 </div>
             </div>
 
             <!-- Countdown: Aktiviti Terdekat -->
-            <div class="bg-gradient-to-r from-emerald-900/40 to-slate-900 border border-emerald-800/50 rounded-2xl p-6 shadow-lg flex items-center justify-between">
+            <div class="bg-gradient-to-r from-emerald-900/60 to-slate-900 border border-emerald-500/30 rounded-2xl p-6 shadow-xl flex items-center justify-between">
                 <div>
-                    <h3 class="text-sm font-bold text-white mb-1">Aktiviti Terdekat</h3>
-                    <p class="text-[11px] text-emerald-400 font-medium mb-1">Taklimat Peserta (Pra-Program)</p>
-                    <p class="text-[10px] text-slate-400">20 Julai 2026</p>
+                    <h3 class="text-base font-extrabold text-white mb-1">Aktiviti Terdekat</h3>
+                    <p class="text-xs text-emerald-300 font-bold mb-0.5">Taklimat Peserta (Pra-Program)</p>
+                    <p class="text-[10px] text-emerald-200/70 font-medium">20 Julai 2026, 9:00 AM</p>
                 </div>
-                <div class="flex gap-3 text-center">
-                    <div class="bg-slate-950/80 border border-emerald-500/30 rounded-lg p-2 min-w-[50px]">
-                        <span id="cdAktivitiDays" class="block text-xl font-bold text-emerald-400">00</span>
-                        <span class="text-[9px] text-slate-500 uppercase font-semibold">Hari</span>
+                <div class="flex gap-2 text-center">
+                    <div class="bg-slate-950/80 border border-emerald-500/50 rounded-lg p-2 min-w-[55px] shadow-inner">
+                        <span id="cdAktivitiDays" class="block text-2xl font-black text-emerald-400">00</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Hari</span>
                     </div>
-                    <div class="bg-slate-950/80 border border-emerald-500/30 rounded-lg p-2 min-w-[50px]">
-                        <span id="cdAktivitiHours" class="block text-xl font-bold text-emerald-400">00</span>
-                        <span class="text-[9px] text-slate-500 uppercase font-semibold">Jam</span>
+                    <div class="bg-slate-950/80 border border-emerald-500/50 rounded-lg p-2 min-w-[55px] shadow-inner">
+                        <span id="cdAktivitiHours" class="block text-2xl font-black text-emerald-400">00</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Jam</span>
                     </div>
-                    <div class="bg-slate-950/80 border border-emerald-500/30 rounded-lg p-2 min-w-[50px]">
-                        <span id="cdAktivitiMins" class="block text-xl font-bold text-emerald-400">00</span>
-                        <span class="text-[9px] text-slate-500 uppercase font-semibold">Minit</span>
+                    <div class="bg-slate-950/80 border border-emerald-500/50 rounded-lg p-2 min-w-[55px] shadow-inner">
+                        <span id="cdAktivitiMins" class="block text-2xl font-black text-emerald-400">00</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Minit</span>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- LEFT AREA: MONITORING & DATA -->
-            <div class="xl:col-span-2 space-y-6">
+            <!-- LAJUR KIRI: Analisis, Pautan, & Jadual -->
+            <div class="lg:col-span-2 space-y-8">
                 
-                <!-- Central Database / Forms Hub -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
-                    <h3 class="font-bold text-lg text-white mb-1 flex items-center gap-2">
-                        Pangkalan Data & Pautan Lompat (Jump Links)
-                    </h3>
-                    <p class="text-xs text-slate-400 mb-6">Pusat kawalan pantas untuk menyemak respons peserta di dalam borang atau hamparan rasmi.</p>
+                <section class="bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl p-6 relative overflow-hidden">
+                    <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-500/10 blur-3xl rounded-full pointer-events-none"></div>
+                    <h2 class="text-xl font-extrabold text-white mb-6 flex items-center gap-2 relative z-10">
+                        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                        Analisis Status Tugasan Peserta
+                    </h2>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <a href="https://docs.google.com/spreadsheets/d/17RQGW4PMAgX_91iwePaY6m6dTZZ9IuWecQWfVkNFibg/edit?usp=sharing" target="_blank" class="flex items-center justify-between bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 p-4 rounded-xl transition-all group">
-                            <div class="flex items-center gap-3">
-                                <div class="bg-emerald-500/20 text-emerald-400 p-2 rounded-lg">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    <div class="flex flex-col sm:flex-row items-center gap-8 relative z-10">
+                        <div class="w-full sm:w-1/2 max-w-[250px]">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                        <div class="w-full sm:w-1/2 space-y-4">
+                            <!-- Metrik Teks Terang -->
+                            <div class="bg-slate-950/50 border border-slate-800 p-4 rounded-xl">
+                                <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Jumlah Peserta Didaftar</p>
+                                <p class="text-3xl font-black text-white" id="statTotalPeserta">0</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-emerald-950/30 border border-emerald-900/50 p-3 rounded-xl">
+                                    <p class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider mb-1">Selesai (Pra)</p>
+                                    <p class="text-xl font-black text-emerald-300" id="statSelesai">0</p>
                                 </div>
-                                <div>
-                                    <h4 class="text-sm font-bold text-slate-200">Google Sheet Sandaran</h4>
-                                    <p class="text-[10px] text-slate-400">Pantau sekolah & PPD pilihan</p>
+                                <div class="bg-rose-950/30 border border-rose-900/50 p-3 rounded-xl">
+                                    <p class="text-[10px] text-rose-400 font-bold uppercase tracking-wider mb-1">Tertunggak</p>
+                                    <p class="text-xl font-black text-rose-300" id="statTunggak">0</p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STREAMING_CHUNK:Seksyen Pautan Cepat (Telah dibaiki tag <a>) -->
+                <section class="bg-slate-900 border border-slate-700 rounded-2xl shadow-xl p-6">
+                    <h2 class="text-lg font-bold text-white mb-4">Pangkalan Data & Pautan Pantas</h2>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <a href="https://docs.google.com/spreadsheets/d/17RQGW4PMAgX_91iwePaY6m6dTZZ9IuWecQWfVkNFibg/edit?usp=sharing" target="_blank" class="flex items-center gap-3 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 p-4 rounded-xl transition-all group">
+                            <div class="bg-emerald-500/20 text-emerald-400 p-2 rounded-lg">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-emerald-100 group-hover:text-white">Google Sheet Sandaran</h4>
+                                <p class="text-[10px] text-emerald-200/60">Pantau sekolah & PPD pilihan</p>
                             </div>
                         </a>
                         
-                        <a href="https://drive.google.com/drive/folders/1PfzBbH5CftPJJqoZGpPMD8n8O3UdpnXp?usp=sharing" target="_blank" class="flex items-center justify-between bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 p-4 rounded-xl transition-all group">
-                            <div class="flex items-center gap-3">
-                                <div class="bg-blue-500/20 text-blue-400 p-2 rounded-lg">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
-                                </div>
-                                <div>
-                                    <h4 class="text-sm font-bold text-slate-200">Folder Google Drive Utama</h4>
-                                    <p class="text-[10px] text-slate-400">Semak Lampiran D, E, F, G</p>
-                                </div>
+                        <a href="https://drive.google.com/drive/folders/1PfzBbH5CftPJJqoZGpPMD8n8O3UdpnXp?usp=sharing" target="_blank" class="flex items-center gap-3 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 p-4 rounded-xl transition-all group">
+                            <div class="bg-blue-500/20 text-blue-400 p-2 rounded-lg">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-blue-100 group-hover:text-white">Folder Google Drive</h4>
+                                <p class="text-[10px] text-blue-200/60">Semak Lampiran D, E, F, G</p>
                             </div>
                         </a>
-
-                        <div class="sm:col-span-2 flex gap-2">
-                            <a href="https://forms.gle/cxY72SJ1Ndqdsdhp6" target="_blank" class="flex-1 text-center py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-medium text-slate-300 transition-colors">
-                                Borang i-PROPKES (Pra)
-                            </a>
-                            <a href="https://forms.gle/Sd3XETfSo8QzE3n87" target="_blank" class="flex-1 text-center py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-medium text-slate-300 transition-colors opacity-50">
-                                Borang i-PROPKES (Pasca)
-                            <div class="flex gap-3 pt-4 border-t border-slate-800 mt-2">
-                                <button type="button" onclick="closeRegModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg text-xs font-medium transition-colors outline-none cursor-pointer">Batal</button>
-                                <button type="submit" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-lg text-xs font-medium transition-colors shadow-lg shadow-emerald-600/30 outline-none cursor-pointer">Daftar & Hantar Emel</button>
-                            </div>
-                        </form>
                     </div>
-                </div>
 
-                <!-- Participant Progress Monitor Table -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
-                    <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
-                        <h3 class="font-bold text-white flex items-center gap-2">
-                            Senarai Semak & Status Peserta
-                        </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <a href="https://forms.gle/cxY72SJ1Ndqdsdhp6" target="_blank" class="block text-center py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-xs font-bold text-slate-200 transition-colors">
+                            Borang i-PROPKES (Pra)
+                        </a>
+                        <a href="https://forms.gle/Sd3XETfSo8QzE3n87" target="_blank" class="block text-center py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-xs font-bold text-slate-200 transition-colors opacity-70">
+                            Borang i-PROPKES (Pasca)
+                        </a>
+                        <a href="https://forms.gle/qCPqGMydsUQ5Xmni9" target="_blank" class="block text-center py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-xs font-bold text-slate-200 transition-colors">
+                            Borang Log (B & C)
+                        </a>
                     </div>
-                    
+                </section>
+
+                <section class="bg-slate-900 border border-slate-700 rounded-2xl shadow-xl overflow-hidden">
+                    <div class="p-5 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
+                        <h2 class="font-bold text-lg text-white">Senarai Semak & Status Peserta</h2>
+                    </div>
                     <div class="overflow-x-auto custom-scrollbar">
                         <table class="w-full text-left text-sm border-collapse whitespace-nowrap">
                             <thead>
-                                <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 text-xs font-semibold tracking-wider">
-                                    <th class="py-3 px-6">Nama Peserta</th>
-                                    <th class="py-3 px-6 text-center">Sekolah Sandaran</th>
-                                    <th class="py-3 px-6 text-center">i-PROPKES (Pra)</th>
-                                    <th class="py-3 px-6 text-center">Status Keseluruhan</th>
-                                    <th class="py-3 px-6 text-center">Tindakan</th>
+                                <tr class="bg-slate-900 border-b border-slate-700 text-slate-300 text-xs font-bold tracking-wider uppercase">
+                                    <th class="py-4 px-6">Nama Peserta</th>
+                                    <th class="py-4 px-6 text-center">Sekolah Sandaran</th>
+                                    <th class="py-4 px-6 text-center">Tindakan</th>
                                 </tr>
                             </thead>
-                            <tbody id="adminTableBody" class="divide-y divide-slate-800/50 text-slate-300">
+                            <tbody id="adminTableBody" class="divide-y divide-slate-800/50 text-slate-200 font-medium">
                                 <!-- Data Dimuatkan Secara Dinamik oleh JS -->
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </section>
 
             </div>
 
-            <!-- RIGHT AREA: BROADCAST & MANAGEMENT -->
-            <div class="space-y-6">
+            <!-- LAJUR KANAN: Pendaftaran & Pengumuman -->
+            <div class="space-y-8">
                 
-                <!-- Registration Maker (Daftar Akaun Peserta) -->
-                <div class="bg-gradient-to-b from-emerald-900/40 to-slate-900 border border-emerald-800/50 rounded-2xl shadow-lg p-6">
-                    <h3 class="font-bold text-white mb-2 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
-                        Pendaftaran Akaun Peserta
-                    </h3>
-                    <p class="text-[10px] text-slate-400 mb-4">Cipta ID pengguna dan kata laluan untuk peserta log masuk. Sistem akan merekod dan menghantar maklumat ke e-mel Urus Setia.</p>
+                <section class="bg-gradient-to-b from-teal-900/40 to-slate-900 border border-teal-700/50 rounded-2xl shadow-2xl p-6">
+                    <h2 class="text-lg font-extrabold text-white mb-2 flex items-center gap-2">
+                        <svg class="w-6 h-6 text-teal-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                        Pendaftaran Pengguna
+                    </h2>
+                    <p class="text-xs text-slate-300 mb-6 font-medium leading-relaxed">
+                        Sila daftarkan maklumat lengkap pengguna. Akaun akan diaktifkan serta-merta.
+                    </p>
                     
-                    <button onclick="openRegModal()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-lg text-xs transition-colors outline-none cursor-pointer shadow-lg shadow-emerald-600/20">
-                        + Daftar Akaun Baru
-                    </button>
-                </div>
+                    <form id="registrationForm" class="space-y-4">
+                        
+                        <!-- Peranan -->
+                        <div>
+                            <label class="block text-[11px] font-bold text-teal-300 uppercase tracking-wide mb-1.5">Peranan Sistem</label>
+                            <select id="regRole" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-teal-500 font-medium shadow-inner cursor-pointer">
+                                <option value="" disabled selected>-- Pilih Peranan --</option>
+                                <option value="peserta">Peserta (Permata Citra)</option>
+                                <option value="pemandu">Pemandu Citra</option>
+                                <option value="mentor">Mentor / Coach</option>
+                            </select>
+                        </div>
 
-                <!-- Announcement Board Maker -->
-                <div class="bg-gradient-to-b from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl shadow-lg p-6">
-                    <h3 class="font-bold text-white mb-2 flex items-center gap-2">
+                        <!-- Nama Penuh -->
+                        <div>
+                            <label class="block text-[11px] font-bold text-teal-300 uppercase tracking-wide mb-1.5">Nama Penuh</label>
+                            <input type="text" id="regName" required placeholder="Nama mengikut K/P" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-teal-500 placeholder-slate-500 shadow-inner">
+                        </div>
+
+                        <!-- No KP & Emel -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-teal-300 uppercase tracking-wide mb-1.5">No. K/P</label>
+                                <input type="text" id="regIC" required placeholder="Tanpa sengkang" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-teal-500 placeholder-slate-500 shadow-inner">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-teal-300 uppercase tracking-wide mb-1.5">E-mel</label>
+                                <input type="email" id="regEmail" required placeholder="emel@iab.edu.my" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-teal-500 placeholder-slate-500 shadow-inner">
+                            </div>
+                        </div>
+
+                        <!-- ID Username & Password -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-teal-300 uppercase tracking-wide mb-1.5">ID Log Masuk</label>
+                                <input type="text" id="regUserId" required placeholder="Cth: peserta1" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-teal-500 placeholder-slate-500 shadow-inner">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-teal-300 uppercase tracking-wide mb-1.5">Kata Laluan</label>
+                                <input type="text" id="regPassword" required placeholder="Cth: 123456" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-teal-500 placeholder-slate-500 shadow-inner">
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Fields untuk Peserta shj -->
+                        <div id="pesertaExtraFields" class="hidden p-4 bg-teal-950/30 border border-teal-800/50 rounded-xl space-y-3 mt-4">
+                            <p class="text-[10px] text-teal-400 font-bold uppercase tracking-wider mb-2 border-b border-teal-800 pb-1">Maklumat Penempatan Sandaran</p>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wide mb-1.5">Nama Sekolah Sandaran</label>
+                                <input type="text" id="regSekolah" placeholder="Cth: SMK Seri Bintang" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-teal-500 placeholder-slate-500">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wide mb-1.5">Nama PPD</label>
+                                <input type="text" id="regPPD" placeholder="Cth: PPD Petaling Utama" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-teal-500 placeholder-slate-500">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-extrabold py-3 rounded-xl text-sm transition-colors shadow-lg shadow-teal-900 cursor-pointer outline-none mt-6">
+                            Daftar & Rekod Akaun
+                        </button>
+                    </form>
+                </section>
+
+                <section class="bg-gradient-to-b from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl shadow-xl p-6">
+                    <h2 class="font-bold text-white mb-2 flex items-center gap-2">
                         <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
-                        Pusat Pengumuman
-                    </h3>
-                    <textarea id="announcementText" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-sm text-slate-300 focus:outline-none focus:border-blue-500 h-24 resize-none mb-3 placeholder-slate-600" placeholder="Taip pengumuman baharu di sini..."></textarea>
+                        Hebahan Terkini
+                    </h2>
+                    <textarea id="announcementText" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 h-24 resize-none mb-3 placeholder-slate-500 shadow-inner" placeholder="Taip mesej untuk dipaparkan di skrin peserta..."></textarea>
                     
-                    <button onclick="showAdminToast('Pengumuman telah disiarkan ke papan pemuka semua peserta.', 'blue')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg text-xs transition-colors outline-none cursor-pointer shadow-lg shadow-blue-600/20">
+                    <button onclick="showAdminToast('Pengumuman telah disiarkan ke papan pemuka semua peserta.', 'blue')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-sm transition-colors outline-none cursor-pointer shadow-lg shadow-blue-900">
                         Siarkan Pengumuman
                     </button>
-                </div>
+                </section>
 
-                <!-- Quick Meeting Links Maker -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
-                    <h3 class="font-bold text-white mb-4 text-sm">Pautan Taklimat Rasmi (Google Meet)</h3>
-                    
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-2 bg-slate-950 border border-slate-700 rounded-lg p-2">
-                            <input type="text" value="meet.google.com/pcd-cixo-ize" class="bg-transparent text-xs text-slate-300 w-full outline-none" readonly>
-                            <button onclick="document.execCommand('copy'); showAdminToast('Pautan disalin!', 'blue')" class="bg-slate-800 hover:bg-slate-700 p-1.5 rounded text-slate-400 outline-none cursor-pointer">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            </button>
-                        </div>
-            <h3 class="text-lg font-bold text-white mb-4 border-b border-slate-800 pb-2">Daftar Akaun Sistem</h3>
-            
-            <form id="createAccountForm" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1.5">Pilih Peranan</label>
-                    <select id="regRole" required onchange="updateNameOptions()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 outline-none cursor-pointer">
-                        <option value="" disabled selected>-- Sila Pilih Peranan --</option>
-                        <option value="peserta">Peserta (Permata Citra)</option>
-                        <option value="pemandu">Pemandu Citra</option>
-                        <option value="mentor">Mentor / Coach</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1.5">Pilih Nama Pengguna</label>
-                    <select id="regSelectName" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 outline-none cursor-pointer">
-                        <option value="" disabled selected>-- Pilih Peranan Dahulu --</option>
-                        <!-- Pilihan dimuatkan oleh JS secara dinamik -->
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1.5">ID Pengguna (Username)</label>
-                    <input type="text" id="regUserId" required placeholder="Cth: peserta1 / pmnd1 / mentor1" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1.5">Tetapkan Kata Laluan</label>
-                    <input type="text" id="regPassword" required placeholder="Cth: 123456" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 outline-none">
-                </div>
-
-                <div class="flex gap-3 pt-4 border-t border-slate-800 mt-2">
-                    <button type="button" onclick="closeRegModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg text-xs font-medium transition-colors outline-none cursor-pointer">Batal</button>
-                    <button type="submit" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-lg text-xs font-medium transition-colors shadow-lg shadow-emerald-600/30 outline-none cursor-pointer">Daftar & Hantar Emel</button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <footer class="bg-slate-950 border-t border-slate-800 mt-12 py-8 shrink-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div class="text-xs text-slate-400 space-y-1">
+                <p class="font-bold text-slate-300 text-sm mb-2">Pasukan Pembangunan Sistem PROPKES 2026</p>
+                <p><span class="font-semibold text-slate-300">Disediakan oleh:</span> Puan Ainol Hidayah Abdul Rauof</p>
+                <div class="mt-2 text-[11px] leading-relaxed">
+                    <span class="font-semibold text-slate-300">Urus setia:</span><br>
+                    • Puan Rashidah binti Mohd Said (KP, PDi)<br>
+                    • Encik Mohamed Khaidir bin Alias (KJ, JPeS)<br>
+                    • Dr. Noriada binti Abdul Karim (Pegawai Meja 1)<br>
+                    • Puan Noradzlina binti Mohd Radzi (Pegawai Meja 2)
+                </div>
+            </div>
+            <div class="text-slate-500 text-xs font-medium">
+                &copy; 2026 Institut Aminuddin Baki (IAB).
+            </div>
+        </div>
+    </footer>
 
     <!-- Toast Notification Container -->
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2"></div>
 
     <script>
-        // Data 12 Peserta Sebenar PROPKES 2026
-        const pesertaMaster = [
-                { nama: "DR. HAJAH ROSNANI BINTI SAINI", sandaran: "Disahkan", pra: "Selesai", status: "ON TRACK" }
-            ];
+        let myChart = null; // Simpan rujukan carta
 
-        // Countdown Timer Logic
+        // 1. KIRA DETIK (COUNTDOWN)
         function startCountdowns() {
-            // Set Target Dates (Note: JS Date uses 0-indexed months, so 7 = August, 6 = July)
-            const fasa1Date = new Date(2026, 7, 3, 8, 0, 0).getTime(); // 3 Ogos 2026, 8:00 AM
-            const aktivitiDate = new Date(2026, 6, 20, 9, 0, 0).getTime(); // 20 Julai 2026, 9:00 AM
+            const fasa1Date = new Date(2026, 7, 3, 8, 0, 0).getTime(); // 3 Ogos 2026, 8:00 AM (Bulan Ogos = index 7)
+            const aktivitiDate = new Date(2026, 6, 20, 9, 0, 0).getTime(); // 20 Julai 2026, 9:00 AM (Bulan Julai = index 6)
 
-            const x = setInterval(function() {
+            setInterval(function() {
                 const now = new Date().getTime();
 
-                // Fasa 1 Calculation
-                const distanceFasa1 = fasa1Date - now;
-                if (distanceFasa1 > 0) {
-                    const daysF1 = Math.floor(distanceFasa1 / (1000 * 60 * 60 * 24));
-                    const hoursF1 = Math.floor((distanceFasa1 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minsF1 = Math.floor((distanceFasa1 % (1000 * 60 * 60)) / (1000 * 60));
-                    
-                    document.getElementById("cdFasa1Days").textContent = daysF1.toString().padStart(2, '0');
-                    document.getElementById("cdFasa1Hours").textContent = hoursF1.toString().padStart(2, '0');
-                    document.getElementById("cdFasa1Mins").textContent = minsF1.toString().padStart(2, '0');
-                } else {
-                    document.getElementById("cdFasa1Days").textContent = "00";
-                    document.getElementById("cdFasa1Hours").textContent = "00";
-                    document.getElementById("cdFasa1Mins").textContent = "00";
+                // Fasa 1 
+                const distanceF1 = fasa1Date - now;
+                if (distanceF1 > 0) {
+                    document.getElementById("cdFasa1Days").textContent = Math.floor(distanceF1 / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                    document.getElementById("cdFasa1Hours").textContent = Math.floor((distanceF1 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                    document.getElementById("cdFasa1Mins").textContent = Math.floor((distanceF1 % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
                 }
 
-                // Aktiviti Terdekat Calculation
-                const distanceAktiviti = aktivitiDate - now;
-                if (distanceAktiviti > 0) {
-                    const daysAkt = Math.floor(distanceAktiviti / (1000 * 60 * 60 * 24));
-                    const hoursAkt = Math.floor((distanceAktiviti % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minsAkt = Math.floor((distanceAktiviti % (1000 * 60 * 60)) / (1000 * 60));
-
-                    document.getElementById("cdAktivitiDays").textContent = daysAkt.toString().padStart(2, '0');
-                    document.getElementById("cdAktivitiHours").textContent = hoursAkt.toString().padStart(2, '0');
-                    document.getElementById("cdAktivitiMins").textContent = minsAkt.toString().padStart(2, '0');
-                } else {
-                    document.getElementById("cdAktivitiDays").textContent = "00";
-                    document.getElementById("cdAktivitiHours").textContent = "00";
-                    document.getElementById("cdAktivitiMins").textContent = "00";
+                // Aktiviti Terdekat
+                const distanceAkt = aktivitiDate - now;
+                if (distanceAkt > 0) {
+                    document.getElementById("cdAktivitiDays").textContent = Math.floor(distanceAkt / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                    document.getElementById("cdAktivitiHours").textContent = Math.floor((distanceAkt % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                    document.getElementById("cdAktivitiMins").textContent = Math.floor((distanceAkt % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
                 }
             }, 1000);
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            renderTableAndStats();
-            // Start countdowns on load
-            startCountdowns();
+        // 2. LOGIK BORANG PENDAFTARAN (TUNJUK/SOROK MEDAN PESERTA)
+        document.getElementById("regRole").addEventListener("change", function(e) {
+            const extraFields = document.getElementById("pesertaExtraFields");
+            if (e.target.value === "peserta") {
+                extraFields.classList.remove("hidden");
+                document.getElementById("regSekolah").required = true;
+            } else {
+                extraFields.classList.add("hidden");
+                document.getElementById("regSekolah").required = false;
+            }
         });
 
-        function renderTableAndStats() {
+        // 3. DAFTAR PENGGUNA
+        document.getElementById("registrationForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            const role = document.getElementById("regRole").value;
+            const name = document.getElementById("regName").value;
+            const ic = document.getElementById("regIC").value;
+            const email = document.getElementById("regEmail").value;
+            const username = document.getElementById("regUserId").value.toLowerCase().trim();
+            const password = document.getElementById("regPassword").value;
+            const sekolah = document.getElementById("regSekolah").value || "-";
+            const ppd = document.getElementById("regPPD").value || "-";
+
+            // Simpan ke localStorage
+            let accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+            accounts[username] = { 
+                name: name, 
+                password: password, 
+                role: role,
+                ic: ic,
+                email: email,
+                sekolah: sekolah,
+                ppd: ppd,
+                // Simulasi status rawak untuk Carta
+                statusPra: Math.random() > 0.3 ? 'Selesai' : 'Tertunggak'
+            };
+            localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
+
+            showAdminToast(`Akaun [${role.toUpperCase()}] untuk ${name} berjaya didaftarkan!`, 'success');
+            
+            document.getElementById("registrationForm").reset();
+            document.getElementById("pesertaExtraFields").classList.add("hidden");
+            
+            renderDashboard(); // Kemas kini jadual & carta serta-merta
+        });
+
+        // 4. RENDER JADUAL DAN CARTA (Berdasarkan Data Didaftarkan sahaja)
+        function renderDashboard() {
+            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
             const tbody = document.getElementById("adminTableBody");
             tbody.innerHTML = "";
             
-            // BACA DARI LOCAL STORAGE UNTUK MENCARI PESERTA YANG TELAH DIDAFTARKAN OLEH ADMIN
-            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            const registeredPesertaNames = Object.values(accounts)
-                .filter(acc => acc.role === "peserta")
-                .map(acc => acc.name);
+            // Tapis HANYA peserta
+            const pesertaList = Object.values(accounts).filter(acc => acc.role === "peserta");
+            const totalPeserta = pesertaList.length;
+            
+            let selesaiCount = 0;
+            let tunggakCount = 0;
 
-            // Tapis data supaya HANYA yang telah didaftar akan dipaparkan
-            const activePeserta = pesertaMaster.filter(p => registeredPesertaNames.includes(p.nama));
-
-            let praSelesaiCount = 0;
-            let sandaranSelesaiCount = 0;
-            const total = activePeserta.length; // Jumlah bergantung kepada yang didaftar
-
-            // Papar Mesej Kosong Jika Tiada Peserta
-            if (total === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="py-8 px-6 text-center text-slate-500 text-xs italic">Tiada peserta didaftarkan lagi. Sila daftar akaun peserta di ruangan kanan terlebih dahulu.</td></tr>`;
+            if (totalPeserta === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" class="py-8 px-6 text-center text-slate-500 text-sm font-medium italic">Sila daftarkan peserta di ruangan kanan untuk mula memantau.</td></tr>`;
             } else {
-                activePeserta.forEach(p => {
-                    let rowBg = "";
-                    
-                    // Gayakan status & Kumpul Data
-                    let sandaranBadge = "";
-                    if (p.sandaran === "Disahkan") {
-                        sandaranBadge = `<span class="text-emerald-400 text-xs font-bold">Disahkan</span>`;
-                        sandaranSelesaiCount++;
-                    } else {
-                        sandaranBadge = `<span class="text-rose-400 text-xs font-bold">Tertunggak</span>`;
-                    }
-
-                    let praBadge = "";
-                    if (p.pra === "Selesai") {
-                        praBadge = `<span class="text-emerald-400 text-xs font-bold">Selesai</span>`;
-                        praSelesaiCount++;
-                    } else {
-                        praBadge = `<span class="text-rose-400 text-xs font-bold">Tertunggak</span>`;
-                    }
-                    
-                    let statusBadge = "";
-                    let actionBtn = "";
-                    
-                    if(p.status === "ON TRACK") {
-                        statusBadge = `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">ON TRACK</span>`;
-                        actionBtn = `<button class="text-slate-500 hover:text-slate-400 text-[10px] font-bold outline-none cursor-pointer transition-colors bg-slate-800/50 px-2 py-1 rounded border border-slate-700">Tiada Isu</button>`;
-                    } else {
-                        rowBg = "bg-rose-950/10";
-                        statusBadge = `<span class="bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded text-[10px] font-bold">AMARAN</span>`;
-                        actionBtn = `<button onclick="showAdminToast('Peringatan e-mel rasmi telah dihantar kepada ${p.nama}.', 'blue')" class="bg-rose-600/20 hover:bg-rose-600 text-rose-400 hover:text-white px-2 py-1 rounded text-[10px] outline-none cursor-pointer border border-rose-600/50 transition-colors">Nudge (Emel)</button>`;
-                    }
+                pesertaList.forEach(p => {
+                    if (p.statusPra === 'Selesai') selesaiCount++;
+                    else tunggakCount++;
 
                     const tr = document.createElement("tr");
-                    tr.className = `hover:bg-slate-800/30 transition-colors ${rowBg}`;
+                    tr.className = "hover:bg-slate-800/30 transition-colors";
                     tr.innerHTML = `
-                        <td class="py-3 px-6 font-medium text-white">${p.nama}</td>
-                        <td class="py-3 px-6 text-center">${sandaranBadge}</td>
-                        <td class="py-3 px-6 text-center">${praBadge}</td>
-                        <td class="py-3 px-6 text-center">${statusBadge}</td>
-                        <td class="py-3 px-6 text-center">${actionBtn}</td>
+                        <td class="py-4 px-6">
+                            <p class="font-extrabold text-white text-sm">${p.name}</p>
+                            <p class="text-[10px] text-slate-400 uppercase mt-0.5">${p.ic}</p>
+                        </td>
+                        <td class="py-4 px-6 text-center text-sm text-slate-300">
+                            ${p.sekolah !== "-" ? p.sekolah : "<span class='text-rose-400 text-xs italic'>Belum dikemas kini</span>"}
+                        </td>
+                        <td class="py-4 px-6 text-center">
+                            <button onclick="showAdminToast('E-mel peringatan telah dihantar ke ${p.email}', 'blue')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 px-3 py-1.5 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors shadow-sm">
+                                Nudge (Emel)
+                            </button>
+                        </td>
                     `;
                     tbody.appendChild(tr);
                 });
             }
 
-            // Update Dynamic Numbers in DOM
-            document.getElementById("statTotalPeserta").textContent = total;
-            
-            document.getElementById("statPra").textContent = praSelesaiCount;
-            document.getElementById("statPraTotal").textContent = total;
-            document.getElementById("barPra").style.width = total > 0 ? `${(praSelesaiCount / total) * 100}%` : "0%";
-            
-            document.getElementById("statSandaran").textContent = sandaranSelesaiCount;
-            document.getElementById("statSandaranTotal").textContent = total;
-            document.getElementById("barSandaran").style.width = total > 0 ? `${(sandaranSelesaiCount / total) * 100}%` : "0%";
+            // Kemas kini Teks Metrik
+            document.getElementById("statTotalPeserta").textContent = totalPeserta;
+            document.getElementById("statSelesai").textContent = selesaiCount;
+            document.getElementById("statTunggak").textContent = tunggakCount;
+
+            // Kemas kini Carta
+            updateChart(selesaiCount, tunggakCount);
         }
 
-        const modal = document.getElementById('regModal');
-        const modalContent = document.getElementById('regModalContent');
-
-        function openRegModal() {
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
-            }, 10);
-        }
-
-        function closeRegModal() {
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.remove('flex');
-                modal.classList.add('hidden');
-                document.getElementById("createAccountForm").reset();
-                document.getElementById("regSelectName").innerHTML = '<option value="" disabled selected>-- Pilih Peranan Dahulu --</option>';
-            }, 200);
-        }
-
-        // Data Dinamik Untuk Pendaftaran
-        const pemanduList = [
-            "PUAN FARAH MARDHY BINTI AMAN", "TUAN HAJI MD RAHAIMI BIN RASHID", 
-            "ENCIK NORAZMIR BIN AHMAD", "ENCIK AYUB BIN AHMAD", 
-            "DR. ABDUL GHANI BIN SANI", "TUAN HAJI EDMUND SHAH BIN THAMB"
-        ];
-        
-        const mentorList = [
-            "Pengetua SMK Kuarters KLIA", "Pengetua SMK ST.THERESA", "Pengetua SMS Kepala Batas",
-            "Guru Besar SK Bukit Gelugor", "Guru Besar SK Sulaiman", "Guru Besar SK Agama Sri Aman",
-            "Pengetua SMA Tun Ahmad Zaidi", "Pengetua SMK Matang Jaya", "Guru Besar SK Sugud",
-            "Pengetua SMK Pedas", "Pengetua SMK Rantau Panjang", "Guru Besar SK Bolong"
-        ];
-
-        function updateNameOptions() {
-            const role = document.getElementById("regRole").value;
-            const select = document.getElementById("regSelectName");
-            select.innerHTML = '<option value="" disabled selected>-- Pilih Nama --</option>';
+        // 5. CARTA ANALISIS MENGGUNAKAN CHART.JS
+        function updateChart(selesai, tunggak) {
+            const ctx = document.getElementById('statusChart').getContext('2d');
             
-            let dataList = [];
-            if(role === 'peserta') dataList = pesertaMaster.map(p => p.nama);
-            else if(role === 'pemandu') dataList = pemanduList;
-            else if(role === 'mentor') dataList = mentorList;
-
-            dataList.forEach(name => {
-                const opt = document.createElement('option');
-                opt.value = name;
-                opt.textContent = name;
-                select.appendChild(opt);
-            });
+            // Jika carta belum wujud, bina baru.
+            if (!myChart) {
+                // Konfigurasi Carta (Warna Terang)
+                myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Selesai Tugasan', 'Tertunggak/Lewat'],
+                        datasets: [{
+                            data: [selesai, tunggak],
+                            backgroundColor: [
+                                '#34d399', // emerald-400
+                                '#fb7185'  // rose-400
+                            ],
+                            borderWidth: 0,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        cutout: '75%',
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: '#cbd5e1', font: { family: 'Inter', size: 11, weight: 'bold' } }
+                            }
+                        }
+                    }
+                });
+            } else {
+                // Jika sudah wujud, hanya kemas kini datanya (animasi lancar)
+                myChart.data.datasets[0].data = [selesai, tunggak];
+                myChart.update();
+            }
         }
 
-        // Kendali proses pendaftaran oleh Admin
-        document.getElementById("createAccountForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-            const role = document.getElementById("regRole").value;
-            const name = document.getElementById("regSelectName").value;
-            const username = document.getElementById("regUserId").value.toLowerCase().trim();
-            const password = document.getElementById("regPassword").value;
-
-            // Simpan ke localStorage dengan peranan sekali
-            let existingAccounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            existingAccounts[username] = { name: name, password: password, role: role };
-            localStorage.setItem("propkes_accounts", JSON.stringify(existingAccounts));
-
-            closeRegModal();
-            renderTableAndStats(); // <-- KEMAS KINI JADUAL SECARA AUTOMATIK SELEPAS DAFTAR!
-            
-            // Simulasikan penghantaran emel kepada Admin
-            showAdminToast(`Akaun [${role.toUpperCase()}] untuk ${name} berjaya dicipta! E-mel makluman telah dihantar ke Urus Setia.`, 'success');
-        });
-
+        // 6. TOAST NOTIFICATION
         function showAdminToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
-            
-            const bgColor = type === 'success' ? 'bg-emerald-600' : 'bg-blue-600';
-            const icon = type === 'success' 
-                ? `<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>`
-                : `<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+            const bgColor = type === 'success' ? 'bg-teal-600' : 'bg-blue-600';
+            const icon = `<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>`;
 
-            toast.className = `${bgColor} text-white px-4 py-3 rounded-lg shadow-xl text-xs sm:text-sm font-medium transition-all duration-500 transform translate-y-10 opacity-0 flex items-start sm:items-center gap-3 max-w-sm`;
-            toast.innerHTML = `${icon} <span class="leading-tight">${message}</span>`;
+            toast.className = `${bgColor} text-white px-5 py-4 rounded-xl shadow-2xl text-sm font-bold transition-all duration-500 transform translate-y-10 opacity-0 flex items-center gap-3`;
+            toast.innerHTML = `${icon} <span>${message}</span>`;
             
             container.appendChild(toast);
             
@@ -542,8 +495,14 @@
                 toast.classList.remove('translate-y-0', 'opacity-100');
                 toast.classList.add('translate-y-2', 'opacity-0');
                 setTimeout(() => toast.remove(), 500);
-            }, 5000);
+            }, 4000);
         }
+
+        // Mulakan semua proses apabila halaman siap
+        document.addEventListener("DOMContentLoaded", () => {
+            startCountdowns();
+            renderDashboard();
+        });
     </script>
 </body>
 </html>
