@@ -6,7 +6,6 @@
     <title>Urus Setia | PROPKES 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -159,7 +158,7 @@
                                 <p class="text-xl font-bold text-white mt-1" id="chartStatTertunggak">0</p>
                             </div>
                         </div>
-                        <button onclick="printAnalisisKeseluruhan()" class="w-full mt-5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-lg text-xs transition-colors outline-none cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 no-print">
+                        <button onclick="printAnalisisKeseluruhan()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-lg text-xs transition-colors outline-none cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.728 13.5H5.25A2.25 2.25 0 0 1 3 11.25v-4.5A2.25 2.25 0 0 1 5.25 4.5h13.5A2.25 2.25 0 0 1 21 6.75v4.5a2.25 2.25 0 0 1-2.25 2.25h-1.478M12 21v-4.5m0 0h-4.5m4.5 0h4.5M12 21a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3Z" /></svg>
                             Cetak Laporan Analisis Kohort (Keseluruhan)
                         </button>
@@ -196,8 +195,14 @@
 
                 <!-- Bahagian 3: Jadual Pengguna -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
-                    <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
-                        <h3 class="font-bold text-white">Senarai Pengguna Didaftarkan</h3>
+                    <div class="p-6 border-b border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-950/50">
+                        <div>
+                            <h3 class="font-bold text-white">Senarai Pengguna Didaftarkan</h3>
+                            <button onclick="printSenaraiPenyelia()" class="mt-2 text-[10px] bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-600/50 px-3 py-1.5 rounded font-bold transition-colors outline-none cursor-pointer flex items-center gap-1 no-print">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.728 13.5H5.25A2.25 2.25 0 0 1 3 11.25v-4.5A2.25 2.25 0 0 1 5.25 4.5h13.5A2.25 2.25 0 0 1 21 6.75v4.5a2.25 2.25 0 0 1-2.25 2.25h-1.478M12 21v-4.5m0 0h-4.5m4.5 0h4.5M12 21a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3Z" /></svg>
+                                Cetak Laporan Penempatan & Penyelia
+                            </button>
+                        </div>
                         <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Cari nama / peranan..." class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500 w-48">
                     </div>
                     <div class="overflow-x-auto custom-scrollbar">
@@ -225,13 +230,13 @@
                         <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z" /></svg>
                         Pendaftaran Pengguna Baru
                     </h3>
-                    <p class="text-xs text-slate-400 mb-5 leading-relaxed">Cipta ID untuk Peserta, Pemandu Citra, atau Mentor.</p>
+                    <p class="text-[11px] text-slate-400 mb-5 leading-relaxed">Cipta ID untuk Peserta, Pemandu Citra, atau Mentor. <br><span class="text-emerald-400 font-semibold">*Nota: Maklumat penyelia & sandaran akan diisi oleh peserta sendiri kelak.*</span></p>
                     
                     <form id="registrationForm" onsubmit="handleRegistration(event)" class="space-y-4">
                         
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pilih Peranan</label>
-                            <select id="regRole" required onchange="togglePesertaFields()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            <select id="regRole" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
                                 <option value="" disabled selected>-- Sila Pilih --</option>
                                 <option value="peserta">Peserta (Permata Citra)</option>
                                 <option value="pemandu">Pemandu Citra</option>
@@ -254,89 +259,6 @@
                             <input type="email" id="regEmail" required placeholder="ali@iab.edu.my" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
                         </div>
 
-                        <!-- Medan Tambahan Khas untuk Peserta (Penyelia) -->
-                        <div id="pesertaExtraFields" class="hidden space-y-4 bg-emerald-950/20 p-4 rounded-xl border border-emerald-900/30">
-                            <p class="text-[10px] font-bold text-emerald-400 uppercase border-b border-emerald-900/50 pb-1 mb-2">Maklumat Sandaran</p>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Nama Sekolah Sandaran</label>
-                                <input type="text" id="regSekolah" placeholder="SMK Seri Bintang" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pejabat Pendidikan Daerah (PPD)</label>
-                                <input type="text" id="regPpd" placeholder="PPD Petaling Utama" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                            </div>
-
-                            <!-- Pemandu Citra -->
-                            <div class="mt-4 pt-3 border-t border-emerald-900/50 space-y-3">
-                                <p class="text-[10px] font-bold text-emerald-400 uppercase">Maklumat Pemandu Citra</p>
-                                <div>
-                                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Nama Pemandu</label>
-                                    <input type="text" id="regPemanduCitra" placeholder="Nama Penuh Pemandu" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                                </div>
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div>
-                                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Jawatan</label>
-                                        <input type="text" id="regPemanduJawatan" placeholder="Cth: Pensyarah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                                    </div>
-                                    <div>
-                                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">No. Telefon</label>
-                                        <input type="text" id="regPemanduTelefon" placeholder="012-3456789" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">E-mel Rasmi</label>
-                                    <input type="email" id="regPemanduEmail" placeholder="pemandu@iab.edu.my" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                                </div>
-                            </div>
-
-                            <!-- Mentor 1 (Sekolah) -->
-                            <div class="mt-4 pt-3 border-t border-emerald-900/50 space-y-3">
-                                <p class="text-[10px] font-bold text-emerald-400 uppercase">Maklumat Mentor 1 (Sekolah Sandaran)</p>
-                                <div>
-                                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Nama Mentor</label>
-                                    <input type="text" id="regMentorSekolah" placeholder="Nama Penuh Mentor" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                                </div>
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div>
-                                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Jawatan / Tempat</label>
-                                        <input type="text" id="regMentorJawatan" placeholder="Cth: Pengetua" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                                    </div>
-                                    <div>
-                                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">No. Telefon</label>
-                                        <input type="text" id="regMentorTelefon" placeholder="012-3456789" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">E-mel Rasmi</label>
-                                    <input type="email" id="regMentorEmail" placeholder="mentor@sekolah.edu.my" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                                </div>
-                            </div>
-
-                            <!-- Mentor 2 (PPD) -->
-                            <div class="mt-4 pt-3 border-t border-emerald-900/50 space-y-3">
-                                <p class="text-[10px] font-bold text-emerald-400 uppercase">Maklumat Mentor 2 (PPD)</p>
-                                <div>
-                                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Nama Mentor</label>
-                                    <input type="text" id="regMentorPpd" placeholder="Nama Penuh Mentor PPD" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                                </div>
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div>
-                                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Jawatan / Tempat</label>
-                                        <input type="text" id="regMentorPpdJawatan" placeholder="Cth: Pegawai SIP+" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                                    </div>
-                                    <div>
-                                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">No. Telefon</label>
-                                        <input type="text" id="regMentorPpdTelefon" placeholder="012-3456789" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">E-mel Rasmi</label>
-                                    <input type="email" id="regMentorPpdEmail" placeholder="mentorppd@moe.gov.my" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                                </div>
-                            </div>
-
-                        </div>
-
                         <div class="grid grid-cols-2 gap-3 mt-4">
                             <div>
                                 <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">ID Log Masuk</label>
@@ -344,7 +266,7 @@
                             </div>
                             <div>
                                 <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Kata Laluan</label>
-                                <input type="text" id="regPassword" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                                <input type="password" id="regPassword" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
                             </div>
                         </div>
 
@@ -373,12 +295,12 @@
 
     </main>
 
-    <!-- Modal Kemas Kini Pengguna -->
+    <!-- Modal Kemas Kini Pengguna (Diringkaskan) -->
     <div id="editModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
-        <div class="bg-slate-900 border border-amber-500/50 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar p-6 transform scale-95 transition-transform duration-300" id="editModalContent">
+        <div class="bg-slate-900 border border-amber-500/50 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300" id="editModalContent">
             <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-4 border-b border-slate-800 pb-3">
                 <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
-                Kemas Kini Maklumat
+                Kemas Kini Maklumat Asas
             </h3>
             
             <form id="editForm" class="space-y-4">
@@ -394,47 +316,6 @@
                     <input type="email" id="editEmail" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
                 </div>
                 
-                <div id="editPesertaFields" class="hidden space-y-4 bg-amber-950/10 p-3 rounded-lg border border-amber-900/30">
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Sekolah Sandaran</label>
-                        <input type="text" id="editSekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">PPD</label>
-                        <input type="text" id="editPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                    </div>
-
-                    <div class="border-t border-amber-900/30 pt-2 mt-2">
-                        <label class="block text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-1">Pemandu Citra</label>
-                        <input type="text" id="editPemanduCitra" placeholder="Nama" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none mb-2">
-                        <div class="grid grid-cols-2 gap-2 mb-2">
-                            <input type="text" id="editPemanduJawatan" placeholder="Jawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            <input type="text" id="editPemanduTelefon" placeholder="Telefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                        </div>
-                        <input type="email" id="editPemanduEmail" placeholder="E-mel" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                    </div>
-
-                    <div class="border-t border-amber-900/30 pt-2 mt-2">
-                        <label class="block text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-1">Mentor 1 (Sekolah)</label>
-                        <input type="text" id="editMentorSekolah" placeholder="Nama" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none mb-2">
-                        <div class="grid grid-cols-2 gap-2 mb-2">
-                            <input type="text" id="editMentorJawatan" placeholder="Jawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            <input type="text" id="editMentorTelefon" placeholder="Telefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                        </div>
-                        <input type="email" id="editMentorEmail" placeholder="E-mel" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                    </div>
-
-                    <div class="border-t border-amber-900/30 pt-2 mt-2">
-                        <label class="block text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-1">Mentor 2 (PPD)</label>
-                        <input type="text" id="editMentorPpd" placeholder="Nama" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none mb-2">
-                        <div class="grid grid-cols-2 gap-2 mb-2">
-                            <input type="text" id="editMentorPpdJawatan" placeholder="Jawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            <input type="text" id="editMentorPpdTelefon" placeholder="Telefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                        </div>
-                        <input type="email" id="editMentorPpdEmail" placeholder="E-mel" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                    </div>
-                </div>
-
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Kata Laluan Baru (Pilihan)</label>
                     <input type="text" id="editPassword" placeholder="Biarkan kosong jika tidak mahu tukar" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
@@ -485,16 +366,6 @@
             renderTableAndStats();
         });
 
-        function togglePesertaFields() {
-            const role = document.getElementById("regRole").value;
-            const extraFields = document.getElementById("pesertaExtraFields");
-            if(role === "peserta") {
-                extraFields.classList.remove("hidden");
-            } else {
-                extraFields.classList.add("hidden");
-            }
-        }
-
         // FUNGSI PENDAFTARAN BARU
         function handleRegistration(e) {
             e.preventDefault();
@@ -505,30 +376,11 @@
             const username = document.getElementById("regUsername").value.toLowerCase();
             const password = document.getElementById("regPassword").value;
             
+            // Set maklumat sandaran & penyelia kepada kosong (peserta akan isi sendiri)
             let sekolah = "", ppd = "";
             let pemanduCitra = "", pemanduJawatan = "", pemanduTelefon = "", pemanduEmail = "";
             let mentorSekolah = "", mentorJawatan = "", mentorTelefon = "", mentorEmail = "";
             let mentorPpd = "", mentorPpdJawatan = "", mentorPpdTelefon = "", mentorPpdEmail = "";
-
-            if(role === "peserta") {
-                sekolah = document.getElementById("regSekolah").value;
-                ppd = document.getElementById("regPpd").value;
-                
-                pemanduCitra = document.getElementById("regPemanduCitra").value;
-                pemanduJawatan = document.getElementById("regPemanduJawatan").value;
-                pemanduTelefon = document.getElementById("regPemanduTelefon").value;
-                pemanduEmail = document.getElementById("regPemanduEmail").value;
-                
-                mentorSekolah = document.getElementById("regMentorSekolah").value;
-                mentorJawatan = document.getElementById("regMentorJawatan").value;
-                mentorTelefon = document.getElementById("regMentorTelefon").value;
-                mentorEmail = document.getElementById("regMentorEmail").value;
-
-                mentorPpd = document.getElementById("regMentorPpd").value;
-                mentorPpdJawatan = document.getElementById("regMentorPpdJawatan").value;
-                mentorPpdTelefon = document.getElementById("regMentorPpdTelefon").value;
-                mentorPpdEmail = document.getElementById("regMentorPpdEmail").value;
-            }
 
             let accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
             if (accounts[username]) {
@@ -558,6 +410,8 @@ ID Pengguna (Username): ${username}
 Kata Laluan: ${password}
 Peranan Anda: ${role.toUpperCase()}
 
+Nota: Sila log masuk dan lengkapkan profil sandaran serta rujukan penyelia anda dengan segera.
+
 Sekian, terima kasih.
 Urus Setia PROPKES 2026.`
             );
@@ -566,7 +420,6 @@ Urus Setia PROPKES 2026.`
             showAdminToast(`Akaun berjaya didaftar. Aplikasi e-mel sedang dibuka...`, "success");
             
             document.getElementById("registrationForm").reset();
-            document.getElementById("pesertaExtraFields").classList.add("hidden");
             renderTableAndStats();
         }
 
@@ -668,30 +521,6 @@ Urus Setia PROPKES 2026.`
             document.getElementById('editEmail').value = u.email;
             document.getElementById('editPassword').value = ""; 
 
-            const pesertaFields = document.getElementById('editPesertaFields');
-            if (u.role === 'peserta') {
-                pesertaFields.classList.remove('hidden');
-                document.getElementById('editSekolah').value = u.sekolah || "";
-                document.getElementById('editPpd').value = u.ppd || "";
-                
-                document.getElementById('editPemanduCitra').value = u.pemanduCitra || "";
-                document.getElementById('editPemanduJawatan').value = u.pemanduJawatan || "";
-                document.getElementById('editPemanduTelefon').value = u.pemanduTelefon || "";
-                document.getElementById('editPemanduEmail').value = u.pemanduEmail || "";
-                
-                document.getElementById('editMentorSekolah').value = u.mentorSekolah || "";
-                document.getElementById('editMentorJawatan').value = u.mentorJawatan || "";
-                document.getElementById('editMentorTelefon').value = u.mentorTelefon || "";
-                document.getElementById('editMentorEmail').value = u.mentorEmail || "";
-
-                document.getElementById('editMentorPpd').value = u.mentorPpd || "";
-                document.getElementById('editMentorPpdJawatan').value = u.mentorPpdJawatan || "";
-                document.getElementById('editMentorPpdTelefon').value = u.mentorPpdTelefon || "";
-                document.getElementById('editMentorPpdEmail').value = u.mentorPpdEmail || "";
-            } else {
-                pesertaFields.classList.add('hidden');
-            }
-
             const modal = document.getElementById('editModal');
             const content = document.getElementById('editModalContent');
             modal.classList.remove('hidden'); modal.classList.add('flex');
@@ -716,26 +545,6 @@ Urus Setia PROPKES 2026.`
                 
                 const newPass = document.getElementById('editPassword').value;
                 if(newPass.trim() !== "") accounts[username].password = newPass;
-
-                if (accounts[username].role === 'peserta') {
-                    accounts[username].sekolah = document.getElementById('editSekolah').value;
-                    accounts[username].ppd = document.getElementById('editPpd').value;
-                    
-                    accounts[username].pemanduCitra = document.getElementById('editPemanduCitra').value;
-                    accounts[username].pemanduJawatan = document.getElementById('editPemanduJawatan').value;
-                    accounts[username].pemanduTelefon = document.getElementById('editPemanduTelefon').value;
-                    accounts[username].pemanduEmail = document.getElementById('editPemanduEmail').value;
-                    
-                    accounts[username].mentorSekolah = document.getElementById('editMentorSekolah').value;
-                    accounts[username].mentorJawatan = document.getElementById('editMentorJawatan').value;
-                    accounts[username].mentorTelefon = document.getElementById('editMentorTelefon').value;
-                    accounts[username].mentorEmail = document.getElementById('editMentorEmail').value;
-
-                    accounts[username].mentorPpd = document.getElementById('editMentorPpd').value;
-                    accounts[username].mentorPpdJawatan = document.getElementById('editMentorPpdJawatan').value;
-                    accounts[username].mentorPpdTelefon = document.getElementById('editMentorPpdTelefon').value;
-                    accounts[username].mentorPpdEmail = document.getElementById('editMentorPpdEmail').value;
-                }
 
                 localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
                 closeEditModal();
@@ -835,7 +644,7 @@ Urus Setia PROPKES 2026.`
                 <div class="print-page">
                     <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 15px;">
                         <h1 style="font-size: 24px; font-weight: bold; margin: 0;">INSTITUT AMINUDDIN BAKI</h1>
-                        <h2 style="font-size: 16px; margin: 5px 0;">KEMENTERIAN PENDIDIKAN MALAYSIA</h2>
+                        <h2 style="font-size: 16px; margin: 5px 0;">KEMENTERIAN PENDIDIKAN</h2>
                         <p style="font-size: 14px; margin: 5px 0; color: #475569;">PROFIL PESERTA & ANALISIS i-PROPKES 2026</p>
                     </div>
 
@@ -946,7 +755,7 @@ Urus Setia PROPKES 2026.`
                 <div class="print-page">
                     <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 15px;">
                         <h1 style="font-size: 24px; font-weight: bold; margin: 0;">INSTITUT AMINUDDIN BAKI</h1>
-                        <h2 style="font-size: 16px; margin: 5px 0;">KEMENTERIAN PENDIDIKAN MALAYSIA</h2>
+                        <h2 style="font-size: 16px; margin: 5px 0;">KEMENTERIAN PENDIDIKAN</h2>
                         <p style="font-size: 14px; margin: 5px 0; color: #475569;">LAPORAN ANALISIS KESELURUHAN i-PROPKES (KOHORT 2026)</p>
                     </div>
 
@@ -973,6 +782,58 @@ Urus Setia PROPKES 2026.`
                         <p style="font-size: 12px; margin: 0; color: #334155; line-height: 1.5;"><strong>Nota Pentafsiran:</strong> Laporan ini mengira purata (mean) skor bagi semua peserta yang telah menjawab instrumen. Skor dinilai atas skala 1 hingga 10. Nilai peningkatan (perbezaan) positif menunjukkan kemajuan dalam kompetensi kepimpinan secara kolektif selepas mengikuti program PROPKES.</p>
                     </div>
 
+                    <p style="text-align: right; font-size: 10px; margin-top: 30px; color: #64748b;">Dicetak oleh: Urus Setia PROPKES | Tarikh: ${new Date().toLocaleString('ms-MY')}</p>
+                </div>
+            `;
+
+            document.getElementById('printSection').innerHTML = printHTML;
+            window.print();
+        }
+
+        // FUNGSI BARU: CETAK SENARAI PENYELIA
+        function printSenaraiPenyelia() {
+            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+            const usernames = Object.keys(accounts).filter(k => accounts[k].role === 'peserta');
+            
+            if (usernames.length === 0) {
+                showAdminToast("Tiada peserta didaftarkan.", "error");
+                return;
+            }
+
+            let tableRows = '';
+            usernames.forEach((uname, index) => {
+                const u = accounts[uname];
+                tableRows += `
+                    <tr>
+                        <td style="text-align:center;">${index + 1}</td>
+                        <td><strong>${u.name}</strong><br><span style="color:#64748b; font-size:10px;">${u.sekolah || 'Belum diisi'}</span></td>
+                        <td>${u.pemanduCitra || '<i style="color:red">Belum diisi</i>'}<br><span style="color:#64748b; font-size:10px;">${u.pemanduTelefon || ''}</span></td>
+                        <td>${u.mentorSekolah || '<i style="color:red">Belum diisi</i>'}<br><span style="color:#64748b; font-size:10px;">${u.mentorTelefon || ''}</span></td>
+                        <td>${u.mentorPpd || '<i style="color:red">Belum diisi</i>'}<br><span style="color:#64748b; font-size:10px;">${u.mentorPpdTelefon || ''}</span></td>
+                    </tr>
+                `;
+            });
+
+            const printHTML = `
+                <div class="print-page">
+                    <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 15px;">
+                        <h1 style="font-size: 24px; font-weight: bold; margin: 0;">INSTITUT AMINUDDIN BAKI</h1>
+                        <h2 style="font-size: 16px; margin: 5px 0;">KEMENTERIAN PENDIDIKAN</h2>
+                        <p style="font-size: 14px; margin: 5px 0; color: #475569;">LAPORAN SENARAI PESERTA DAN PENYELIA PROPKES 2026</p>
+                    </div>
+
+                    <table class="print-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%; text-align:center;">Bil.</th>
+                                <th style="width: 25%;">Nama Peserta & Sekolah</th>
+                                <th style="width: 20%;">Pemandu Citra (IAB)</th>
+                                <th style="width: 25%;">Mentor 1 (Sandaran)</th>
+                                <th style="width: 25%;">Mentor 2 (PPD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>${tableRows}</tbody>
+                    </table>
                     <p style="text-align: right; font-size: 10px; margin-top: 30px; color: #64748b;">Dicetak oleh: Urus Setia PROPKES | Tarikh: ${new Date().toLocaleString('ms-MY')}</p>
                 </div>
             `;
