@@ -97,7 +97,6 @@
                             <thead>
                                 <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 text-[11px] font-semibold tracking-wider uppercase">
                                     <th class="py-3 px-6">Nama Peserta (Mentee)</th>
-                                    <!-- Diubah kepada Tempat Bertugas -->
                                     <th class="py-3 px-6 text-center">Tempat Bertugas</th>
                                     <th class="py-3 px-6 text-center">Jurnal Terkini (Lampiran D)</th>
                                     <th class="py-3 px-6 text-center">Tindakan</th>
@@ -250,23 +249,22 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Jawatan</label>
-                                <input type="text" id="mbJawatan" required placeholder="Cth: Penolong Kanan Pentadbiran" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors">
+                                <input type="text" id="mbJawatan" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
                             </div>
                             <div>
                                 <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Gred</label>
-                                <input type="text" id="mbGred" required placeholder="Cth: DG48" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors">
+                                <input type="text" id="mbGred" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <!-- Diubah kepada Tempat Bertugas -->
                                 <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tempat Bertugas</label>
-                                <input type="text" id="mbTempatBertugas" required placeholder="Nama Sekolah/Institusi Bertugas" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors">
+                                <input type="text" id="mbTempatBertugas" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Pusat / PPD / JPN</label>
-                                <input type="text" id="mbPusat" required placeholder="Nama Pusat/PPD/JPN" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Pusat / Cawangan</label>
+                                <input type="text" id="mbPusat" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
                             </div>
                         </div>
 
@@ -349,7 +347,7 @@
             document.getElementById('navNameDisplay').textContent = mentorName;
             document.getElementById('navInitials').textContent = mentorName.substring(0, 2).toUpperCase();
 
-            // Tapis HANYA pengguna yang berstatus peserta
+            // Tapis HANYA pengguna yang berstatus peserta dari localStorage
             menteeList = Object.entries(accounts)
                 .filter(([username, data]) => data.role === 'peserta')
                 .map(([username, data]) => ({ username, ...data }));
@@ -372,8 +370,8 @@
 
             menteeList.forEach(mentee => {
                 const initials = mentee.name.substring(0, 2).toUpperCase();
-                // Tempat bertugas bergantung jika peserta dah isi atau belum
-                const tempatBertugas = mentee.sekolah || mentee.ppd || '<span class="text-rose-400 italic">Belum Diisi</span>';
+                // Tempat bertugas: Jika peserta dah isi sekolah sandaran
+                const tempatBertugas = mentee.sekolah || '<span class="text-rose-400 italic">Belum Diisi</span>';
 
                 const tr = document.createElement("tr");
                 tr.className = "hover:bg-slate-800/30 transition-colors";
@@ -445,7 +443,7 @@
             }, 300);
         }
 
-        // Modal Logic: Digital Feedback (Lampiran F) Terhubung
+        // Modal Logic: Digital Feedback (Lampiran F) Terhubung Penuh
         const maklumBalasModal = document.getElementById('maklumBalasModal');
         const maklumBalasModalContent = document.getElementById('maklumBalasModalContent');
 
@@ -467,11 +465,13 @@
             const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
             const mentorProfile = accounts[currentUser] || {};
 
-            // Isi Maklumat ke dalam Borang
+            // Isi Maklumat Asas & Automatik (Diisi Oleh Peserta dalam profilnya)
             document.getElementById('mbFasaTitle').textContent = fasa;
             document.getElementById('mbNamaPeserta').value = mentee.name;
-            document.getElementById('mbTempatBertugas').value = mentee.sekolah || mentee.ppd || "";
-            document.getElementById('mbPusat').value = "Pusat / IAB Berkaitan"; // Boleh dilaraskan
+            document.getElementById('mbJawatan').value = mentee.pesertaJawatan || "Belum Diisi";
+            document.getElementById('mbGred').value = mentee.pesertaGred || "Belum Diisi";
+            document.getElementById('mbTempatBertugas').value = mentee.sekolah || "Belum Diisi";
+            document.getElementById('mbPusat').value = mentee.pesertaPusatAsal || "Belum Diisi";
             
             // Isi Maklumat Mentor secara automatik
             document.getElementById('mbNamaMentor').value = mentorProfile.name || "Mentor PROPKES";
@@ -482,9 +482,7 @@
             const dateStr = today.toLocaleDateString('ms-MY', { day: 'numeric', month: 'long', year: 'numeric' });
             document.getElementById('mbTarikhDigital').textContent = `(${dateStr})`;
 
-            // Kosongkan input lama
-            document.getElementById('mbJawatan').value = "";
-            document.getElementById('mbGred').value = "";
+            // Kosongkan input lama untuk ruangan yang perlu ditaip mentor
             document.getElementById('mbTarikhSandaran').value = "";
             document.getElementById('mbMaklumBalas').value = "";
             document.getElementById('mbPengesahan').checked = false;
@@ -512,16 +510,12 @@
         }
 
         function submitDigitalFeedback() {
-            const jawatan = document.getElementById('mbJawatan').value;
-            const gred = document.getElementById('mbGred').value;
-            const tempat = document.getElementById('mbTempatBertugas').value;
-            const pusat = document.getElementById('mbPusat').value;
             const tarikh = document.getElementById('mbTarikhSandaran').value;
             const maklumBalas = document.getElementById('mbMaklumBalas').value;
             const disahkan = document.getElementById('mbPengesahan').checked;
 
-            if(!jawatan || !gred || !tempat || !pusat || !tarikh || !maklumBalas) {
-                showToast("Sila lengkapkan semua maklumat mentee dan ulasan.", "info");
+            if(!tarikh || !maklumBalas) {
+                showToast("Sila lengkapkan tarikh sandaran dan ulasan maklum balas.", "info");
                 return;
             }
 
