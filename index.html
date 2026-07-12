@@ -73,7 +73,7 @@
                 <!-- Paparan Ralat -->
                 <div id="errorMsg" class="hidden bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs p-3 rounded-lg flex items-center gap-2">
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span>Maklumat tidak sah. Sila rujuk Urus Setia.</span>
+                    <span>Maklumat tidak sah. Sila semak ID atau Kata Laluan anda.</span>
                 </div>
 
                 <div class="bg-slate-800/50 border border-slate-700/50 p-4 rounded-lg mt-6">
@@ -82,7 +82,7 @@
                         <li>ID Urus Setia (Admin): <span class="text-blue-400">admin</span></li>
                         <li>Akses Peserta (Lalai): <span class="text-blue-400">peserta1</span></li>
                         <li>Akses Pemandu (Lalai): <span class="text-blue-400">pemandu1</span></li>
-                        <li class="italic text-slate-600 border-t border-slate-700 pt-1 mt-1">*Atau guna ID yang didaftarkan oleh Admin</li>
+                        <li class="italic text-slate-600 border-t border-slate-700 pt-1 mt-1">*Sila log masuk menggunakan ID yang didaftarkan.</li>
                     </ul>
                 </div>
 
@@ -96,6 +96,7 @@
         </div>
     </div>
 
+    <!-- LOGIK SISTEM LOG MASUK -->
     <script>
         document.getElementById("loginForm").addEventListener("submit", function(e) {
             e.preventDefault();
@@ -106,12 +107,12 @@
 
             errorMsg.classList.add("hidden");
 
-            // --- 1. SEMAK AKAUN DINAMIK DARI ADMIN ---
+            // --- 1. SEMAK AKAUN DINAMIK (Pendaftaran dari Admin) ---
             const registeredAccounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
             const account = registeredAccounts[usernameInput];
 
             if (account && account.password === passwordInput) {
-                // Log masuk berjaya menggunakan akaun berdaftar
+                // Berjaya log masuk dengan akaun dinamik
                 const userRole = account.role;
                 localStorage.setItem("propkes_user", usernameInput);
 
@@ -127,10 +128,9 @@
                 return;
             }
 
-            // --- 2. LOGIK FALLBACK LALAI (Jika tiada dalam memori) ---
+            // --- 2. LOGIK FALLBACK LALAI (Jika akaun tidak didaftarkan, guna akses kecemasan) ---
             const defaultPassword = "123456";
             if (passwordInput === defaultPassword) {
-                // Route fallback
                 localStorage.setItem("propkes_user", usernameInput); 
                 
                 if (usernameInput === "admin") {
@@ -139,7 +139,7 @@
                     window.location.href = "dashboard_peserta.html";
                 } else if (usernameInput.startsWith("pemandu")) {
                     window.location.href = "dashboard_pemandu.html";
-                } else if (usernameInput === "mentor") {
+                } else if (usernameInput.startsWith("mentor")) {
                     window.location.href = "dashboard_mentor.html";
                 } else {
                     errorMsg.classList.remove("hidden");
@@ -147,7 +147,7 @@
                 return;
             }
 
-            // Jika kedua-duanya gagal
+            // Jika kedua-duanya gagal (salah ejaan/password)
             errorMsg.classList.remove("hidden");
         });
     </script>
