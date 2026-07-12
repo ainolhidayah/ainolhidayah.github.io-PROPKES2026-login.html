@@ -6,6 +6,7 @@
     <title>Papan Pemuka | Peserta PROPKES</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Muat turun Chart.js untuk Analisis -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -23,14 +24,24 @@
         .fade-in { animation: fadeIn 0.4s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Custom Toggle Checkbox */
+        /* Custom Toggle Checkbox untuk Modal */
         .toggle-checkbox:checked { right: 0; border-color: #10b981; }
         .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
+
+        /* Khusus untuk cetakan laporan analisis */
+        @media print {
+            body { background: white; color: black; }
+            nav, .no-print, .bg-pattern { display: none !important; }
+            #analysisSection { box-shadow: none; border: none; }
+            .bg-slate-900, .bg-slate-950\/50 { background: white !important; }
+            .text-white { color: black !important; }
+            .text-slate-400 { color: #333 !important; }
+        }
     </style>
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center gap-3">
@@ -55,8 +66,8 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        <!-- Welcome Banner -->
-        <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+        <!-- Banner Selamat Datang -->
+        <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden no-print">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-blue-500/10 blur-3xl rounded-full pointer-events-none"></div>
             
             <div class="relative z-10">
@@ -75,8 +86,8 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- BAHAGIAN KIRI (Profil & Stat) -->
-            <div class="lg:col-span-1 space-y-6">
+            <!-- BAHAGIAN KIRI (Profil & Rujukan) -->
+            <div class="lg:col-span-1 space-y-6 no-print">
                 
                 <!-- Profil Peribadi -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
@@ -88,6 +99,10 @@
                         <div>
                             <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">Nama Penuh</p>
                             <p class="text-sm font-medium text-slate-200" id="profileNama">Memuatkan...</p>
+                        </div>
+                        <div class="hidden"> <!-- Disembunyikan secara visual jika tidak perlu -->
+                            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">No. Kad Pengenalan</p>
+                            <p class="text-sm font-medium text-slate-300" id="profileIC">Memuatkan...</p>
                         </div>
                         <div>
                             <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">E-mel Rasmi</p>
@@ -139,37 +154,37 @@
                 </a>
             </div>
 
-            <!-- BAHAGIAN KANAN (Tugasan, Analisis & Kalendar) -->
             <div class="lg:col-span-2 space-y-6">
                 
-                <!-- SEKSYEN BAHARU: LAPORAN ANALISIS i-PROPKES -->
+                <!-- SEKSYEN BAHARU: LAPORAN ANALISIS i-PROPKES (Ditutup jika belum jawab Pra) -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden hidden fade-in" id="analysisSection">
-                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
+                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center print:bg-white print:border-b-2 print:border-gray-200">
                         <div>
-                            <h3 class="font-bold text-white text-sm flex items-center gap-2">
-                                <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
+                            <h3 class="font-bold text-white text-sm flex items-center gap-2 print:text-black print:text-xl">
+                                <svg class="w-5 h-5 text-purple-500 no-print" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
                                 Laporan Analisis Kepimpinan i-PROPKES
                             </h3>
-                            <p class="text-[11px] text-slate-400 mt-1">Perbandingan skor antara Ujian Pra dan Pasca mengikut 7 domain utama.</p>
+                            <p class="text-[11px] text-slate-400 mt-1 print:text-gray-600">Perbandingan skor Ujian Pra dan Pasca mengikut 7 domain utama.</p>
                         </div>
-                        <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-600 transition-colors flex items-center gap-1.5 outline-none">
+                        <button onclick="window.print()" class="no-print bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-600 transition-colors flex items-center gap-1.5 outline-none cursor-pointer">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.728 13.5H5.25A2.25 2.25 0 0 1 3 11.25v-4.5A2.25 2.25 0 0 1 5.25 4.5h13.5A2.25 2.25 0 0 1 21 6.75v4.5a2.25 2.25 0 0 1-2.25 2.25h-1.478M12 21v-4.5m0 0h-4.5m4.5 0h4.5M12 21a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3Z" /></svg>
                             Cetak Laporan
                         </button>
                     </div>
                     
-                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-900">
+                    <!-- Ruangan Carta -->
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-900 print:bg-white print:block">
                         <!-- Carta Bar -->
-                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50">
-                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Perbandingan Skor (Carta Bar)</h4>
+                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 print:border-none print:shadow-none print:mb-8">
+                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider print:text-black">Perbandingan Skor (Carta Bar)</h4>
                             <div class="w-full aspect-square md:aspect-auto md:h-64">
                                 <canvas id="barChart"></canvas>
                             </div>
                         </div>
                         <!-- Carta Radar -->
-                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 flex flex-col items-center">
-                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Profil Domain (Carta Web)</h4>
-                            <div class="w-full max-w-[240px] aspect-square">
+                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 flex flex-col items-center print:border-none print:shadow-none">
+                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider print:text-black">Profil Domain (Carta Web)</h4>
+                            <div class="w-full max-w-[280px] aspect-square">
                                 <canvas id="webChart"></canvas>
                             </div>
                         </div>
@@ -177,11 +192,11 @@
                 </div>
 
                 <!-- Tugasan Peserta (Lampiran A) -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden no-print">
                     <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
                         <div>
                             <h3 class="font-bold text-white text-sm">Status Tugasan PROPKES (Lampiran A)</h3>
-                            <p class="text-[11px] text-slate-400 mt-1">Sahihkan pelaksanaan secara jujur apabila selesai sesuatu fasa.</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Sila jalankan ujian / sahkan pelaksanaan apabila selesai fasa.</p>
                         </div>
                         <div class="w-10 h-10 rounded-full border-4 border-slate-700 flex items-center justify-center shrink-0" id="progressCircle">
                             <span class="text-[10px] font-bold text-slate-300" id="progressText">0%</span>
@@ -190,8 +205,8 @@
                     <div class="p-6 space-y-8" id="taskListContainer"></div>
                 </div>
 
-                <!-- Kalendar Interaktif (Bersepadu) -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
+                <!-- Kalendar Interaktif -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6 no-print">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-slate-800 pb-4 mb-4 gap-4">
                         <div>
                             <h3 class="font-bold text-white text-sm flex items-center gap-2">
@@ -212,7 +227,6 @@
                         </div>
                     </div>
 
-                    <!-- Header Hari -->
                     <div class="grid grid-cols-7 gap-1 text-center mb-2">
                         <div class="text-[10px] font-bold text-rose-400">Ahad</div>
                         <div class="text-[10px] font-bold text-slate-400">Isn</div>
@@ -223,10 +237,8 @@
                         <div class="text-[10px] font-bold text-slate-500">Sab</div>
                     </div>
                     
-                    <!-- Grid Tarikh (JS) -->
                     <div class="grid grid-cols-7 gap-1.5 sm:gap-2 text-center" id="calendarGrid"></div>
                     
-                    <!-- Petunjuk Warna -->
                     <div class="mt-5 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[10px] font-medium text-slate-400">
                         <div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-sm bg-blue-500"></div> Sekolah</div>
                         <div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-sm bg-indigo-500"></div> PPD</div>
@@ -239,8 +251,7 @@
         </div>
     </main>
 
-    <!-- MODAL KEMAS KINI HARIAN KALENDAR -->
-    <div id="dailyModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+    <div id="dailyModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-blue-500/30 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="dailyModalContent">
             <div class="flex justify-between items-start mb-5 border-b border-slate-800 pb-3">
                 <div>
@@ -287,7 +298,8 @@
         </div>
     </div>
 
-    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none"></div>
+    <!-- Mesej Bawah Timbul -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
     <script>
         let currentUser = "";
@@ -298,7 +310,7 @@
         let praDateStr = "";
         let pascaDateStr = "";
 
-        // Definisi Tugasan Lampiran A dengan Link ke Sistem
+        // Definisi Tugasan Lampiran A dengan Link Ujian Sistem
         const propkesTasks = [
             {
                 phase: "Pra-Program (Julai 2026)",
@@ -337,7 +349,7 @@
             }
         ];
 
-        let displayMonth = 7; // Ogos (7) Tahun 2026
+        let displayMonth = 7; // Ogos
         let displayYear = 2026;
         const monthNames = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
         
@@ -397,20 +409,6 @@
                 cell.onclick = () => openDailyModal(dateString, d);
                 calGrid.appendChild(cell);
             }
-            
-            // Pengiraan Automatik Bulanan
-            let counts = { sekolah: 0, ppd: 0, iab: 0, cuti: 0 };
-            for(let d=1; d<=daysInMonth; d++) {
-                const dStr = `${displayYear}-${String(displayMonth+1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-                if (calData[dStr] && calData[dStr].loc && counts[calData[dStr].loc] !== undefined) {
-                    counts[calData[dStr].loc]++;
-                }
-            }
-            document.getElementById('statMonthLabel').textContent = monthNames[displayMonth];
-            document.getElementById('countSekolah').textContent = counts.sekolah + " Hari";
-            document.getElementById('countPpd').textContent = counts.ppd + " Hari";
-            document.getElementById('countIab').textContent = counts.iab + " Hari";
-            document.getElementById('countCuti').textContent = counts.cuti + " Hari";
         }
 
         function openDailyModal(dateString, dayNumber) {
@@ -449,11 +447,11 @@
 
             localStorage.setItem(calKey, JSON.stringify(calData));
             closeDailyModal(); renderCalendar();
-            showToast("Rekod kalendar untuk tarikh tersebut telah dikemas kini.");
+            showToast("Rekod kalendar dikemas kini.");
         }
 
         function checkAssessmentData() {
-            // Ambil data skor dari instrumen_pra dan instrumen_pasca
+            // Ambil data skor (Pra & Pasca) yang telah dijawab di sistem
             praData = JSON.parse(localStorage.getItem(`propkes_pra_result_${currentUser}`));
             pascaData = JSON.parse(localStorage.getItem(`propkes_pasca_result_${currentUser}`));
             
@@ -463,7 +461,7 @@
             let userProgress = JSON.parse(localStorage.getItem(userProgressKey) || "{}");
             let userProgressDates = JSON.parse(localStorage.getItem(userProgressDatesKey) || "{}");
 
-            // Tetapkan Tarikh Automatik jika ada data tapi tiada tarikh
+            // Tetapkan rekod siap & tarikh auto sekiranya ada jawapan
             if(praData && !userProgressDates["task_4"]) {
                 userProgress["task_4"] = true;
                 userProgressDates["task_4"] = new Date().toLocaleDateString('ms-MY', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -480,6 +478,7 @@
             praDateStr = userProgressDates["task_4"] || "";
             pascaDateStr = userProgressDates["task_11"] || "";
             
+            // Tunjuk seksyen Laporan jika ujian Pra telah diduduki
             if(praData || pascaData) {
                 document.getElementById("analysisSection").classList.remove("hidden");
                 renderCharts();
@@ -519,7 +518,7 @@
                         ? `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>`
                         : `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
 
-                    // Override button for Assessments if done
+                    // Ganti link pautan mengikut jenis (Assessment atau biasa)
                     let linkButton = "";
                     let customBtnLabel = task.btnText;
                     let customBtnIcon = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"></path>`;
@@ -532,14 +531,15 @@
                     if (!task.isStatic && customBtnLabel !== "") {
                         let linkHref = isDone && task.isAssessment ? '#analysisSection' : task.link;
                         let linkOnClick = isDone && task.isAssessment ? 'onclick="document.getElementById(\'analysisSection\').scrollIntoView({behavior:\'smooth\'}); return false;"' : '';
+                        let targetAttr = isDone && task.isAssessment ? '_self' : '_blank';
                         
-                        linkButton = `<a href="${linkHref}" ${linkOnClick} target="${isDone && task.isAssessment ? '_self' : '_blank'}" class="px-3 py-1.5 ${isDone && task.isAssessment ? 'bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border-purple-600/30' : 'bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border-blue-600/20'} text-[10px] font-bold rounded flex items-center gap-1 border transition-colors">
+                        linkButton = `<a href="${linkHref}" ${linkOnClick} target="${targetAttr}" class="px-3 py-1.5 ${isDone && task.isAssessment ? 'bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border-purple-600/30' : 'bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border-blue-600/20'} text-[10px] font-bold rounded flex items-center gap-1 border transition-colors">
                                         <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${customBtnIcon}</svg>
                                         ${customBtnLabel}
                                       </a>`;
                     }
 
-                    // Untuk Assessment, kita hide toggle jika dah dijawab sebab ia automatik.
+                    // Tindakan Penilaian (Assessment) tidak boleh batal klik, ia menunjukkan tarikh selesai
                     let actionButton = "";
                     if(task.isAssessment && isDone) {
                         actionButton = `<div class="px-3 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold rounded-lg flex flex-col items-end gap-0.5">
@@ -551,7 +551,7 @@
                                <svg class="w-4 h-4 group-hover:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
                                <svg class="w-4 h-4 hidden group-hover:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
                                <span class="group-hover:hidden">Selesai</span>
-                               <span class="hidden group-hover:block">Batal Selesai</span>
+                               <span class="hidden group-hover:block">Batal</span>
                            </button>`;
                     } else if (!task.isAssessment) {
                         actionButton = `<button onclick="toggleTask('${task.id}', true)" class="px-4 py-2 bg-slate-700 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer outline-none shadow-sm shadow-slate-900 border border-slate-600">
@@ -571,7 +571,7 @@
                                 <div class="flex flex-wrap items-center gap-3 mt-2">
                                     <span class="text-[10px] text-slate-400 font-medium flex items-center gap-1 bg-slate-800/50 px-2 py-1 rounded">
                                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                        Tugas: ${task.date}
+                                        ${task.date}
                                     </span>
                                     ${linkButton}
                                 </div>
@@ -587,7 +587,6 @@
                 container.appendChild(taskListDiv);
             });
 
-            // Update Progress Circle
             const percentage = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
             document.getElementById("progressText").textContent = `${percentage}%`;
             
@@ -621,43 +620,37 @@
             localStorage.setItem(userProgressDatesKey, JSON.stringify(userProgressDates));
 
             renderTasks();
-            if (isCompleting) showToast("Tahniah! Tugasan ditanda selesai.");
+            if (isCompleting) showToast("Tugasan ditanda selesai.");
         }
 
         function renderCharts() {
-            // Gunakan domain lalai sekiranya data Pra belum ada
             const domains = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
             
             let praScores = [];
             let pascaScores = [];
 
-            // Ekstrak skor mematuhi susunan domain
             domains.forEach(d => {
                 praScores.push(praData ? praData[d] || 0 : null);
                 pascaScores.push(pascaData ? pascaData[d] || 0 : null);
             });
 
-            // Jika ada Pra Data, ubah title kepada tarikh
             let praLabel = praDateStr ? `Pra (${praDateStr})` : 'Ujian Pra';
             let pascaLabel = pascaDateStr ? `Pasca (${pascaDateStr})` : 'Ujian Pasca (Belum)';
 
-            // Setting Chart.js Bar Chart
+            // Lukis Carta Bar
             const ctxBar = document.getElementById('barChart').getContext('2d');
             new Chart(ctxBar, {
                 type: 'bar',
                 data: {
                     labels: domains,
                     datasets: [
-                        { label: praLabel, data: praScores, backgroundColor: '#3b82f6', borderRadius: 4 }, // Blue
-                        { label: pascaLabel, data: pascaScores, backgroundColor: '#a855f7', borderRadius: 4 } // Purple
+                        { label: praLabel, data: praScores, backgroundColor: '#3b82f6', borderRadius: 4 },
+                        { label: pascaLabel, data: pascaScores, backgroundColor: '#a855f7', borderRadius: 4 }
                     ]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { 
-                        legend: { labels: { color: '#cbd5e1', font: { family: 'Inter', size: 11 } } }
-                    },
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#94a3b8', font: { family: 'Inter', size: 11 } } } },
                     scales: {
                         y: { beginAtZero: true, max: 10, ticks: { color: '#94a3b8', stepSize: 2 }, grid: { color: '#334155' } },
                         x: { ticks: { color: '#94a3b8', font: { size: 9 } }, grid: { display: false } }
@@ -665,42 +658,21 @@
                 }
             });
 
-            // Setting Chart.js Radar Chart
+            // Lukis Carta Radar (Web)
             const ctxWeb = document.getElementById('webChart').getContext('2d');
             new Chart(ctxWeb, {
                 type: 'radar',
                 data: {
                     labels: domains,
                     datasets: [
-                        {
-                            label: praLabel,
-                            data: praScores,
-                            backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                            borderColor: '#3b82f6',
-                            pointBackgroundColor: '#3b82f6',
-                            borderWidth: 2
-                        },
-                        {
-                            label: pascaLabel,
-                            data: pascaScores,
-                            backgroundColor: 'rgba(168, 85, 247, 0.2)',
-                            borderColor: '#a855f7',
-                            pointBackgroundColor: '#a855f7',
-                            borderWidth: 2
-                        }
+                        { label: praLabel, data: praScores, backgroundColor: 'rgba(59, 130, 246, 0.2)', borderColor: '#3b82f6', pointBackgroundColor: '#3b82f6', borderWidth: 2 },
+                        { label: pascaLabel, data: pascaScores, backgroundColor: 'rgba(168, 85, 247, 0.2)', borderColor: '#a855f7', pointBackgroundColor: '#a855f7', borderWidth: 2 }
                     ]
                 },
                 options: {
                     responsive: true,
                     plugins: { legend: { display: false } },
-                    scales: {
-                        r: {
-                            angleLines: { color: '#334155' },
-                            grid: { color: '#334155' },
-                            pointLabels: { color: '#cbd5e1', font: { size: 9, family: 'Inter' } },
-                            ticks: { display: false, min: 0, max: 10 }
-                        }
-                    }
+                    scales: { r: { angleLines: { color: '#334155' }, grid: { color: '#334155' }, pointLabels: { color: '#cbd5e1', font: { size: 9, family: 'Inter' } }, ticks: { display: false, min: 0, max: 10 } } }
                 }
             });
         }
@@ -731,7 +703,6 @@
                 document.getElementById("profileSekolah").textContent = myProfile.sekolah || "Belum Ditetapkan";
                 document.getElementById("profilePPD").textContent = myProfile.ppd ? `PPD: ${myProfile.ppd}` : "PPD: Belum Ditetapkan";
 
-                // Database Pemandu
                 const supervisorDB = {
                     "KHAIRUL IZAD BIN ABD RAHMAN": { pc: "Pn. Farah Mardhy binti Aman", email: "farah.mardhy@iab.edu.my" },
                     "SURIA BINTI IBRAHIM": { pc: "Pn. Farah Mardhy binti Aman", email: "farah.mardhy@iab.edu.my" },
@@ -759,10 +730,21 @@
                 }
             }
 
+            // Jalankan semua modul selepas pengguna disahkan
             checkAssessmentData();
             renderTasks();
             renderCalendar();
         });
+
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3`;
+            toast.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.remove('translate-y-10', 'opacity-0'); }, 10);
+            setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
+        }
 
         function logout() {
             localStorage.removeItem("propkes_user");
