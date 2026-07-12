@@ -306,6 +306,79 @@
         </div>
     </footer>
 
+    <div id="editModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl max-w-lg w-full p-6 transform scale-95 transition-transform duration-300" id="editModalContent">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                    Kemas Kini Maklumat Pengguna
+                </h3>
+                <button onclick="closeEditModal()" class="text-slate-500 hover:text-slate-300 bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg transition-colors outline-none cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <form id="editForm" class="space-y-4">
+                <!-- ID Tidak Boleh Diubah (Primary Key) -->
+                <div>
+                    <label class="block text-[11px] font-bold text-amber-300 uppercase tracking-wide mb-1.5">ID Log Masuk (Tidak boleh diubah)</label>
+                    <input type="text" id="editUserIdOrig" readonly class="w-full bg-slate-950/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-slate-500 cursor-not-allowed font-mono">
+                </div>
+
+                <!-- Peranan -->
+                <div>
+                    <label class="block text-[11px] font-bold text-amber-300 uppercase tracking-wide mb-1.5">Peranan Sistem</label>
+                    <select id="editRole" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-500 cursor-pointer">
+                        <option value="peserta">Peserta (Permata Citra)</option>
+                        <option value="pemandu">Pemandu Citra</option>
+                        <option value="mentor">Mentor / Coach</option>
+                    </select>
+                </div>
+
+                <!-- Nama Penuh -->
+                <div>
+                    <label class="block text-[11px] font-bold text-amber-300 uppercase tracking-wide mb-1.5">Nama Penuh</label>
+                    <input type="text" id="editName" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-amber-300 uppercase tracking-wide mb-1.5">No. K/P</label>
+                        <input type="text" id="editIC" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-amber-300 uppercase tracking-wide mb-1.5">E-mel</label>
+                        <input type="email" id="editEmail" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold text-amber-300 uppercase tracking-wide mb-1.5">Kata Laluan Baru (Biarkan jika tiada perubahan)</label>
+                    <input type="text" id="editPassword" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                </div>
+
+                <div id="editPesertaFields" class="hidden p-4 bg-amber-950/20 border border-amber-800/50 rounded-xl space-y-3 mt-4">
+                    <p class="text-[10px] text-amber-500 font-bold uppercase tracking-wider mb-2 border-b border-amber-800/50 pb-1">Maklumat Penempatan Sandaran</p>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wide mb-1.5">Nama Sekolah Sandaran</label>
+                        <input type="text" id="editSekolah" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wide mb-1.5">Nama PPD</label>
+                        <input type="text" id="editPPD" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                </div>
+
+                <div class="flex gap-3 pt-4 border-t border-slate-800 mt-4">
+                    <button type="button" onclick="closeEditModal()" class="w-1/3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2.5 rounded-xl text-sm transition-colors cursor-pointer outline-none">Batal</button>
+                    <button type="submit" class="w-2/3 bg-amber-600 hover:bg-amber-500 text-white font-extrabold py-2.5 rounded-xl text-sm transition-colors shadow-lg shadow-amber-900 cursor-pointer outline-none">
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Toast Notification Container -->
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2"></div>
 
@@ -392,9 +465,8 @@
             const tbody = document.getElementById("adminTableBody");
             tbody.innerHTML = "";
             
-            // Tapis HANYA peserta
-            const pesertaList = Object.values(accounts).filter(acc => acc.role === "peserta");
-            const totalPeserta = pesertaList.length;
+            const pesertaEntries = Object.entries(accounts).filter(([id, acc]) => acc.role === "peserta");
+            const totalPeserta = pesertaEntries.length;
             
             let selesaiCount = 0;
             let tunggakCount = 0;
@@ -402,7 +474,7 @@
             if (totalPeserta === 0) {
                 tbody.innerHTML = `<tr><td colspan="3" class="py-8 px-6 text-center text-slate-500 text-sm font-medium italic">Sila daftarkan peserta di ruangan kanan untuk mula memantau.</td></tr>`;
             } else {
-                pesertaList.forEach(p => {
+                pesertaEntries.forEach(([username, p]) => {
                     if (p.statusPra === 'Selesai') selesaiCount++;
                     else tunggakCount++;
 
@@ -416,7 +488,10 @@
                         <td class="py-4 px-6 text-center text-sm text-slate-300">
                             ${p.sekolah !== "-" ? p.sekolah : "<span class='text-rose-400 text-xs italic'>Belum dikemas kini</span>"}
                         </td>
-                        <td class="py-4 px-6 text-center">
+                        <td class="py-4 px-6 text-center space-x-2">
+                            <button onclick="openEditModal('${username}')" class="bg-amber-600/20 hover:bg-amber-600 text-amber-500 hover:text-white border border-amber-600/50 px-3 py-1.5 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors shadow-sm mb-2 sm:mb-0">
+                                Kemas Kini
+                            </button>
                             <button onclick="showAdminToast('E-mel peringatan telah dihantar ke ${p.email}', 'blue')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 px-3 py-1.5 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors shadow-sm">
                                 Nudge (Emel)
                             </button>
@@ -502,6 +577,90 @@
         document.addEventListener("DOMContentLoaded", () => {
             startCountdowns();
             renderDashboard();
+        });
+
+        document.getElementById("editRole").addEventListener("change", function(e) {
+            const extraFields = document.getElementById("editPesertaFields");
+            if (e.target.value === "peserta") {
+                extraFields.classList.remove("hidden");
+                document.getElementById("editSekolah").required = true;
+            } else {
+                extraFields.classList.add("hidden");
+                document.getElementById("editSekolah").required = false;
+            }
+        });
+
+        function openEditModal(username) {
+            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+            const user = accounts[username];
+            if (!user) return;
+
+            document.getElementById("editUserIdOrig").value = username;
+            document.getElementById("editName").value = user.name;
+            document.getElementById("editIC").value = user.ic;
+            document.getElementById("editEmail").value = user.email;
+            document.getElementById("editRole").value = user.role;
+            document.getElementById("editPassword").value = user.password;
+            
+            const extraFields = document.getElementById("editPesertaFields");
+            if (user.role === 'peserta') {
+                extraFields.classList.remove("hidden");
+                document.getElementById("editSekolah").value = user.sekolah !== "-" ? user.sekolah : "";
+                document.getElementById("editPPD").value = user.ppd !== "-" ? user.ppd : "";
+            } else {
+                extraFields.classList.add("hidden");
+            }
+
+            const modal = document.getElementById("editModal");
+            const content = document.getElementById("editModalContent");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            setTimeout(() => {
+                modal.classList.remove("opacity-0");
+                modal.classList.add("opacity-100");
+                content.classList.remove("scale-95");
+                content.classList.add("scale-100");
+            }, 10);
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById("editModal");
+            const content = document.getElementById("editModalContent");
+            modal.classList.remove("opacity-100");
+            modal.classList.add("opacity-0");
+            content.classList.remove("scale-100");
+            content.classList.add("scale-95");
+            setTimeout(() => {
+                modal.classList.remove("flex");
+                modal.classList.add("hidden");
+            }, 300);
+        }
+
+        document.getElementById("editForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const username = document.getElementById("editUserIdOrig").value;
+            let accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+            
+            if(accounts[username]) {
+                accounts[username].name = document.getElementById("editName").value;
+                accounts[username].ic = document.getElementById("editIC").value;
+                accounts[username].email = document.getElementById("editEmail").value;
+                accounts[username].password = document.getElementById("editPassword").value;
+                accounts[username].role = document.getElementById("editRole").value;
+                
+                if (accounts[username].role === 'peserta') {
+                    accounts[username].sekolah = document.getElementById("editSekolah").value || "-";
+                    accounts[username].ppd = document.getElementById("editPPD").value || "-";
+                } else {
+                    accounts[username].sekolah = "-";
+                    accounts[username].ppd = "-";
+                }
+
+                localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
+                closeEditModal();
+                showAdminToast(`Maklumat profil berjaya dikemas kini!`, 'success');
+                renderDashboard();
+            }
         });
     </script>
 </body>
