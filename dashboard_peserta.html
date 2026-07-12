@@ -1,17 +1,202 @@
-<!-- ... existing code ... -->
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papan Pemuka | Peserta PROPKES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .bg-pattern {
+            background-color: #0f172a;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px;}
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="bg-pattern min-h-screen text-slate-200">
+
+    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo & System Name -->
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-lg shadow-blue-500/20">
+                        IAB
+                    </div>
+                    <span class="font-bold text-lg tracking-tight text-white hidden sm:block">PROPKES <span class="text-blue-400">2026</span></span>
+                    <span class="ml-2 bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:block">
+                        Mod Peserta
+                    </span>
+                </div>
+                
+                <!-- Profile Area -->
+                <div class="flex items-center gap-4">
                     <div class="text-right hidden md:block">
-                        <p class="text-sm font-semibold text-white" id="navNameDisplay">Nama Peserta</p>
-                        <p class="text-xs text-blue-400">Permata Citra (Peserta)</p>
+                        <p class="text-sm font-semibold text-white" id="navNameDisplay">Memuatkan nama...</p>
+                        <p class="text-xs text-blue-400">Permata Citra</p>
                     </div>
                     <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300" id="navInitials">
                         PC
                     </div>
                     <!-- Logout Button -->
-<!-- ... existing code ... -->
-                <div>
-                    <h1 class="text-2xl md:text-3xl font-bold text-white mb-2" id="welcomeMessage">Selamat Datang, Peserta!</h1>
-                    <p class="text-slate-400 text-sm max-w-xl">Papan pemuka ini memantau secara langsung keperluan dan jadual semasa anda sepanjang program PROPKES 2026. Sila pastikan semua log diisi mengikut ketetapan fasa.</p>
-<!-- ... existing code ... -->
+                    <button onclick="logout()" class="ml-2 bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg transition-colors cursor-pointer outline-none shadow-sm" title="Log Keluar">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Welcome Banner -->
+        <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-64 h-64 bg-blue-500/10 blur-3xl rounded-full pointer-events-none"></div>
+            
+            <div class="relative z-10">
+                <h1 class="text-2xl md:text-3xl font-bold text-white mb-2" id="welcomeMessage">Selamat Datang, Peserta!</h1>
+                <p class="text-slate-400 text-sm max-w-2xl leading-relaxed">Ini adalah papan pemuka peribadi anda. Sila pastikan anda melengkapkan semua tugasan dan borang i-PROPKES mengikut fasa yang telah ditetapkan oleh Urus Setia IAB.</p>
+            </div>
+            
+            <div class="bg-slate-950/50 border border-blue-500/30 rounded-xl p-4 shrink-0 text-center relative z-10 min-w-[150px]">
+                <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1">Status Anda</p>
+                <div class="text-xl font-bold text-emerald-400 flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Aktif
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Profil Peribadi Card -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
+                    <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-sm border-b border-slate-800 pb-3">
+                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        Maklumat Didaftarkan (Admin)
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">Nama Penuh</p>
+                            <p class="text-sm font-medium text-slate-200" id="profileNama">Memuatkan...</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">No. Kad Pengenalan</p>
+                            <p class="text-sm font-medium text-slate-300" id="profileIC">Memuatkan...</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">E-mel Rasmi</p>
+                            <p class="text-sm font-medium text-slate-300" id="profileEmail">Memuatkan...</p>
+                        </div>
+                        <div class="bg-blue-950/30 p-3 rounded-lg border border-blue-900/50">
+                            <p class="text-[10px] text-blue-400 uppercase font-bold tracking-wider mb-1">Sekolah Sandaran</p>
+                            <p class="text-sm font-bold text-blue-100" id="profileSekolah">Memuatkan...</p>
+                            <p class="text-xs text-blue-300 mt-1" id="profilePPD">PPD: Memuatkan...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notis Peringatan -->
+                <div class="bg-gradient-to-br from-amber-900/40 to-slate-900 border border-amber-700/50 rounded-2xl shadow-lg p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 blur-xl rounded-full"></div>
+                    <h3 class="font-bold text-amber-400 mb-2 flex items-center gap-2 text-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        Perhatian Penting
+                    </h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Sila pastikan anda mengemaskini Log Harian Kepimpinan setiap kali tamat sesi di sekolah sandaran. Kegagalan melengkapkan tugasan tepat pada waktu akan direkodkan kepada Pemandu Citra anda.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Senarai Semak Utama -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
+                    <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
+                        <h3 class="font-bold text-white text-sm">Status Tugasan PROPKES Anda</h3>
+                    </div>
+                    
+                    <div class="p-6 space-y-4">
+                        <!-- Task 1 -->
+                        <div class="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-colors">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center shrink-0 border border-emerald-500/30">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white">Instrumen i-PROPKES (Pra)</h4>
+                                    <p class="text-xs text-slate-400">Penilaian kendiri sebelum bermula program</p>
+                                </div>
+                            </div>
+                            <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-[10px] font-bold">Selesai</span>
+                        </div>
+
+                        <!-- Task 2 -->
+                        <div class="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-colors">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center shrink-0 border border-amber-500/30">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white">Penyerahan Surat & Fail Meja</h4>
+                                    <p class="text-xs text-slate-400">Kepada Mentor di Sekolah Sandaran</p>
+                                </div>
+                            </div>
+                            <button class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-colors shadow-lg shadow-blue-900 outline-none">Muat Naik</button>
+                        </div>
+
+                        <!-- Task 3 -->
+                        <div class="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-colors">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-slate-700 text-slate-400 flex items-center justify-center shrink-0 border border-slate-600">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                                <div class="opacity-60">
+                                    <h4 class="text-sm font-bold text-white">Instrumen i-PROPKES (Pasca)</h4>
+                                    <p class="text-xs text-slate-400">Hanya dibuka pada Fasa 2</p>
+                                </div>
+                            </div>
+                            <span class="text-slate-500 text-[10px] font-bold">Terkunci</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pautan Pantas Sistem Luar -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <a href="https://forms.gle/qCPqGMydsUQ5Xmni9" target="_blank" class="bg-blue-600 hover:bg-blue-500 p-5 rounded-2xl shadow-lg shadow-blue-900 transition-all group flex flex-col justify-between min-h-[120px] outline-none">
+                        <div class="flex justify-between items-start">
+                            <div class="bg-white/20 p-2 rounded-lg text-white">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            </div>
+                            <svg class="w-5 h-5 text-blue-300 group-hover:text-white transition-colors group-hover:translate-x-1 group-hover:-translate-y-1 transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-lg">Borang Log Harian</h4>
+                            <p class="text-xs text-blue-200">Isi setiap hari tamat waktu sekolah</p>
+                        </div>
+                    </a>
+
+                    <a href="https://drive.google.com/drive/folders/1PfzBbH5CftPJJqoZGpPMD8n8O3UdpnXp?usp=sharing" target="_blank" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-500 p-5 rounded-2xl shadow-lg transition-all group flex flex-col justify-between min-h-[120px] outline-none">
+                        <div class="flex justify-between items-start">
+                            <div class="bg-slate-900 p-2 rounded-lg text-blue-400 border border-slate-700">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                            </div>
+                            <svg class="w-5 h-5 text-slate-500 group-hover:text-slate-300 transition-colors group-hover:translate-x-1 group-hover:-translate-y-1 transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-lg">Folder Drive Rasmi</h4>
+                            <p class="text-xs text-slate-400">Muat turun & Hantar Lampiran Jurnal</p>
+                        </div>
+                    </a>
                 </div>
 
             </div>
@@ -19,25 +204,49 @@
     </main>
 
     <script>
-        // Papar nama dari localStorage jika pengguna telah mendaftar
+        // Logik Memaparkan Maklumat Dinamik berdasarkan Pendaftaran Admin
         document.addEventListener("DOMContentLoaded", () => {
-            const activeName = localStorage.getItem("propkes_active_peserta_name");
+            // 1. Kenal pasti ID siapa yang sedang log masuk
+            const loggedInUserId = localStorage.getItem("propkes_user");
             
-            if (activeName) {
-                // Tukar format nama (contoh: KHAIRUL IZAD -> Khairul Izad)
-                const formatName = activeName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
-                
-                // Ambil pangkal nama untuk ucapan ringkas
-                const firstName = formatName.split(' ')[0] || "Peserta";
-                
-                // Ambil inisial untuk bulatan avatar
-                const initials = activeName.substring(0,2).toUpperCase();
+            if (!loggedInUserId) {
+                // Jika cuba akses terus tanpa log masuk, tendang keluar
+                window.location.href = "index.html";
+                return;
+            }
 
-                document.getElementById("navNameDisplay").textContent = formatName;
+            // 2. Tarik pangkalan data keseluruhan dari memori browser
+            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+            const myProfile = accounts[loggedInUserId];
+
+            // 3. Masukkan maklumat pangkalan data ke dalam skrin HTML
+            if (myProfile) {
+                const fullName = myProfile.name;
+                const firstName = fullName.split(' ')[0] || "Peserta";
+                const initials = fullName.substring(0,2).toUpperCase();
+
+                // Kemas kini Navbar & Banner
+                document.getElementById("navNameDisplay").textContent = fullName;
                 document.getElementById("welcomeMessage").textContent = "Selamat Datang, " + firstName + "!";
                 document.getElementById("navInitials").textContent = initials;
+
+                // Kemas kini Kad Profil Saya (Baca apa yang Admin taip)
+                document.getElementById("profileNama").textContent = fullName;
+                document.getElementById("profileIC").textContent = myProfile.ic || "Tiada Rekod";
+                document.getElementById("profileEmail").textContent = myProfile.email || "Tiada Rekod";
+                document.getElementById("profileSekolah").textContent = myProfile.sekolah || "Belum Ditetapkan";
+                document.getElementById("profilePPD").textContent = myProfile.ppd ? `PPD: ${myProfile.ppd}` : "PPD: Belum Ditetapkan";
+            } else {
+                // Kesilapan ralat data
+                document.getElementById("profileNama").textContent = "Ralat: Data tidak ditemui.";
             }
         });
+
+        // Fungsi Log Keluar
+        function logout() {
+            localStorage.removeItem("propkes_user");
+            window.location.href = "index.html";
+        }
     </script>
 </body>
 </html>
