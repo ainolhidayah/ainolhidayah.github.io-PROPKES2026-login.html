@@ -1,156 +1,28 @@
-<!DOCTYPE html>
-<html lang="ms">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log Masuk | Sistem PROPKES 2026</title>
-    <!-- Pastikan Tailwind CSS diload dengan betul -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .bg-pattern {
-            background-color: #0f172a;
-            background-image: radial-gradient(#1e293b 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-        /* Tambahan CSS fallback jika Tailwind gagal */
-        .flex-center { display: flex; align-items: center; justify-content: center; }
-    </style>
-</head>
-<body class="bg-pattern min-h-screen flex items-center justify-center p-4 m-0 overflow-x-hidden">
-
-    <!-- Container Utama - Maksimum 4xl supaya tidak melimpah saiz skrin -->
-    <div class="max-w-4xl w-full bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row m-auto">
-        
-        <!-- BAHAGIAN KIRI (Branding & Info) -->
-        <div class="md:w-5/12 bg-gradient-to-br from-blue-900 to-slate-900 p-8 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
-            <!-- Hiasan Visual Latar Belakang -->
-            <div class="absolute -top-16 -left-16 w-48 h-48 bg-blue-500/20 blur-3xl rounded-full"></div>
-            <div class="absolute -bottom-16 -right-16 w-48 h-48 bg-emerald-500/20 blur-3xl rounded-full"></div>
-
-            <div class="relative z-10 mb-8 md:mb-0">
-                <div class="w-12 h-12 bg-blue-500 text-white font-bold text-xl rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 mb-6">
-                    IAB
-                </div>
-                <h1 class="text-3xl font-bold mb-2 tracking-tight">PROPKES <span class="text-blue-400">2026</span></h1>
-                <p class="text-sm text-slate-300 leading-relaxed font-medium">
-                    Program Peningkatan Profesional Pengurusan dan Kepimpinan Sekolah
-                </p>
-            </div>
-
-            <div class="relative z-10 mt-8 md:mt-12">
-                <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Gerbang Akses Bersepadu:</h3>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-3 text-sm text-slate-300">
-                        <div class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        Peserta (Permata Citra)
-                    </li>
-                    <li class="flex items-center gap-3 text-sm text-slate-300">
-                        <div class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        Pemandu Citra
-                    </li>
-                    <li class="flex items-center gap-3 text-sm text-slate-300">
-                        <div class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        Mentor
-                    </li>
-                    <li class="flex items-center gap-3 text-sm text-slate-300">
-                        <div class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        Urus Setia (Admin)
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- BAHAGIAN KANAN (Borang Log Masuk) -->
-        <div class="md:w-7/12 p-8 md:p-12 shrink-0">
-            <div class="mb-8">
-                <h2 class="text-2xl font-bold text-white mb-2">Log Masuk Sistem</h2>
-                <p class="text-sm text-slate-400">Sila masukkan butiran pendaftaran rasmi IAB anda.</p>
-            </div>
-
-            <form id="loginForm" class="space-y-5">
-                
-                <!-- EMEL -->
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">E-mel Pengguna</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
-                        </div>
-                        <input type="email" id="email" required placeholder="nama@iab.edu.my" 
-                            class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors placeholder-slate-600 outline-none">
-                    </div>
-                </div>
-
-                <!-- KATA LALUAN -->
-                <div>
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wide">Kata Laluan</label>
-                        <a href="#" class="text-xs text-blue-400 hover:text-blue-300 font-medium">Lupa Kata Laluan?</a>
-                    </div>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        </div>
-                        <input type="password" id="password" required placeholder="••••••••" 
-                            class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors placeholder-slate-600 outline-none">
-                    </div>
-                </div>
-
-                <!-- PILIH PERANAN (UNTUK UJIAN PROTOTAIP SAHAJA) -->
-                <div class="bg-blue-500/10 border border-blue-500/30 p-4 rounded-lg mt-6">
-                    <label class="block text-xs font-bold text-blue-400 uppercase tracking-wide mb-2 flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                        Pilih Peranan (Mod Ujian Demo)
-                    </label>
-                    <p class="text-[10px] text-blue-300/70 mb-3 leading-tight">Sila pilih peranan di bawah untuk menguji paparan papan pemuka yang berbeza-beza.</p>
-                    <select id="roleSelect" class="w-full bg-slate-900 border border-blue-500/50 rounded-lg px-4 py-2 text-sm text-white outline-none focus:border-blue-500 cursor-pointer">
-                        <option value="peserta">Peserta (Permata Citra)</option>
-                        <option value="pemandu">Pemandu Citra</option>
-                        <option value="mentor">Mentor</option>
-                        <option value="admin">Urus Setia (Admin)</option>
-                    </select>
+<!-- ... existing code ... -->
+                <!-- Info Akaun Demo (Untuk anda rujukan) -->
+                <div class="bg-slate-800/50 border border-slate-700/50 p-4 rounded-lg mt-6">
+                    <p class="text-[10px] text-slate-400 mb-2 font-semibold uppercase">Panduan Log Masuk (Kata Laluan: 123456)</p>
+                    <ul class="text-[10px] text-slate-500 space-y-1 font-mono">
+                        <li>Admin: <span class="text-blue-400">admin</span></li>
+                        <li>Peserta: <span class="text-blue-400">peserta1</span> hingga <span class="text-blue-400">peserta20</span></li>
+                        <li>Pemandu Citra: <span class="text-blue-400">pemandu1</span>, <span class="text-blue-400">pemandu2</span>, <span class="text-blue-400">pemandu3</span></li>
+                        <li>Mentor: <span class="text-blue-400">mentor</span></li>
+                    </ul>
                 </div>
 
                 <!-- BUTANG LOG MASUK -->
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg shadow-blue-600/30 transition-all mt-4 flex justify-center items-center gap-2 cursor-pointer outline-none">
-                    Akses Sistem
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </button>
-
-            </form>
-        </div>
-    </div>
-
-    <!-- Script Penghalaan (Routing Logic) untuk Prototaip -->
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function(e) {
-            // Halang borang dari submit secara asal (refresh page)
-            e.preventDefault();
-
-            // Ambil nilai peranan dari dropdown ujian
-            const selectedRole = document.getElementById("roleSelect").value;
-
-            // Logik navigasi berdasarkan peranan
-            if (selectedRole === "peserta") {
-                window.location.href = "dashboard_peserta.html";
-            } else if (selectedRole === "pemandu") {
-                window.location.href = "dashboard_pemandu.html";
-            } else if (selectedRole === "mentor") {
-                window.location.href = "dashboard_mentor.html";
-            } else if (selectedRole === "admin") {
-                window.location.href = "dashboard_admin.html";
+<!-- ... existing code ... -->
+            // Semak kata laluan dahulu
+            if (passwordInput !== defaultPassword) {
+                errorMsg.classList.remove("hidden");
+                return;
             }
-        });
-    </script>
-</body>
-</html>
+
+            // Simpan sesi log masuk ke localStorage
+            localStorage.setItem("propkes_user", usernameInput);
+
+            // Logik penghalaan berdasarkan ID Pengguna
+            if (usernameInput === "admin") {
+                window.location.href = "dashboard_admin.html";
+            } else if (usernameInput.startsWith("peserta")) {
+<!-- ... existing code ... -->
