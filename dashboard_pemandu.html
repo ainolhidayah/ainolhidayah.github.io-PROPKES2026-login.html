@@ -337,6 +337,104 @@
                 setTimeout(() => toast.remove(), 500);
             }, 3000);
         }
+
+        // --- SISTEM PENAPISAN DINAMIK (DYNAMIC FILTERING SYSTEM) ---
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Ambil ID pengguna yang log masuk (dari index.html)
+            const loggedInUser = localStorage.getItem("propkes_user") || "pemandu1";
+            
+            // 2. Data Profil Pemandu Citra
+            const pemanduProfiles = {
+                "pemandu1": { name: "Dr. Azman", initials: "AZ", role: "Pemandu Citra (Zon Borneo)", title: "Pantauan Kohort Borneo", desc: "Anda ditugaskan memantau peserta Permata Citra dari IAB Cawangan Sabah & Sarawak." },
+                "pemandu2": { name: "Pn. Salmah", initials: "SL", role: "Pemandu Citra (Zon Utara)", title: "Pantauan Kohort Utara", desc: "Anda ditugaskan memantau peserta Permata Citra dari IAB Cawangan Utara." },
+                "pemandu3": { name: "En. Fakhrul Razi", initials: "FR", role: "Pemandu Citra (Zon Tengah)", title: "Pantauan Kohort Tengah/Timur", desc: "Anda ditugaskan memantau peserta Permata Citra dari Genting Highlands & PPKP." }
+            };
+
+            // 3. Database Peserta Sebenar (Berdasarkan Google Sheet Lampiran)
+            const pesertaMasterData = [
+                // Pemandu 1 (Sabah/Sarawak)
+                { pemanduId: "pemandu1", nama: "MOHD MALIM ESANUDDIN", sekolah: "SK BOLONG TUARAN", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                { pemanduId: "pemandu1", nama: "DR CAMMELIA OTHMAN", sekolah: "SK AGAMA SRI AMAN", pra: "Belum", log: "Belum", jurnal: "TUNGGAK", status: "bad" },
+                { pemanduId: "pemandu1", nama: "SYAHIDA FARAH BINTI ABDUL RAHIM", sekolah: "SMA TUN AHMAD ZAIDI", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                { pemanduId: "pemandu1", nama: "DR. HAJAH ROSNANI BINTI SAINI", sekolah: "SMK MATANG JAYA", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                { pemanduId: "pemandu1", nama: "ABD HALIB BIN MOHD ALI", sekolah: "SK SUGUD PENAMPANG", pra: "Selesai", log: "Cicir 1 Hari", jurnal: "HANTAR", status: "warning" },
+                
+                // Pemandu 2 (Utara)
+                { pemanduId: "pemandu2", nama: "DR. MOHD YUSOF BIN MUSTAFFA KAMAL", sekolah: "SM SAINS KEPALA BATAS", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                { pemanduId: "pemandu2", nama: "DR MOHD HAFEZ BIN KAMARUDIN", sekolah: "SK BUKIT GELUGOR", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                { pemanduId: "pemandu2", nama: "DR BARIYAH BINTI BASIRAN", sekolah: "SMK BADLISHAH / SK AIR MERAH", pra: "Belum", log: "Lengkap", jurnal: "HANTAR", status: "warning" },
+                
+                // Pemandu 3 (Genting/Induk)
+                { pemanduId: "pemandu3", nama: "Khairul Izad bin Abd Rahman", sekolah: "SMK Kuarters KLIA", pra: "Selesai", log: "Cicir 2 Hari", jurnal: "HANTAR", status: "warning" },
+                { pemanduId: "pemandu3", nama: "DR.UMA THEVI A/P VETRIVEILMANY", sekolah: "SMK ST.THERESA", pra: "Belum", log: "Lengkap", jurnal: "TUNGGAK", status: "bad" },
+                { pemanduId: "pemandu3", nama: "ROSZILAWATI BINTI ISMAIL", sekolah: "SK SULAIMAN", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                { pemanduId: "pemandu3", nama: "SURIA BINTI IBRAHIM", sekolah: "SMK PEDAS", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" },
+                { pemanduId: "pemandu3", nama: "DR MD NIZAM BIN NASIR", sekolah: "SMK Rantau Panjang", pra: "Selesai", log: "Lengkap", jurnal: "HANTAR", status: "good" }
+            ];
+
+            // Update UI Profile Pemandu
+            const profile = pemanduProfiles[loggedInUser] || pemanduProfiles["pemandu1"];
+            document.getElementById("pemanduNameDisplay").textContent = profile.name;
+            document.getElementById("pemanduRoleDisplay").textContent = profile.role;
+            document.getElementById("pemanduInitials").textContent = profile.initials;
+            document.getElementById("cohortTitle").textContent = profile.title;
+            document.getElementById("tableTitle").textContent = profile.title;
+            document.getElementById("cohortDesc").textContent = profile.desc;
+
+            // Filter Peserta untuk Pemandu ini sahaja
+            const myPeserta = pesertaMasterData.filter(p => p.pemanduId === loggedInUser);
+            
+            // Kira Metrik
+            const total = myPeserta.length;
+            const goodCount = myPeserta.filter(p => p.status === "good").length;
+            const badCount = myPeserta.filter(p => p.status === "bad" || p.status === "warning").length;
+
+            document.getElementById("totalJagaan").textContent = total + " Peserta";
+            document.getElementById("metricTotal").textContent = total;
+            document.getElementById("metricGood").textContent = goodCount;
+            document.getElementById("metricGoodTotal").textContent = "/ " + total;
+            document.getElementById("metricBad").textContent = badCount;
+            document.getElementById("metricBadTotal").textContent = "/ " + total;
+            document.getElementById("lihatSemuaBtn").textContent = "Lihat Semua " + total + " Peserta";
+
+            // Render Table
+            const tbody = document.getElementById("participantTableBody");
+            tbody.innerHTML = "";
+
+            myPeserta.forEach(p => {
+                let rowBg = "";
+                let praIcon = p.pra === "Selesai" ? `<span class="text-emerald-400 text-xs font-bold flex justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></span>` : `<span class="text-rose-400 text-xs font-bold">Belum</span>`;
+                
+                let logClass = p.log === "Lengkap" ? "text-emerald-400" : (p.log === "Belum" ? "text-rose-400" : "text-amber-400");
+                
+                let jurnalBadge = p.jurnal === "HANTAR" ? `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">HANTAR</span>` : `<span class="bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded text-[10px] font-bold">TUNGGAK</span>`;
+
+                let actionBtn = "";
+                if(p.status === "good") {
+                    actionBtn = `<button class="text-slate-500 cursor-not-allowed text-[10px] px-2 py-1 rounded border border-slate-700 bg-slate-800/50" disabled>Tiada Isu</button>`;
+                } else if (p.status === "warning") {
+                    rowBg = "bg-amber-950/10";
+                    actionBtn = `<button onclick="openModal('${p.nama}')" class="bg-teal-600 hover:bg-teal-700 text-white px-3 py-1 rounded text-[10px] outline-none cursor-pointer shadow shadow-teal-600/30 transition-colors">Nudge</button>`;
+                } else {
+                    rowBg = "bg-rose-950/10";
+                    actionBtn = `<button onclick="openModal('${p.nama}')" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1 rounded text-[10px] outline-none cursor-pointer shadow shadow-rose-600/30 transition-colors">Nudge Segera</button>`;
+                }
+
+                const tr = document.createElement("tr");
+                tr.className = `hover:bg-slate-800/30 transition-colors ${rowBg}`;
+                tr.innerHTML = `
+                    <td class="py-3 px-4">
+                        <p class="font-medium text-white">${p.nama}</p>
+                        <p class="text-[10px] text-slate-500">Sekolah: ${p.sekolah}</p>
+                    </td>
+                    <td class="py-3 px-4 text-center">${praIcon}</td>
+                    <td class="py-3 px-4 text-center"><span class="${logClass} text-xs font-bold">${p.log}</span></td>
+                    <td class="py-3 px-4 text-center">${jurnalBadge}</td>
+                    <td class="py-3 px-4 text-center">${actionBtn}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        });
     </script>
 </body>
 </html>
