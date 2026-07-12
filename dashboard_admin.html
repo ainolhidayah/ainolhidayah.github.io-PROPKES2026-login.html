@@ -1,78 +1,618 @@
-<!-- ... existing code ... -->
-                        <td class="py-4 px-6 text-center space-x-2">
-                            <button onclick="openEditModal('${username}')" class="bg-amber-600/20 hover:bg-amber-600 text-amber-500 hover:text-white border border-amber-600/50 px-3 py-1.5 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors shadow-sm mb-2 sm:mb-0">
-                                Kemas Kini
-                            </button>
-                            <button onclick="openDeleteModal('${username}', '${p.name.replace(/'/g, "\\'")}')" class="bg-rose-600/20 hover:bg-rose-600 text-rose-500 hover:text-white border border-rose-600/50 px-3 py-1.5 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors shadow-sm mb-2 sm:mb-0">
-                                Padam
-                            </button>
-                            <button onclick="showAdminToast('E-mel peringatan telah dihantar ke ${p.email}', 'blue')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 px-3 py-1.5 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors shadow-sm">
-                                Nudge (Emel)
-                            </button>
-                        </td>
-<!-- ... existing code ... -->
-                    <button type="button" onclick="closeEditModal()" class="w-1/3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2.5 rounded-xl text-sm transition-colors cursor-pointer outline-none">Batal</button>
-                    <button type="submit" class="w-2/3 bg-amber-600 hover:bg-amber-500 text-white font-extrabold py-2.5 rounded-xl text-sm transition-colors shadow-lg shadow-amber-900 cursor-pointer outline-none">
-                        Simpan Perubahan
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urus Setia | PROPKES 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .bg-pattern {
+            background-color: #0f172a;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px;}
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="bg-pattern min-h-screen text-slate-200">
+
+    <!-- Top Navigation -->
+    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-lg shadow-blue-500/20">IAB</div>
+                    <span class="font-bold text-lg tracking-tight text-white hidden sm:block">PROPKES <span class="text-blue-400">2026</span></span>
+                    <span class="ml-2 bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:block">Mod Urus Setia</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-right hidden md:block">
+                        <p class="text-sm font-semibold text-white">Urus Setia Pusat</p>
+                        <p class="text-xs text-rose-400">Admin</p>
+                    </div>
+                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300">US</div>
+                    <button onclick="logout()" class="ml-2 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-lg transition-colors cursor-pointer outline-none">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Countdown & Pemasa Terang -->
+    <div class="bg-gradient-to-r from-blue-900 to-slate-900 border-b border-blue-900/50 shadow-2xl py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-white tracking-tight drop-shadow-md">Pusat Kawalan PROPKES</h2>
+                    <p class="text-sm text-blue-200 mt-1">Pemantauan dan pendaftaran bersepadu untuk semua pengguna.</p>
+                </div>
+                <div class="flex gap-4">
+                    <div class="bg-slate-950/50 border border-blue-500/30 p-3 rounded-xl text-center min-w-[120px] shadow-inner">
+                        <p class="text-[10px] text-blue-300 uppercase font-bold tracking-wider mb-1">Mula Fasa 1</p>
+                        <p class="text-2xl font-black text-white drop-shadow-lg" id="countdownFasa1">22 Hari</p>
+                    </div>
+                    <div class="bg-slate-950/50 border border-emerald-500/30 p-3 rounded-xl text-center min-w-[120px] shadow-inner">
+                        <p class="text-[10px] text-emerald-300 uppercase font-bold tracking-wider mb-1">Taklimat Peserta</p>
+                        <p class="text-2xl font-black text-emerald-400 drop-shadow-lg" id="countdownTaklimat">8 Hari</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Jumlah Peserta Terdaftar</span>
+                    <div class="bg-blue-500/10 p-1.5 rounded text-blue-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></div>
+                </div>
+                <div class="text-4xl font-black text-white" id="statTotalPeserta">0</div>
+            </div>
+            
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Pemandu Citra</span>
+                    <div class="bg-purple-500/10 p-1.5 rounded text-purple-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                </div>
+                <div class="text-4xl font-black text-white" id="statTotalPemandu">0</div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Mentor Bertugas</span>
+                    <div class="bg-amber-500/10 p-1.5 rounded text-amber-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div>
+                </div>
+                <div class="text-4xl font-black text-white" id="statTotalMentor">0</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
+            
+            <!-- Bahagian Kiri & Tengah: Analisis, Jadual & Pautan -->
+            <div class="xl:col-span-2 space-y-8">
+                
+                <!-- Bahagian 1: Analisis Carta -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6 flex flex-col sm:flex-row items-center gap-8">
+                    <div class="w-48 h-48 shrink-0">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-white mb-2">Status Semasa Tugasan (Peserta)</h3>
+                        <p class="text-sm text-slate-400 mb-4">Carta di sebelah menunjukkan taburan status instrumen (Pra) peserta terkini.</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                                <p class="text-[10px] text-emerald-400 font-bold uppercase">Selesai (On Track)</p>
+                                <p class="text-xl font-bold text-white mt-1" id="chartStatSelesai">0</p>
+                            </div>
+                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                                <p class="text-[10px] text-rose-400 font-bold uppercase">Belum Selesai (Tertunggak)</p>
+                                <p class="text-xl font-bold text-white mt-1" id="chartStatTertunggak">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bahagian 2: Pangkalan Data Jump Links -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
+                    <h3 class="font-bold text-white mb-2">Pangkalan Data Rasmi (Jump Links)</h3>
+                    <p class="text-sm text-slate-400 mb-6">Pusat kawalan pantas untuk menyemak fail asal (Sheets/Drive).</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <a href="https://docs.google.com/spreadsheets/d/17RQGW4PMAgX_91iwePaY6m6dTZZ9IuWecQWfVkNFibg/edit?usp=sharing" target="_blank" class="flex items-center gap-4 bg-slate-800 hover:bg-slate-700/80 p-4 rounded-xl border border-slate-700 transition-colors group outline-none">
+                            <div class="bg-emerald-500/20 text-emerald-400 p-2 rounded-lg group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Google Sheet Sandaran</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Pantau Pendaftaran Sekolah</p>
+                            </div>
+                        </a>
+
+                        <a href="https://drive.google.com/drive/folders/1PfzBbH5CftPJJqoZGpPMD8n8O3UdpnXp?usp=sharing" target="_blank" class="flex items-center gap-4 bg-slate-800 hover:bg-slate-700/80 p-4 rounded-xl border border-slate-700 transition-colors group outline-none">
+                            <div class="bg-blue-500/20 text-blue-400 p-2 rounded-lg group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Folder Google Drive Utama</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Semak Jurnal & Lampiran</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <a href="https://forms.gle/4HLwZKQKQT7mP3CL6" target="_blank" class="bg-slate-950 border border-slate-800 hover:border-slate-600 text-slate-300 text-xs font-semibold py-2.5 px-4 rounded-lg text-center transition-colors">Borang i-PROPKES (Pra)</a>
+                        <a href="https://forms.gle/f68ELKCxAZqEokvq9" target="_blank" class="bg-slate-950 border border-slate-800 hover:border-slate-600 text-slate-300 text-xs font-semibold py-2.5 px-4 rounded-lg text-center transition-colors">Borang i-PROPKES (Pasca)</a>
+                        <a href="https://forms.gle/qCPqGMydsUQ5Xmni9" target="_blank" class="bg-slate-950 border border-slate-800 hover:border-slate-600 text-slate-300 text-xs font-semibold py-2.5 px-4 rounded-lg text-center transition-colors">Borang Log (B & C)</a>
+                    </div>
+                </div>
+
+                <!-- Bahagian 3: Jadual Pengguna -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
+                    <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
+                        <h3 class="font-bold text-white">Senarai Pengguna Didaftarkan</h3>
+                        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Cari nama / peranan..." class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500 w-48">
+                    </div>
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left text-sm border-collapse whitespace-nowrap">
+                            <thead>
+                                <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 text-[11px] font-semibold tracking-wider uppercase">
+                                    <th class="py-3 px-4">Nama Penuh & E-mel</th>
+                                    <th class="py-3 px-4">Peranan</th>
+                                    <th class="py-3 px-4 text-center">Tindakan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userTableBody" class="divide-y divide-slate-800/50 text-slate-300">
+                                <!-- Data pengguna dimuatkan di sini -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bahagian Kanan: Pendaftaran -->
+            <div class="space-y-6">
+                <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-emerald-500/30 rounded-2xl shadow-xl p-6">
+                    <h3 class="font-bold text-white mb-2 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z" /></svg>
+                        Pendaftaran Pengguna Baru
+                    </h3>
+                    <p class="text-xs text-slate-400 mb-5 leading-relaxed">Cipta ID untuk Peserta, Pemandu Citra, atau Mentor.</p>
+                    
+                    <form id="registrationForm" onsubmit="handleRegistration(event)" class="space-y-4">
+                        
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pilih Peranan</label>
+                            <select id="regRole" required onchange="togglePesertaFields()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                                <option value="" disabled selected>-- Sila Pilih --</option>
+                                <option value="peserta">Peserta (Permata Citra)</option>
+                                <option value="pemandu">Pemandu Citra</option>
+                                <option value="mentor">Mentor</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Nama Penuh</label>
+                            <input type="text" id="regName" required placeholder="Ali bin Abu" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">No. Kad Pengenalan</label>
+                            <input type="text" id="regIc" required placeholder="800101011234" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">E-mel Rasmi</label>
+                            <input type="email" id="regEmail" required placeholder="ali@iab.edu.my" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+
+                        <!-- Medan Tambahan Khas untuk Peserta -->
+                        <div id="pesertaExtraFields" class="hidden space-y-4 bg-emerald-950/20 p-4 rounded-xl border border-emerald-900/30">
+                            <p class="text-[10px] font-bold text-emerald-400 uppercase border-b border-emerald-900/50 pb-1 mb-2">Maklumat Sandaran & Penyelia</p>
+                            
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Nama Sekolah Sandaran</label>
+                                <input type="text" id="regSekolah" placeholder="SMK Seri Bintang" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pejabat Pendidikan Daerah (PPD)</label>
+                                <input type="text" id="regPpd" placeholder="PPD Petaling Utama" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Nama Pemandu Citra (IAB)</label>
+                                <input type="text" id="regPemanduCitra" placeholder="Nama Pemandu Citra" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Nama Mentor Sekolah</label>
+                                <input type="text" id="regMentorSekolah" placeholder="Nama Mentor di Sekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Nama Mentor PPD (Pilihan)</label>
+                                <input type="text" id="regMentorPpd" placeholder="Nama Mentor di PPD" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 mt-4">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">ID Log Masuk</label>
+                                <input type="text" id="regUsername" required placeholder="Cth: ali123" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Kata Laluan</label>
+                                <input type="password" id="regPassword" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg text-xs transition-colors shadow-lg shadow-emerald-600/30 mt-4 flex items-center justify-center gap-2 outline-none">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            Daftar & Jana E-mel
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer / Kredit -->
+        <div class="mt-12 border-t border-slate-800 pt-8 pb-4 text-center">
+            <h4 class="text-sm font-bold text-slate-300 mb-2">Papan Pemuka ini disediakan oleh:</h4>
+            <p class="text-xs text-blue-400 font-semibold mb-4">Puan Ainol Hidayah Abdul Rauof</p>
+            
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Ahli Jawatankuasa Urus Setia PROPKES 2026</h4>
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-slate-500 font-medium">
+                <span class="flex items-center gap-1.5"><div class="w-1.5 h-1.5 rounded-full bg-slate-600"></div>Puan Rashidah binti Mohd Said (KP, PDi)</span>
+                <span class="flex items-center gap-1.5"><div class="w-1.5 h-1.5 rounded-full bg-slate-600"></div>Encik Mohamed Khaidir bin Alias (KJ, JPeS)</span>
+                <span class="flex items-center gap-1.5"><div class="w-1.5 h-1.5 rounded-full bg-slate-600"></div>Dr. Noriada binti Abdul Karim (Pegawai Meja 1)</span>
+                <span class="flex items-center gap-1.5"><div class="w-1.5 h-1.5 rounded-full bg-slate-600"></div>Puan Noradzlina binti Mohd Radzi (Pegawai Meja 2)</span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal Kemas Kini Pengguna -->
+    <div id="editModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-900 border border-amber-500/50 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300" id="editModalContent">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-4 border-b border-slate-800 pb-3">
+                <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+                Kemas Kini Maklumat
+            </h3>
+            
+            <form id="editForm" class="space-y-4">
+                <input type="hidden" id="editUsername">
+                <input type="hidden" id="editRole">
+                
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Penuh</label>
+                    <input type="text" id="editName" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">E-mel</label>
+                    <input type="email" id="editEmail" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
+                </div>
+                
+                <div id="editPesertaFields" class="hidden space-y-4 bg-amber-950/10 p-3 rounded-lg border border-amber-900/30">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Sekolah Sandaran</label>
+                        <input type="text" id="editSekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">PPD</label>
+                        <input type="text" id="editPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Pemandu Citra</label>
+                        <input type="text" id="editPemanduCitra" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Mentor Sekolah</label>
+                        <input type="text" id="editMentorSekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Mentor PPD</label>
+                        <input type="text" id="editMentorPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Kata Laluan Baru (Pilihan)</label>
+                    <input type="password" id="editPassword" placeholder="Biarkan kosong jika tidak mahu tukar" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
+                </div>
+
+                <div class="flex gap-3 mt-6 pt-4 border-t border-slate-800">
+                    <button type="button" onclick="closeEditModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg text-xs font-bold transition-colors outline-none cursor-pointer">Batal</button>
+                    <button type="submit" class="flex-1 bg-amber-600 hover:bg-amber-500 text-white py-2 rounded-lg text-xs font-bold transition-colors shadow-lg shadow-amber-900 outline-none cursor-pointer">Simpan Perubahan</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- Modal Padam -->
     <div id="deleteModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-slate-900 border border-rose-700/50 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="deleteModalContent">
             <div class="w-12 h-12 rounded-full bg-rose-500/20 text-rose-500 flex items-center justify-center mb-4 mx-auto border border-rose-500/30">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
             </div>
-            <h3 class="text-lg font-bold text-white text-center mb-2">Sahkan Tindakan Padam</h3>
-            <p class="text-xs text-slate-400 text-center mb-6 leading-relaxed">Adakah anda pasti mahu memadam akaun <strong class="text-white" id="deleteUserName"></strong>? Segala rekod mereka akan dipadam dari sistem.</p>
+            <h3 class="text-lg font-bold text-white text-center mb-2">Sahkan Padam</h3>
+            <p class="text-xs text-slate-400 text-center mb-6">Adakah anda pasti mahu memadam akaun <strong class="text-white" id="deleteUserName"></strong>?</p>
             <input type="hidden" id="deleteUserId">
             
             <div class="flex gap-3">
-                <button onclick="closeDeleteModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-xl text-sm font-bold transition-colors outline-none cursor-pointer border border-slate-700">Batal</button>
-                <button onclick="confirmDelete()" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white py-2.5 rounded-xl text-sm font-bold transition-colors shadow-lg shadow-rose-900 outline-none cursor-pointer">Ya, Padam</button>
+                <button onclick="closeDeleteModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-xl text-sm font-bold transition-colors border border-slate-700 cursor-pointer">Batal</button>
+                <button onclick="confirmDelete()" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white py-2.5 rounded-xl text-sm font-bold transition-colors shadow-lg cursor-pointer">Ya, Padam</button>
             </div>
         </div>
     </div>
 
-    <!-- Toast Notification Container -->
+    <!-- Toast Notification -->
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2"></div>
-<!-- ... existing code ... -->
+
+    <script>
+        // Instance Carta Donut
+        let statusChartInstance = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Simulasi Pemasa (Countdown)
+            const today = new Date();
+            const fasa1Date = new Date("2026-08-03");
+            const taklimatDate = new Date("2026-07-20");
+            
+            const daysToFasa1 = Math.ceil((fasa1Date - today) / (1000 * 60 * 60 * 24));
+            const daysToTaklimat = Math.ceil((taklimatDate - today) / (1000 * 60 * 60 * 24));
+            
+            document.getElementById("countdownFasa1").textContent = daysToFasa1 > 0 ? `${daysToFasa1} Hari` : "Telah Bermula";
+            document.getElementById("countdownTaklimat").textContent = daysToTaklimat > 0 ? `${daysToTaklimat} Hari` : "Selesai";
+
+            renderTableAndStats();
+        });
+
+        function togglePesertaFields() {
+            const role = document.getElementById("regRole").value;
+            const extraFields = document.getElementById("pesertaExtraFields");
+            if(role === "peserta") {
+                extraFields.classList.remove("hidden");
+            } else {
+                extraFields.classList.add("hidden");
+            }
+        }
+
+        // FUNGSI PENDAFTARAN BARU DAN MENGHANTAR EMEL (MAILTO)
+        function handleRegistration(e) {
+            e.preventDefault();
+            const role = document.getElementById("regRole").value;
+            const name = document.getElementById("regName").value;
+            const ic = document.getElementById("regIc").value;
+            const email = document.getElementById("regEmail").value;
+            const username = document.getElementById("regUsername").value.toLowerCase();
+            const password = document.getElementById("regPassword").value;
+            
+            let sekolah = "", ppd = "", pemanduCitra = "", mentorSekolah = "", mentorPpd = "";
+            if(role === "peserta") {
+                sekolah = document.getElementById("regSekolah").value;
+                ppd = document.getElementById("regPpd").value;
+                pemanduCitra = document.getElementById("regPemanduCitra").value;
+                mentorSekolah = document.getElementById("regMentorSekolah").value;
+                mentorPpd = document.getElementById("regMentorPpd").value;
+            }
+
+            let accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+            if (accounts[username]) {
+                showAdminToast("Ralat: ID Pengguna ini telah wujud. Sila guna ID lain.", "error");
+                return;
+            }
+
+            // Simpan Data
+            accounts[username] = {
+                role: role, name: name, ic: ic, email: email, password: password, 
+                sekolah: sekolah, ppd: ppd,
+                pemanduCitra: pemanduCitra, mentorSekolah: mentorSekolah, mentorPpd: mentorPpd,
+                status: "Belum (Sila Mula)" // default status simulasi
+            };
+            localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
+
+            // -- SIMULASI PENGHANTARAN EMEL (MAILTO) --
+            const subject = encodeURIComponent("Maklumat Akses Sistem PROPKES 2026");
+            const body = encodeURIComponent(
+`Salam sejahtera ${name},
+
+Anda telah berjaya didaftarkan ke dalam sistem PROPKES 2026.
+Sila gunakan maklumat di bawah untuk log masuk ke dalam sistem:
+
+URL Sistem: (Sila masukkan URL Github Pages anda di sini)
+ID Pengguna (Username): ${username}
+Kata Laluan: ${password}
+Peranan Anda: ${role.toUpperCase()}
+
+Sekian, terima kasih.
+Urus Setia PROPKES 2026.`
+            );
+            
+            // Buka default email client (Gmail/Outlook) secara pop-up
+            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+
+            showAdminToast(`Akaun berjaya didaftar. Aplikasi e-mel sedang dibuka...`, "success");
+            
+            document.getElementById("registrationForm").reset();
+            document.getElementById("pesertaExtraFields").classList.add("hidden");
+            renderTableAndStats();
+        }
+
+        function renderTableAndStats() {
+            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+            const tbody = document.getElementById("userTableBody");
+            tbody.innerHTML = "";
+
+            let totalPeserta = 0, totalPemandu = 0, totalMentor = 0;
+            let statusSelesai = 0, statusTertunggak = 0;
+
+            const userKeys = Object.keys(accounts);
+
+            if (userKeys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" class="py-8 px-4 text-center text-slate-500 text-xs italic">Tiada pengguna didaftarkan lagi. Sila daftar di borang pendaftaran.</td></tr>`;
+            } else {
+                userKeys.forEach(username => {
+                    const u = accounts[username];
+                    
+                    if(u.role === "peserta") {
+                        totalPeserta++;
+                        // Random status simulation untuk carta chart.js
+                        if(Math.random() > 0.5) statusSelesai++; else statusTertunggak++;
+                    }
+                    if(u.role === "pemandu") totalPemandu++;
+                    if(u.role === "mentor") totalMentor++;
+
+                    let roleBadge = "";
+                    if(u.role === "peserta") roleBadge = `<span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-[10px] font-bold">Peserta</span>`;
+                    else if(u.role === "pemandu") roleBadge = `<span class="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-[10px] font-bold">Pemandu</span>`;
+                    else roleBadge = `<span class="bg-amber-500/20 text-amber-400 px-2 py-1 rounded text-[10px] font-bold">Mentor</span>`;
+
+                    const tr = document.createElement("tr");
+                    tr.className = "hover:bg-slate-800/30 transition-colors";
+                    tr.innerHTML = `
+                        <td class="py-4 px-4">
+                            <p class="font-bold text-white text-xs">${u.name}</p>
+                            <p class="text-[10px] text-slate-500">${u.email} | ID: ${username}</p>
+                        </td>
+                        <td class="py-4 px-4">${roleBadge}</td>
+                        <td class="py-4 px-4 text-center space-x-2">
+                            <button onclick="openEditModal('${username}')" class="bg-amber-600/20 hover:bg-amber-600 text-amber-500 hover:text-white border border-amber-600/50 px-3 py-1.5 rounded text-xs font-bold transition-colors">Kemas Kini</button>
+                            <button onclick="openDeleteModal('${username}', '${u.name.replace(/'/g, "\\'")}')" class="bg-rose-600/20 hover:bg-rose-600 text-rose-500 hover:text-white border border-rose-600/50 px-3 py-1.5 rounded text-xs font-bold transition-colors">Padam</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            // Kemas kini Metrik Header
+            document.getElementById("statTotalPeserta").textContent = totalPeserta;
+            document.getElementById("statTotalPemandu").textContent = totalPemandu;
+            document.getElementById("statTotalMentor").textContent = totalMentor;
+            
+            document.getElementById("chartStatSelesai").textContent = statusSelesai;
+            document.getElementById("chartStatTertunggak").textContent = statusTertunggak;
+
+            updateChart(statusSelesai, statusTertunggak);
+        }
+
+        function updateChart(selesai, tertunggak) {
+            const ctx = document.getElementById('statusChart').getContext('2d');
+            if(statusChartInstance) {
+                statusChartInstance.data.datasets[0].data = [selesai, tertunggak];
+                statusChartInstance.update();
+            } else {
+                statusChartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Selesai', 'Tertunggak'],
+                        datasets: [{
+                            data: [selesai, tertunggak],
+                            backgroundColor: ['#10b981', '#fb7185'], // Emerald & Rose
+                            borderWidth: 0,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '75%',
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+            }
+        }
+
+        // --- FUNGSI KEMAS KINI (EDIT) ---
+        function openEditModal(username) {
+            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+            const u = accounts[username];
+            if(!u) return;
+
+            document.getElementById('editUsername').value = username;
+            document.getElementById('editRole').value = u.role;
+            document.getElementById('editName').value = u.name;
+            document.getElementById('editEmail').value = u.email;
+            document.getElementById('editPassword').value = ""; // Kosongkan password sedia ada
+
+            const pesertaFields = document.getElementById('editPesertaFields');
+            if (u.role === 'peserta') {
+                pesertaFields.classList.remove('hidden');
+                document.getElementById('editSekolah').value = u.sekolah || "";
+                document.getElementById('editPpd').value = u.ppd || "";
+                document.getElementById('editPemanduCitra').value = u.pemanduCitra || "";
+                document.getElementById('editMentorSekolah').value = u.mentorSekolah || "";
+                document.getElementById('editMentorPpd').value = u.mentorPpd || "";
+            } else {
+                pesertaFields.classList.add('hidden');
+            }
+
+            const modal = document.getElementById('editModal');
+            const content = document.getElementById('editModalContent');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('editModal');
+            const content = document.getElementById('editModalContent');
+            modal.classList.add('opacity-0'); content.classList.add('scale-95');
+            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
+        }
+
+        document.getElementById("editForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const username = document.getElementById('editUsername').value;
+            let accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+            
+            if (accounts[username]) {
+                accounts[username].name = document.getElementById('editName').value;
+                accounts[username].email = document.getElementById('editEmail').value;
+                
+                const newPass = document.getElementById('editPassword').value;
+                if(newPass.trim() !== "") accounts[username].password = newPass;
+
+                if (accounts[username].role === 'peserta') {
+                    accounts[username].sekolah = document.getElementById('editSekolah').value;
+                    accounts[username].ppd = document.getElementById('editPpd').value;
+                    accounts[username].pemanduCitra = document.getElementById('editPemanduCitra').value;
+                    accounts[username].mentorSekolah = document.getElementById('editMentorSekolah').value;
+                    accounts[username].mentorPpd = document.getElementById('editMentorPpd').value;
+                }
+
                 localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
                 closeEditModal();
                 showAdminToast(`Maklumat profil berjaya dikemas kini!`, 'success');
-                renderDashboard();
+                renderTableAndStats();
             }
         });
 
+        // --- FUNGSI PADAM (DELETE) ---
         function openDeleteModal(username, name) {
             document.getElementById('deleteUserId').value = username;
             document.getElementById('deleteUserName').textContent = name;
             
             const modal = document.getElementById('deleteModal');
             const content = document.getElementById('deleteModalContent');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modal.classList.add('opacity-100');
-                content.classList.remove('scale-95');
-                content.classList.add('scale-100');
-            }, 10);
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
         }
 
         function closeDeleteModal() {
             const modal = document.getElementById('deleteModal');
             const content = document.getElementById('deleteModalContent');
-            modal.classList.remove('opacity-100');
-            modal.classList.add('opacity-0');
-            content.classList.remove('scale-100');
-            content.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.remove('flex');
-                modal.classList.add('hidden');
-            }, 300);
+            modal.classList.add('opacity-0'); content.classList.add('scale-95');
+            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
         }
 
         function confirmDelete() {
@@ -80,14 +620,37 @@
             let accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
             
             if (accounts[username]) {
-                const name = accounts[username].name;
-                delete accounts[username]; // Proses Padam Data
-                localStorage.setItem("propkes_accounts", JSON.stringify(accounts)); // Simpan memori terkini
-                
+                delete accounts[username];
+                localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
                 closeDeleteModal();
-                showAdminToast(`Akaun untuk ${name} telah berjaya dipadamkan.`, 'success');
-                renderDashboard(); // Kemas kini carta dan jadual
+                showAdminToast(`Akaun telah berjaya dipadamkan.`, 'success');
+                renderTableAndStats();
             }
+        }
+
+        function showAdminToast(msg, type='success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const bg = type === 'success' ? 'bg-emerald-600' : 'bg-rose-600';
+            toast.className = `${bg} text-white px-4 py-3 rounded-lg shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0`;
+            toast.textContent = msg;
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.remove('translate-y-10', 'opacity-0'); }, 10);
+            setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        function filterTable() {
+            const term = document.getElementById("searchInput").value.toLowerCase();
+            const rows = document.getElementById("userTableBody").getElementsByTagName("tr");
+            for (let i = 0; i < rows.length; i++) {
+                if(rows[i].textContent.toLowerCase().includes(term)) rows[i].style.display = "";
+                else rows[i].style.display = "none";
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("propkes_user");
+            window.location.href = "index.html";
         }
     </script>
 </body>
