@@ -114,7 +114,7 @@
                     <ul class="text-[10px] text-slate-500 space-y-1 font-mono">
                         <li>Admin: <span class="text-blue-400">admin</span></li>
                         <li>Peserta: <span class="text-blue-400">peserta1</span> hingga <span class="text-blue-400">peserta20</span></li>
-                        <li>Pemandu Citra: <span class="text-blue-400">pemandu1</span>, <span class="text-blue-400">pemandu2</span>, <span class="text-blue-400">pemandu3</span></li>
+                        <li>Pemandu Citra: <span class="text-blue-400">pemandu1</span> hingga <span class="text-blue-400">pemandu6</span></li>
                         <li>Mentor: <span class="text-blue-400">mentor</span></li>
                     </ul>
                 </div>
@@ -162,8 +162,8 @@
                 }
             } else if (usernameInput.startsWith("pemandu")) {
                 const num = parseInt(usernameInput.replace("pemandu", ""));
-                // Hadkan sehingga pemandu3
-                if (num >= 1 && num <= 3) {
+                // Hadkan sehingga pemandu6
+                if (num >= 1 && num <= 6) {
                     window.location.href = "dashboard_pemandu.html";
                 } else {
                     errorMsg.classList.remove("hidden");
