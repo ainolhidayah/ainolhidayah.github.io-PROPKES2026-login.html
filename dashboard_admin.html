@@ -289,64 +289,78 @@
             const tbody = document.getElementById("adminTableBody");
             tbody.innerHTML = "";
             
+            // BACA DARI LOCAL STORAGE UNTUK MENCARI PESERTA YANG TELAH DIDAFTARKAN OLEH ADMIN
+            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+            const registeredPesertaNames = Object.values(accounts)
+                .filter(acc => acc.role === "peserta")
+                .map(acc => acc.name);
+
+            // Tapis data supaya HANYA yang telah didaftar akan dipaparkan
+            const activePeserta = pesertaMaster.filter(p => registeredPesertaNames.includes(p.nama));
+
             let praSelesaiCount = 0;
             let sandaranSelesaiCount = 0;
-            const total = pesertaMaster.length; // Sepatutnya 12
+            const total = activePeserta.length; // Jumlah bergantung kepada yang didaftar
 
-            pesertaMaster.forEach(p => {
-                let rowBg = "";
-                
-                // Gayakan status & Kumpul Data
-                let sandaranBadge = "";
-                if (p.sandaran === "Disahkan") {
-                    sandaranBadge = `<span class="text-emerald-400 text-xs font-bold">Disahkan</span>`;
-                    sandaranSelesaiCount++;
-                } else {
-                    sandaranBadge = `<span class="text-rose-400 text-xs font-bold">Tertunggak</span>`;
-                }
+            // Papar Mesej Kosong Jika Tiada Peserta
+            if (total === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="py-8 px-6 text-center text-slate-500 text-xs italic">Tiada peserta didaftarkan lagi. Sila daftar akaun peserta di ruangan kanan terlebih dahulu.</td></tr>`;
+            } else {
+                activePeserta.forEach(p => {
+                    let rowBg = "";
+                    
+                    // Gayakan status & Kumpul Data
+                    let sandaranBadge = "";
+                    if (p.sandaran === "Disahkan") {
+                        sandaranBadge = `<span class="text-emerald-400 text-xs font-bold">Disahkan</span>`;
+                        sandaranSelesaiCount++;
+                    } else {
+                        sandaranBadge = `<span class="text-rose-400 text-xs font-bold">Tertunggak</span>`;
+                    }
 
-                let praBadge = "";
-                if (p.pra === "Selesai") {
-                    praBadge = `<span class="text-emerald-400 text-xs font-bold">Selesai</span>`;
-                    praSelesaiCount++;
-                } else {
-                    praBadge = `<span class="text-rose-400 text-xs font-bold">Tertunggak</span>`;
-                }
-                
-                let statusBadge = "";
-                let actionBtn = "";
-                
-                if(p.status === "ON TRACK") {
-                    statusBadge = `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">ON TRACK</span>`;
-                    actionBtn = `<button class="text-slate-500 hover:text-slate-400 text-[10px] font-bold outline-none cursor-pointer transition-colors bg-slate-800/50 px-2 py-1 rounded border border-slate-700">Tiada Isu</button>`;
-                } else {
-                    rowBg = "bg-rose-950/10";
-                    statusBadge = `<span class="bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded text-[10px] font-bold">AMARAN</span>`;
-                    actionBtn = `<button onclick="showAdminToast('Peringatan e-mel rasmi telah dihantar kepada ${p.nama}.', 'blue')" class="bg-rose-600/20 hover:bg-rose-600 text-rose-400 hover:text-white px-2 py-1 rounded text-[10px] outline-none cursor-pointer border border-rose-600/50 transition-colors">Nudge (Emel)</button>`;
-                }
+                    let praBadge = "";
+                    if (p.pra === "Selesai") {
+                        praBadge = `<span class="text-emerald-400 text-xs font-bold">Selesai</span>`;
+                        praSelesaiCount++;
+                    } else {
+                        praBadge = `<span class="text-rose-400 text-xs font-bold">Tertunggak</span>`;
+                    }
+                    
+                    let statusBadge = "";
+                    let actionBtn = "";
+                    
+                    if(p.status === "ON TRACK") {
+                        statusBadge = `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">ON TRACK</span>`;
+                        actionBtn = `<button class="text-slate-500 hover:text-slate-400 text-[10px] font-bold outline-none cursor-pointer transition-colors bg-slate-800/50 px-2 py-1 rounded border border-slate-700">Tiada Isu</button>`;
+                    } else {
+                        rowBg = "bg-rose-950/10";
+                        statusBadge = `<span class="bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded text-[10px] font-bold">AMARAN</span>`;
+                        actionBtn = `<button onclick="showAdminToast('Peringatan e-mel rasmi telah dihantar kepada ${p.nama}.', 'blue')" class="bg-rose-600/20 hover:bg-rose-600 text-rose-400 hover:text-white px-2 py-1 rounded text-[10px] outline-none cursor-pointer border border-rose-600/50 transition-colors">Nudge (Emel)</button>`;
+                    }
 
-                const tr = document.createElement("tr");
-                tr.className = `hover:bg-slate-800/30 transition-colors ${rowBg}`;
-                tr.innerHTML = `
-                    <td class="py-3 px-6 font-medium text-white">${p.nama}</td>
-                    <td class="py-3 px-6 text-center">${sandaranBadge}</td>
-                    <td class="py-3 px-6 text-center">${praBadge}</td>
-                    <td class="py-3 px-6 text-center">${statusBadge}</td>
-                    <td class="py-3 px-6 text-center">${actionBtn}</td>
-                `;
-                tbody.appendChild(tr);
-            });
+                    const tr = document.createElement("tr");
+                    tr.className = `hover:bg-slate-800/30 transition-colors ${rowBg}`;
+                    tr.innerHTML = `
+                        <td class="py-3 px-6 font-medium text-white">${p.nama}</td>
+                        <td class="py-3 px-6 text-center">${sandaranBadge}</td>
+                        <td class="py-3 px-6 text-center">${praBadge}</td>
+                        <td class="py-3 px-6 text-center">${statusBadge}</td>
+                        <td class="py-3 px-6 text-center">${actionBtn}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
 
             // Update Dynamic Numbers in DOM
             document.getElementById("statTotalPeserta").textContent = total;
             
             document.getElementById("statPra").textContent = praSelesaiCount;
             document.getElementById("statPraTotal").textContent = total;
-            document.getElementById("barPra").style.width = `${(praSelesaiCount / total) * 100}%`;
+            document.getElementById("barPra").style.width = total > 0 ? `${(praSelesaiCount / total) * 100}%` : "0%";
             
             document.getElementById("statSandaran").textContent = sandaranSelesaiCount;
             document.getElementById("statSandaranTotal").textContent = total;
-            document.getElementById("barSandaran").style.width = `${(sandaranSelesaiCount / total) * 100}%`;
+            document.getElementById("barSandaran").style.width = total > 0 ? `${(sandaranSelesaiCount / total) * 100}%` : "0%";
         }
 
         const modal = document.getElementById('regModal');
@@ -418,6 +432,7 @@
             localStorage.setItem("propkes_accounts", JSON.stringify(existingAccounts));
 
             closeRegModal();
+            renderTableAndStats(); // <-- KEMAS KINI JADUAL SECARA AUTOMATIK SELEPAS DAFTAR!
             
             // Simulasikan penghantaran emel kepada Admin
             showAdminToast(`Akaun [${role.toUpperCase()}] untuk ${name} berjaya dicipta! E-mel makluman telah dihantar ke Urus Setia.`, 'success');
