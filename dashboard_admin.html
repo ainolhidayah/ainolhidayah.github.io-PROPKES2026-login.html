@@ -104,6 +104,54 @@
                 <div class="text-xl font-bold text-slate-500 italic mt-2">Menunggu Fasa 1</div>
             </div>
         </div>
+        
+        <!-- COUNTDOWN TIMERS -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Countdown: Fasa 1 -->
+            <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl p-6 shadow-lg flex items-center justify-between">
+                <div>
+                    <h3 class="text-sm font-bold text-white mb-1">Menjelang Fasa 1</h3>
+                    <p class="text-xs text-slate-400">3 Ogos 2026</p>
+                </div>
+                <div class="flex gap-3 text-center">
+                    <div class="bg-slate-950/80 border border-blue-500/30 rounded-lg p-2 min-w-[50px]">
+                        <span id="cdFasa1Days" class="block text-xl font-bold text-blue-400">00</span>
+                        <span class="text-[9px] text-slate-500 uppercase font-semibold">Hari</span>
+                    </div>
+                    <div class="bg-slate-950/80 border border-blue-500/30 rounded-lg p-2 min-w-[50px]">
+                        <span id="cdFasa1Hours" class="block text-xl font-bold text-blue-400">00</span>
+                        <span class="text-[9px] text-slate-500 uppercase font-semibold">Jam</span>
+                    </div>
+                    <div class="bg-slate-950/80 border border-blue-500/30 rounded-lg p-2 min-w-[50px]">
+                        <span id="cdFasa1Mins" class="block text-xl font-bold text-blue-400">00</span>
+                        <span class="text-[9px] text-slate-500 uppercase font-semibold">Minit</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Countdown: Aktiviti Terdekat -->
+            <div class="bg-gradient-to-r from-emerald-900/40 to-slate-900 border border-emerald-800/50 rounded-2xl p-6 shadow-lg flex items-center justify-between">
+                <div>
+                    <h3 class="text-sm font-bold text-white mb-1">Aktiviti Terdekat</h3>
+                    <p class="text-[11px] text-emerald-400 font-medium mb-1">Taklimat Peserta (Pra-Program)</p>
+                    <p class="text-[10px] text-slate-400">20 Julai 2026</p>
+                </div>
+                <div class="flex gap-3 text-center">
+                    <div class="bg-slate-950/80 border border-emerald-500/30 rounded-lg p-2 min-w-[50px]">
+                        <span id="cdAktivitiDays" class="block text-xl font-bold text-emerald-400">00</span>
+                        <span class="text-[9px] text-slate-500 uppercase font-semibold">Hari</span>
+                    </div>
+                    <div class="bg-slate-950/80 border border-emerald-500/30 rounded-lg p-2 min-w-[50px]">
+                        <span id="cdAktivitiHours" class="block text-xl font-bold text-emerald-400">00</span>
+                        <span class="text-[9px] text-slate-500 uppercase font-semibold">Jam</span>
+                    </div>
+                    <div class="bg-slate-950/80 border border-emerald-500/30 rounded-lg p-2 min-w-[50px]">
+                        <span id="cdAktivitiMins" class="block text-xl font-bold text-emerald-400">00</span>
+                        <span class="text-[9px] text-slate-500 uppercase font-semibold">Minit</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
             
@@ -148,11 +196,11 @@
                             </a>
                             <a href="https://forms.gle/Sd3XETfSo8QzE3n87" target="_blank" class="flex-1 text-center py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-medium text-slate-300 transition-colors opacity-50">
                                 Borang i-PROPKES (Pasca)
-                            </a>
-                            <a href="https://forms.gle/qCPqGMydsUQ5Xmni9" target="_blank" class="flex-1 text-center py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-medium text-slate-300 transition-colors">
-                                Borang Log (B & C)
-                            </a>
-                        </div>
+                            <div class="flex gap-3 pt-4 border-t border-slate-800 mt-2">
+                                <button type="button" onclick="closeRegModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg text-xs font-medium transition-colors outline-none cursor-pointer">Batal</button>
+                                <button type="submit" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-lg text-xs font-medium transition-colors shadow-lg shadow-emerald-600/30 outline-none cursor-pointer">Daftar & Hantar Emel</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
@@ -264,25 +312,58 @@
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2"></div>
 
     <script>
-        // Data 12 Peserta Sebenar PROPKES 2026 (Diolah dengan status simulasi)
+        // Data 12 Peserta Sebenar PROPKES 2026
         const pesertaMaster = [
-            { nama: "KHAIRUL IZAD BIN ABD RAHMAN", sandaran: "Disahkan", pra: "Selesai", status: "ON TRACK" },
-            { nama: "SURIA BINTI IBRAHIM", sandaran: "Disahkan", pra: "Selesai", status: "ON TRACK" },
-            { nama: "DR MD NIZAM BIN NASIR", sandaran: "Disahkan", pra: "Selesai", status: "ON TRACK" },
-            { nama: "ROSZILAWATI BINTI ISMAIL", sandaran: "Disahkan", pra: "Selesai", status: "ON TRACK" },
-            { nama: "DR MOHD YUSOF BIN MUSTAFFA KAMAL", sandaran: "Disahkan", pra: "Selesai", status: "ON TRACK" },
-            { nama: "DR MOHD HAFEZ BIN KAMARUDIN", sandaran: "Disahkan", pra: "Selesai", status: "ON TRACK" },
-            { nama: "DR.UMA THEVI A/P VETRIVEILMANY", sandaran: "Tertunggak", pra: "Tertunggak", status: "AMARAN" },
-            { nama: "MOHD MALIM ESANUDDIN", sandaran: "Disahkan", pra: "Selesai", status: "ON TRACK" },
-            { nama: "ABD HALIB BIN MOHD ALI", sandaran: "Disahkan", pra: "Selesai", status: "ON TRACK" },
-            { nama: "DR CAMMELIA OTHMAN", sandaran: "Tertunggak", pra: "Tertunggak", status: "AMARAN" },
-            { nama: "SYAHIDA FARAH BINTI ABDUL RAHIM", sandaran: "Disahkan", pra: "Selesai", status: "ON TRACK" },
-            { nama: "DR. HAJAH ROSNANI BINTI SAINI", sandaran: "Disahkan", pra: "Selesai", status: "ON TRACK" }
-        ];
+                { nama: "DR. HAJAH ROSNANI BINTI SAINI", sandaran: "Disahkan", pra: "Selesai", status: "ON TRACK" }
+            ];
+
+        // Countdown Timer Logic
+        function startCountdowns() {
+            // Set Target Dates (Note: JS Date uses 0-indexed months, so 7 = August, 6 = July)
+            const fasa1Date = new Date(2026, 7, 3, 8, 0, 0).getTime(); // 3 Ogos 2026, 8:00 AM
+            const aktivitiDate = new Date(2026, 6, 20, 9, 0, 0).getTime(); // 20 Julai 2026, 9:00 AM
+
+            const x = setInterval(function() {
+                const now = new Date().getTime();
+
+                // Fasa 1 Calculation
+                const distanceFasa1 = fasa1Date - now;
+                if (distanceFasa1 > 0) {
+                    const daysF1 = Math.floor(distanceFasa1 / (1000 * 60 * 60 * 24));
+                    const hoursF1 = Math.floor((distanceFasa1 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minsF1 = Math.floor((distanceFasa1 % (1000 * 60 * 60)) / (1000 * 60));
+                    
+                    document.getElementById("cdFasa1Days").textContent = daysF1.toString().padStart(2, '0');
+                    document.getElementById("cdFasa1Hours").textContent = hoursF1.toString().padStart(2, '0');
+                    document.getElementById("cdFasa1Mins").textContent = minsF1.toString().padStart(2, '0');
+                } else {
+                    document.getElementById("cdFasa1Days").textContent = "00";
+                    document.getElementById("cdFasa1Hours").textContent = "00";
+                    document.getElementById("cdFasa1Mins").textContent = "00";
+                }
+
+                // Aktiviti Terdekat Calculation
+                const distanceAktiviti = aktivitiDate - now;
+                if (distanceAktiviti > 0) {
+                    const daysAkt = Math.floor(distanceAktiviti / (1000 * 60 * 60 * 24));
+                    const hoursAkt = Math.floor((distanceAktiviti % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minsAkt = Math.floor((distanceAktiviti % (1000 * 60 * 60)) / (1000 * 60));
+
+                    document.getElementById("cdAktivitiDays").textContent = daysAkt.toString().padStart(2, '0');
+                    document.getElementById("cdAktivitiHours").textContent = hoursAkt.toString().padStart(2, '0');
+                    document.getElementById("cdAktivitiMins").textContent = minsAkt.toString().padStart(2, '0');
+                } else {
+                    document.getElementById("cdAktivitiDays").textContent = "00";
+                    document.getElementById("cdAktivitiHours").textContent = "00";
+                    document.getElementById("cdAktivitiMins").textContent = "00";
+                }
+            }, 1000);
+        }
 
         document.addEventListener("DOMContentLoaded", () => {
             renderTableAndStats();
-            populateRegSelect();
+            // Start countdowns on load
+            startCountdowns();
         });
 
         function renderTableAndStats() {
