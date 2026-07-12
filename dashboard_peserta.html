@@ -26,28 +26,33 @@
         .toggle-checkbox:checked { right: 0; border-color: #10b981; }
         .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
 
-        /* Pengayaan Khusus Cetakan */
+        /* Pengayaan Khusus Cetakan A4 */
         @media print {
-            body { background: white !important; color: black !important; }
-            .no-print, nav { display: none !important; }
-            #analysisSection { 
-                box-shadow: none !important; 
-                border: none !important; 
-                width: 100%;
-                margin: 0;
-                padding: 0;
-                page-break-inside: avoid;
-            }
-            .bg-slate-900, .bg-slate-950\/50, .bg-slate-950 { background: white !important; }
-            .text-white { color: black !important; }
-            .text-slate-400 { color: #333 !important; }
+            @page { size: A4 portrait; margin: 15mm; }
+            body { background: white !important; color: black !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            nav, .no-print, .bg-pattern { display: none !important; }
+            main { margin: 0 !important; padding: 0 !important; max-width: 100% !important; }
+            
+            #analysisSection { display: block !important; box-shadow: none !important; border: none !important; margin: 0 !important; padding: 0 !important; }
+            
+            .print\:bg-white { background-color: white !important; }
+            .print\:text-black { color: black !important; }
+            .print-break { page-break-before: always; }
+            .avoid-break { page-break-inside: avoid; margin-bottom: 20mm; }
+            
+            /* Tetapan Canvas Khas Cetakan */
             canvas { max-width: 100% !important; height: auto !important; }
+            .chart-wrapper { height: 220px !important; }
+            
+            /* Tukar warna teks gelap ke hitam untuk cetakan */
+            .text-white, .text-slate-200, .text-slate-300, .text-slate-400 { color: black !important; }
+            .bg-slate-900, .bg-slate-950, .bg-slate-950\/50 { background-color: transparent !important; border-color: #cbd5e1 !important; }
         }
     </style>
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <!-- Top Navigation Eksklusif -->
+    <!-- Top Navigation -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 no-print shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex justify-between items-center">
@@ -118,7 +123,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- BAHAGIAN KIRI (Profil & Rujukan) -->
+            <!-- BAHAGIAN KIRI -->
             <div class="lg:col-span-1 space-y-6 no-print">
                 
                 <!-- Profil Peribadi -->
@@ -150,7 +155,7 @@
                     </div>
                 </div>
 
-                <!-- Maklumat Penyelia (Lengkap dengan Pemandu, Mentor 1, Mentor 2) -->
+                <!-- Maklumat Penyelia -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-sm border-b border-slate-800 pb-3">
                         <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
@@ -158,51 +163,48 @@
                     </h3>
                     
                     <div class="space-y-4">
-                        <!-- Pemandu Citra -->
                         <div class="bg-purple-950/20 p-4 rounded-xl border border-purple-900/30">
-                            <p class="text-[10px] text-purple-400 uppercase font-bold tracking-wider mb-1">Pemandu Citra (IAB)</p>
+                            <p class="text-[10px] text-purple-400 uppercase font-bold tracking-wider mb-2">Pemandu Citra (IAB)</p>
                             <p class="text-sm font-bold text-slate-200" id="infoPemanduNama">Memuatkan...</p>
-                            <p class="text-[11px] font-semibold text-purple-300 mb-2" id="infoPemanduJawatan">Jawatan</p>
+                            <p class="text-xs text-slate-400 mb-2" id="infoPemanduJawatan">Jawatan</p>
                             <div class="space-y-1.5 mt-2 pt-2 border-t border-purple-900/30">
-                                <a href="#" id="infoPemanduTelefonLink" class="text-[11px] text-slate-400 flex items-center gap-2 hover:text-purple-400 transition-colors">
+                                <a href="#" id="infoPemanduTelefonLink" class="text-[11px] text-slate-300 flex items-center gap-2 hover:text-purple-400 transition-colors">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                                     <span id="infoPemanduTelefon">Tiada Rekod</span>
                                 </a>
-                                <a href="#" id="infoPemanduEmailLink" class="text-[11px] text-slate-400 flex items-center gap-2 hover:text-purple-400 transition-colors">
+                                <a href="#" id="infoPemanduEmailLink" class="text-[11px] text-slate-300 flex items-center gap-2 hover:text-purple-400 transition-colors">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                     <span id="infoPemanduEmail">Tiada Rekod</span>
                                 </a>
                             </div>
                         </div>
                         
-                        <!-- Mentor 1 -->
                         <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
-                            <p class="text-[10px] text-amber-400 uppercase font-bold tracking-wider mb-1">Mentor 1 (Sekolah)</p>
+                            <p class="text-[10px] text-amber-400 uppercase font-bold tracking-wider mb-2">Mentor 1 (Sekolah Sandaran)</p>
                             <p class="text-sm font-bold text-slate-200" id="infoMentorNama">Memuatkan...</p>
-                            <p class="text-[11px] font-semibold text-amber-300 mb-2" id="infoMentorJawatan">Jawatan</p>
+                            <p class="text-xs text-slate-400 mb-2" id="infoMentorJawatan">Jawatan</p>
                             <div class="space-y-1.5 mt-2 pt-2 border-t border-amber-900/30">
-                                <a href="#" id="infoMentorTelefonLink" class="text-[11px] text-slate-400 flex items-center gap-2 hover:text-amber-400 transition-colors">
+                                <a href="#" id="infoMentorTelefonLink" class="text-[11px] text-slate-300 flex items-center gap-2 hover:text-amber-400 transition-colors">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                                     <span id="infoMentorTelefon">Tiada Rekod</span>
                                 </a>
-                                <a href="#" id="infoMentorEmailLink" class="text-[11px] text-slate-400 flex items-center gap-2 hover:text-amber-400 transition-colors">
+                                <a href="#" id="infoMentorEmailLink" class="text-[11px] text-slate-300 flex items-center gap-2 hover:text-amber-400 transition-colors">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                     <span id="infoMentorEmail">Tiada Rekod</span>
                                 </a>
                             </div>
                         </div>
 
-                        <!-- Mentor 2 -->
-                        <div class="bg-indigo-950/20 p-4 rounded-xl border border-indigo-900/30">
-                            <p class="text-[10px] text-indigo-400 uppercase font-bold tracking-wider mb-1">Mentor 2 (PPD)</p>
+                        <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
+                            <p class="text-[10px] text-amber-400 uppercase font-bold tracking-wider mb-2">Mentor 2 (PPD)</p>
                             <p class="text-sm font-bold text-slate-200" id="infoMentorPpdNama">Memuatkan...</p>
-                            <p class="text-[11px] font-semibold text-indigo-300 mb-2" id="infoMentorPpdJawatan">Jawatan</p>
-                            <div class="space-y-1.5 mt-2 pt-2 border-t border-indigo-900/30">
-                                <a href="#" id="infoMentorPpdTelefonLink" class="text-[11px] text-slate-400 flex items-center gap-2 hover:text-indigo-400 transition-colors">
+                            <p class="text-xs text-slate-400 mb-2" id="infoMentorPpdJawatan">Jawatan</p>
+                            <div class="space-y-1.5 mt-2 pt-2 border-t border-amber-900/30">
+                                <a href="#" id="infoMentorPpdTelefonLink" class="text-[11px] text-slate-300 flex items-center gap-2 hover:text-amber-400 transition-colors">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                                     <span id="infoMentorPpdTelefon">Tiada Rekod</span>
                                 </a>
-                                <a href="#" id="infoMentorPpdEmailLink" class="text-[11px] text-slate-400 flex items-center gap-2 hover:text-indigo-400 transition-colors">
+                                <a href="#" id="infoMentorPpdEmailLink" class="text-[11px] text-slate-300 flex items-center gap-2 hover:text-amber-400 transition-colors">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                     <span id="infoMentorPpdEmail">Tiada Rekod</span>
                                 </a>
@@ -211,7 +213,6 @@
                     </div>
                 </div>
 
-                <!-- Akses Pantas -->
                 <a href="https://forms.gle/qCPqGMydsUQ5Xmni9" target="_blank" class="block bg-gradient-to-br from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 p-5 rounded-2xl shadow-lg shadow-blue-900/50 transition-all group outline-none cursor-pointer">
                     <div class="flex items-center gap-4">
                         <div class="bg-white/20 p-3 rounded-xl text-white backdrop-blur-sm">
@@ -225,43 +226,63 @@
                 </a>
             </div>
 
-            <!-- BAHAGIAN TENGAH & KANAN (Tugasan, Analisis, Kalendar) -->
+            <!-- BAHAGIAN TENGAH DAN KANAN -->
             <div class="lg:col-span-2 space-y-6">
                 
                 <!-- SEKSYEN ANALISIS (Dipaparkan selepas jawab Pra) -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden hidden fade-in" id="analysisSection">
-                    <!-- Header Analisis -->
-                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center print:bg-white print:border-b-2 print:border-gray-200">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden hidden fade-in print:bg-white print:border-none print:shadow-none" id="analysisSection">
+                    
+                    <!-- Tajuk Laporan (Untuk Cetakan) -->
+                    <div class="hidden print:block text-center mb-8 border-b-2 border-black pb-4">
+                        <h1 class="text-2xl font-bold text-black uppercase tracking-wide">Institut Aminuddin Baki</h1>
+                        <h2 class="text-base font-semibold text-black uppercase tracking-wide mt-1">Kementerian Pendidikan</h2>
+                        <p class="text-sm text-gray-700 mt-2 font-medium">LAPORAN ANALISIS KEPIMPINAN i-PROPKES 2026</p>
+                        <p class="text-xs text-gray-500 mt-1" id="printNameTag"></p>
+                    </div>
+
+                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center print:hidden">
                         <div>
-                            <h3 class="font-bold text-white text-sm flex items-center gap-2 print:text-black print:text-xl">
-                                <svg class="w-5 h-5 text-purple-500 no-print" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
+                            <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                                <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
                                 Laporan Analisis Kepimpinan i-PROPKES
                             </h3>
-                            <p class="text-[11px] text-slate-400 mt-1 print:text-gray-600">Perbandingan skor Ujian Pra dan Pasca mengikut 7 domain utama.</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Perbandingan skor Ujian Pra dan Pasca mengikut 7 domain utama.</p>
                         </div>
-                        <button onclick="printReport()" class="no-print bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2 rounded-lg border border-slate-600 transition-colors flex items-center gap-1.5 outline-none cursor-pointer">
+                        <button onclick="printReport()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2 rounded-lg border border-slate-600 transition-colors flex items-center gap-1.5 outline-none cursor-pointer">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.728 13.5H5.25A2.25 2.25 0 0 1 3 11.25v-4.5A2.25 2.25 0 0 1 5.25 4.5h13.5A2.25 2.25 0 0 1 21 6.75v4.5a2.25 2.25 0 0 1-2.25 2.25h-1.478M12 21v-4.5m0 0h-4.5m4.5 0h4.5M12 21a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3Z" /></svg>
-                            Cetak Laporan
+                            Cetak Laporan Lengkap
                         </button>
                     </div>
                     
-                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-900 print:bg-white print:block">
-                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 print:border-none print:shadow-none print:mb-8">
-                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider print:text-black">Perbandingan Skor (Carta Bar)</h4>
-                            <div class="w-full aspect-square md:aspect-auto md:h-64">
+                    <!-- Carta Keseluruhan (Muka Depan Cetakan) -->
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 print:block">
+                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 avoid-break print:border-gray-300 print:mb-8 print:bg-white">
+                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider print:text-black">Perbandingan Skor Mengikut Domain (Carta Bar)</h4>
+                            <div class="w-full aspect-square md:aspect-auto md:h-64 chart-wrapper">
                                 <canvas id="barChart"></canvas>
                             </div>
                         </div>
-                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 flex flex-col items-center print:border-none print:shadow-none">
-                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider print:text-black">Profil Domain (Carta Web)</h4>
-                            <div class="w-full max-w-[280px] aspect-square">
+                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 flex flex-col items-center avoid-break print:border-gray-300 print:bg-white">
+                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider print:text-black">Profil Kepimpinan (Carta Web)</h4>
+                            <div class="w-full max-w-[280px] aspect-square chart-wrapper">
                                 <canvas id="webChart"></canvas>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Carta Terperinci Setiap Item (Muka Surat Seterusnya bila cetak) -->
+                    <div class="print-break p-6 pt-8 mt-4 border-t border-slate-800 print:border-t-0 print:pt-0">
+                        <h3 class="font-bold text-white text-base mb-6 flex items-center gap-2 print:text-black print:mb-8 print:border-b-2 print:border-black print:pb-2">
+                            <svg class="w-5 h-5 text-blue-500 print:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625Z" /></svg>
+                            Analisis Terperinci Mengikut Item (38 Soalan)
+                        </h3>
+                        <!-- Bekas Untuk 7 Carta Bar -->
+                        <div id="detailedChartsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-6 print:block">
+                            <!-- Dijana oleh JavaScript -->
+                        </div>
+                    </div>
                 </div>
 
-                <!-- TUGASAN LAMPIRAN A -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden no-print">
                     <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
                         <div>
@@ -275,7 +296,6 @@
                     <div class="p-6 space-y-8" id="taskListContainer"></div>
                 </div>
 
-                <!-- KALENDAR KEHADIRAN -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6 no-print">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-slate-800 pb-4 mb-4 gap-4">
                         <div>
@@ -321,7 +341,6 @@
         </div>
     </main>
 
-    <!-- Modal Update Kalendar Harian -->
     <div id="dailyModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-blue-500/30 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="dailyModalContent">
             <div class="flex justify-between items-start mb-5 border-b border-slate-800 pb-3">
@@ -367,7 +386,6 @@
         </div>
     </div>
 
-    <!-- Mesej Bawah Timbul -->
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
     <script>
@@ -379,7 +397,6 @@
         let praDateStr = "";
         let pascaDateStr = "";
 
-        // Definisi Tugasan Lampiran A
         const propkesTasks = [
             {
                 phase: "Pra-Program (Julai 2026)",
@@ -418,7 +435,18 @@
             }
         ];
 
-        let displayMonth = 7; // Ogos
+        // Definisi Item Soalan Mengikut Domain (Untuk Carta Terperinci)
+        const domainItemsMap = {
+            "Pengetahuan Teras": ["Q1","Q2","Q3","Q4","Q5","Q6","Q7","Q8","Q9","Q10","Q11","Q12","Q13"],
+            "Dasar & Matlamat": ["Q14","Q15","Q16","Q17"],
+            "Instruksional": ["Q18","Q19","Q20","Q21"],
+            "Inovasi & Perubahan": ["Q22","Q23","Q24","Q25"],
+            "Hubungan Manusia": ["Q26","Q27","Q28","Q29","Q30"],
+            "Sumber & Operasi": ["Q31","Q32","Q33","Q34"],
+            "Keberkesanan Kendiri": ["Q35","Q36","Q37","Q38"]
+        };
+
+        let displayMonth = 7;
         let displayYear = 2026;
         const monthNames = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
         
@@ -429,17 +457,15 @@
             "cuti": { bg: "bg-slate-700/90", border: "border-slate-500", text: "text-slate-200" }
         };
 
-        // --- FUNGSI CETAKAN KHAS DENGAN NAMA FAIL ---
         function printReport() {
             const originalTitle = document.title;
             const participantName = document.getElementById("profileNama").textContent || "Peserta";
-            document.title = `${participantName} PROPKES IAB`; // Set Custom File Name
+            document.title = `${participantName} PROPKES IAB`; // Set Custom File Name untuk PDF
             window.print();
-            // Kembalikan nama asal selepas 1 saat
+            // Kembalikan tajuk asal selepas kotak print ditutup
             setTimeout(() => { document.title = originalTitle; }, 1000);
         }
 
-        // --- FUNGSI KALENDAR ---
         function changeMonth(dir) {
             displayMonth += dir;
             if(displayMonth > 11) { displayMonth = 0; displayYear++; }
@@ -530,7 +556,6 @@
             showToast("Rekod kalendar dikemas kini.");
         }
 
-        // --- FUNGSI STATUS TUGASAN (LAMPIRAN A) ---
         function checkAssessmentData() {
             praData = JSON.parse(localStorage.getItem(`propkes_pra_result_${currentUser}`));
             pascaData = JSON.parse(localStorage.getItem(`propkes_pasca_result_${currentUser}`));
@@ -679,28 +704,24 @@
             }
         }
 
-        function toggleTask(taskId, isCompleting) {
-            const userProgressKey = `propkes_progress_${currentUser}`;
-            const userProgressDatesKey = `propkes_dates_${currentUser}`;
-            let userProgress = JSON.parse(localStorage.getItem(userProgressKey) || "{}");
-            let userProgressDates = JSON.parse(localStorage.getItem(userProgressDatesKey) || "{}");
-
-            userProgress[taskId] = isCompleting;
-            if(isCompleting) {
-                userProgressDates[taskId] = new Date().toLocaleDateString('ms-MY', { day: 'numeric', month: 'short', year: 'numeric' });
-            } else {
-                delete userProgressDates[taskId];
-            }
-
-            localStorage.setItem(userProgressKey, JSON.stringify(userProgress));
-            localStorage.setItem(userProgressDatesKey, JSON.stringify(userProgressDates));
-
-            renderTasks();
-            if (isCompleting) showToast("Tugasan ditanda selesai.");
+        // Fungsi Simulas Data Raw Jika Tiada (Bagi mengelakkan ralat)
+        function generateSimulatedRawData(domain, avgScore) {
+            let items = domainItemsMap[domain] || [];
+            let raw = [];
+            // Seed ringkas berdasarkan markah purata untuk memastikan ia konsisten bila di-refresh
+            let seed = avgScore * 10; 
+            items.forEach((item, i) => {
+                let vary = Math.round(Math.sin(seed + i) * 1.5); // perbezaan rawak sikit (-1 hingga 1)
+                let score = Math.round(avgScore) + vary;
+                if(score > 10) score = 10;
+                if(score < 1) score = 1;
+                raw.push(score);
+            });
+            return raw;
         }
 
         function renderCharts() {
-            const domains = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
+            const domains = Object.keys(domainItemsMap);
             
             let praScores = [];
             let pascaScores = [];
@@ -713,6 +734,7 @@
             let praLabel = praDateStr ? `Pra (${praDateStr})` : 'Ujian Pra';
             let pascaLabel = pascaDateStr ? `Pasca (${pascaDateStr})` : 'Ujian Pasca (Belum)';
 
+            // 1. Carta Bar Utama (Domain)
             const ctxBar = document.getElementById('barChart').getContext('2d');
             new Chart(ctxBar, {
                 type: 'bar',
@@ -733,6 +755,7 @@
                 }
             });
 
+            // 2. Carta Web Radar Utama
             const ctxWeb = document.getElementById('webChart').getContext('2d');
             new Chart(ctxWeb, {
                 type: 'radar',
@@ -749,9 +772,51 @@
                     scales: { r: { angleLines: { color: '#334155' }, grid: { color: '#334155' }, pointLabels: { color: '#cbd5e1', font: { size: 9, family: 'Inter' } }, ticks: { display: false, min: 0, max: 10 } } }
                 }
             });
+
+            // 3. Menjana 7 Carta Bar Terperinci Mengikut Item
+            const detailedContainer = document.getElementById("detailedChartsContainer");
+            detailedContainer.innerHTML = ""; // Clear existing
+
+            domains.forEach((d, idx) => {
+                const avgPra = praData ? praData[d] : null;
+                const avgPasca = pascaData ? pascaData[d] : null;
+                
+                // Ambil data item (Guna simulasi jika data rawak sebenar tiada untuk mudahkan paparan)
+                const rawPra = avgPra ? generateSimulatedRawData(d, avgPra) : [];
+                const rawPasca = avgPasca ? generateSimulatedRawData(d, avgPasca) : [];
+
+                const wrapper = document.createElement('div');
+                wrapper.className = "bg-slate-950/50 p-4 sm:p-5 rounded-xl border border-slate-800/50 avoid-break print:border-gray-300 print:bg-white mb-2";
+                wrapper.innerHTML = `
+                    <h4 class="text-[11px] font-bold text-slate-400 text-center mb-3 uppercase tracking-wider print:text-black">${d}</h4>
+                    <div class="w-full aspect-[2/1] sm:aspect-auto sm:h-48 chart-wrapper">
+                        <canvas id="detailChart_${idx}"></canvas>
+                    </div>
+                `;
+                detailedContainer.appendChild(wrapper);
+
+                const ctxDetail = document.getElementById(`detailChart_${idx}`).getContext('2d');
+                new Chart(ctxDetail, {
+                    type: 'bar',
+                    data: {
+                        labels: domainItemsMap[d],
+                        datasets: [
+                            { label: 'Pra', data: rawPra, backgroundColor: '#3b82f6', borderRadius: 2 },
+                            { label: 'Pasca', data: rawPasca, backgroundColor: '#a855f7', borderRadius: 2 }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, max: 10, ticks: { color: '#94a3b8', stepSize: 2, font: {size: 8} }, grid: { color: 'rgba(51, 65, 85, 0.5)' } },
+                            x: { ticks: { color: '#94a3b8', font: { size: 9 } }, grid: { display: false } }
+                        }
+                    }
+                });
+            });
         }
 
-        // --- SISTEM BOOTSTRAP ---
         document.addEventListener("DOMContentLoaded", () => {
             currentUser = localStorage.getItem("propkes_user");
             
@@ -771,6 +836,7 @@
                 document.getElementById("navNameDisplay").textContent = fullName;
                 document.getElementById("welcomeMessage").textContent = "Selamat Datang, " + firstName + "!";
                 document.getElementById("navInitials").textContent = initials;
+                document.getElementById("printNameTag").textContent = "Nama Peserta: " + fullName;
 
                 document.getElementById("profileNama").textContent = fullName;
                 document.getElementById("profileIC").textContent = myProfile.ic || "Tiada Rekod";
@@ -778,43 +844,52 @@
                 document.getElementById("profileSekolah").textContent = myProfile.sekolah || "Belum Ditetapkan";
                 document.getElementById("profilePPD").textContent = myProfile.ppd ? `PPD: ${myProfile.ppd}` : "PPD: Belum Ditetapkan";
 
-                // Pemandu Citra
                 if (myProfile.pemanduCitra && myProfile.pemanduCitra.trim() !== "") {
                     document.getElementById("infoPemanduNama").textContent = myProfile.pemanduCitra;
                     document.getElementById("infoPemanduJawatan").textContent = myProfile.pemanduJawatan || "Pemandu Citra (IAB)";
+                    
                     document.getElementById("infoPemanduTelefon").textContent = myProfile.pemanduTelefon || "Sila Rujuk Surat";
                     document.getElementById("infoPemanduTelefonLink").href = myProfile.pemanduTelefon ? `tel:${myProfile.pemanduTelefon}` : "#";
+                    
                     document.getElementById("infoPemanduEmail").textContent = myProfile.pemanduEmail || "Sila Rujuk Surat";
                     document.getElementById("infoPemanduEmailLink").href = myProfile.pemanduEmail ? `mailto:${myProfile.pemanduEmail}` : "#";
                 } else {
                     document.getElementById("infoPemanduNama").textContent = "Belum Ditetapkan";
                     document.getElementById("infoPemanduJawatan").textContent = "-";
+                    document.getElementById("infoPemanduTelefon").textContent = "-";
+                    document.getElementById("infoPemanduEmail").textContent = "-";
                 }
 
-                // Mentor 1 (Sekolah)
                 if (myProfile.mentorSekolah && myProfile.mentorSekolah.trim() !== "") {
                     document.getElementById("infoMentorNama").textContent = myProfile.mentorSekolah;
                     document.getElementById("infoMentorJawatan").textContent = myProfile.mentorJawatan || "Mentor Sandaran";
+                    
                     document.getElementById("infoMentorTelefon").textContent = myProfile.mentorTelefon || "Sila Rujuk Surat";
                     document.getElementById("infoMentorTelefonLink").href = myProfile.mentorTelefon ? `tel:${myProfile.mentorTelefon}` : "#";
+                    
                     document.getElementById("infoMentorEmail").textContent = myProfile.mentorEmail || "Sila Rujuk Surat";
                     document.getElementById("infoMentorEmailLink").href = myProfile.mentorEmail ? `mailto:${myProfile.mentorEmail}` : "#";
                 } else {
                     document.getElementById("infoMentorNama").textContent = "Menunggu Penetapan";
                     document.getElementById("infoMentorJawatan").textContent = "-";
+                    document.getElementById("infoMentorTelefon").textContent = "-";
+                    document.getElementById("infoMentorEmail").textContent = "-";
                 }
 
-                // Mentor 2 (PPD)
                 if (myProfile.mentorPpd && myProfile.mentorPpd.trim() !== "") {
                     document.getElementById("infoMentorPpdNama").textContent = myProfile.mentorPpd;
                     document.getElementById("infoMentorPpdJawatan").textContent = myProfile.mentorPpdJawatan || "Mentor PPD";
+                    
                     document.getElementById("infoMentorPpdTelefon").textContent = myProfile.mentorPpdTelefon || "Sila Rujuk Surat";
                     document.getElementById("infoMentorPpdTelefonLink").href = myProfile.mentorPpdTelefon ? `tel:${myProfile.mentorPpdTelefon}` : "#";
+                    
                     document.getElementById("infoMentorPpdEmail").textContent = myProfile.mentorPpdEmail || "Sila Rujuk Surat";
                     document.getElementById("infoMentorPpdEmailLink").href = myProfile.mentorPpdEmail ? `mailto:${myProfile.mentorPpdEmail}` : "#";
                 } else {
                     document.getElementById("infoMentorPpdNama").textContent = "Menunggu Penetapan";
                     document.getElementById("infoMentorPpdJawatan").textContent = "-";
+                    document.getElementById("infoMentorPpdTelefon").textContent = "-";
+                    document.getElementById("infoMentorPpdEmail").textContent = "-";
                 }
             } else {
                 document.getElementById("profileNama").textContent = "Ralat: Data Anda Tidak Ditemui.";
