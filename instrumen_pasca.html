@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instrumen i-PROPKES (Pasca) | Sistem 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .bg-pattern {
+            background-color: #0f172a;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Animasi Transisi Halus */
+        .fade-in { animation: fadeIn 0.4s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Custom Radio Button untuk Skala 1-10 (Tema Ungu Pasca) */
+        .scale-radio:checked + label {
+            background-color: #a855f7; /* Purple 500 */
+            color: white;
+            border-color: #a855f7;
+            box-shadow: 0 4px 6px -1px rgba(168, 85, 247, 0.5);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-pattern min-h-screen text-slate-200">
+
+    <!-- Navbar Simple -->
+    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center font-bold text-white text-xs">IAB</div>
+                    <span class="font-bold text-white">Instrumen i-PROPKES <span class="text-purple-400">(Pasca)</span></span>
+                </div>
+                <button onclick="window.location.href='dashboard_peserta.html'" class="text-sm font-semibold text-slate-400 hover:text-white transition-colors outline-none cursor-pointer flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    Kembali
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10" id="mainContainer">
+        
+        <!-- Muka Hadapan (Welcome) -->
+        <div id="introSection" class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-8 md:p-12 text-center fade-in relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 blur-3xl rounded-full pointer-events-none"></div>
+            <div class="w-20 h-20 bg-purple-500/10 text-purple-400 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-1.82.288l1.144 5.423c.119.568-.485 1.01-1.02.732l-4.724-2.45a.564.564 0 00-.528 0l-4.724 2.45c-.535.278-1.14-.164-1.02-.732l1.144-5.423a.563.563 0 00-1.82-.288l-4.204-3.602c-.38-.325-.178-.948.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"></path></svg>
+            </div>
+            <h1 class="text-3xl font-bold text-white mb-4 relative z-10">Penilaian Kendiri Akhir (Pasca)</h1>
+            <p class="text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed relative z-10">
+                Tahniah kerana berjaya melengkapkan program PROPKES. Sila jawab 38 soalan ini berdasarkan skala 1 (Sangat Rendah) hingga 10 (Sangat Tinggi) untuk menilai peningkatan kompetensi kepimpinan anda.
+            </p>
+            <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 text-left mb-8 relative z-10">
+                <h3 class="font-bold text-purple-400 text-sm mb-3">Maklumat Peserta:</h3>
+                <p class="text-xs text-slate-400 mb-1">NAMA: <strong class="text-white ml-2" id="introName">Memuatkan...</strong></p>
+                <p class="text-xs text-slate-400 mb-1">E-MEL: <strong class="text-white ml-2" id="introEmail">Memuatkan...</strong></p>
+            </div>
+            <button onclick="startAssessment()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-purple-600/30 outline-none cursor-pointer text-lg relative z-10">
+                Mula Penilaian Akhir
+            </button>
+        </div>
+
+        <!-- Bahagian Soalan (Form) -->
+        <div id="questionSection" class="hidden fade-in">
+            
+            <div class="bg-slate-900 border border-slate-800 rounded-t-2xl p-6 sticky top-16 z-40 border-b-2 border-b-purple-500 shadow-md">
+                <div class="flex justify-between items-end mb-2">
+                    <h2 class="text-xl font-bold text-white" id="domainTitle">Bahagian A: Profil</h2>
+                    <span class="text-xs font-bold text-purple-400 bg-purple-500/10 px-3 py-1 rounded-full" id="progressText">0 / 38 Soalan</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-3">
+                    <div class="bg-purple-500 h-full w-0 transition-all duration-300" id="progressBar"></div>
+                </div>
+            </div>
+
+            <form id="assessmentForm" class="bg-slate-900/50 border border-t-0 border-slate-800 rounded-b-2xl p-6 md:p-10 space-y-12">
+                <!-- Ruangan Soalan akan diisi oleh JavaScript -->
+                <div id="questionsContainer" class="space-y-12"></div>
+
+                <div class="pt-8 border-t border-slate-800 flex justify-end">
+                    <button type="button" onclick="submitAssessment()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-emerald-600/30 outline-none cursor-pointer">
+                        Hantar & Lihat Keputusan
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Bahagian Keputusan (Result & Chart) -->
+        <div id="resultSection" class="hidden fade-in space-y-8">
+            <div class="bg-purple-950/20 border border-purple-900/50 rounded-2xl p-8 text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 blur-3xl rounded-full pointer-events-none"></div>
+                <div class="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-purple-500/40 relative z-10">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h2 class="text-2xl font-bold text-purple-400 mb-2 relative z-10">Tahniah, Penilaian Pasca Selesai!</h2>
+                <p class="text-slate-400 text-sm relative z-10">Berikut adalah profil kepimpinan akhir anda. Hasil ini akan dibandingkan dengan penilaian pra anda.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Carta Analisis -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-white mb-6 w-full text-center">Profil Kepimpinan Akhir (Radar)</h3>
+                    <div class="w-full max-w-sm aspect-square">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Rumusan Markah -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                    <h3 class="font-bold text-white mb-6">Skor Mengikut Domain (Min)</h3>
+                    <div class="space-y-4" id="scoreContainer">
+                        <!-- Markah diisi oleh JS -->
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-slate-800 text-center">
+                        <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2.5 px-6 rounded-lg transition-colors outline-none cursor-pointer flex items-center justify-center gap-2 w-full mb-3">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                            Cetak Analisis / Simpan PDF
+                        </button>
+                        <button onclick="kembaliKeDashboard()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-6 rounded-lg transition-all outline-none cursor-pointer w-full shadow-lg shadow-purple-600/30">
+                            Kembali ke Papan Pemuka
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const questionsData = [
+            // Pengetahuan Am (Soalan 1-13 PDF) - Domain 'Pengetahuan Teras'
+            { id: "q1", domain: "Pengetahuan Teras", text: "Saya memiliki pengetahuan mengenai bidang pengurusan dan kepimpinan organisasi." },
+            { id: "q2", domain: "Pengetahuan Teras", text: "Saya memiliki pengetahuan mengenai bidang pengurusan kurikulum." },
+            { id: "q3", domain: "Pengetahuan Teras", text: "Saya memiliki pengetahuan mengenai bidang pengurusan kokurikulum." },
+            { id: "q4", domain: "Pengetahuan Teras", text: "Saya memiliki pengetahuan mengenai bidang pengurusan hal ehwal murid." },
+            { id: "q5", domain: "Pengetahuan Teras", text: "Saya memiliki pengetahuan mengenai bidang pengurusan kewangan." },
+            { id: "q6", domain: "Pengetahuan Teras", text: "Saya memiliki pengetahuan mengenai bidang pengurusan pentadbiran pejabat." },
+            // Dasar dan Matlamat (14-17 PDF)
+            { id: "q7", domain: "Dasar & Matlamat", text: "Dasar dan Matlamat: Saya mampu Membina Visi." },
+            { id: "q8", domain: "Dasar & Matlamat", text: "Dasar dan Matlamat: Saya Fokus kepada Kualiti." },
+            { id: "q9", domain: "Dasar & Matlamat", text: "Dasar dan Matlamat: Saya mengamalkan Pemikiran Strategik." },
+            { id: "q10", domain: "Dasar & Matlamat", text: "Dasar dan Matlamat: Saya bersikap Proaktif." },
+            // Instruksional dan Pencapaian (18-21 PDF)
+            { id: "q11", domain: "Instruksional", text: "Instruksional dan Pencapaian: Saya Berorientasikan Pencapaian." },
+            { id: "q12", domain: "Instruksional", text: "Instruksional dan Pencapaian: Melaksanakan Perancangan dan Pembangunan Instruksional." },
+            { id: "q13", domain: "Instruksional", text: "Instruksional dan Pencapaian: Saya sentiasa Berkongsi Pengetahuan." },
+            { id: "q14", domain: "Instruksional", text: "Instruksional dan Pencapaian: Saya Mampu Menyelia Proses PdP." },
+            // Perubahan dan Inovasi (22-25 PDF)
+            { id: "q15", domain: "Inovasi & Perubahan", text: "Perubahan dan Inovasi: Saya mahir dalam Penyelesaian Masalah." },
+            { id: "q16", domain: "Inovasi & Perubahan", text: "Perubahan dan Inovasi: Saya mampu Mengurus Perubahan." },
+            { id: "q17", domain: "Inovasi & Perubahan", text: "Perubahan dan Inovasi: Saya mampu Melaksanakan Penambahbaikan Sekolah." },
+            { id: "q18", domain: "Inovasi & Perubahan", text: "Perubahan dan Inovasi: Saya memupuk Kreativiti." },
+            // Hubungan Sesama Manusia (26-30 PDF)
+            { id: "q19", domain: "Hubungan Manusia", text: "Hubungan Sesama Manusia: Saya komited Membangun Kapasiti warga kerja." },
+            { id: "q20", domain: "Hubungan Manusia", text: "Hubungan Sesama Manusia: Saya mengamalkan Komunikasi Berkesan." },
+            { id: "q21", domain: "Hubungan Manusia", text: "Hubungan Sesama Manusia: Saya mampu Membina Jaringan dan Jalinan luas." },
+            { id: "q22", domain: "Hubungan Manusia", text: "Hubungan Sesama Manusia: Saya memupuk Kerja Sepasukan yang erat." },
+            // Sumber dan Operasi (31-34 PDF)
+            { id: "q23", domain: "Sumber & Operasi", text: "Sumber dan Operasi: Saya cekap dalam Pengurusan Kewangan." },
+            { id: "q24", domain: "Sumber & Operasi", text: "Sumber dan Operasi: Saya mahir Merancang Pembangunan Fizikal sekolah." },
+            { id: "q25", domain: "Sumber & Operasi", text: "Sumber dan Operasi: Saya cekap dalam Pengurusan ICT." },
+            { id: "q26", domain: "Sumber & Operasi", text: "Sumber dan Operasi: Saya teliti dalam Pengurusan Prestasi staf." },
+            // Keberkesanan Kendiri (35-38 PDF)
+            { id: "q27", domain: "Keberkesanan Kendiri", text: "Keberkesanan Kendiri: Saya Menyedari Kekuatan, Kelemahan dan Batasan diri." },
+            { id: "q28", domain: "Keberkesanan Kendiri", text: "Keberkesanan Kendiri: Saya cekap dalam Pengurusan Kendiri." },
+            { id: "q29", domain: "Keberkesanan Kendiri", text: "Keberkesanan Kendiri: Saya Peka Terhadap Perasaan Dan Keperluan Orang Lain." },
+            { id: "q30", domain: "Keberkesanan Kendiri", text: "Keberkesanan Kendiri: Saya Mempunyai Kebolehan Menyesuaikan Diri dengan cepat." }
+        ];
+
+        let currentUser = "";
+        const domains = [...new Set(questionsData.map(q => q.domain))];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            currentUser = localStorage.getItem("propkes_user");
+            if(!currentUser) { window.location.href = "index.html"; return; }
+
+            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+            const profile = accounts[currentUser] || {};
+            
+            document.getElementById("introName").textContent = profile.name || "Peserta";
+            document.getElementById("introEmail").textContent = profile.email || "Tiada Maklumat";
+
+            // Jika dah pernah jawab Pasca, terus tunjuk result
+            const results = JSON.parse(localStorage.getItem(`propkes_pasca_result_${currentUser}`));
+            if(results) {
+                showResultSection(results);
+            }
+        });
+
+        function startAssessment() {
+            document.getElementById("introSection").classList.add("hidden");
+            document.getElementById("questionSection").classList.remove("hidden");
+            renderQuestions();
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById("questionsContainer");
+            let currentDomain = "";
+            let questionHTML = "";
+
+            questionsData.forEach((q, index) => {
+                if(q.domain !== currentDomain) {
+                    currentDomain = q.domain;
+                    questionHTML += `<div class="pt-6 border-t border-slate-800"><h3 class="text-lg font-bold text-purple-400 mb-6 uppercase tracking-wider">${currentDomain}</h3></div>`;
+                }
+
+                let scaleHTML = `<div class="flex flex-wrap sm:flex-nowrap justify-between gap-2 mt-4">`;
+                for(let i=1; i<=10; i++) {
+                    scaleHTML += `
+                        <div class="flex-1 text-center">
+                            <input type="radio" name="${q.id}" id="${q.id}_${i}" value="${i}" class="scale-radio hidden" onchange="updateProgress()" required>
+                            <label for="${q.id}_${i}" class="block w-full py-2.5 sm:py-3 px-2 border-2 border-slate-700 bg-slate-800/50 rounded-lg text-slate-300 font-bold cursor-pointer transition-all hover:bg-slate-700 text-xs sm:text-sm hover:border-purple-500/50">
+                                ${i}
+                            </label>
+                        </div>
+                    `;
+                }
+                scaleHTML += `</div>
+                    <div class="flex justify-between mt-2 text-[10px] font-medium text-slate-500 uppercase tracking-wide">
+                        <span>Sangat Rendah</span><span>Sangat Tinggi</span>
+                    </div>`;
+
+                questionHTML += `
+                    <div class="bg-slate-950 p-5 sm:p-6 rounded-xl border border-slate-800 hover:border-purple-900/50 transition-colors">
+                        <p class="font-medium text-slate-200 text-sm sm:text-base leading-relaxed"><span class="text-purple-500 font-bold mr-2">${index+1}.</span> ${q.text}</p>
+                        ${scaleHTML}
+                    </div>
+                `;
+            });
+
+            container.innerHTML = questionHTML;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const total = questionsData.length;
+            let answered = 0;
+            
+            questionsData.forEach(q => {
+                const checked = document.querySelector(`input[name="${q.id}"]:checked`);
+                if(checked) answered++;
+            });
+
+            document.getElementById("progressText").textContent = `${answered} / ${total} Soalan Selesai`;
+            document.getElementById("progressBar").style.width = `${(answered/total)*100}%`;
+        }
+
+        function submitAssessment() {
+            const form = document.getElementById("assessmentForm");
+            if(!form.checkValidity()) {
+                alert("Sila jawab semua soalan sebelum menghantar.");
+                return;
+            }
+
+            let scores = {};
+            domains.forEach(d => scores[d] = { total: 0, count: 0 });
+
+            questionsData.forEach(q => {
+                const val = parseInt(document.querySelector(`input[name="${q.id}"]:checked`).value);
+                scores[q.domain].total += val;
+                scores[q.domain].count += 1;
+            });
+
+            let finalAverages = {};
+            domains.forEach(d => {
+                finalAverages[d] = parseFloat((scores[d].total / scores[d].count).toFixed(2));
+            });
+
+            // Simpan Result ke memori (Pasca)
+            localStorage.setItem(`propkes_pasca_result_${currentUser}`, JSON.stringify(finalAverages));
+            
+            // Tandakan Tugasan Borang Pasca (task_11) sebagai Selesai di Dashboard
+            const progKey = `propkes_progress_${currentUser}`;
+            let userProgress = JSON.parse(localStorage.getItem(progKey) || "{}");
+            userProgress["task_11"] = true; // ID Task Pasca
+            localStorage.setItem(progKey, JSON.stringify(userProgress));
+
+            document.getElementById("questionSection").classList.add("hidden");
+            showResultSection(finalAverages);
+            window.scrollTo(0,0);
+        }
+
+        function showResultSection(data) {
+            document.getElementById("introSection").classList.add("hidden");
+            document.getElementById("questionSection").classList.add("hidden");
+            document.getElementById("resultSection").classList.remove("hidden");
+
+            let scoreHTML = "";
+            let chartLabels = [];
+            let chartData = [];
+
+            domains.forEach(d => {
+                const val = data[d];
+                chartLabels.push(d);
+                chartData.push(val);
+
+                // Warna progress bar
+                let color = "bg-purple-500";
+                if(val >= 8) color = "bg-emerald-500";
+                else if (val <= 5) color = "bg-rose-500";
+
+                scoreHTML += `
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="font-bold text-slate-300 uppercase">${d}</span>
+                            <span class="font-bold text-white">${val} / 10</span>
+                        </div>
+                        <div class="w-full bg-slate-800 rounded-full h-2.5 shadow-inner">
+                            <div class="${color} h-2.5 rounded-full" style="width: ${(val/10)*100}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById("scoreContainer").innerHTML = scoreHTML;
+
+            // Render Chart Radar
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: 'Skor Purata (Pasca)',
+                        data: chartData,
+                        backgroundColor: 'rgba(168, 85, 247, 0.25)', // Purple 500
+                        borderColor: 'rgba(168, 85, 247, 1)',
+                        pointBackgroundColor: 'rgba(168, 85, 247, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(168, 85, 247, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            pointLabels: { color: '#cbd5e1', font: { size: 10, family: 'Inter' } },
+                            ticks: { min: 0, max: 10, stepSize: 2, display: false }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function kembaliKeDashboard() {
+            window.location.href = "dashboard_peserta.html";
+        }
+    </script>
+</body>
+</html>
