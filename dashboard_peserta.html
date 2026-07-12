@@ -6,6 +6,7 @@
     <title>Papan Pemuka | Peserta PROPKES</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -19,8 +20,8 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
         
-        .fade-in { animation: fadeIn 0.3s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.4s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         /* Custom Toggle Checkbox */
         .toggle-checkbox:checked { right: 0; border-color: #10b981; }
@@ -29,7 +30,6 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <!-- Navbar -->
     <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
@@ -61,11 +61,11 @@
             
             <div class="relative z-10">
                 <h1 class="text-2xl md:text-3xl font-bold text-white mb-2" id="welcomeMessage">Selamat Datang!</h1>
-                <p class="text-slate-400 text-sm max-w-2xl leading-relaxed">Ini adalah papan pemuka peribadi anda. Sila pastikan anda melengkapkan senarai tugasan <strong class="text-slate-200">Lampiran A</strong> dan mengemas kini <strong class="text-slate-200">Kalendar Log & Keberadaan</strong> setiap hari.</p>
+                <p class="text-slate-400 text-sm max-w-2xl leading-relaxed">Papan pemuka ini merekodkan perjalanan kepimpinan anda. Sila kemas kini tugasan Lampiran A, isikan kalendar lokasi harian, dan semak analisis i-PROPKES anda di bawah.</p>
             </div>
             
             <div class="bg-slate-950/50 border border-blue-500/30 rounded-xl p-4 shrink-0 text-center relative z-10 min-w-[150px]">
-                <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1">Status Anda</p>
+                <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1">Status Pendaftaran</p>
                 <div class="text-xl font-bold text-emerald-400 flex items-center justify-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     Aktif
@@ -75,8 +75,9 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- KIRI -->
+            <!-- BAHAGIAN KIRI (Profil & Stat) -->
             <div class="lg:col-span-1 space-y-6">
+                
                 <!-- Profil Peribadi -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-sm border-b border-slate-800 pb-3">
@@ -87,10 +88,6 @@
                         <div>
                             <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">Nama Penuh</p>
                             <p class="text-sm font-medium text-slate-200" id="profileNama">Memuatkan...</p>
-                        </div>
-                        <div>
-                            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">No. Kad Pengenalan</p>
-                            <p class="text-sm font-medium text-slate-300" id="profileIC">Memuatkan...</p>
                         </div>
                         <div>
                             <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">E-mel Rasmi</p>
@@ -106,7 +103,29 @@
                     </div>
                 </div>
 
-                <!-- Butang Akses Pantas (Log) -->
+                <!-- Maklumat Penyelia -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
+                    <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-sm border-b border-slate-800 pb-3">
+                        <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+                        Maklumat Rujukan Penyelia
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="bg-purple-950/20 p-3.5 rounded-xl border border-purple-900/30">
+                            <p class="text-[10px] text-purple-400 uppercase font-bold tracking-wider mb-1">Pemandu Citra (IAB)</p>
+                            <p class="text-sm font-bold text-slate-200" id="infoPemanduNama">Memuatkan...</p>
+                            <a href="#" id="infoPemanduEmailLink" class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5 hover:text-purple-400 transition-colors">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <span id="infoPemanduEmail">Memuatkan...</span>
+                            </a>
+                        </div>
+                        <div class="bg-amber-950/20 p-3.5 rounded-xl border border-amber-900/30">
+                            <p class="text-[10px] text-amber-400 uppercase font-bold tracking-wider mb-1">Mentor (Sekolah)</p>
+                            <p class="text-sm font-bold text-slate-200" id="infoMentorNama">Menunggu Penetapan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Akses Pantas -->
                 <a href="https://forms.gle/qCPqGMydsUQ5Xmni9" target="_blank" class="block bg-gradient-to-br from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 p-5 rounded-2xl shadow-lg shadow-blue-900/50 transition-all group outline-none cursor-pointer">
                     <div class="flex items-center gap-4">
                         <div class="bg-white/20 p-3 rounded-xl text-white backdrop-blur-sm">
@@ -118,38 +137,59 @@
                         </div>
                     </div>
                 </a>
+            </div>
 
-                <!-- Ringkasan Keberadaan Bulan Ini (Baru) -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
-                    <h3 class="font-bold text-white text-sm flex items-center gap-2 mb-4 border-b border-slate-800 pb-3">
-                        <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" /></svg>
-                        Statistik Keberadaan (Bulan <span id="statMonthLabel">Ini</span>)
-                    </h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-blue-500"></div> Sekolah Sandaran</span>
-                            <span class="font-bold text-white" id="countSekolah">0 Hari</span>
+            <!-- BAHAGIAN KANAN (Tugasan, Analisis & Kalendar) -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- SEKSYEN BAHARU: LAPORAN ANALISIS i-PROPKES -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden hidden fade-in" id="analysisSection">
+                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                                <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
+                                Laporan Analisis Kepimpinan i-PROPKES
+                            </h3>
+                            <p class="text-[11px] text-slate-400 mt-1">Perbandingan skor antara Ujian Pra dan Pasca mengikut 7 domain utama.</p>
                         </div>
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-indigo-500"></div> Pejabat (PPD)</span>
-                            <span class="font-bold text-white" id="countPpd">0 Hari</span>
+                        <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-600 transition-colors flex items-center gap-1.5 outline-none">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.728 13.5H5.25A2.25 2.25 0 0 1 3 11.25v-4.5A2.25 2.25 0 0 1 5.25 4.5h13.5A2.25 2.25 0 0 1 21 6.75v4.5a2.25 2.25 0 0 1-2.25 2.25h-1.478M12 21v-4.5m0 0h-4.5m4.5 0h4.5M12 21a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3Z" /></svg>
+                            Cetak Laporan
+                        </button>
+                    </div>
+                    
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-900">
+                        <!-- Carta Bar -->
+                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50">
+                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Perbandingan Skor (Carta Bar)</h4>
+                            <div class="w-full aspect-square md:aspect-auto md:h-64">
+                                <canvas id="barChart"></canvas>
+                            </div>
                         </div>
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-purple-500"></div> IAB</span>
-                            <span class="font-bold text-white" id="countIab">0 Hari</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-slate-600"></div> Cuti / Lain-lain</span>
-                            <span class="font-bold text-white" id="countCuti">0 Hari</span>
+                        <!-- Carta Radar -->
+                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 flex flex-col items-center">
+                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Profil Domain (Carta Web)</h4>
+                            <div class="w-full max-w-[240px] aspect-square">
+                                <canvas id="webChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
+                <!-- Tugasan Peserta (Lampiran A) -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
+                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-white text-sm">Status Tugasan PROPKES (Lampiran A)</h3>
+                            <p class="text-[11px] text-slate-400 mt-1">Sahihkan pelaksanaan secara jujur apabila selesai sesuatu fasa.</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full border-4 border-slate-700 flex items-center justify-center shrink-0" id="progressCircle">
+                            <span class="text-[10px] font-bold text-slate-300" id="progressText">0%</span>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-8" id="taskListContainer"></div>
+                </div>
 
-            <!-- KANAN -->
-            <div class="lg:col-span-2 space-y-6">
-                
                 <!-- Kalendar Interaktif (Bersepadu) -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-slate-800 pb-4 mb-4 gap-4">
@@ -195,20 +235,6 @@
                         <div class="flex items-center gap-1.5 ml-4 border-l border-slate-700 pl-4"><div class="w-3 h-3 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-2 h-2 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></div> Selesai Isi Log</div>
                     </div>
                 </div>
-
-                <!-- Lampiran A (Tugas Peserta) -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
-                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
-                        <div>
-                            <h3 class="font-bold text-white text-sm">Status Tugasan PROPKES (Lampiran A)</h3>
-                            <p class="text-[11px] text-slate-400 mt-1">Sahihkan pelaksanaan secara jujur apabila selesai sesuatu fasa.</p>
-                        </div>
-                        <div class="w-10 h-10 rounded-full border-4 border-slate-700 flex items-center justify-center shrink-0" id="progressCircle">
-                            <span class="text-[10px] font-bold text-slate-300" id="progressText">0%</span>
-                        </div>
-                    </div>
-                    <div class="p-6 space-y-8" id="taskListContainer"></div>
-                </div>
             </div>
         </div>
     </main>
@@ -216,7 +242,6 @@
     <!-- MODAL KEMAS KINI HARIAN KALENDAR -->
     <div id="dailyModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-slate-900 border border-blue-500/30 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="dailyModalContent">
-            
             <div class="flex justify-between items-start mb-5 border-b border-slate-800 pb-3">
                 <div>
                     <h3 class="text-lg font-bold text-white flex items-center gap-2">
@@ -262,15 +287,18 @@
         </div>
     </div>
 
-    <!-- Toast -->
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none"></div>
 
     <script>
-        /* STREAMING_CHUNK:Sistem Pengawalan Utama... */
         let currentUser = "";
         let currentEditingDateStr = "";
+        
+        let praData = null;
+        let pascaData = null;
+        let praDateStr = "";
+        let pascaDateStr = "";
 
-        // Definisi Tugasan (Lampiran A)
+        // Definisi Tugasan Lampiran A dengan Link ke Sistem
         const propkesTasks = [
             {
                 phase: "Pra-Program (Julai 2026)",
@@ -278,7 +306,7 @@
                     { id: "task_1", title: "Mengenal pasti sekolah dan PPD sandaran.", date: "20 Jul 2026", link: "https://docs.google.com/spreadsheets/d/17RQGW4PMAgX_91iwePaY6m6dTZZ9IuWecQWfVkNFibg/edit?usp=sharing", btnText: "Pautan Rasmi" },
                     { id: "task_2", title: "Menghadiri taklimat kepada peserta.", date: "20 Jul 2026", link: "https://meet.google.com/pcd-cixo-ize", btnText: "Google Meet" },
                     { id: "task_3", title: "Menghadiri taklimat kepada sekolah dan PPD.", date: "21 Jul 2026", link: "https://meet.google.com/pcd-cixo-ize", btnText: "Google Meet" },
-                    { id: "task_4", title: "Menjawab instrumen i-PROPKES (pra).", date: "27 Jul 2026", link: "https://forms.gle/4HLwZKQKQT7mP3CL6", btnText: "Isi Borang" }
+                    { id: "task_4", title: "Menjawab instrumen i-PROPKES (pra).", date: "27 Jul 2026", link: "instrumen_pra.html", btnText: "Jawab Online (Sistem)", isAssessment: true }
                 ]
             },
             {
@@ -300,7 +328,7 @@
             {
                 phase: "Pasca-Program (November 2026)",
                 tasks: [
-                    { id: "task_11", title: "Menjawab instrumen i-PROPKES (pasca).", date: "2 Nov 2026", link: "https://forms.gle/f68ELKCxAZqEokvq9", btnText: "Isi Borang" },
+                    { id: "task_11", title: "Menjawab instrumen i-PROPKES (pasca).", date: "2 Nov 2026", link: "instrumen_pasca.html", btnText: "Jawab Online (Sistem)", isAssessment: true },
                     { id: "task_12", title: "Menghasilkan artikel PROPKES (Lampiran E).", date: "Bermula 2 Nov", link: "#", btnText: "", isStatic: true },
                     { id: "task_13", title: "Mengisi Borang Maklum Balas Mentor (Lampiran F)", date: "Fasa 1 & 2", link: "#", btnText: "", isStatic: true },
                     { id: "task_14", title: "Mengisi Borang Maklum Balas Coach (Lampiran G)", date: "Fasa 1 & 2", link: "#", btnText: "", isStatic: true },
@@ -309,12 +337,10 @@
             }
         ];
 
-        /* STREAMING_CHUNK:Logik Kalendar Dinamik Baru... */
         let displayMonth = 7; // Ogos (7) Tahun 2026
         let displayYear = 2026;
         const monthNames = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
         
-        // Pemetaan warna berdasarkan lokasi
         const locStyles = {
             "sekolah": { bg: "bg-blue-600/90", border: "border-blue-500", text: "text-white" },
             "ppd": { bg: "bg-indigo-600/90", border: "border-indigo-500", text: "text-white" },
@@ -327,13 +353,11 @@
             if(displayMonth > 11) { displayMonth = 0; displayYear++; }
             if(displayMonth < 0) { displayMonth = 11; displayYear--; }
             renderCalendar();
-            renderLocationSummary();
         }
 
         function renderCalendar() {
             const calGrid = document.getElementById("calendarGrid");
             document.getElementById("calendarMonthYear").textContent = `${monthNames[displayMonth]} ${displayYear}`;
-            document.getElementById("statMonthLabel").textContent = monthNames[displayMonth];
             calGrid.innerHTML = ""; 
 
             const calKey = `propkes_calendar_v2_${currentUser}`;
@@ -342,12 +366,10 @@
             const firstDay = new Date(displayYear, displayMonth, 1).getDay(); 
             const daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
 
-            // Offset hari pertama
             for(let i=0; i<firstDay; i++) {
                 calGrid.appendChild(document.createElement("div"));
             }
 
-            // Jana hari
             for(let d=1; d<=daysInMonth; d++) {
                 const dateString = `${displayYear}-${String(displayMonth+1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                 const dayData = calData[dateString] || { log: false, loc: "" };
@@ -355,7 +377,6 @@
                 const cell = document.createElement("button");
                 cell.className = "relative w-full aspect-square max-w-[3rem] mx-auto rounded-xl flex items-center justify-center text-xs font-semibold outline-none transition-all duration-200 cursor-pointer border";
                 
-                // Gayakan berdasarkan lokasi
                 if (dayData.loc && locStyles[dayData.loc]) {
                     const style = locStyles[dayData.loc];
                     cell.classList.add(style.bg, style.border, style.text, "hover:opacity-80");
@@ -363,10 +384,8 @@
                     cell.classList.add("bg-slate-800/40", "border-slate-700/50", "text-slate-300", "hover:bg-slate-700");
                 }
 
-                // Masukkan nombor hari
                 cell.innerHTML = `<span>${d}</span>`;
 
-                // Jika log harian selesai, tambah lencana (badge) 'Tick' di bucu
                 if (dayData.log) {
                     cell.innerHTML += `
                         <div class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-slate-900 flex items-center justify-center shadow-sm">
@@ -378,24 +397,16 @@
                 cell.onclick = () => openDailyModal(dateString, d);
                 calGrid.appendChild(cell);
             }
-        }
-
-        /* STREAMING_CHUNK:Logik Pengiraan dan Modal... */
-        function renderLocationSummary() {
-            const calKey = `propkes_calendar_v2_${currentUser}`;
-            const calData = JSON.parse(localStorage.getItem(calKey) || "{}");
             
+            // Pengiraan Automatik Bulanan
             let counts = { sekolah: 0, ppd: 0, iab: 0, cuti: 0 };
-            const daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
-
             for(let d=1; d<=daysInMonth; d++) {
-                const dateString = `${displayYear}-${String(displayMonth+1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-                const dayData = calData[dateString];
-                if (dayData && dayData.loc && counts[dayData.loc] !== undefined) {
-                    counts[dayData.loc]++;
+                const dStr = `${displayYear}-${String(displayMonth+1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                if (calData[dStr] && calData[dStr].loc && counts[calData[dStr].loc] !== undefined) {
+                    counts[calData[dStr].loc]++;
                 }
             }
-
+            document.getElementById('statMonthLabel').textContent = monthNames[displayMonth];
             document.getElementById('countSekolah').textContent = counts.sekolah + " Hari";
             document.getElementById('countPpd').textContent = counts.ppd + " Hari";
             document.getElementById('countIab').textContent = counts.iab + " Hari";
@@ -413,30 +424,17 @@
             document.getElementById('modalLogToggle').checked = dayData.log;
             document.getElementById('modalLocationSelect').value = dayData.loc;
 
-            // Buka Modal Animasi
             const modal = document.getElementById('dailyModal');
             const content = document.getElementById('dailyModalContent');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modal.classList.add('opacity-100');
-                content.classList.remove('scale-95');
-                content.classList.add('scale-100');
-            }, 10);
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); modal.classList.add('opacity-100'); content.classList.remove('scale-95'); content.classList.add('scale-100'); }, 10);
         }
 
         function closeDailyModal() {
             const modal = document.getElementById('dailyModal');
             const content = document.getElementById('dailyModalContent');
-            modal.classList.remove('opacity-100');
-            modal.classList.add('opacity-0');
-            content.classList.remove('scale-100');
-            content.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.remove('flex');
-                modal.classList.add('hidden');
-            }, 300);
+            modal.classList.remove('opacity-100'); modal.classList.add('opacity-0'); content.classList.remove('scale-100'); content.classList.add('scale-95');
+            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
         }
 
         function saveDailyData() {
@@ -446,28 +444,56 @@
             const calKey = `propkes_calendar_v2_${currentUser}`;
             let calData = JSON.parse(localStorage.getItem(calKey) || "{}");
 
-            // Hanya simpan jika ada maklumat, jika tidak buang untuk jimat memori
-            if (!isLogDone && !locationVal) {
-                delete calData[currentEditingDateStr];
-            } else {
-                calData[currentEditingDateStr] = { log: isLogDone, loc: locationVal };
-            }
+            if (!isLogDone && !locationVal) delete calData[currentEditingDateStr];
+            else calData[currentEditingDateStr] = { log: isLogDone, loc: locationVal };
 
             localStorage.setItem(calKey, JSON.stringify(calData));
-            
-            closeDailyModal();
-            renderCalendar();
-            renderLocationSummary();
+            closeDailyModal(); renderCalendar();
             showToast("Rekod kalendar untuk tarikh tersebut telah dikemas kini.");
         }
 
-        /* STREAMING_CHUNK:Sistem Pengurusan Tugasan Lampiran A... */
+        function checkAssessmentData() {
+            // Ambil data skor dari instrumen_pra dan instrumen_pasca
+            praData = JSON.parse(localStorage.getItem(`propkes_pra_result_${currentUser}`));
+            pascaData = JSON.parse(localStorage.getItem(`propkes_pasca_result_${currentUser}`));
+            
+            const userProgressKey = `propkes_progress_${currentUser}`;
+            const userProgressDatesKey = `propkes_dates_${currentUser}`;
+            
+            let userProgress = JSON.parse(localStorage.getItem(userProgressKey) || "{}");
+            let userProgressDates = JSON.parse(localStorage.getItem(userProgressDatesKey) || "{}");
+
+            // Tetapkan Tarikh Automatik jika ada data tapi tiada tarikh
+            if(praData && !userProgressDates["task_4"]) {
+                userProgress["task_4"] = true;
+                userProgressDates["task_4"] = new Date().toLocaleDateString('ms-MY', { day: 'numeric', month: 'short', year: 'numeric' });
+                localStorage.setItem(userProgressKey, JSON.stringify(userProgress));
+                localStorage.setItem(userProgressDatesKey, JSON.stringify(userProgressDates));
+            }
+            if(pascaData && !userProgressDates["task_11"]) {
+                userProgress["task_11"] = true;
+                userProgressDates["task_11"] = new Date().toLocaleDateString('ms-MY', { day: 'numeric', month: 'short', year: 'numeric' });
+                localStorage.setItem(userProgressKey, JSON.stringify(userProgress));
+                localStorage.setItem(userProgressDatesKey, JSON.stringify(userProgressDates));
+            }
+
+            praDateStr = userProgressDates["task_4"] || "";
+            pascaDateStr = userProgressDates["task_11"] || "";
+            
+            if(praData || pascaData) {
+                document.getElementById("analysisSection").classList.remove("hidden");
+                renderCharts();
+            }
+        }
+
         function renderTasks() {
             const container = document.getElementById("taskListContainer");
             container.innerHTML = ""; 
             
             const userProgressKey = `propkes_progress_${currentUser}`;
+            const userProgressDatesKey = `propkes_dates_${currentUser}`;
             const userProgress = JSON.parse(localStorage.getItem(userProgressKey) || "{}");
+            const userProgressDates = JSON.parse(localStorage.getItem(userProgressDatesKey) || "{}");
 
             let totalTasks = 0;
             let completedTasks = 0;
@@ -485,6 +511,7 @@
                     totalTasks++;
                     const isDone = userProgress[task.id] === true;
                     if(isDone) completedTasks++;
+                    const dateCompleted = userProgressDates[task.id];
 
                     const bgClass = isDone ? "bg-emerald-950/20 border-emerald-900/50" : "bg-slate-800/40 border-slate-700/50 hover:border-slate-600";
                     const iconClass = isDone ? "bg-emerald-500 text-white" : "bg-slate-700 text-slate-400";
@@ -492,24 +519,45 @@
                         ? `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>`
                         : `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
 
+                    // Override button for Assessments if done
                     let linkButton = "";
-                    if (!task.isStatic && task.btnText !== "") {
-                        linkButton = `<a href="${task.link}" target="_blank" class="px-3 py-1.5 bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 text-[10px] font-bold rounded flex items-center gap-1 border border-blue-600/20 transition-colors">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"></path></svg>
-                                        ${task.btnText}
+                    let customBtnLabel = task.btnText;
+                    let customBtnIcon = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"></path>`;
+                    
+                    if(isDone && task.isAssessment) {
+                        customBtnLabel = "Lihat Analisis";
+                        customBtnIcon = `<path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />`;
+                    }
+
+                    if (!task.isStatic && customBtnLabel !== "") {
+                        let linkHref = isDone && task.isAssessment ? '#analysisSection' : task.link;
+                        let linkOnClick = isDone && task.isAssessment ? 'onclick="document.getElementById(\'analysisSection\').scrollIntoView({behavior:\'smooth\'}); return false;"' : '';
+                        
+                        linkButton = `<a href="${linkHref}" ${linkOnClick} target="${isDone && task.isAssessment ? '_self' : '_blank'}" class="px-3 py-1.5 ${isDone && task.isAssessment ? 'bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border-purple-600/30' : 'bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border-blue-600/20'} text-[10px] font-bold rounded flex items-center gap-1 border transition-colors">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${customBtnIcon}</svg>
+                                        ${customBtnLabel}
                                       </a>`;
                     }
 
-                    const actionButton = isDone
-                        ? `<button onclick="toggleTask('${task.id}', false)" class="px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold rounded-lg flex items-center gap-2 cursor-pointer outline-none transition-colors hover:bg-rose-500/10 hover:text-rose-400 hover:border-rose-500/30 group" title="Batal Selesai">
+                    // Untuk Assessment, kita hide toggle jika dah dijawab sebab ia automatik.
+                    let actionButton = "";
+                    if(task.isAssessment && isDone) {
+                        actionButton = `<div class="px-3 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold rounded-lg flex flex-col items-end gap-0.5">
+                            <span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg> Telah Dijawab</span>
+                            <span class="text-[9px] text-emerald-500/70 font-medium">${dateCompleted}</span>
+                        </div>`;
+                    } else if (isDone) {
+                        actionButton = `<button onclick="toggleTask('${task.id}', false)" class="px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold rounded-lg flex items-center gap-2 cursor-pointer outline-none transition-colors hover:bg-rose-500/10 hover:text-rose-400 hover:border-rose-500/30 group" title="Batal Selesai">
                                <svg class="w-4 h-4 group-hover:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
                                <svg class="w-4 h-4 hidden group-hover:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
                                <span class="group-hover:hidden">Selesai</span>
                                <span class="hidden group-hover:block">Batal Selesai</span>
-                           </button>`
-                        : `<button onclick="toggleTask('${task.id}', true)" class="px-4 py-2 bg-slate-700 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer outline-none shadow-sm shadow-slate-900 border border-slate-600">
+                           </button>`;
+                    } else if (!task.isAssessment) {
+                        actionButton = `<button onclick="toggleTask('${task.id}', true)" class="px-4 py-2 bg-slate-700 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer outline-none shadow-sm shadow-slate-900 border border-slate-600">
                                Tandakan Selesai
                            </button>`;
+                    }
 
                     const taskEl = document.createElement("div");
                     taskEl.className = `flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border transition-all fade-in gap-4 ${bgClass}`;
@@ -519,11 +567,11 @@
                                 ${iconSVG}
                             </div>
                             <div>
-                                <h4 class="text-sm font-semibold text-white leading-snug ${isDone ? 'text-emerald-100/70' : ''}">${task.title}</h4>
+                                <h4 class="text-sm font-semibold text-white leading-snug ${isDone && !task.isAssessment ? 'text-emerald-100/70' : ''}">${task.title}</h4>
                                 <div class="flex flex-wrap items-center gap-3 mt-2">
                                     <span class="text-[10px] text-slate-400 font-medium flex items-center gap-1 bg-slate-800/50 px-2 py-1 rounded">
                                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                        ${task.date}
+                                        Tugas: ${task.date}
                                     </span>
                                     ${linkButton}
                                 </div>
@@ -558,21 +606,110 @@
 
         function toggleTask(taskId, isCompleting) {
             const userProgressKey = `propkes_progress_${currentUser}`;
+            const userProgressDatesKey = `propkes_dates_${currentUser}`;
             let userProgress = JSON.parse(localStorage.getItem(userProgressKey) || "{}");
+            let userProgressDates = JSON.parse(localStorage.getItem(userProgressDatesKey) || "{}");
 
             userProgress[taskId] = isCompleting;
+            if(isCompleting) {
+                userProgressDates[taskId] = new Date().toLocaleDateString('ms-MY', { day: 'numeric', month: 'short', year: 'numeric' });
+            } else {
+                delete userProgressDates[taskId];
+            }
+
             localStorage.setItem(userProgressKey, JSON.stringify(userProgress));
+            localStorage.setItem(userProgressDatesKey, JSON.stringify(userProgressDates));
 
             renderTasks();
             if (isCompleting) showToast("Tahniah! Tugasan ditanda selesai.");
         }
 
-        /* STREAMING_CHUNK:Permulaan Sistem (Init)... */
+        function renderCharts() {
+            // Gunakan domain lalai sekiranya data Pra belum ada
+            const domains = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
+            
+            let praScores = [];
+            let pascaScores = [];
+
+            // Ekstrak skor mematuhi susunan domain
+            domains.forEach(d => {
+                praScores.push(praData ? praData[d] || 0 : null);
+                pascaScores.push(pascaData ? pascaData[d] || 0 : null);
+            });
+
+            // Jika ada Pra Data, ubah title kepada tarikh
+            let praLabel = praDateStr ? `Pra (${praDateStr})` : 'Ujian Pra';
+            let pascaLabel = pascaDateStr ? `Pasca (${pascaDateStr})` : 'Ujian Pasca (Belum)';
+
+            // Setting Chart.js Bar Chart
+            const ctxBar = document.getElementById('barChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: domains,
+                    datasets: [
+                        { label: praLabel, data: praScores, backgroundColor: '#3b82f6', borderRadius: 4 }, // Blue
+                        { label: pascaLabel, data: pascaScores, backgroundColor: '#a855f7', borderRadius: 4 } // Purple
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { labels: { color: '#cbd5e1', font: { family: 'Inter', size: 11 } } }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 10, ticks: { color: '#94a3b8', stepSize: 2 }, grid: { color: '#334155' } },
+                        x: { ticks: { color: '#94a3b8', font: { size: 9 } }, grid: { display: false } }
+                    }
+                }
+            });
+
+            // Setting Chart.js Radar Chart
+            const ctxWeb = document.getElementById('webChart').getContext('2d');
+            new Chart(ctxWeb, {
+                type: 'radar',
+                data: {
+                    labels: domains,
+                    datasets: [
+                        {
+                            label: praLabel,
+                            data: praScores,
+                            backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                            borderColor: '#3b82f6',
+                            pointBackgroundColor: '#3b82f6',
+                            borderWidth: 2
+                        },
+                        {
+                            label: pascaLabel,
+                            data: pascaScores,
+                            backgroundColor: 'rgba(168, 85, 247, 0.2)',
+                            borderColor: '#a855f7',
+                            pointBackgroundColor: '#a855f7',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        r: {
+                            angleLines: { color: '#334155' },
+                            grid: { color: '#334155' },
+                            pointLabels: { color: '#cbd5e1', font: { size: 9, family: 'Inter' } },
+                            ticks: { display: false, min: 0, max: 10 }
+                        }
+                    }
+                }
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             currentUser = localStorage.getItem("propkes_user");
             
             if (!currentUser) {
-                window.location.href = "index.html"; // Tendang keluar jika tiada sesi
+                window.location.href = "index.html"; 
                 return;
             }
 
@@ -593,34 +730,39 @@
                 document.getElementById("profileEmail").textContent = myProfile.email || "Tiada Rekod";
                 document.getElementById("profileSekolah").textContent = myProfile.sekolah || "Belum Ditetapkan";
                 document.getElementById("profilePPD").textContent = myProfile.ppd ? `PPD: ${myProfile.ppd}` : "PPD: Belum Ditetapkan";
-            } else {
-                document.getElementById("profileNama").textContent = "Ralat: Data Anda Tidak Ditemui.";
+
+                // Database Pemandu
+                const supervisorDB = {
+                    "KHAIRUL IZAD BIN ABD RAHMAN": { pc: "Pn. Farah Mardhy binti Aman", email: "farah.mardhy@iab.edu.my" },
+                    "SURIA BINTI IBRAHIM": { pc: "Pn. Farah Mardhy binti Aman", email: "farah.mardhy@iab.edu.my" },
+                    "DR MD NIZAM BIN NASIR": { pc: "Tn. Hj. Md Rahaimi bin Rashid", email: "rahaimi@iab.edu.my" },
+                    "ROSZILAWATI BINTI ISMAIL": { pc: "En. Norazmir bin Ahmad", email: "norazmir@iab.edu.my" },
+                    "DR MOHD YUSOF BIN MUSTAFFA KAMAL": { pc: "En. Ayub bin Ahmad", email: "ayub@iab.edu.my" },
+                    "DR MOHD HAFEZ BIN KAMARUDIN": { pc: "En. Ayub bin Ahmad", email: "ayub@iab.edu.my" },
+                    "DR.UMA THEVI A/P VETRIVEILMANY": { pc: "En. Ayub bin Ahmad", email: "ayub@iab.edu.my" },
+                    "MOHD MALIM ESANUDDIN": { pc: "Dr. Abdul Ghani bin Sani", email: "agani@iab.edu.my" },
+                    "ABD HALIB BIN MOHD ALI": { pc: "Dr. Abdul Ghani bin Sani", email: "agani@iab.edu.my" },
+                    "DR CAMMELIA OTHMAN": { pc: "Tn. Hj. Edmund Shah bin Thamb", email: "edmund@iab.edu.my" },
+                    "SYAHIDA FARAH BINTI ABDUL RAHIM": { pc: "Tn. Hj. Edmund Shah bin Thamb", email: "edmund@iab.edu.my" },
+                    "DR. HAJAH ROSNANI BINTI SAINI": { pc: "Tn. Hj. Edmund Shah bin Thamb", email: "edmund@iab.edu.my" }
+                };
+
+                const penyelia = supervisorDB[fullName.trim().toUpperCase()];
+                if (penyelia) {
+                    document.getElementById("infoPemanduNama").textContent = penyelia.pc;
+                    document.getElementById("infoPemanduEmail").textContent = penyelia.email;
+                    document.getElementById("infoPemanduEmailLink").href = `mailto:${penyelia.email}`;
+                }
+                
+                if (myProfile.mentorSekolah) {
+                    document.getElementById("infoMentorNama").textContent = myProfile.mentorSekolah;
+                }
             }
 
+            checkAssessmentData();
             renderTasks();
             renderCalendar();
-            renderLocationSummary();
         });
-
-        function showToast(message) {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-xl shadow-black/20 text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3`;
-            toast.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg> <span>${message}</span>`;
-            
-            container.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.classList.remove('translate-y-10', 'opacity-0');
-                toast.classList.add('translate-y-0', 'opacity-100');
-            }, 10);
-            
-            setTimeout(() => {
-                toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('translate-y-2', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
 
         function logout() {
             localStorage.removeItem("propkes_user");
@@ -629,4 +771,3 @@
     </script>
 </body>
 </html>
-```eof
