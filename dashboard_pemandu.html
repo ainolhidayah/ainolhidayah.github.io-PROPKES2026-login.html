@@ -286,8 +286,14 @@
             document.getElementById("tableTitle").textContent = profile.title;
             document.getElementById("cohortDesc").textContent = profile.desc;
 
-            // Filter Peserta untuk Pemandu ini sahaja
-            const myPeserta = pesertaMasterData.filter(p => p.pemanduId === loggedInUser);
+            // KEMAS KINI: Hanya tunjukkan peserta yang TELAH DIDAFTARKAN oleh Admin
+            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+            const registeredPesertaNames = Object.values(accounts)
+                .filter(a => a.role === 'peserta')
+                .map(a => a.name);
+
+            // Tapis mengikut Pemandu DAN nama yang telah didaftar
+            const myPeserta = pesertaMasterData.filter(p => p.pemanduId === loggedInUser && registeredPesertaNames.includes(p.nama));
             
             // Kira Metrik
             const total = myPeserta.length;
@@ -299,27 +305,21 @@
             document.getElementById("metricGoodTotal").textContent = "/ " + total;
             document.getElementById("metricBad").textContent = badCount;
             document.getElementById("metricBadTotal").textContent = "/ " + total;
-            document.getElementById("lihatSemuaBtn").textContent = "Lihat Semua " + total + " Peserta";
+            document.getElementById("lihatSemuaBtn").textContent = total > 0 ? "Lihat Semua " + total + " Peserta" : "Tiada Peserta";
 
             // Render Table
             const tbody = document.getElementById("participantTableBody");
             tbody.innerHTML = "";
 
-            myPeserta.forEach(p => {
-                let rowBg = "";
-                let praIcon = p.pra === "Selesai" ? `<span class="text-emerald-400 text-xs font-bold flex justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></span>` : `<span class="text-rose-400 text-xs font-bold">Belum</span>`;
-                
-                let logClass = p.log === "Lengkap" ? "text-emerald-400" : (p.log === "Belum" ? "text-rose-400" : "text-amber-400");
-                
-                let jurnalBadge = p.jurnal === "HANTAR" ? `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">HANTAR</span>` : `<span class="bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded text-[10px] font-bold">TUNGGAK</span>`;
-
-                let actionBtn = "";
-                if(p.status === "good") {
-                    actionBtn = `<button class="text-slate-500 cursor-not-allowed text-[10px] px-2 py-1 rounded border border-slate-700 bg-slate-800/50" disabled>Tiada Isu</button>`;
-                } else if (p.status === "warning") {
-                    rowBg = "bg-amber-950/10";
-                    actionBtn = `<button onclick="openModal('${p.nama}')" class="bg-teal-600 hover:bg-teal-700 text-white px-3 py-1 rounded text-[10px] outline-none cursor-pointer shadow shadow-teal-600/30 transition-colors">Nudge</button>`;
-                } else {
+            if (total === 0) {
+                // Paparkan mesej jika tiada peserta didaftarkan lagi
+                tbody.innerHTML = `<tr><td colspan="5" class="py-8 px-4 text-center text-slate-500 text-xs italic">Tiada peserta didaftarkan di bawah seliaan anda buat masa ini. Sila hubungi Urus Setia.</td></tr>`;
+            } else {
+                myPeserta.forEach(p => {
+                    let rowBg = "";
+                    let praIcon = p.pra === "Selesai" ? `<span class="text-emerald-400 text-xs font-bold flex justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></span>` : `<span class="text-rose-400 text-xs font-bold">Belum</span>`;
+                    
+                    let logClass = p.log === "Lengkap" ? "text-emerald-400" : (p.log === "Belum" ? "text-rose-400" : "text-amber-400");
                     rowBg = "bg-rose-950/10";
                     actionBtn = `<button onclick="openModal('${p.nama}')" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1 rounded text-[10px] outline-none cursor-pointer shadow shadow-rose-600/30 transition-colors">Nudge Segera</button>`;
                 }
