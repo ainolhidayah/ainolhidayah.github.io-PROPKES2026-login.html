@@ -67,12 +67,6 @@
         </div>
     </nav>
 
-    <!-- Header Laporan Cetakan Sahaja -->
-    <div class="hidden print:block text-center mb-8 border-b-2 border-black pb-4">
-        <h1 class="text-2xl font-bold uppercase">Laporan Analisis Eksekutif PROPKES 2026</h1>
-        <p class="text-sm">Disediakan oleh Urus Setia Pusat, Institut Aminuddin Baki KPM</p>
-    </div>
-
     <!-- Header UI Biasa -->
     <div class="bg-gradient-to-r from-blue-900 to-slate-900 border-b border-blue-900/50 shadow-2xl py-6 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -82,7 +76,7 @@
                     <p class="text-sm text-blue-200 mt-1">Pemantauan data makro dan mikro, analitik peserta, dan pangkalan data.</p>
                 </div>
                 <div class="flex gap-3">
-                    <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-5 rounded-xl shadow-lg shadow-blue-600/30 flex items-center gap-2 outline-none transition-colors">
+                    <button onclick="window.cetakLaporanA4()" id="btnCetakA4" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-5 rounded-xl shadow-lg shadow-blue-600/30 flex items-center gap-2 outline-none transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
                         Cetak Laporan A4
                     </button>
@@ -122,7 +116,6 @@
                 <div class="text-4xl font-black text-white relative z-10" id="statTotalMentor">0</div>
             </div>
 
-            <!-- Tambahan Kotak Baharu: Status Selesai Pra -->
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg relative overflow-hidden">
                 <div class="absolute -right-4 -top-4 w-16 h-16 bg-emerald-500/10 rounded-full blur-xl"></div>
                 <div class="flex justify-between items-start mb-4 relative z-10">
@@ -144,7 +137,7 @@
                         Analisis Purata i-PROPKES Keseluruhan
                     </h3>
                 </div>
-                <div class="w-full h-64">
+                <div class="w-full h-64 bg-slate-900 rounded-lg p-2 flex items-center justify-center">
                     <canvas id="overallBarChart"></canvas>
                 </div>
                 <p class="text-[10px] text-slate-500 text-center mt-3">Carta memaparkan purata skor Pra dan Pasca bagi seluruh peserta berdaftar.</p>
@@ -158,8 +151,8 @@
                         Laporan Bilangan Peserta Mengikut Kampus
                     </h3>
                 </div>
-                <div class="w-full h-64 flex justify-center">
-                    <canvas id="campusPieChart" class="max-w-[280px]"></canvas>
+                <div class="w-full h-64 flex justify-center bg-slate-900 rounded-lg p-2 items-center">
+                    <canvas id="campusPieChart" style="max-width: 280px; max-height: 280px;"></canvas>
                 </div>
                 <p class="text-[10px] text-slate-500 text-center mt-3">Dikumpulkan secara automatik (Pusat & Lain-lain = IAB Induk).</p>
             </div>
@@ -168,10 +161,7 @@
 
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8 print-break">
             
-            <!-- Bahagian Kiri & Tengah: Jadual Pengguna Bersepadu -->
             <div class="xl:col-span-2 space-y-8">
-                
-                <!-- Jadual Pengguna (Dinaik taraf dengan Expand) -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
                     <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
                         <h3 class="font-bold text-white flex items-center gap-2">
@@ -201,7 +191,6 @@
 
             <!-- Bahagian Kanan: Pautan Cepat & Pendaftaran -->
             <div class="space-y-6 no-print">
-                <!-- Pangkalan Data Jump Links -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <h3 class="font-bold text-white mb-2 text-sm">Pautan Pantas Drive & Forms</h3>
                     <div class="space-y-3 mt-4">
@@ -549,11 +538,14 @@
             if(cPra > 0) pS = [praT.d1/cPra, praT.d2/cPra, praT.d3/cPra, praT.d4/cPra, praT.d5/cPra, praT.d6/cPra, praT.d7/cPra];
             if(cPasca > 0) paS = [pascaT.d1/cPasca, pascaT.d2/cPasca, pascaT.d3/cPasca, pascaT.d4/cPasca, pascaT.d5/cPasca, pascaT.d6/cPasca, pascaT.d7/cPasca];
 
+            // Tentukan max y-axis
+            const maxVal = (cPra > 0 || cPasca > 0) ? 10 : 1;
+
             if(window.adminCharts.bar) window.adminCharts.bar.destroy();
             window.adminCharts.bar = new Chart(document.getElementById('overallBarChart').getContext('2d'), {
                 type: 'bar',
                 data: { labels: d, datasets: [{label: 'Purata Pra', data: pS, backgroundColor: '#10b981'}, {label: 'Purata Pasca', data: paS, backgroundColor: '#3b82f6'}] },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { min:0, max:10, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} }, plugins: { legend: { labels: {color: '#cbd5e1'} } } }
+                options: { responsive: true, maintainAspectRatio: false, animation: false, scales: { y: { min:0, max:maxVal, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} }, plugins: { legend: { labels: {color: '#cbd5e1'} } } }
             });
 
             const campLabels = Object.keys(cMap);
@@ -564,7 +556,7 @@
             window.adminCharts.pie = new Chart(document.getElementById('campusPieChart').getContext('2d'), {
                 type: 'doughnut',
                 data: { labels: campLabels, datasets: [{ data: campData, backgroundColor: bgColors, borderWidth: 0 }] },
-                options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { position: 'right', labels: {color: '#cbd5e1', font:{size:10}} } } }
+                options: { responsive: true, maintainAspectRatio: false, animation: false, cutout: '60%', plugins: { legend: { position: 'right', labels: {color: '#cbd5e1', font:{size:10}} } } }
             });
         }
 
@@ -598,7 +590,7 @@
                             window.userCharts[username] = new Chart(canvas.getContext('2d'), {
                                 type: 'radar',
                                 data: { labels: d, datasets: [{label: 'Pra', data: pr, borderColor: '#10b981', backgroundColor:'rgba(16,185,129,0.2)'}, {label: 'Pasca', data: ps, borderColor: '#3b82f6', backgroundColor:'rgba(59,130,246,0.2)'}] },
-                                options: { responsive: true, maintainAspectRatio: false, scales: { r: { min:0, max: 10, pointLabels: {color:'#94a3b8', font:{size:8}}, ticks: {display:false, max:10} } }, plugins:{legend:{display:false}} }
+                                options: { responsive: true, maintainAspectRatio: false, animation: false, scales: { r: { min:0, max: 10, pointLabels: {color:'#94a3b8', font:{size:8}}, ticks: {display:false, max:10} } }, plugins:{legend:{display:false}} }
                             });
                         }
                     }
@@ -676,6 +668,40 @@
                     else { rows[i].style.display = "none"; if(rows[i+1] && rows[i+1].querySelector('.expand-content')) rows[i+1].style.display = "none"; }
                 }
             }
+        };
+
+        // CETAKAN A4 PINTAR (MENYELESAIKAN MASALAH CANVAS KOSONG)
+        window.cetakLaporanA4 = function() {
+            const btn = document.getElementById('btnCetakA4');
+            btn.innerHTML = `<svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Menjana Laporan...`;
+            
+            // Tunggu 0.5s supaya UI stabil
+            setTimeout(() => {
+                // Semua laci perlu dibuka (di-expand) sementara untuk diprint supaya graf dapat dilukis
+                const userKeys = Object.keys(allAccounts);
+                userKeys.forEach(u => {
+                    const row = document.getElementById(`row_${u}`);
+                    if(row && !row.classList.contains('open')) {
+                        window.toggleExpand(`row_${u}`, u);
+                    }
+                });
+
+                // Beri masa tambahan 1 saat untuk lukis semua chart yang baru dibuka
+                setTimeout(() => {
+                    window.print();
+                    
+                    // Tutup semula laci selepas print dialog tertutup
+                    setTimeout(() => {
+                        userKeys.forEach(u => {
+                            const row = document.getElementById(`row_${u}`);
+                            if(row && row.classList.contains('open')) window.toggleExpand(`row_${u}`, u);
+                        });
+                        btn.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak Laporan A4`;
+                    }, 500);
+
+                }, 1000);
+
+            }, 500);
         };
 
         fetchAdminData();
