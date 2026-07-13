@@ -28,14 +28,11 @@
             body { background: white !important; color: black !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .bg-pattern { background-image: none !important; }
             .no-print, nav, button { display: none !important; }
-            
             .bg-slate-900, .bg-slate-950, .bg-slate-800 { background: white !important; border: 1px solid #e2e8f0 !important; color: black !important; box-shadow: none !important; }
             .text-white, .text-slate-200, .text-slate-300, .text-slate-400 { color: black !important; }
             .border-slate-800, .border-slate-700 { border-color: #cbd5e1 !important; }
-            
             .print-break { page-break-before: always; }
             .expand-content { max-height: none !important; overflow: visible !important; display: block !important; border-bottom: 2px solid #000; }
-            
             table { width: 100% !important; border-collapse: collapse; page-break-inside: auto; }
             tr { page-break-inside: avoid; page-break-after: auto; }
             th { background-color: #f1f5f9 !important; color: black !important; border: 1px solid #cbd5e1 !important; }
@@ -67,6 +64,12 @@
         </div>
     </nav>
 
+    <!-- Header Laporan Cetakan Sahaja -->
+    <div class="hidden print:block text-center mb-8 border-b-2 border-black pb-4">
+        <h1 class="text-2xl font-bold uppercase">Laporan Analisis Eksekutif PROPKES 2026</h1>
+        <p class="text-sm">Disediakan oleh Urus Setia Pusat, Institut Aminuddin Baki KPM</p>
+    </div>
+
     <!-- Header UI Biasa -->
     <div class="bg-gradient-to-r from-blue-900 to-slate-900 border-b border-blue-900/50 shadow-2xl py-6 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,7 +79,7 @@
                     <p class="text-sm text-blue-200 mt-1">Pemantauan data makro dan mikro, analitik peserta, dan pangkalan data.</p>
                 </div>
                 <div class="flex gap-3">
-                    <button onclick="window.cetakLaporanA4()" id="btnCetakA4" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-5 rounded-xl shadow-lg shadow-blue-600/30 flex items-center gap-2 outline-none transition-colors">
+                    <button onclick="window.cetakLaporanA4()" id="btnCetakA4" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-5 rounded-xl shadow-lg shadow-blue-600/30 flex items-center gap-2 outline-none transition-colors cursor-pointer">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
                         Cetak Laporan A4
                     </button>
@@ -129,7 +132,7 @@
         <!-- Analisis Keseluruhan -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8 print-break">
             
-            <!-- Carta Bar Keseluruhan i-PROPKES -->
+            <!-- Carta Bar Keseluruhan -->
             <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                 <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-3">
                     <h3 class="font-bold text-white flex items-center gap-2">
@@ -143,7 +146,7 @@
                 <p class="text-[10px] text-slate-500 text-center mt-3">Carta memaparkan purata skor Pra dan Pasca bagi seluruh peserta berdaftar.</p>
             </div>
 
-            <!-- Carta Pai Taburan Kampus -->
+            <!-- Carta Pai -->
             <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                 <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-3">
                     <h3 class="font-bold text-white flex items-center gap-2">
@@ -161,7 +164,9 @@
 
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8 print-break">
             
+            <!-- Bahagian Kiri & Tengah: Jadual Pengguna Bersepadu -->
             <div class="xl:col-span-2 space-y-8">
+                
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
                     <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
                         <h3 class="font-bold text-white flex items-center gap-2">
@@ -273,10 +278,9 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 no-print"></div>
 
-    <!-- FIREBASE & LOKAL SCRIPTS -->
+    <!-- FIREBASE & LOKAL SCRIPTS (DIBETULKAN TYPO) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, get, child, update, set, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -294,7 +298,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Utility: Toast & Logout
         window.showToast = function(msg, type='success') {
             const container = document.getElementById('toastContainer');
             if(!container) return;
@@ -312,27 +315,19 @@
             window.location.replace("index.html");
         };
 
-        // Pemasa
-        const today = new Date();
-        const fasa1Date = new Date("2026-08-03"); const taklimatDate = new Date("2026-07-20");
-        const daysToFasa1 = Math.ceil((fasa1Date - today) / (1000 * 60 * 60 * 24));
-        const daysToTaklimat = Math.ceil((taklimatDate - today) / (1000 * 60 * 60 * 24));
-        document.getElementById("countdownFasa1").textContent = daysToFasa1 > 0 ? `${daysToFasa1} Hari` : "Telah Mula";
-        document.getElementById("countdownTaklimat").textContent = daysToTaklimat > 0 ? `${daysToTaklimat} Hari` : "Selesai";
-
-        // Variabel Data
+        // --- BACA DATA PENGGUNA BERSEPADU ---
         let allAccounts = {}; 
-        let propkesPraData = {}; 
+        let propkesData = {}; // <--- INI YG DIBETULKAN
         let logData = {}; 
         let taskData = {}; 
+
         window.userCharts = {};
         window.adminCharts = {};
 
-        // 1. FETCH DATA (KALIS RALAT)
         async function fetchAdminData() {
             try {
                 const tbody = document.getElementById("userTableBody");
-                tbody.innerHTML = `<tr><td colspan="3" class="py-8 px-4 text-center text-slate-500 text-xs italic">Menyambung ke Firebase dan memproses data...</td></tr>`;
+                if(tbody) tbody.innerHTML = `<tr><td colspan="3" class="py-8 px-4 text-center text-slate-500 text-xs italic">Menyambung ke Firebase dan memproses data...</td></tr>`;
 
                 const [accSnap, praSnap, logSnap, taskSnap] = await Promise.all([
                     get(ref(db, 'propkes_accounts')),
@@ -343,27 +338,26 @@
 
                 if (accSnap.exists()) {
                     allAccounts = accSnap.val();
-                    if(praSnap.exists()) propkesPraData = praSnap.val();
+                    if(praSnap.exists()) propkesData = praSnap.val(); // <-- DIBETULKAN DI SINI
                     if(logSnap.exists()) logData = logSnap.val();
                     if(taskSnap.exists()) taskData = taskSnap.val();
 
                     renderTableAndStats();
                 } else {
-                    tbody.innerHTML = `<tr><td colspan="3" class="py-8 px-4 text-center text-slate-500 text-xs italic">Tiada pendaftaran pengguna ditemui.</td></tr>`;
+                    if(tbody) tbody.innerHTML = `<tr><td colspan="3" class="py-8 px-4 text-center text-slate-500 text-xs italic">Tiada pendaftaran pengguna ditemui.</td></tr>`;
                 }
             } catch (error) {
                 console.error("Ralat Tarik Data Firebase:", error);
-                document.getElementById("userTableBody").innerHTML = `<tr><td colspan="3" class="py-8 px-4 text-center text-rose-500 text-xs italic">Ralat sambungan. Sila muat semula halaman.</td></tr>`;
+                document.getElementById("userTableBody").innerHTML = `<tr><td colspan="3" class="py-8 px-4 text-center text-rose-500 text-xs italic">Ralat sambungan: ${error.message}</td></tr>`;
             }
         }
 
-        // 2. RENDER JADUAL (KALIS RALAT)
         window.renderTableAndStats = function() {
             const tbody = document.getElementById("userTableBody");
+            if(!tbody) return;
             tbody.innerHTML = "";
 
             let totalPeserta = 0, totalPemandu = 0, totalMentor = 0, praSelesai = 0;
-            
             let totalPraScores = { d1:0, d2:0, d3:0, d4:0, d5:0, d6:0, d7:0 };
             let totalPascaScores = { d1:0, d2:0, d3:0, d4:0, d5:0, d6:0, d7:0 };
             let countPra = 0, countPasca = 0;
@@ -383,7 +377,7 @@
                 return;
             }
 
-            // A. Pusingan Pertama (Kiraan Statistik)
+            // KIRA STATISTIK (DIBALUT DENGAN TRY-CATCH)
             userKeys.forEach(username => {
                 try {
                     const u = allAccounts[username];
@@ -392,21 +386,21 @@
                     if(u.role === "peserta") {
                         totalPeserta++;
                         
-                        if(propkesPraData[username] && propkesPraData[username].pra) {
+                        const dPra = propkesData[username]?.pra;
+                        const dPasca = propkesData[username]?.pasca;
+
+                        if(dPra) {
                             praSelesai++; countPra++;
-                            const dPra = propkesPraData[username].pra;
                             totalPraScores.d1 += dPra["Pengetahuan Teras"]||0; totalPraScores.d2 += dPra["Dasar & Matlamat"]||0; totalPraScores.d3 += dPra["Instruksional"]||0;
                             totalPraScores.d4 += dPra["Inovasi & Perubahan"]||0; totalPraScores.d5 += dPra["Hubungan Manusia"]||0; totalPraScores.d6 += dPra["Sumber & Operasi"]||0; totalPraScores.d7 += dPra["Keberkesanan Kendiri"]||0;
                         }
-                        if(propkesPraData[username] && propkesPraData[username].pasca) {
+                        if(dPasca) {
                             countPasca++;
-                            const dPasca = propkesPraData[username].pasca;
                             totalPascaScores.d1 += dPasca["Pengetahuan Teras"]||0; totalPascaScores.d2 += dPasca["Dasar & Matlamat"]||0; totalPascaScores.d3 += dPasca["Instruksional"]||0;
                             totalPascaScores.d4 += dPasca["Inovasi & Perubahan"]||0; totalPascaScores.d5 += dPasca["Hubungan Manusia"]||0; totalPascaScores.d6 += dPasca["Sumber & Operasi"]||0; totalPascaScores.d7 += dPasca["Keberkesanan Kendiri"]||0;
                         }
 
-                        // MAPPING KAMPUS PINTAR
-                        let loc = (u.pusatCawangan || u.jabatan || u.sekolah || "").trim().toUpperCase();
+                        let loc = String(u.pusatCawangan || u.jabatan || u.sekolah || "").trim().toUpperCase();
                         if (loc.includes("UTARA")) { campusMap["IAB Cawangan Utara"]++; }
                         else if (loc.includes("GENTING") || loc.includes("GH")) { campusMap["IAB Cawangan Genting Highlands"]++; }
                         else if (loc.includes("SABAH")) { campusMap["IAB Cawangan Sabah"]++; }
@@ -416,15 +410,15 @@
                 } catch (e) { console.error("Ralat memproses statistik pengguna:", username, e); }
             });
 
-            // B. Pusingan Kedua (Lukis Jadual)
+            // LUKIS JADUAL
             userKeys.forEach(username => {
                 try {
                     const u = allAccounts[username];
                     if (!u) return;
 
-                    const uName = u.name ? u.name.toUpperCase() : "TIADA NAMA (RALAT)";
-                    const uNameSafe = u.name ? u.name.replace(/'/g, "\\'") : "Tiada Nama";
-                    const uEmail = u.email || "-";
+                    const uName = String(u.name || "TIADA NAMA").toUpperCase();
+                    const uNameSafe = String(u.name || "Tiada Nama").replace(/'/g, "\\'");
+                    const uEmail = String(u.email || "-");
                     
                     let roleBadge = "";
                     if(u.role === "peserta") roleBadge = `<span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Peserta</span>`;
@@ -438,13 +432,12 @@
                     let expandContent = "";
                     
                     if(u.role === "peserta") {
-                        const hasPra = propkesPraData[username] && propkesPraData[username].pra;
-                        const hasPasca = propkesPraData[username] && propkesPraData[username].pasca;
+                        const hasPra = propkesData[username]?.pra ? true : false;
+                        const hasPasca = propkesData[username]?.pasca ? true : false;
                         const logCount = logData[username] ? Object.keys(logData[username]).length : 0;
                         
-                        const userTasks = taskData[username] || {};
                         let doneT = 0;
-                        try { doneT = Object.values(userTasks).filter(v => v === true).length; } catch(e){}
+                        try { doneT = Object.values(taskData[username] || {}).filter(v => v === true).length; } catch(e){}
                         const pctTask = Math.round((doneT/9)*100) || 0;
                         
                         expandBtn = `
@@ -516,16 +509,16 @@
                         </td>
                     `;
                     tbody.appendChild(tr);
-                    
                     if(expandContent) tbody.insertAdjacentHTML('beforeend', expandContent);
+
                 } catch (e) { console.error("Ralat melukis jadual pengguna:", username, e); }
             });
 
-            document.getElementById("statTotalPeserta").textContent = totalPeserta;
-            document.getElementById("statTotalPemandu").textContent = totalPemandu;
-            document.getElementById("statTotalMentor").textContent = totalMentor;
-            document.getElementById("statPraSelesai").textContent = praSelesai;
-            document.getElementById("statPraTotal").textContent = "/ " + totalPeserta;
+            if(document.getElementById("statTotalPeserta")) document.getElementById("statTotalPeserta").textContent = totalPeserta;
+            if(document.getElementById("statTotalPemandu")) document.getElementById("statTotalPemandu").textContent = totalPemandu;
+            if(document.getElementById("statTotalMentor")) document.getElementById("statTotalMentor").textContent = totalMentor;
+            if(document.getElementById("statPraSelesai")) document.getElementById("statPraSelesai").textContent = praSelesai;
+            if(document.getElementById("statPraTotal")) document.getElementById("statPraTotal").textContent = "/ " + totalPeserta;
 
             drawOverallCharts(totalPraScores, countPra, totalPascaScores, countPasca, campusMap);
         };
@@ -538,26 +531,29 @@
             if(cPra > 0) pS = [praT.d1/cPra, praT.d2/cPra, praT.d3/cPra, praT.d4/cPra, praT.d5/cPra, praT.d6/cPra, praT.d7/cPra];
             if(cPasca > 0) paS = [pascaT.d1/cPasca, pascaT.d2/cPasca, pascaT.d3/cPasca, pascaT.d4/cPasca, pascaT.d5/cPasca, pascaT.d6/cPasca, pascaT.d7/cPasca];
 
-            // Tentukan max y-axis
-            const maxVal = (cPra > 0 || cPasca > 0) ? 10 : 1;
+            const barCtx = document.getElementById('overallBarChart');
+            if(barCtx) {
+                if(window.adminCharts.bar) window.adminCharts.bar.destroy();
+                window.adminCharts.bar = new Chart(barCtx.getContext('2d'), {
+                    type: 'bar',
+                    data: { labels: d, datasets: [{label: 'Purata Pra', data: pS, backgroundColor: '#10b981'}, {label: 'Purata Pasca', data: paS, backgroundColor: '#3b82f6'}] },
+                    options: { responsive: true, maintainAspectRatio: false, animation: false, scales: { y: { min:0, max:10, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} }, plugins: { legend: { labels: {color: '#cbd5e1'} } } }
+                });
+            }
 
-            if(window.adminCharts.bar) window.adminCharts.bar.destroy();
-            window.adminCharts.bar = new Chart(document.getElementById('overallBarChart').getContext('2d'), {
-                type: 'bar',
-                data: { labels: d, datasets: [{label: 'Purata Pra', data: pS, backgroundColor: '#10b981'}, {label: 'Purata Pasca', data: paS, backgroundColor: '#3b82f6'}] },
-                options: { responsive: true, maintainAspectRatio: false, animation: false, scales: { y: { min:0, max:maxVal, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} }, plugins: { legend: { labels: {color: '#cbd5e1'} } } }
-            });
+            const pieCtx = document.getElementById('campusPieChart');
+            if(pieCtx) {
+                const campLabels = Object.keys(cMap);
+                const campData = Object.values(cMap);
+                const bgColors = ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b']; 
 
-            const campLabels = Object.keys(cMap);
-            const campData = Object.values(cMap);
-            const bgColors = ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b']; 
-
-            if(window.adminCharts.pie) window.adminCharts.pie.destroy();
-            window.adminCharts.pie = new Chart(document.getElementById('campusPieChart').getContext('2d'), {
-                type: 'doughnut',
-                data: { labels: campLabels, datasets: [{ data: campData, backgroundColor: bgColors, borderWidth: 0 }] },
-                options: { responsive: true, maintainAspectRatio: false, animation: false, cutout: '60%', plugins: { legend: { position: 'right', labels: {color: '#cbd5e1', font:{size:10}} } } }
-            });
+                if(window.adminCharts.pie) window.adminCharts.pie.destroy();
+                window.adminCharts.pie = new Chart(pieCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: { labels: campLabels, datasets: [{ data: campData, backgroundColor: bgColors, borderWidth: 0 }] },
+                    options: { responsive: true, maintainAspectRatio: false, animation: false, cutout: '60%', plugins: { legend: { position: 'right', labels: {color: '#cbd5e1', font:{size:10}} } } }
+                });
+            }
         }
 
         // FUNGSI BUKA LACI EXPAND DAN LUKIS CARTA INDIVIDU
@@ -575,16 +571,16 @@
                 if(!window.userCharts[username]) {
                     const canvas = document.getElementById(`radar_${username}`);
                     if(canvas) {
-                        const hasPra = propkesPraData[username] && propkesPraData[username].pra;
-                        const hasPasca = propkesPraData[username] && propkesPraData[username].pasca;
+                        const hasPra = propkesData[username]?.pra;
+                        const hasPasca = propkesData[username]?.pasca;
                         
                         if(hasPra || hasPasca) {
                             const d = ["Pengetahuan Teras", "Dasar", "Instruksional", "Inovasi", "Manusia", "Operasi", "Kendiri"];
                             const dKeys = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
                             let pr=[], ps=[];
                             dKeys.forEach(k => {
-                                pr.push(hasPra ? propkesPraData[username].pra[k]||0 : 0);
-                                ps.push(hasPasca ? propkesPraData[username].pasca[k]||0 : 0);
+                                pr.push(hasPra ? propkesData[username].pra[k]||0 : 0);
+                                ps.push(hasPasca ? propkesData[username].pasca[k]||0 : 0);
                             });
 
                             window.userCharts[username] = new Chart(canvas.getContext('2d'), {
@@ -670,27 +666,20 @@
             }
         };
 
-        // CETAKAN A4 PINTAR (MENYELESAIKAN MASALAH CANVAS KOSONG)
+        // CETAKAN A4 PINTAR
         window.cetakLaporanA4 = function() {
             const btn = document.getElementById('btnCetakA4');
             btn.innerHTML = `<svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Menjana Laporan...`;
             
-            // Tunggu 0.5s supaya UI stabil
             setTimeout(() => {
-                // Semua laci perlu dibuka (di-expand) sementara untuk diprint supaya graf dapat dilukis
                 const userKeys = Object.keys(allAccounts);
                 userKeys.forEach(u => {
                     const row = document.getElementById(`row_${u}`);
-                    if(row && !row.classList.contains('open')) {
-                        window.toggleExpand(`row_${u}`, u);
-                    }
+                    if(row && !row.classList.contains('open')) window.toggleExpand(`row_${u}`, u);
                 });
 
-                // Beri masa tambahan 1 saat untuk lukis semua chart yang baru dibuka
                 setTimeout(() => {
                     window.print();
-                    
-                    // Tutup semula laci selepas print dialog tertutup
                     setTimeout(() => {
                         userKeys.forEach(u => {
                             const row = document.getElementById(`row_${u}`);
@@ -698,9 +687,7 @@
                         });
                         btn.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak Laporan A4`;
                     }, 500);
-
                 }, 1000);
-
             }, 500);
         };
 
