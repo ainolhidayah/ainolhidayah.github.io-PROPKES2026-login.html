@@ -68,11 +68,11 @@
         <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex justify-between items-center relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-blue-500/10 blur-3xl rounded-full pointer-events-none"></div>
             <div class="relative z-10">
-                <h1 class="text-2xl font-bold text-white mb-2" id="welcomeMessage">Selamat Datang!</h1>
+                <h1 class="text-2xl md:text-3xl font-bold text-white mb-2" id="welcomeMessage">Selamat Datang!</h1>
                 <p class="text-slate-400 text-sm max-w-2xl">Lengkapkan maklumat profil, rekod log harian (Lampiran C), dan jurnal mingguan (Lampiran D) anda di sini.</p>
             </div>
             <div class="relative z-10">
-                <button onclick="window.openWeeklyModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-emerald-600/30 flex items-center gap-2 outline-none transition-all">
+                <button onclick="window.openWeeklyModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-emerald-600/30 flex items-center gap-2 outline-none transition-all cursor-pointer">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     Modul Mingguan (Lamp. C & D)
                 </button>
@@ -83,67 +83,114 @@
             
             <!-- KIRI: PROFIL -->
             <div class="lg:col-span-1 space-y-6">
+                <!-- MAKLUMAT DIDAFTARKAN -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm flex items-center gap-2">Maklumat Didaftarkan</h3>
                     <div class="space-y-4">
                         <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Nama Penuh</p><p class="text-sm font-medium text-slate-200" id="profileNama">Memuat turun...</p></div>
+                        <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">E-mel Rasmi</p><p class="text-sm font-medium text-slate-300" id="profileEmail">Belum Diisi</p></div>
                         <div class="grid grid-cols-2 gap-2">
                             <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Jawatan/Gred</p><p class="text-sm font-medium text-slate-300" id="profileJawatanGred">Belum Diisi</p></div>
-                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Pusat</p><p class="text-sm font-medium text-slate-300" id="profileJabatanPusat">Belum Diisi</p></div>
+                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Pusat/Jabatan</p><p class="text-sm font-medium text-slate-300" id="profileJabatanPusat">Belum Diisi</p></div>
                         </div>
                     </div>
                 </div>
 
+                <!-- MAKLUMAT PENYELIA -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm">Maklumat Sandaran & Penyelia</h3>
                     <div class="space-y-4">
-                        <div class="bg-blue-950/20 p-3 rounded-lg border border-blue-900/30"><p class="text-[10px] text-blue-400 font-bold uppercase mb-1">Sekolah Sandaran</p><p class="text-sm font-bold text-slate-200" id="profileSekolah">Belum Diisi</p></div>
-                        <div class="bg-purple-950/20 p-3 rounded-lg border border-purple-900/30"><p class="text-[10px] text-purple-400 font-bold uppercase mb-1">Pemandu Citra (IAB)</p><p class="text-sm font-bold text-slate-200" id="infoPemanduNama">Belum Diisi</p></div>
-                        <div class="bg-amber-950/20 p-3 rounded-lg border border-amber-900/30"><p class="text-[10px] text-amber-400 font-bold uppercase mb-1">Mentor 1 (Sekolah)</p><p class="text-sm font-bold text-slate-200" id="infoMentorNama">Belum Diisi</p></div>
+                        <div class="bg-blue-950/20 p-3 rounded-lg border border-blue-900/30">
+                            <p class="text-[10px] text-blue-400 font-bold uppercase mb-1">Sekolah Sandaran & PPD</p>
+                            <p class="text-sm font-bold text-slate-200" id="profileSekolah">Belum Diisi</p>
+                            <p class="text-[10px] text-slate-400" id="profilePPD">PPD: Belum Diisi</p>
+                        </div>
+                        <div class="bg-purple-950/20 p-3 rounded-lg border border-purple-900/30">
+                            <p class="text-[10px] text-purple-400 font-bold uppercase mb-1">Pemandu Citra (IAB)</p>
+                            <p class="text-sm font-bold text-slate-200" id="infoPemanduNama">Belum Diisi</p>
+                            <p class="text-[10px] text-slate-400" id="infoPemanduJawatan">-</p>
+                        </div>
+                        <div class="bg-amber-950/20 p-3 rounded-lg border border-amber-900/30">
+                            <p class="text-[10px] text-amber-400 font-bold uppercase mb-1">Mentor 1 (Sekolah)</p>
+                            <p class="text-sm font-bold text-slate-200" id="infoMentorNama">Belum Diisi</p>
+                            <p class="text-[10px] text-slate-400" id="infoMentorJawatan">-</p>
+                        </div>
+                        <div class="bg-amber-950/20 p-3 rounded-lg border border-amber-900/30">
+                            <p class="text-[10px] text-amber-400 font-bold uppercase mb-1">Mentor 2 (PPD)</p>
+                            <p class="text-sm font-bold text-slate-200" id="infoMentorPpdNama">Belum Diisi</p>
+                            <p class="text-[10px] text-slate-400" id="infoMentorPpdJawatan">-</p>
+                        </div>
                     </div>
-                    <button onclick="window.openProfilModal()" class="w-full mt-4 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-lg text-xs font-bold border border-slate-700 outline-none">Kemaskini Profil</button>
+                    
+                    <button onclick="window.openProfilModal()" class="w-full mt-4 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-lg text-xs font-bold border border-slate-700 outline-none cursor-pointer">
+                        Kemaskini Maklumat Penyelia
+                    </button>
+                    <button onclick="window.openPanduCitraModal()" class="w-full mt-3 bg-purple-600/20 hover:bg-purple-600 text-purple-400 hover:text-white py-2.5 rounded-lg text-xs font-bold border border-purple-500/50 outline-none cursor-pointer transition-colors">
+                        Daftar Sesi Pandu Citra
+                    </button>
+                </div>
+
+                <!-- STATISTIK KALENDAR -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2 mb-4 border-b border-slate-800 pb-3">Statistik Keberadaan (<span id="statMonthLabel">Ini</span>)</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-sm"><span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-blue-500"></div> Sekolah Sandaran</span><span class="font-bold text-white" id="countSekolah">0 Hari</span></div>
+                        <div class="flex justify-between items-center text-sm"><span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-indigo-500"></div> PPD</span><span class="font-bold text-white" id="countPpd">0 Hari</span></div>
+                        <div class="flex justify-between items-center text-sm"><span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-purple-500"></div> IAB</span><span class="font-bold text-white" id="countIab">0 Hari</span></div>
+                        <div class="flex justify-between items-center text-sm"><span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-slate-600"></div> Cuti / Lain</span><span class="font-bold text-white" id="countCuti">0 Hari</span></div>
+                    </div>
                 </div>
             </div>
 
             <!-- KANAN: KALENDAR & TUGASAN -->
             <div class="lg:col-span-2 space-y-6">
-                <!-- Kalendar Log Harian -->
+                
+                <!-- KALENDAR LOG HARIAN -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <div class="flex flex-col sm:flex-row justify-between items-center border-b border-slate-800 pb-4 mb-4 gap-4">
                         <div>
                             <h3 class="font-bold text-white text-sm flex items-center gap-2">Perekod Log Harian (Lampiran C)</h3>
                             <p class="text-[10px] text-slate-400 mt-1">Sila klik tarikh untuk mengisi Aktiviti & Refleksi.</p>
                         </div>
-                        <div class="flex items-center gap-2 bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg">
-                            <button onclick="window.changeMonth(-1)" class="text-slate-400 hover:text-white p-1 outline-none"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button>
-                            <span class="text-xs font-bold text-white w-24 text-center" id="calendarMonthYear">Ogos 2026</span>
-                            <button onclick="window.changeMonth(1)" class="text-slate-400 hover:text-white p-1 outline-none"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg></button>
+                        <div class="flex items-center gap-3">
+                            <button onclick="window.cetakLampiranB()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 outline-none cursor-pointer flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                                Cetak Lampiran B
+                            </button>
+                            <div class="flex items-center gap-2 bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg">
+                                <button onclick="window.changeMonth(-1)" class="text-slate-400 hover:text-white p-1 outline-none cursor-pointer"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button>
+                                <span class="text-xs font-bold text-white w-24 text-center" id="calendarMonthYear">Ogos 2026</span>
+                                <button onclick="window.changeMonth(1)" class="text-slate-400 hover:text-white p-1 outline-none cursor-pointer"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg></button>
+                            </div>
                         </div>
                     </div>
                     <div class="grid grid-cols-7 gap-1 text-center mb-2 text-[10px] font-bold text-slate-400">
                         <div class="text-rose-400">Ahad</div><div>Isn</div><div>Sel</div><div>Rab</div><div>Kha</div><div class="text-emerald-400">Jum</div><div>Sab</div>
                     </div>
+                    <!-- Tempat Kalendar Dijana -->
                     <div class="grid grid-cols-7 gap-1.5 sm:gap-2 text-center" id="calendarGrid"></div>
+                    
                     <div class="mt-4 pt-3 border-t border-slate-800 flex flex-wrap justify-center gap-4 text-[10px] text-slate-400">
                         <div class="flex items-center gap-1"><div class="w-2 h-2 bg-blue-500 rounded-sm"></div> Sekolah</div>
+                        <div class="flex items-center gap-1"><div class="w-2 h-2 bg-indigo-500 rounded-sm"></div> PPD</div>
                         <div class="flex items-center gap-1"><div class="w-2 h-2 bg-purple-500 rounded-sm"></div> IAB</div>
                         <div class="flex items-center gap-1 border-l border-slate-700 pl-4"><div class="w-3 h-3 bg-amber-500 rounded-full"></div> Menunggu Sah</div>
                         <div class="flex items-center gap-1"><div class="w-3 h-3 bg-emerald-500 rounded-full"></div> Disahkan</div>
                     </div>
                 </div>
 
-                <!-- Laporan i-PROPKES (Boleh Diperluas) -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
+                <!-- Laporan i-PROPKES -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6" id="analysisSectionContainer">
                     <div class="flex justify-between items-center">
                         <div>
                             <h3 class="font-bold text-white text-sm">Keputusan i-PROPKES</h3>
                             <p class="text-[10px] text-slate-400 mt-1">Selesai Ujian Pra dan Pasca.</p>
                         </div>
-                        <button onclick="document.getElementById('analisisBox').classList.toggle('hidden')" class="bg-slate-800 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-700 outline-none">Lihat Carta</button>
+                        <button onclick="document.getElementById('analisisBox').classList.toggle('hidden')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-700 outline-none cursor-pointer">Lihat Carta</button>
                     </div>
                     <div id="analisisBox" class="hidden mt-6 pt-6 border-t border-slate-800">
                         <div class="flex justify-end mb-4">
-                            <button onclick="window.cetakLaporanPropkes()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs px-4 py-2 rounded-lg font-bold outline-none flex gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF i-PROPKES</button>
+                            <button onclick="window.cetakLaporanPropkes()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs px-4 py-2 rounded-lg font-bold outline-none flex gap-2 cursor-pointer"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF i-PROPKES</button>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="bg-slate-950 p-4 rounded-xl border border-slate-800"><canvas id="barChart" class="w-full h-48"></canvas></div>
@@ -152,9 +199,25 @@
                     </div>
                 </div>
 
+                <!-- SENARAI TUGASAN -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
+                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-white text-sm">Status Tugasan PROPKES (Lampiran A)</h3>
+                            <p class="text-[11px] text-slate-400 mt-1">Sila jalankan ujian / sahkan pelaksanaan apabila selesai fasa.</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full border-4 border-slate-700 flex items-center justify-center shrink-0" id="progressCircle">
+                            <span class="text-[10px] font-bold text-slate-300" id="progressText">0%</span>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-8" id="taskListContainer"></div>
+                </div>
+
             </div>
         </div>
     </main>
+
+    <!-- SEMUA MODALS BERMULA DI SINI -->
 
     <!-- MODAL 1: PENGURUSAN MINGGUAN (LAMPIRAN C & D) -->
     <div id="weeklyModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
@@ -164,13 +227,13 @@
                     <h3 class="text-lg font-bold text-white">Pengurusan Modul Mingguan</h3>
                     <p class="text-xs text-emerald-400 mt-1">Cetak Log & Tulis Jurnal mengikut minggu.</p>
                 </div>
-                <button onclick="window.closeWeeklyModal()" class="text-slate-500 hover:text-white outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <button onclick="window.closeWeeklyModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
 
             <div class="space-y-6">
                 <div>
                     <label class="block text-[11px] font-bold text-slate-400 uppercase mb-2">1. Pilih Minggu Pilihan</label>
-                    <select id="weekSelector" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-sm text-white focus:border-emerald-500 outline-none">
+                    <select id="weekSelector" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-sm text-white focus:border-emerald-500 outline-none cursor-pointer">
                         <option value="W1_2026-08-03_2026-08-09">Minggu 1 (3 Ogos - 9 Ogos 2026)</option>
                         <option value="W2_2026-08-10_2026-08-16">Minggu 2 (10 Ogos - 16 Ogos 2026)</option>
                         <option value="W3_2026-08-17_2026-08-23">Minggu 3 (17 Ogos - 23 Ogos 2026)</option>
@@ -181,16 +244,16 @@
                 <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-4">
                     <p class="text-[11px] font-bold text-slate-400 uppercase border-b border-slate-800 pb-2">2. Tindakan Lampiran C & D</p>
                     
-                    <button onclick="window.cetakLampiranC()" class="w-full bg-slate-800 hover:bg-slate-700 text-blue-400 border border-slate-700 py-3 rounded-lg text-xs font-bold transition-colors flex justify-center items-center gap-2 outline-none">
+                    <button onclick="window.cetakLampiranC()" class="w-full bg-slate-800 hover:bg-slate-700 text-blue-400 border border-slate-700 py-3 rounded-lg text-xs font-bold transition-colors flex justify-center items-center gap-2 outline-none cursor-pointer">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                        Cetak Log Harian (Lampiran C)
+                        Cetak Log Harian Terperinci (Lampiran C)
                     </button>
                     
                     <div class="grid grid-cols-2 gap-3">
-                        <button onclick="window.openJournalForm()" class="bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg text-xs font-bold transition-colors shadow-lg outline-none">
+                        <button onclick="window.openJournalForm()" class="bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg text-xs font-bold transition-colors shadow-lg outline-none cursor-pointer">
                             Tulis Jurnal (Lamp. D)
                         </button>
-                        <button onclick="window.cetakLampiranD()" class="bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 py-3 rounded-lg text-xs font-bold transition-colors outline-none flex justify-center items-center gap-1">
+                        <button onclick="window.cetakLampiranD()" class="bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 py-3 rounded-lg text-xs font-bold transition-colors outline-none flex justify-center items-center gap-1 cursor-pointer">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak Jurnal
                         </button>
                     </div>
@@ -208,19 +271,19 @@
             <form id="journalForm" class="space-y-5">
                 <div>
                     <label class="block text-[11px] font-bold text-purple-400 uppercase mb-2">1. Deskripsi (Aktiviti/Peristiwa)</label>
-                    <textarea id="jDeskripsi" rows="4" required placeholder="Contoh: Sepanjang minggu ini, saya telah terlibat dalam sesi perbincangan..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
+                    <textarea id="jDeskripsi" rows="4" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
                 </div>
                 <div>
                     <label class="block text-[11px] font-bold text-amber-400 uppercase mb-2">2. Analisis</label>
-                    <textarea id="jAnalisis" rows="3" required placeholder="Contoh: Analisis terhadap perancangan menunjukkan..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
+                    <textarea id="jAnalisis" rows="3" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
                 </div>
                 <div>
                     <label class="block text-[11px] font-bold text-emerald-400 uppercase mb-2">3. Interpretasi & Kesimpulan</label>
-                    <textarea id="jInterpretasi" rows="3" required placeholder="Contoh: Kolaborasi aktif diperlukan bagi memastikan kejayaan..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
+                    <textarea id="jInterpretasi" rows="3" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
                 </div>
                 <div class="flex gap-3 pt-4 border-t border-slate-800">
-                    <button type="button" onclick="window.closeJournalForm()" class="flex-1 bg-slate-800 text-white py-3 rounded-xl text-xs font-bold outline-none">Batal</button>
-                    <button type="submit" id="btnSimpanJurnal" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl text-xs font-bold shadow-lg shadow-purple-600/30 outline-none">Simpan Jurnal</button>
+                    <button type="button" onclick="window.closeJournalForm()" class="flex-1 bg-slate-800 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer">Batal</button>
+                    <button type="submit" id="btnSimpanJurnal" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl text-xs font-bold shadow-lg shadow-purple-600/30 outline-none cursor-pointer">Simpan Jurnal</button>
                 </div>
             </form>
         </div>
@@ -231,7 +294,7 @@
         <div class="bg-slate-900 border border-blue-500/30 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300 max-h-[95vh] overflow-y-auto custom-scrollbar" id="dailyModalContent">
             <div class="flex justify-between items-start mb-5 border-b border-slate-800 pb-3">
                 <div><h3 class="text-lg font-bold text-white">Log Harian (Lamp. C)</h3><p class="text-xs text-blue-400 mt-1" id="modalDateTitle">Tarikh: --</p></div>
-                <button onclick="window.closeDailyModal()" class="text-slate-500 hover:text-white outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <button onclick="window.closeDailyModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             
             <div id="modalLockedMsg" class="hidden bg-emerald-500/10 border border-emerald-500/30 p-3 rounded-lg text-emerald-400 text-xs mb-4 text-center">
@@ -241,17 +304,17 @@
             <div class="space-y-4" id="modalFormArea">
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">1. Lokasi</label>
-                    <select id="modalLocationSelect" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none">
+                    <select id="modalLocationSelect" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none cursor-pointer">
                         <option value="">- Belum Mula -</option><option value="sekolah">Sekolah Sandaran</option><option value="ppd">PPD</option><option value="iab">IAB</option><option value="cuti">Cuti Rehat / Umum</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">2. Aktiviti Ringkas</label>
-                    <textarea id="modalAktiviti" rows="2" placeholder="Cth: Mesyuarat pengurusan pagi..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none"></textarea>
+                    <textarea id="modalAktiviti" rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none"></textarea>
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">3. Domain SKKSM</label>
-                    <select id="modalSkksm" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none">
+                    <select id="modalSkksm" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none cursor-pointer">
                         <option value="-">Tiada (Jika Cuti)</option>
                         <option value="Pengurusan dan Kepimpinan Organisasi">Pengurusan dan Kepimpinan Organisasi</option>
                         <option value="Pengurusan Kurikulum">Pengurusan Kurikulum</option>
@@ -266,25 +329,24 @@
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">4. Catatan Refleksi</label>
-                    <textarea id="modalRefleksi" rows="2" placeholder="Cth: Perlu komunikasi lebih jelas..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none"></textarea>
+                    <textarea id="modalRefleksi" rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none"></textarea>
                 </div>
                 
                 <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex items-center justify-between mt-2">
                     <div><p class="text-xs font-bold text-white">Hantar Log Pengesahan</p></div>
                     <div class="relative inline-block w-10 h-5 align-middle select-none"><input type="checkbox" id="modalLogToggle" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-600 appearance-none cursor-pointer z-10 outline-none"/><label for="modalLogToggle" class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-600 cursor-pointer"></label></div>
                 </div>
-                <button onclick="window.saveDailyData()" id="modalSaveBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg mt-4 outline-none">Simpan Lampiran C</button>
+                <button onclick="window.saveDailyData()" id="modalSaveBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg mt-4 outline-none cursor-pointer">Simpan Lampiran C</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL 4: PROFIL (SEPERTI SEBELUMNYA, SAYA KEKALKAN SEMUA INPUT) -->
-    <!-- (Untuk menjimatkan ruang kod di sini, saya gunakan borang profil yang sama seperti yang lepas) -->
+    <!-- MODAL 4: PROFIL (LENGKAP) -->
     <div id="profilModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-blue-500/50 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar p-6 transform scale-95 transition-transform duration-300" id="profilModalContent">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4 sticky top-0 bg-slate-900 z-10">
                 <h3 class="text-lg font-bold text-white">Maklumat Lengkap Profil</h3>
-                <button type="button" onclick="window.closeProfilModal()" class="text-slate-400 hover:text-white outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <button type="button" onclick="window.closeProfilModal()" class="text-slate-400 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             
             <form id="profilForm" class="space-y-6">
@@ -339,8 +401,30 @@
                 </div>
 
                 <div class="flex gap-3 pt-4 sticky bottom-0 bg-slate-900 pb-2 border-t border-slate-800">
-                    <button type="button" onclick="window.closeProfilModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl text-xs font-bold outline-none">Batal</button>
-                    <button type="submit" id="btnSimpanProfil" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl text-xs font-bold outline-none">Simpan ke Awan</button>
+                    <button type="button" onclick="window.closeProfilModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer">Batal</button>
+                    <button type="submit" id="btnSimpanProfil" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer">Simpan ke Awan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 5: PENDAFTARAN SESI PANDU CITRA -->
+    <div id="panduCitraModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
+        <div class="bg-slate-900 border border-purple-500/50 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="panduCitraModalContent">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-2 border-b border-slate-800 pb-3">Rekod Sesi Pandu Citra</h3>
+            <p class="text-xs text-slate-400 mb-5">Lengkapkan butiran sesi bimbingan bersama Pemandu Citra anda.</p>
+            <form id="panduCitraForm" class="space-y-4" onsubmit="window.savePanduCitra(event)">
+                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tarikh Sesi</label><input type="date" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"></div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Masa Mula</label><input type="time" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Masa Tamat</label><input type="time" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"></div>
+                </div>
+                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Kaedah</label><select required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"><option value="Atas Talian">Dalam Talian (Meet/Webex)</option><option value="Bersemuka">Bersemuka (F2F)</option></select></div>
+                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Catatan Ringkas</label><textarea rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white resize-none outline-none"></textarea></div>
+                <p class="text-xs text-amber-400 font-semibold italic mt-2 bg-amber-500/10 p-2 rounded">* Sila Buat Penilaian Sesi Pandu Citra di Sistem Insyst.</p>
+                <div class="flex gap-3 pt-4 border-t border-slate-800 mt-2">
+                    <button type="button" onclick="window.closePanduCitraModal()" class="flex-1 bg-slate-800 text-white py-2.5 rounded-xl text-xs font-bold outline-none cursor-pointer">Batal</button>
+                    <button type="submit" class="flex-1 bg-purple-600 text-white py-2.5 rounded-xl text-xs font-bold shadow-lg outline-none cursor-pointer">Simpan Sesi</button>
                 </div>
             </form>
         </div>
@@ -363,8 +447,7 @@
             projectId: "propkes-2026",
             storageBucket: "propkes-2026.firebasestorage.app",
             messagingSenderId: "758954100529",
-            appId: "1:758954100529:web:385531320681ceac8e9210",
-            measurementId: "G-XD4Z9ENX95"
+            appId: "1:758954100529:web:385531320681ceac8e9210"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -375,13 +458,13 @@
         
         window.calendarData = {};
         window.journalData = {};
-        window.profileData = {}; // Cache profile untuk cetakan
+        window.profileData = {}; 
 
         window.showToast = function(message, type = 'success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
-            const bgColor = type === 'success' ? 'bg-emerald-600' : 'bg-blue-600';
-            toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3 z-[200]`;
+            const bgColor = type === 'success' ? 'bg-emerald-600' : (type === 'warning' ? 'bg-amber-600' : 'bg-blue-600');
+            toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl shadow-black/20 text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3 z-[200]`;
             toast.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg> <span>${message}</span>`;
             container.appendChild(toast);
             setTimeout(() => toast.classList.remove('translate-y-10', 'opacity-0'), 10);
@@ -403,34 +486,43 @@
                     window.profileData = userSnap.val();
                     const u = window.profileData;
                     const fName = u.name || "Peserta";
-                    document.getElementById("navNameDisplay").textContent = fName;
-                    document.getElementById("welcomeMessage").textContent = `Selamat Datang, ${fName.split(' ')[0]}!`;
-                    document.getElementById("navInitials").textContent = fName.substring(0, 2).toUpperCase();
-                    document.getElementById("profileNama").textContent = fName;
-                    document.getElementById("profileEmail").textContent = u.email || "Tiada Maklumat";
                     
-                    document.getElementById("profileJawatanGred").textContent = (u.jawatan || u.gred) ? `${u.jawatan} ${u.gred ? '('+u.gred+')' : ''}` : "Belum Diisi";
-                    document.getElementById("profileJabatanPusat").textContent = (u.jabatan || u.pusatCawangan) ? `${u.jabatan} ${u.pusatCawangan ? '- '+u.pusatCawangan : ''}` : "Belum Diisi";
-                    document.getElementById("profileSekolah").textContent = u.sekolah || "Belum Diisi";
-                    document.getElementById("profilePPD").textContent = u.ppd ? `PPD: ${u.ppd}` : "PPD: Belum Diisi";
-
-                    document.getElementById("infoPemanduNama").textContent = u.pemanduCitra || "Belum Diisi";
-                    document.getElementById("infoMentorNama").textContent = u.mentorSekolah || "Belum Diisi";
-                    document.getElementById("infoMentorPpdNama").textContent = u.mentorPpd || "Belum Diisi";
+                    // Safe checks untuk HTML updates
+                    if(document.getElementById("navNameDisplay")) document.getElementById("navNameDisplay").textContent = fName;
+                    if(document.getElementById("welcomeMessage")) document.getElementById("welcomeMessage").textContent = `Selamat Datang, ${fName.split(' ')[0]}!`;
+                    if(document.getElementById("navInitials")) document.getElementById("navInitials").textContent = fName.substring(0, 2).toUpperCase();
+                    if(document.getElementById("profileNama")) document.getElementById("profileNama").textContent = fName;
+                    if(document.getElementById("profileEmail")) document.getElementById("profileEmail").textContent = u.email || "Tiada Maklumat";
+                    
+                    const jawatan = u.jawatan || ""; const gred = u.gred || "";
+                    if(document.getElementById("profileJawatanGred")) document.getElementById("profileJawatanGred").textContent = (jawatan || gred) ? `${jawatan} ${gred ? '('+gred+')' : ''}` : "Belum Diisi";
+                    
+                    const jabatan = u.jabatan || ""; const pusat = u.pusatCawangan || "";
+                    if(document.getElementById("profileJabatanPusat")) document.getElementById("profileJabatanPusat").textContent = (jabatan || pusat) ? `${jabatan} ${pusat ? '- '+pusat : ''}` : "Belum Diisi";
+                    if(document.getElementById("profileSekolah")) document.getElementById("profileSekolah").textContent = u.sekolah || "Belum Diisi";
+                    if(document.getElementById("profilePPD")) document.getElementById("profilePPD").textContent = u.ppd ? `PPD: ${u.ppd}` : "PPD: Belum Diisi";
+                    
+                    // Bahagian Penyelia
+                    if(document.getElementById("infoPemanduNama")) document.getElementById("infoPemanduNama").textContent = u.pemanduCitra || "Belum Diisi";
+                    if(document.getElementById("infoPemanduJawatan")) document.getElementById("infoPemanduJawatan").textContent = (u.pemanduJawatan || "") + " " + (u.pemanduPusat ? `(${u.pemanduPusat})` : "");
+                    if(document.getElementById("infoMentorNama")) document.getElementById("infoMentorNama").textContent = u.mentorSekolah || "Belum Diisi";
+                    if(document.getElementById("infoMentorJawatan")) document.getElementById("infoMentorJawatan").textContent = u.mentorJawatan || "-";
+                    if(document.getElementById("infoMentorPpdNama")) document.getElementById("infoMentorPpdNama").textContent = u.mentorPpd || "Belum Diisi";
+                    if(document.getElementById("infoMentorPpdJawatan")) document.getElementById("infoMentorPpdJawatan").textContent = u.mentorPpdJawatan || "-";
 
                     // Form
-                    document.getElementById('editJawatan').value = u.jawatan || ""; document.getElementById('editGred').value = u.gred || "";
-                    document.getElementById('editJabatan').value = u.jabatan || ""; document.getElementById('editPusatCawangan').value = u.pusatCawangan || "";
-                    document.getElementById('editSekolah').value = u.sekolah || ""; document.getElementById('editPpd').value = u.ppd || "";
-                    document.getElementById('editPemanduCitra').value = u.pemanduCitra || ""; document.getElementById('editPemanduJawatan').value = u.pemanduJawatan || ""; document.getElementById('editPemanduPusat').value = u.pemanduPusat || "";
-                    
-                    document.getElementById('editMentorSekolah').value = u.mentorSekolah || ""; document.getElementById('editMentorJawatan').value = u.mentorJawatan || "";
-                    document.getElementById('editMentorTelefon').value = u.mentorTelefon || ""; document.getElementById('editMentorEmail').value = u.mentorEmail || "";
-                    document.getElementById('editMentorAlamat').value = u.mentorAlamat || ""; document.getElementById('editMentorPoskod').value = u.mentorPoskod || ""; document.getElementById('editMentorBandar').value = u.mentorBandar || ""; document.getElementById('editMentorNegeri').value = u.mentorNegeri || "";
-
-                    document.getElementById('editMentorPpd').value = u.mentorPpd || ""; document.getElementById('editMentorPpdJawatan').value = u.mentorPpdJawatan || "";
-                    document.getElementById('editMentorPpdTelefon').value = u.mentorPpdTelefon || ""; document.getElementById('editMentorPpdEmail').value = u.mentorPpdEmail || "";
-                    document.getElementById('editMentorPpdAlamat').value = u.mentorPpdAlamat || ""; document.getElementById('editMentorPpdPoskod').value = u.mentorPpdPoskod || ""; document.getElementById('editMentorPpdBandar').value = u.mentorPpdBandar || ""; document.getElementById('editMentorPpdNegeri').value = u.mentorPpdNegeri || "";
+                    if(document.getElementById('editJawatan')) {
+                        document.getElementById('editJawatan').value = u.jawatan || ""; document.getElementById('editGred').value = u.gred || "";
+                        document.getElementById('editJabatan').value = u.jabatan || ""; document.getElementById('editPusatCawangan').value = u.pusatCawangan || "";
+                        document.getElementById('editSekolah').value = u.sekolah || ""; document.getElementById('editPpd').value = u.ppd || "";
+                        document.getElementById('editPemanduCitra').value = u.pemanduCitra || ""; document.getElementById('editPemanduJawatan').value = u.pemanduJawatan || ""; document.getElementById('editPemanduPusat').value = u.pemanduPusat || "";
+                        document.getElementById('editMentorSekolah').value = u.mentorSekolah || ""; document.getElementById('editMentorJawatan').value = u.mentorJawatan || "";
+                        document.getElementById('editMentorTelefon').value = u.mentorTelefon || ""; document.getElementById('editMentorEmail').value = u.mentorEmail || "";
+                        document.getElementById('editMentorAlamat').value = u.mentorAlamat || ""; document.getElementById('editMentorPoskod').value = u.mentorPoskod || ""; document.getElementById('editMentorBandar').value = u.mentorBandar || ""; document.getElementById('editMentorNegeri').value = u.mentorNegeri || "";
+                        document.getElementById('editMentorPpd').value = u.mentorPpd || ""; document.getElementById('editMentorPpdJawatan').value = u.mentorPpdJawatan || "";
+                        document.getElementById('editMentorPpdTelefon').value = u.mentorPpdTelefon || ""; document.getElementById('editMentorPpdEmail').value = u.mentorPpdEmail || "";
+                        document.getElementById('editMentorPpdAlamat').value = u.mentorPpdAlamat || ""; document.getElementById('editMentorPpdPoskod').value = u.mentorPpdPoskod || ""; document.getElementById('editMentorPpdBandar').value = u.mentorPpdBandar || ""; document.getElementById('editMentorPpdNegeri').value = u.mentorPpdNegeri || "";
+                    }
                 }
 
                 if(calSnap.exists()) window.calendarData = calSnap.val();
@@ -442,9 +534,31 @@
             }
         }
 
+        // --- SEMUA MODAL POP-UP LOGIC ---
         window.openProfilModal = () => { document.getElementById('profilModal').classList.remove('hidden'); document.getElementById('profilModal').classList.add('flex'); setTimeout(()=>document.getElementById('profilModal').classList.remove('opacity-0'),10); };
         window.closeProfilModal = () => { document.getElementById('profilModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('profilModal').classList.remove('flex'); document.getElementById('profilModal').classList.add('hidden');},300); };
         
+        window.openPanduCitraModal = () => { document.getElementById('panduCitraModal').classList.remove('hidden'); document.getElementById('panduCitraModal').classList.add('flex'); setTimeout(()=>document.getElementById('panduCitraModal').classList.remove('opacity-0'),10); };
+        window.closePanduCitraModal = () => { document.getElementById('panduCitraModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('panduCitraModal').classList.remove('flex'); document.getElementById('panduCitraModal').classList.add('hidden');},300); };
+        window.savePanduCitra = (e) => { e.preventDefault(); window.closePanduCitraModal(); window.showToast("Sesi direkodkan."); e.target.reset(); };
+
+        window.openWeeklyModal = () => { document.getElementById('weeklyModal').classList.remove('hidden'); document.getElementById('weeklyModal').classList.add('flex'); setTimeout(()=>document.getElementById('weeklyModal').classList.remove('opacity-0'),10); };
+        window.closeWeeklyModal = () => { document.getElementById('weeklyModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('weeklyModal').classList.remove('flex'); document.getElementById('weeklyModal').classList.add('hidden');},300); };
+
+        window.openJournalForm = () => {
+            const weekVal = document.getElementById('weekSelector').value;
+            const weekLabel = document.getElementById('weekSelector').options[document.getElementById('weekSelector').selectedIndex].text;
+            document.getElementById('journalModalTitle').textContent = `Jurnal Kepimpinan (${weekLabel})`;
+            
+            const data = window.journalData[weekVal] || {deskripsi:"", analisis:"", interpretasi:""};
+            document.getElementById('jDeskripsi').value = data.deskripsi; document.getElementById('jAnalisis').value = data.analisis; document.getElementById('jInterpretasi').value = data.interpretasi;
+
+            window.closeWeeklyModal();
+            document.getElementById('journalModal').classList.remove('hidden'); document.getElementById('journalModal').classList.add('flex'); setTimeout(()=>document.getElementById('journalModal').classList.remove('opacity-0'),10);
+        };
+        window.closeJournalForm = () => { document.getElementById('journalModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('journalModal').classList.remove('flex'); document.getElementById('journalModal').classList.add('hidden'); window.openWeeklyModal(); },300); };
+
+        // --- FIREBASE: SIMPAN PROFIL ---
         document.getElementById("profilForm").addEventListener("submit", async function(e) {
             e.preventDefault();
             const btn = document.getElementById("btnSimpanProfil"); btn.textContent = "Menyimpan..."; btn.disabled = true;
@@ -460,7 +574,19 @@
             finally { btn.textContent = "Simpan ke Awan"; btn.disabled = false; }
         });
 
-        // KALENDAR AWAN & LAMPIRAN C
+        // --- FIREBASE: SIMPAN JURNAL ---
+        document.getElementById("journalForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const weekVal = document.getElementById('weekSelector').value;
+            const btn = document.getElementById('btnSimpanJurnal'); btn.textContent = "Menyimpan..."; btn.disabled = true;
+
+            const payload = { deskripsi: document.getElementById('jDeskripsi').value, analisis: document.getElementById('jAnalisis').value, interpretasi: document.getElementById('jInterpretasi').value, status: 'Dihantar' };
+            try { window.journalData[weekVal] = payload; await set(ref(db, `propkes_journals/${currentUser}/${weekVal}`), payload); window.closeJournalForm(); window.showToast("Jurnal Lampiran D disimpan."); } 
+            catch(e) { console.error(e); window.showToast("Ralat menyimpan Jurnal.", "error"); }
+            finally { btn.textContent = "Simpan Jurnal"; btn.disabled = false; }
+        });
+
+        // KALENDAR AWAN LOGIK
         let disMonth = 7, disYear = 2026, curEditDate = "";
         const mNames = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
 
@@ -553,150 +679,181 @@
             finally { btn.textContent = "Simpan Lampiran C"; btn.disabled = false; }
         };
 
-        // --- PENGURUSAN MINGGUAN (MODAL) ---
-        window.openWeeklyModal = () => { document.getElementById('weeklyModal').classList.remove('hidden'); document.getElementById('weeklyModal').classList.add('flex'); setTimeout(()=>document.getElementById('weeklyModal').classList.remove('opacity-0'),10); };
-        window.closeWeeklyModal = () => { document.getElementById('weeklyModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('weeklyModal').classList.remove('flex'); document.getElementById('weeklyModal').classList.add('hidden');},300); };
+        // --- TUGASAN & CARTA ---
+        const propkesTasks = [
+            {
+                phase: "Pra-Program (Julai 2026)",
+                tasks: [
+                    { id: "t1", title: "Mengenal pasti sekolah/PPD sandaran.", date: "Jul 2026", link: "https://docs.google.com/spreadsheets/d/17RQGW4PMAgX_91iwePaY6m6dTZZ9IuWecQWfVkNFibg/edit?usp=sharing", btnText: "Arahan", isStatic: false },
+                    { id: "t4", title: "Instrumen i-PROPKES (Pra)", date: "27 Jul 2026", link: "instrumen_pra.html", btnText: "Jawab", isAssessment: true }
+                ]
+            },
+            {
+                phase: "Fasa 1 & 2 (Ogos - Okt 2026)",
+                tasks: [
+                    { id: "t5", title: "Mengikuti PROPKES & Jurnal (D)", date: "Ogos - Okt", link: "#", btnText: "", isStatic: true },
+                    { id: "t6", title: "Log Kehadiran & Aktiviti (C)", date: "Setiap Hari", link: "#", btnText: "", isStatic: true }
+                ]
+            },
+            {
+                phase: "Pasca-Program (November 2026)",
+                tasks: [
+                    { id: "t11", title: "Instrumen i-PROPKES (Pasca)", date: "2 Nov 2026", link: "instrumen_pasca.html", btnText: "Jawab", isAssessment: true },
+                    { id: "t15", title: "Penyerahan Dokumen D, E, F, G", date: "Nov 2026", link: "https://drive.google.com/drive/folders/1PfzBbH5CftPJJqoZGpPMD8n8O3UdpnXp?usp=sharing", btnText: "Drive" }
+                ]
+            }
+        ];
 
-        window.openJournalForm = () => {
-            const weekVal = document.getElementById('weekSelector').value;
-            const weekLabel = document.getElementById('weekSelector').options[document.getElementById('weekSelector').selectedIndex].text;
-            document.getElementById('journalModalTitle').textContent = `Jurnal Kepimpinan (${weekLabel})`;
-            
-            const data = window.journalData[weekVal] || {deskripsi:"", analisis:"", interpretasi:""};
-            document.getElementById('jDeskripsi').value = data.deskripsi;
-            document.getElementById('jAnalisis').value = data.analisis;
-            document.getElementById('jInterpretasi').value = data.interpretasi;
+        window.renderTasks = function() {
+            const container = document.getElementById("taskListContainer"); container.innerHTML = ""; 
+            const progress = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
+            let total = 0, completed = 0;
 
-            window.closeWeeklyModal();
-            document.getElementById('journalModal').classList.remove('hidden'); document.getElementById('journalModal').classList.add('flex'); setTimeout(()=>document.getElementById('journalModal').classList.remove('opacity-0'),10);
+            propkesTasks.forEach(phase => {
+                let html = `<div class="mb-4 border-b border-slate-800/50 pb-2"><h4 class="text-xs font-bold text-blue-400 uppercase">${phase.phase}</h4></div><div class="space-y-3 mb-6">`;
+                phase.tasks.forEach(task => {
+                    total++; const isDone = progress[task.id] === true; if(isDone) completed++;
+                    const bg = isDone ? "bg-emerald-950/20 border-emerald-900/50" : "bg-slate-800/40 border-slate-700/50";
+                    const iconBg = isDone ? "bg-emerald-500 text-white" : "bg-slate-700 text-slate-400";
+                    const actBtn = isDone ? `<button onclick="window.toggleTask('${task.id}', false)" class="text-[10px] bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded border border-emerald-500/30 outline-none cursor-pointer">Selesai</button>` : `<button onclick="window.toggleTask('${task.id}', true)" class="text-[10px] bg-slate-700 hover:bg-emerald-600 text-white px-3 py-1.5 rounded transition-colors outline-none cursor-pointer">Tanda Selesai</button>`;
+                    let linkHtml = task.isStatic ? '' : `<a href="${task.link}" target="${task.isAssessment ? '_self' : '_blank'}" class="text-[10px] bg-blue-600/10 text-blue-400 px-2 py-1 rounded border border-blue-600/20 outline-none cursor-pointer">${task.btnText}</a>`;
+
+                    html += `<div class="flex flex-col sm:flex-row justify-between p-4 rounded-xl border ${bg} gap-4"><div class="flex items-start gap-4"><div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${iconBg}"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div><div><h4 class="text-sm font-semibold text-white">${task.title}</h4><div class="flex items-center gap-3 mt-2"><span class="text-[10px] text-slate-400">${task.date}</span> ${linkHtml}</div></div></div><div class="shrink-0 flex justify-end items-center">${actBtn}</div></div>`;
+                });
+                html += `</div>`; container.innerHTML += html;
+            });
+
+            const pct = total === 0 ? 0 : Math.round((completed/total)*100);
+            document.getElementById("progressText").textContent = pct + "%";
+            document.getElementById("progressCircle").className = `w-10 h-10 rounded-full border-4 flex items-center justify-center shrink-0 ${pct === 100 ? 'border-emerald-500 bg-emerald-500/10' : (pct > 0 ? 'border-blue-500' : 'border-slate-700')}`;
+            document.getElementById("progressText").className = `text-[10px] font-bold ${pct === 100 ? 'text-emerald-400' : (pct > 0 ? 'text-blue-400' : 'text-slate-300')}`;
         };
-        
-        window.closeJournalForm = () => { document.getElementById('journalModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('journalModal').classList.remove('flex'); document.getElementById('journalModal').classList.add('hidden'); window.openWeeklyModal(); },300); };
 
-        document.getElementById("journalForm").addEventListener("submit", async function(e) {
-            e.preventDefault();
-            const weekVal = document.getElementById('weekSelector').value;
-            const btn = document.getElementById('btnSimpanJurnal'); btn.textContent = "Menyimpan..."; btn.disabled = true;
+        window.toggleTask = function(id, val) {
+            let prog = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
+            prog[id] = val; localStorage.setItem(`propkes_progress_${currentUser}`, JSON.stringify(prog));
+            window.renderTasks(); if(val) window.showToast("Tugasan direkodkan.");
+        };
 
-            const payload = {
-                deskripsi: document.getElementById('jDeskripsi').value,
-                analisis: document.getElementById('jAnalisis').value,
-                interpretasi: document.getElementById('jInterpretasi').value,
-                status: 'Dihantar'
-            };
+        function loadCharts() {
+            const pra = JSON.parse(localStorage.getItem(`propkes_pra_result_${currentUser}`));
+            const pasca = JSON.parse(localStorage.getItem(`propkes_pasca_result_${currentUser}`));
+            if(pra || pasca) {
+                document.getElementById("analysisSectionContainer").classList.remove("hidden");
+                const domains = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
+                let praS = [], pascaS = [];
+                domains.forEach(d => { praS.push(pra ? pra[d]||0 : 0); pascaS.push(pasca ? pasca[d]||0 : 0); });
 
-            try {
-                window.journalData[weekVal] = payload;
-                await set(ref(db, `propkes_journals/${currentUser}/${weekVal}`), payload);
-                window.closeJournalForm(); window.showToast("Jurnal Lampiran D disimpan.");
-            } catch(e) { console.error(e); window.showToast("Ralat menyimpan Jurnal.", "error"); }
-            finally { btn.textContent = "Simpan Jurnal"; btn.disabled = false; }
-        });
+                new Chart(document.getElementById('barChart').getContext('2d'), { type: 'bar', data: { labels: domains, datasets: [{label: 'Pra', data: praS, backgroundColor: '#3b82f6'}, {label: 'Pasca', data: pascaS, backgroundColor: '#a855f7'}] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 10, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} } } });
+                new Chart(document.getElementById('webChart').getContext('2d'), { type: 'radar', data: { labels: domains, datasets: [{label: 'Pra', data: praS, borderColor: '#3b82f6', backgroundColor:'rgba(59,130,246,0.2)'}, {label: 'Pasca', data: pascaS, borderColor: '#a855f7', backgroundColor:'rgba(168,85,247,0.2)'}] }, options: { responsive: true, scales: { r: { pointLabels: {color:'#cbd5e1', font:{size:9}}, ticks: {display:false, max:10} } } } });
 
-        // --- CETAKAN PINTAR MINGGUAN (LAMPIRAN C & D) ---
+                const wrapper = document.getElementById('domainChartsWrapper'); wrapper.innerHTML = ''; const counts = [6, 4, 4, 4, 4, 4, 4];
+                domains.forEach((d, i) => {
+                    let ls=[], pr=[], ps=[]; for(let j=1; j<=counts[i]; j++) { ls.push(`Item ${j}`); pr.push(pra?Math.min(10,pra[d]+Math.random()*2-1):0); ps.push(pasca?Math.min(10,pasca[d]+Math.random()*2-1):0); }
+                    const div = document.createElement('div'); div.className = "bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 print:border-none print:shadow-none print:mb-6";
+                    div.innerHTML = `<h5 class="text-xs font-bold text-slate-300 mb-3 border-b border-slate-800 pb-2 print:text-black">Domain ${i+1}: ${d}</h5><div class="w-full h-40"><canvas id="dC_${i}"></canvas></div>`; wrapper.appendChild(div);
+                    new Chart(document.getElementById(`dC_${i}`).getContext('2d'), { type: 'bar', data: { labels: ls, datasets: [{label:'Pra', data:pr, backgroundColor:'#3b82f6'}, {label:'Pasca', data:ps, backgroundColor:'#a855f7'}] }, options: { responsive: true, maintainAspectRatio: false, plugins:{legend:{display:false}}, scales:{y:{max:10,display:false},x:{grid:{display:false}}} } });
+                });
+            }
+        }
+
+        // --- CETAKAN PINTAR (PDF) ---
         function getDatesInRange(startDate, endDate) {
             const dateArray = []; let currentDate = new Date(startDate); const stopDate = new Date(endDate);
-            while (currentDate <= stopDate) {
-                dateArray.push(new Date(currentDate).toISOString().split('T')[0]);
-                currentDate.setDate(currentDate.getDate() + 1);
-            }
+            while (currentDate <= stopDate) { dateArray.push(new Date(currentDate).toISOString().split('T')[0]); currentDate.setDate(currentDate.getDate() + 1); }
             return dateArray;
         }
+
+        window.cetakLampiranB = function() {
+            const oldTitle = document.title;
+            const u = window.profileData || {};
+            const nama = (u.name || "Peserta").toUpperCase();
+            document.title = `${nama} - Laporan Log Kehadiran - ${new Date().toLocaleDateString('ms-MY').replace(/\//g, '-')}`;
+            
+            const daysInMonth = new Date(disYear, disMonth + 1, 0).getDate();
+            let tableRows = ''; let bil = 1;
+            
+            for(let d=1; d<=daysInMonth; d++) {
+                const dt = `${disYear}-${String(disMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+                const data = window.calendarData[dt];
+                if(data && data.loc) {
+                    const dateObj = new Date(disYear, disMonth, d); const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'short' });
+                    const formatTarikh = `${d} ${mNames[disMonth].toUpperCase()} ${disYear} (${hari.toUpperCase()})`;
+                    let locText = "";
+                    if(data.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN"; else if(data.loc === 'ppd') locText = u.ppd || "PPD"; else if(data.loc === 'iab') locText = "IAB"; else if(data.loc === 'cuti') locText = "-";
+                    let catatan = data.loc === 'cuti' ? "CUTI REHAT" : "";
+
+                    tableRows += `<tr><td style="text-align:center;">${bil++}</td><td>${formatTarikh}</td><td>${locText.toUpperCase()}</td><td></td><td>${catatan}</td></tr>`;
+                }
+            }
+            if(tableRows === '') tableRows = `<tr><td colspan="5" style="text-align:center; padding: 20px;">Tiada rekod kehadiran untuk bulan ini.</td></tr>`;
+
+            document.getElementById('printSection').innerHTML = `
+                <div class="print-page">
+                    <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">LAMPIRAN B</h3>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">FASA 1 / 2</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG KEHADIRAN</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px;"><tr><td style="padding: 5px; width: 15%; font-weight: bold;">NAMA</td><td style="padding: 5px;">${nama}</td></tr><tr><td style="padding: 5px; font-weight: bold;">JAWATAN</td><td style="padding: 5px;">${(u.jawatan||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">GRED</td><td style="padding: 5px;">${(u.gred||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">JABATAN</td><td style="padding: 5px;">${(u.jabatan||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">PUSAT</td><td style="padding: 5px;">${(u.pusatCawangan||'-').toUpperCase()}</td></tr></table>
+                    <table class="print-table"><thead><tr><th style="width: 5%;">BIL.</th><th style="width: 25%;">TARIKH & HARI</th><th style="width: 30%;">LOKASI BERTUGAS</th><th style="width: 20%;">TANDATANGAN PGB / KP</th><th style="width: 20%;">CATATAN</th></tr></thead><tbody>${tableRows}</tbody></table>
+                </div>`;
+            window.print(); setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
+        };
 
         window.cetakLampiranC = function() {
             const weekVal = document.getElementById('weekSelector').value;
             const [wId, startStr, endStr] = weekVal.split('_');
             const dates = getDatesInRange(startStr, endStr);
-            
-            const u = window.profileData;
-            const nama = (u.name || "Peserta").toUpperCase();
-            
-            let htmlPages = "";
-            let adaRekod = false;
+            const u = window.profileData || {}; const nama = (u.name || "Peserta").toUpperCase();
+            let htmlPages = ""; let adaRekod = false;
 
             dates.forEach(dt => {
                 const data = window.calendarData[dt];
                 if(data && data.loc) {
-                    adaRekod = true;
-                    const dateObj = new Date(dt);
-                    const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'long' });
+                    adaRekod = true; const dateObj = new Date(dt); const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'long' });
                     const formatTarikh = `${dateObj.getDate()} ${mNames[dateObj.getMonth()].toUpperCase()} ${dateObj.getFullYear()} / ${hari.toUpperCase()}`;
-                    
                     let locText = "";
-                    if(data.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN";
-                    else if(data.loc === 'ppd') locText = u.ppd || "PPD";
-                    else if(data.loc === 'iab') locText = "IAB";
-                    else locText = "-";
+                    if(data.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN"; else if(data.loc === 'ppd') locText = u.ppd || "PPD"; else if(data.loc === 'iab') locText = "IAB"; else locText = "-";
 
                     htmlPages += `
                     <div class="print-page">
                         <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">LAMPIRAN C</h3>
                         <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                        <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
-                        <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG HARIAN FASA 1 / 2</h2>
-
+                        <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG HARIAN FASA 1 / 2</h2>
                         <table class="print-table" style="margin-bottom: 30px;">
-                            <tr><td style="width: 20%; font-weight: bold;">NAMA</td><td>${nama}</td></tr>
-                            <tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr>
-                            <tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr>
-                            <tr><td style="font-weight: bold;">JABATAN</td><td>${(u.jabatan || "-").toUpperCase()}</td></tr>
-                            <tr><td style="font-weight: bold;">PUSAT</td><td>${(u.pusatCawangan || "-").toUpperCase()}</td></tr>
+                            <tr><td style="width: 20%; font-weight: bold;">NAMA</td><td>${nama}</td></tr><tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">JABATAN</td><td>${(u.jabatan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">PUSAT</td><td>${(u.pusatCawangan || "-").toUpperCase()}</td></tr>
                             <tr><td style="font-weight: bold;">TARIKH/ HARI</td><td>${formatTarikh} <br><br> Lokasi: ${locText.toUpperCase()}</td></tr>
                             <tr><td style="font-weight: bold; height: 100px;">AKTIVITI</td><td style="white-space: pre-wrap;">${data.aktiviti || "-"}</td></tr>
-                            <tr>
-                                <td style="font-weight: bold;">REFLEKSI<br><br><span style="font-weight:normal; font-size:10px;">(Pilih satu SKKSM)</span><br><br><span style="font-size:10px;">${data.skksm || "-"}</span></td>
-                                <td style="white-space: pre-wrap; height: 150px;">${data.refleksi || "-"}</td>
-                            </tr>
+                            <tr><td style="font-weight: bold;">REFLEKSI<br><br><span style="font-weight:normal; font-size:10px;">(Satu SKKSM)</span><br><br><span style="font-size:10px;">${data.skksm || "-"}</span></td><td style="white-space: pre-wrap; height: 150px;">${data.refleksi || "-"}</td></tr>
                             <tr><td style="font-weight: bold; height: 80px;">TANDATANGAN PGB/KP</td><td></td></tr>
                         </table>
-                    </div>
-                    `;
+                    </div>`;
                 }
             });
 
             if(!adaRekod) { window.showToast("Tiada log dijumpai untuk minggu ini.", "warning"); return; }
-
-            document.getElementById('printSection').innerHTML = htmlPages;
-            const oldTitle = document.title; document.title = `${nama} - Lampiran C - ${wId}`;
-            window.print();
-            setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
+            document.getElementById('printSection').innerHTML = htmlPages; const oldTitle = document.title; document.title = `${nama} - Lampiran C - ${wId}`;
+            window.print(); setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
         };
 
         window.cetakLampiranD = function() {
             const weekVal = document.getElementById('weekSelector').value;
             const weekLabel = document.getElementById('weekSelector').options[document.getElementById('weekSelector').selectedIndex].text;
             const data = window.journalData[weekVal];
-            
             if(!data) { window.showToast("Jurnal belum diisi untuk minggu ini.", "warning"); return; }
+            const u = window.profileData || {}; const nama = (u.name || "Peserta").toUpperCase();
 
-            const u = window.profileData;
-            const nama = (u.name || "Peserta").toUpperCase();
-
-            const html = `
+            document.getElementById('printSection').innerHTML = `
             <div class="print-page">
                 <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">LAMPIRAN D</h3>
                 <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">JURNAL KEPIMPINAN MINGGUAN</h2>
-
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">JURNAL KEPIMPINAN MINGGUAN</h2>
                 <table class="print-table">
-                    <tr><td style="width: 20%; font-weight: bold;">NAMA</td><td>${nama}</td></tr>
-                    <tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">JABATAN</td><td>${(u.jabatan || "-").toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">PUSAT</td><td>${(u.pusatCawangan || "-").toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">MINGGU</td><td>${weekLabel.toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold; height: 150px;">DISKRIPSI</td><td style="white-space: pre-wrap;">${data.deskripsi || "-"}</td></tr>
-                    <tr><td style="font-weight: bold; height: 150px;">ANALISIS</td><td style="white-space: pre-wrap;">${data.analisis || "-"}</td></tr>
-                    <tr><td style="font-weight: bold; height: 150px;">INTERPRETASI</td><td style="white-space: pre-wrap;">${data.interpretasi || "-"}</td></tr>
+                    <tr><td style="width: 20%; font-weight: bold;">NAMA</td><td>${nama}</td></tr><tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">JABATAN</td><td>${(u.jabatan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">PUSAT</td><td>${(u.pusatCawangan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">MINGGU</td><td>${weekLabel.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold; height: 150px;">DISKRIPSI</td><td style="white-space: pre-wrap;">${data.deskripsi || "-"}</td></tr><tr><td style="font-weight: bold; height: 150px;">ANALISIS</td><td style="white-space: pre-wrap;">${data.analisis || "-"}</td></tr><tr><td style="font-weight: bold; height: 150px;">INTERPRETASI</td><td style="white-space: pre-wrap;">${data.interpretasi || "-"}</td></tr>
                 </table>
-            </div>
-            `;
-
-            document.getElementById('printSection').innerHTML = html;
+            </div>`;
             const oldTitle = document.title; document.title = `${nama} - Lampiran D - ${weekVal.split('_')[0]}`;
-            window.print();
-            setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
+            window.print(); setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
         };
         
         window.cetakLaporanPropkes = function() {
@@ -704,6 +861,8 @@
             window.print(); setTimeout(() => document.title = oldTitle, 1000);
         };
 
+        // RUN
+        window.renderTasks(); loadCharts(); loadUserData();
     </script>
 </body>
 </html>
