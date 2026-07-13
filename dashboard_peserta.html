@@ -65,13 +65,14 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
         
-        <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex justify-between items-center relative overflow-hidden">
+        <!-- Welcome Banner -->
+        <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-blue-500/10 blur-3xl rounded-full pointer-events-none"></div>
             <div class="relative z-10">
                 <h1 class="text-2xl md:text-3xl font-bold text-white mb-2" id="welcomeMessage">Selamat Datang!</h1>
                 <p class="text-slate-400 text-sm max-w-2xl">Lengkapkan maklumat profil, rekod log harian (Lampiran C), dan jurnal mingguan (Lampiran D) anda di sini.</p>
             </div>
-            <div class="relative z-10">
+            <div class="relative z-10 flex gap-3">
                 <button onclick="window.openWeeklyModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-emerald-600/30 flex items-center gap-2 outline-none transition-all cursor-pointer">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     Modul Mingguan (Lamp. C & D)
@@ -90,7 +91,7 @@
                         <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Nama Penuh</p><p class="text-sm font-medium text-slate-200" id="profileNama">Memuat turun...</p></div>
                         <div class="grid grid-cols-2 gap-2">
                             <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">E-mel Rasmi</p><p class="text-sm font-medium text-slate-300 truncate" id="profileEmail">Belum Diisi</p></div>
-                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">No. KP</p><p class="text-sm font-medium text-amber-400" id="profileIC">Belum Diisi</p></div>
+                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">No. Kad Pengenalan</p><p class="text-sm font-medium text-amber-400" id="profileIC">Belum Diisi</p></div>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Jawatan/Gred</p><p class="text-sm font-medium text-slate-300" id="profileJawatanGred">Belum Diisi</p></div>
@@ -170,9 +171,7 @@
                     <div class="grid grid-cols-7 gap-1 text-center mb-2 text-[10px] font-bold text-slate-400">
                         <div class="text-rose-400">Ahad</div><div>Isn</div><div>Sel</div><div>Rab</div><div>Kha</div><div class="text-emerald-400">Jum</div><div>Sab</div>
                     </div>
-                    <!-- Tempat Kalendar Dijana -->
                     <div class="grid grid-cols-7 gap-1.5 sm:gap-2 text-center" id="calendarGrid"></div>
-                    
                     <div class="mt-4 pt-3 border-t border-slate-800 flex flex-wrap justify-center gap-4 text-[10px] text-slate-400">
                         <div class="flex items-center gap-1"><div class="w-2 h-2 bg-blue-500 rounded-sm"></div> Sekolah</div>
                         <div class="flex items-center gap-1"><div class="w-2 h-2 bg-indigo-500 rounded-sm"></div> PPD</div>
@@ -182,14 +181,14 @@
                     </div>
                 </div>
 
-                <!-- Laporan i-PROPKES (Boleh Diperluas) -->
+                <!-- LAPORAN i-PROPKES -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <div class="flex justify-between items-center">
                         <div>
                             <h3 class="font-bold text-white text-sm">Keputusan i-PROPKES</h3>
-                            <p class="text-[10px] text-slate-400 mt-1">Selesai Ujian Pra dan Pasca.</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Hanya terpapar jika ujian telah dijawab.</p>
                         </div>
-                        <button onclick="document.getElementById('analisisBox').classList.toggle('hidden')" class="bg-slate-800 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-700 outline-none cursor-pointer hover:bg-slate-700">Lihat Carta</button>
+                        <button onclick="document.getElementById('analisisBox').classList.toggle('hidden')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-700 outline-none cursor-pointer">Lihat Carta</button>
                     </div>
                     <div id="analisisBox" class="hidden mt-6 pt-6 border-t border-slate-800">
                         <div class="flex justify-end mb-4">
@@ -220,9 +219,9 @@
         </div>
     </main>
 
-    <!-- SEMUA MODALS BERMULA DI SINI -->
+    <!-- SEMUA MODALS -->
 
-    <!-- MODAL 1: PENGURUSAN MINGGUAN (LAMPIRAN C & D) -->
+    <!-- MODAL MINGGUAN -->
     <div id="weeklyModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-emerald-500/50 rounded-2xl shadow-2xl max-w-lg w-full p-6 transform scale-95 transition-transform duration-300" id="weeklyModalContent">
             <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
@@ -246,16 +245,12 @@
 
                 <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-4">
                     <p class="text-[11px] font-bold text-slate-400 uppercase border-b border-slate-800 pb-2">2. Tindakan Lampiran C & D</p>
-                    
                     <button onclick="window.cetakLampiranC()" class="w-full bg-slate-800 hover:bg-slate-700 text-blue-400 border border-slate-700 py-3 rounded-lg text-xs font-bold transition-colors flex justify-center items-center gap-2 outline-none cursor-pointer">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
                         Cetak Log Harian Terperinci (Lampiran C)
                     </button>
-                    
                     <div class="grid grid-cols-2 gap-3">
-                        <button onclick="window.openJournalForm()" class="bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg text-xs font-bold transition-colors shadow-lg outline-none cursor-pointer">
-                            Tulis Jurnal (Lamp. D)
-                        </button>
+                        <button onclick="window.openJournalForm()" class="bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg text-xs font-bold transition-colors shadow-lg outline-none cursor-pointer">Tulis Jurnal (Lamp. D)</button>
                         <button onclick="window.cetakLampiranD()" class="bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 py-3 rounded-lg text-xs font-bold transition-colors outline-none flex justify-center items-center gap-1 cursor-pointer">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak Jurnal
                         </button>
@@ -265,25 +260,15 @@
         </div>
     </div>
 
-    <!-- MODAL 2: TULIS JURNAL (LAMPIRAN D) -->
+    <!-- MODAL TULIS JURNAL -->
     <div id="journalModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[110] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-purple-500/50 rounded-2xl shadow-2xl max-w-2xl w-full p-6 max-h-[95vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="journalModalContent">
             <h3 class="text-lg font-bold text-white mb-2" id="journalModalTitle">Jurnal Kepimpinan (Minggu X)</h3>
             <p class="text-xs text-slate-400 mb-6 border-b border-slate-800 pb-4">Isi kandungan jurnal anda. Data disimpan terus ke awan.</p>
-            
             <form id="journalForm" class="space-y-5">
-                <div>
-                    <label class="block text-[11px] font-bold text-purple-400 uppercase mb-2">1. Deskripsi (Aktiviti/Peristiwa)</label>
-                    <textarea id="jDeskripsi" rows="4" required placeholder="Contoh: Sepanjang minggu ini, saya telah terlibat dalam sesi perbincangan..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
-                </div>
-                <div>
-                    <label class="block text-[11px] font-bold text-amber-400 uppercase mb-2">2. Analisis</label>
-                    <textarea id="jAnalisis" rows="3" required placeholder="Contoh: Analisis terhadap perancangan menunjukkan..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
-                </div>
-                <div>
-                    <label class="block text-[11px] font-bold text-emerald-400 uppercase mb-2">3. Interpretasi & Kesimpulan</label>
-                    <textarea id="jInterpretasi" rows="3" required placeholder="Contoh: Kolaborasi aktif diperlukan bagi memastikan kejayaan..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
-                </div>
+                <div><label class="block text-[11px] font-bold text-purple-400 uppercase mb-2">1. Deskripsi (Aktiviti/Peristiwa)</label><textarea id="jDeskripsi" rows="4" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea></div>
+                <div><label class="block text-[11px] font-bold text-amber-400 uppercase mb-2">2. Analisis</label><textarea id="jAnalisis" rows="3" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea></div>
+                <div><label class="block text-[11px] font-bold text-emerald-400 uppercase mb-2">3. Interpretasi & Kesimpulan</label><textarea id="jInterpretasi" rows="3" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea></div>
                 <div class="flex gap-3 pt-4 border-t border-slate-800">
                     <button type="button" onclick="window.closeJournalForm()" class="flex-1 bg-slate-800 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer hover:bg-slate-700">Batal</button>
                     <button type="submit" id="btnSimpanJurnal" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl text-xs font-bold shadow-lg shadow-purple-600/30 outline-none cursor-pointer">Simpan Jurnal</button>
@@ -292,7 +277,7 @@
         </div>
     </div>
 
-    <!-- MODAL 3: REKOD HARIAN (LAMPIRAN C INPUT) -->
+    <!-- MODAL REKOD HARIAN (LAMPIRAN C) -->
     <div id="dailyModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-blue-500/30 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300 max-h-[95vh] overflow-y-auto custom-scrollbar" id="dailyModalContent">
             <div class="flex justify-between items-start mb-5 border-b border-slate-800 pb-3">
@@ -311,29 +296,14 @@
                         <option value="">- Belum Mula -</option><option value="sekolah">Sekolah Sandaran</option><option value="ppd">PPD</option><option value="iab">IAB</option><option value="cuti">Cuti Rehat / Umum</option>
                     </select>
                 </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">2. Aktiviti Ringkas</label>
-                    <textarea id="modalAktiviti" rows="2" placeholder="Cth: Mesyuarat pengurusan..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none focus:border-blue-500"></textarea>
-                </div>
+                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">2. Aktiviti Ringkas</label><textarea id="modalAktiviti" rows="2" placeholder="Cth: Mesyuarat pengurusan..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none focus:border-blue-500"></textarea></div>
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">3. Domain SKKSM</label>
                     <select id="modalSkksm" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none cursor-pointer focus:border-blue-500">
-                        <option value="-">Tiada (Jika Cuti)</option>
-                        <option value="Pengurusan dan Kepimpinan Organisasi">Pengurusan dan Kepimpinan Organisasi</option>
-                        <option value="Pengurusan Kurikulum">Pengurusan Kurikulum</option>
-                        <option value="Pengurusan Kokurikulum">Pengurusan Kokurikulum</option>
-                        <option value="Pengurusan Hal Ehwal Murid">Pengurusan Hal Ehwal Murid</option>
-                        <option value="Pengurusan Kewangan">Pengurusan Kewangan</option>
-                        <option value="Pengurusan Pentadbiran Pejabat">Pengurusan Pentadbiran Pejabat</option>
-                        <option value="Pengurusan Persekitaran & Kemudahan">Pengurusan Persekitaran & Kemudahan Fizikal</option>
-                        <option value="Pengurusan & Pembangunan Sumber Manusia">Pengurusan & Pembangunan Sumber Manusia</option>
-                        <option value="Pengurusan Perhubungan Luar">Pengurusan Perhubungan Luar</option>
+                        <option value="-">Tiada (Jika Cuti)</option><option value="Pengurusan dan Kepimpinan Organisasi">Pengurusan dan Kepimpinan Organisasi</option><option value="Pengurusan Kurikulum">Pengurusan Kurikulum</option><option value="Pengurusan Kokurikulum">Pengurusan Kokurikulum</option><option value="Pengurusan Hal Ehwal Murid">Pengurusan Hal Ehwal Murid</option><option value="Pengurusan Kewangan">Pengurusan Kewangan</option><option value="Pengurusan Pentadbiran Pejabat">Pengurusan Pentadbiran Pejabat</option><option value="Pengurusan Persekitaran & Kemudahan">Pengurusan Persekitaran & Kemudahan Fizikal</option><option value="Pengurusan & Pembangunan Sumber Manusia">Pengurusan & Pembangunan Sumber Manusia</option><option value="Pengurusan Perhubungan Luar">Pengurusan Perhubungan Luar</option>
                     </select>
                 </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">4. Catatan Refleksi</label>
-                    <textarea id="modalRefleksi" rows="2" placeholder="Cth: Perlu komunikasi lebih jelas..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none focus:border-blue-500"></textarea>
-                </div>
+                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">4. Catatan Refleksi</label><textarea id="modalRefleksi" rows="2" placeholder="Cth: Perlu komunikasi lebih jelas..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none focus:border-blue-500"></textarea></div>
                 
                 <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex items-center justify-between mt-2">
                     <div><p class="text-xs font-bold text-white">Hantar Log Pengesahan</p></div>
@@ -344,7 +314,7 @@
         </div>
     </div>
 
-    <!-- MODAL 4: PROFIL (LENGKAP) -->
+    <!-- MODAL PROFIL -->
     <div id="profilModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-blue-500/50 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar p-6 transform scale-95 transition-transform duration-300" id="profilModalContent">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4 sticky top-0 bg-slate-900 z-10">
@@ -353,18 +323,16 @@
             </div>
             
             <form id="profilForm" class="space-y-6">
-                <!-- 1. Peserta IAB -->
                 <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
                     <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Maklumat Pegawai (IAB)</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Kad Pengenalan</label><input type="text" id="editIc" placeholder="Contoh: 800101011234" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Gred</label><input type="text" id="editGred" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Kad Pengenalan</label><input type="text" id="editIc" placeholder="Cth: 800101011234" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editJawatan" placeholder="Cth: Pensyarah Kanan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Gred</label><input type="text" id="editGred" placeholder="Cth: DG48" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jabatan</label><input type="text" id="editJabatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Pusat / Cawangan</label><input type="text" id="editPusatCawangan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Pusat / Cawangan</label><input type="text" id="editPusatCawangan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
                     </div>
                 </div>
-                <!-- 2. Sekolah -->
                 <div class="bg-blue-950/20 p-4 rounded-xl border border-blue-900/30">
                     <p class="text-[10px] font-bold text-blue-400 uppercase mb-3">Maklumat Bertugas (Sandaran)</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -372,17 +340,15 @@
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">PPD</label><input type="text" id="editPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
                     </div>
                 </div>
-                <!-- 3. Pemandu -->
                 <div class="bg-purple-950/20 p-4 rounded-xl border border-purple-900/30">
                     <p class="text-[10px] font-bold text-purple-400 uppercase mb-1">Pemandu Citra (IAB)</p>
-                    <p class="text-[9px] text-purple-300/70 mb-3 italic">*Penting: Ejaan nama mesti tepat supaya Pemandu Citra dapat mencari anda.</p>
+                    <p class="text-[9px] text-purple-300/70 mb-3 italic">*Penting: Ejaan nama mesti tepat supaya Pemandu Citra dapat mengesan anda.</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh Pemandu</label><input type="text" id="editPemanduCitra" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-purple-500"></div>
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan Pemandu</label><input type="text" id="editPemanduJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-purple-500"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Pusat/Cawangan</label><input type="text" id="editPemanduPusat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-purple-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Pusat/Cawangan Pemandu</label><input type="text" id="editPemanduPusat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-purple-500"></div>
                     </div>
                 </div>
-                <!-- 4. Mentor 1 -->
                 <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
                     <p class="text-[10px] font-bold text-amber-400 uppercase mb-3">Mentor 1 (Sekolah)</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -393,7 +359,6 @@
                         <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap (Jalan & Bangunan)</label><input type="text" id="editMentorAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none mb-3 focus:border-amber-500"><div class="grid grid-cols-3 gap-3"><input type="text" id="editMentorPoskod" placeholder="Poskod" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"><input type="text" id="editMentorBandar" placeholder="Bandar" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"><input type="text" id="editMentorNegeri" placeholder="Negeri" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"></div></div>
                     </div>
                 </div>
-                <!-- 5. Mentor 2 -->
                 <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
                     <p class="text-[10px] font-bold text-amber-400 uppercase mb-3">Mentor 2 (PPD)</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -406,14 +371,14 @@
                 </div>
 
                 <div class="flex gap-3 pt-4 sticky bottom-0 bg-slate-900 pb-2 border-t border-slate-800 mt-4">
-                    <button type="button" onclick="window.closeProfilModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Batal</button>
+                    <button type="button" onclick="window.closeProfilModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Batal</button>
                     <button type="submit" id="btnSimpanProfil" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Simpan ke Awan</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL 5: PENDAFTARAN SESI PANDU CITRA -->
+    <!-- MODAL PENDAFTARAN SESI PANDU CITRA -->
     <div id="panduCitraModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-purple-500/50 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="panduCitraModalContent">
             <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-2 border-b border-slate-800 pb-3">Rekod Sesi Pandu Citra</h3>
@@ -583,19 +548,23 @@
         };
         window.closeJournalForm = () => { document.getElementById('journalModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('journalModal').classList.remove('flex'); document.getElementById('journalModal').classList.add('hidden'); window.openWeeklyModal(); },300); };
 
-        // --- FIREBASE: SIMPAN PROFIL ---
+        // --- FIREBASE: SIMPAN PROFIL (KALIS RALAT) ---
+        const getVal = (id) => document.getElementById(id) ? document.getElementById(id).value.trim() : "";
+        const getValUp = (id) => document.getElementById(id) ? document.getElementById(id).value.trim().toUpperCase() : "";
+
         document.getElementById("profilForm").addEventListener("submit", async function(e) {
             e.preventDefault();
             const btn = document.getElementById("btnSimpanProfil"); btn.textContent = "Menyimpan..."; btn.disabled = true;
             
             const dataToSave = {
-                ic: document.getElementById('editIc').value,
-                jawatan: document.getElementById('editJawatan').value.toUpperCase(), gred: document.getElementById('editGred').value.toUpperCase(), jabatan: document.getElementById('editJabatan').value.toUpperCase(), pusatCawangan: document.getElementById('editPusatCawangan').value.toUpperCase(),
-                sekolah: document.getElementById('editSekolah').value.toUpperCase(), ppd: document.getElementById('editPpd').value.toUpperCase(),
-                pemanduCitra: document.getElementById('editPemanduCitra').value.toUpperCase(), pemanduJawatan: document.getElementById('editPemanduJawatan').value.toUpperCase(), pemanduPusat: document.getElementById('editPemanduPusat').value.toUpperCase(),
-                mentorSekolah: document.getElementById('editMentorSekolah').value.toUpperCase(), mentorJawatan: document.getElementById('editMentorJawatan').value.toUpperCase(), mentorTelefon: document.getElementById('editMentorTelefon').value, mentorEmail: document.getElementById('editMentorEmail').value, mentorAlamat: document.getElementById('editMentorAlamat').value.toUpperCase(), mentorPoskod: document.getElementById('editMentorPoskod').value.toUpperCase(), mentorBandar: document.getElementById('editMentorBandar').value.toUpperCase(), mentorNegeri: document.getElementById('editMentorNegeri').value.toUpperCase(),
-                mentorPpd: document.getElementById('editMentorPpd').value.toUpperCase(), mentorPpdJawatan: document.getElementById('editMentorPpdJawatan').value.toUpperCase(), mentorPpdTelefon: document.getElementById('editMentorPpdTelefon').value, mentorPpdEmail: document.getElementById('editMentorPpdEmail').value, mentorPpdAlamat: document.getElementById('editMentorPpdAlamat').value.toUpperCase(), mentorPpdPoskod: document.getElementById('editMentorPpdPoskod').value.toUpperCase(), mentorPpdBandar: document.getElementById('editMentorPpdBandar').value.toUpperCase(), mentorPpdNegeri: document.getElementById('editMentorPpdNegeri').value.toUpperCase(),
+                ic: getValUp('editIc'),
+                jawatan: getValUp('editJawatan'), gred: getValUp('editGred'), jabatan: getValUp('editJabatan'), pusatCawangan: getValUp('editPusatCawangan'),
+                sekolah: getValUp('editSekolah'), ppd: getValUp('editPpd'),
+                pemanduCitra: getValUp('editPemanduCitra'), pemanduJawatan: getValUp('editPemanduJawatan'), pemanduPusat: getValUp('editPemanduPusat'),
+                mentorSekolah: getValUp('editMentorSekolah'), mentorJawatan: getValUp('editMentorJawatan'), mentorTelefon: getVal('editMentorTelefon'), mentorEmail: getVal('editMentorEmail'), mentorAlamat: getValUp('editMentorAlamat'), mentorPoskod: getValUp('editMentorPoskod'), mentorBandar: getValUp('editMentorBandar'), mentorNegeri: getValUp('editMentorNegeri'),
+                mentorPpd: getValUp('editMentorPpd'), mentorPpdJawatan: getValUp('editMentorPpdJawatan'), mentorPpdTelefon: getVal('editMentorPpdTelefon'), mentorPpdEmail: getVal('editMentorPpdEmail'), mentorPpdAlamat: getValUp('editMentorPpdAlamat'), mentorPpdPoskod: getValUp('editMentorPpdPoskod'), mentorPpdBandar: getValUp('editMentorPpdBandar'), mentorPpdNegeri: getValUp('editMentorPpdNegeri')
             };
+
             try { await update(ref(db, `propkes_accounts/${currentUser}`), dataToSave); window.closeProfilModal(); window.showToast("Profil berjaya disimpan!"); loadUserData(); } 
             catch(error) { console.error(error); window.showToast("Ralat menyimpan.", "error"); } 
             finally { btn.textContent = "Simpan ke Awan"; btn.disabled = false; }
@@ -623,9 +592,13 @@
         };
 
         window.renderCal = function() {
-            document.getElementById("calendarMonthYear").textContent = `${mNames[disMonth]} ${disYear}`;
-            document.getElementById("statMonthLabel").textContent = mNames[disMonth];
-            const grid = document.getElementById("calendarGrid"); grid.innerHTML = "";
+            if(document.getElementById("calendarMonthYear")) document.getElementById("calendarMonthYear").textContent = `${mNames[disMonth]} ${disYear}`;
+            if(document.getElementById("statMonthLabel")) document.getElementById("statMonthLabel").textContent = mNames[disMonth];
+            
+            const grid = document.getElementById("calendarGrid"); 
+            if(!grid) return;
+            grid.innerHTML = "";
+
             const first = new Date(disYear, disMonth, 1).getDay(); const days = new Date(disYear, disMonth + 1, 0).getDate();
             let cS = 0, cP = 0, cI = 0, cC = 0;
 
@@ -635,7 +608,9 @@
                 const dt = `${disYear}-${String(disMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
                 const data = window.calendarData[dt] || {log:false, loc:"", status:""};
                 
-                if(data.loc === 'sekolah') cS++; else if(data.loc === 'ppd') cP++; else if(data.loc === 'iab') cI++; else if(data.loc === 'cuti') cC++;
+                if(data && typeof data === 'object') {
+                    if(data.loc === 'sekolah') cS++; else if(data.loc === 'ppd') cP++; else if(data.loc === 'iab') cI++; else if(data.loc === 'cuti') cC++;
+                }
 
                 const btn = document.createElement("button");
                 btn.className = "relative w-full aspect-square max-w-[3rem] mx-auto rounded-xl flex items-center justify-center text-xs font-semibold outline-none transition-all cursor-pointer border";
@@ -660,7 +635,10 @@
                 btn.onclick = () => window.openDailyModal(dt, d); 
                 grid.appendChild(btn);
             }
-            document.getElementById('countSekolah').textContent = cS + " Hari"; document.getElementById('countPpd').textContent = cP + " Hari"; document.getElementById('countIab').textContent = cI + " Hari"; document.getElementById('countCuti').textContent = cC + " Hari";
+            if(document.getElementById('countSekolah')) document.getElementById('countSekolah').textContent = cS + " Hari"; 
+            if(document.getElementById('countPpd')) document.getElementById('countPpd').textContent = cP + " Hari"; 
+            if(document.getElementById('countIab')) document.getElementById('countIab').textContent = cI + " Hari"; 
+            if(document.getElementById('countCuti')) document.getElementById('countCuti').textContent = cC + " Hari";
         };
 
         window.openDailyModal = (dt, d) => {
@@ -707,8 +685,8 @@
                     window.calendarData[curEditDate] = payload;
                     await set(ref(db, `propkes_attendance/${currentUser}/${curEditDate}`), payload);
                 }
-                window.closeDailyModal(); window.renderCal(); window.showToast("Rekod kalendar disimpan (Menunggu Pengesahan).");
-            } catch(e) { console.error(e); window.showToast("Gagal menyimpan kalendar ke awan.", "error"); } 
+                window.closeDailyModal(); window.renderCal(); window.showToast("Rekod kalendar disimpan.");
+            } catch(e) { console.error(e); window.showToast("Gagal menyimpan.", "error"); } 
             finally { btn.textContent = "Simpan Lampiran C"; btn.disabled = false; }
         };
 
@@ -738,7 +716,9 @@
         ];
 
         window.renderTasks = function() {
-            const container = document.getElementById("taskListContainer"); container.innerHTML = ""; 
+            const container = document.getElementById("taskListContainer"); 
+            if(!container) return;
+            container.innerHTML = ""; 
             const progress = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
             let total = 0, completed = 0;
 
@@ -757,9 +737,9 @@
             });
 
             const pct = total === 0 ? 0 : Math.round((completed/total)*100);
-            document.getElementById("progressText").textContent = pct + "%";
-            document.getElementById("progressCircle").className = `w-10 h-10 rounded-full border-4 flex items-center justify-center shrink-0 ${pct === 100 ? 'border-emerald-500 bg-emerald-500/10' : (pct > 0 ? 'border-blue-500' : 'border-slate-700')}`;
-            document.getElementById("progressText").className = `text-[10px] font-bold ${pct === 100 ? 'text-emerald-400' : (pct > 0 ? 'text-blue-400' : 'text-slate-300')}`;
+            if(document.getElementById("progressText")) document.getElementById("progressText").textContent = pct + "%";
+            if(document.getElementById("progressCircle")) document.getElementById("progressCircle").className = `w-10 h-10 rounded-full border-4 flex items-center justify-center shrink-0 ${pct === 100 ? 'border-emerald-500 bg-emerald-500/10' : (pct > 0 ? 'border-blue-500' : 'border-slate-700')}`;
+            if(document.getElementById("progressText")) document.getElementById("progressText").className = `text-[10px] font-bold ${pct === 100 ? 'text-emerald-400' : (pct > 0 ? 'text-blue-400' : 'text-slate-300')}`;
         };
 
         window.toggleTask = function(id, val) {
@@ -771,22 +751,30 @@
         function loadCharts() {
             const pra = JSON.parse(localStorage.getItem(`propkes_pra_result_${currentUser}`));
             const pasca = JSON.parse(localStorage.getItem(`propkes_pasca_result_${currentUser}`));
+            
             if(pra || pasca) {
-                document.getElementById("analysisSection").classList.remove("hidden");
+                if(document.getElementById("analysisSection")) document.getElementById("analysisSection").classList.remove("hidden");
                 const domains = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
                 let praS = [], pascaS = [];
                 domains.forEach(d => { praS.push(pra ? pra[d]||0 : 0); pascaS.push(pasca ? pasca[d]||0 : 0); });
 
-                new Chart(document.getElementById('barChart').getContext('2d'), { type: 'bar', data: { labels: domains, datasets: [{label: 'Pra', data: praS, backgroundColor: '#3b82f6'}, {label: 'Pasca', data: pascaS, backgroundColor: '#a855f7'}] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 10, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} } } });
-                new Chart(document.getElementById('webChart').getContext('2d'), { type: 'radar', data: { labels: domains, datasets: [{label: 'Pra', data: praS, borderColor: '#3b82f6', backgroundColor:'rgba(59,130,246,0.2)'}, {label: 'Pasca', data: pascaS, borderColor: '#a855f7', backgroundColor:'rgba(168,85,247,0.2)'}] }, options: { responsive: true, scales: { r: { pointLabels: {color:'#cbd5e1', font:{size:9}}, ticks: {display:false, max:10} } } } });
+                if(document.getElementById('barChart')) {
+                    new Chart(document.getElementById('barChart').getContext('2d'), { type: 'bar', data: { labels: domains, datasets: [{label: 'Pra', data: praS, backgroundColor: '#3b82f6'}, {label: 'Pasca', data: pascaS, backgroundColor: '#a855f7'}] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 10, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} } } });
+                }
+                if(document.getElementById('webChart')) {
+                    new Chart(document.getElementById('webChart').getContext('2d'), { type: 'radar', data: { labels: domains, datasets: [{label: 'Pra', data: praS, borderColor: '#3b82f6', backgroundColor:'rgba(59,130,246,0.2)'}, {label: 'Pasca', data: pascaS, borderColor: '#a855f7', backgroundColor:'rgba(168,85,247,0.2)'}] }, options: { responsive: true, scales: { r: { pointLabels: {color:'#cbd5e1', font:{size:9}}, ticks: {display:false, max:10} } } } });
+                }
 
-                const wrapper = document.getElementById('domainChartsWrapper'); wrapper.innerHTML = ''; const counts = [6, 4, 4, 4, 4, 4, 4];
-                domains.forEach((d, i) => {
-                    let ls=[], pr=[], ps=[]; for(let j=1; j<=counts[i]; j++) { ls.push(`Item ${j}`); pr.push(pra?Math.min(10,pra[d]+Math.random()*2-1):0); ps.push(pasca?Math.min(10,pasca[d]+Math.random()*2-1):0); }
-                    const div = document.createElement('div'); div.className = "bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 print:border-none print:shadow-none print:mb-6";
-                    div.innerHTML = `<h5 class="text-xs font-bold text-slate-300 mb-3 border-b border-slate-800 pb-2 print:text-black">Domain ${i+1}: ${d}</h5><div class="w-full h-40"><canvas id="dC_${i}"></canvas></div>`; wrapper.appendChild(div);
-                    new Chart(document.getElementById(`dC_${i}`).getContext('2d'), { type: 'bar', data: { labels: ls, datasets: [{label:'Pra', data:pr, backgroundColor:'#3b82f6'}, {label:'Pasca', data:ps, backgroundColor:'#a855f7'}] }, options: { responsive: true, maintainAspectRatio: false, plugins:{legend:{display:false}}, scales:{y:{max:10,display:false},x:{grid:{display:false}}} } });
-                });
+                const wrapper = document.getElementById('domainChartsWrapper'); 
+                if(wrapper) {
+                    wrapper.innerHTML = ''; const counts = [6, 4, 4, 4, 4, 4, 4];
+                    domains.forEach((d, i) => {
+                        let ls=[], pr=[], ps=[]; for(let j=1; j<=counts[i]; j++) { ls.push(`Item ${j}`); pr.push(pra?Math.min(10,pra[d]+Math.random()*2-1):0); ps.push(pasca?Math.min(10,pasca[d]+Math.random()*2-1):0); }
+                        const div = document.createElement('div'); div.className = "bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 print:border-none print:shadow-none print:mb-6";
+                        div.innerHTML = `<h5 class="text-xs font-bold text-slate-300 mb-3 border-b border-slate-800 pb-2 print:text-black">Domain ${i+1}: ${d}</h5><div class="w-full h-40"><canvas id="dC_${i}"></canvas></div>`; wrapper.appendChild(div);
+                        new Chart(document.getElementById(`dC_${i}`).getContext('2d'), { type: 'bar', data: { labels: ls, datasets: [{label:'Pra', data:pr, backgroundColor:'#3b82f6'}, {label:'Pasca', data:ps, backgroundColor:'#a855f7'}] }, options: { responsive: true, maintainAspectRatio: false, plugins:{legend:{display:false}}, scales:{y:{max:10,display:false},x:{grid:{display:false}}} } });
+                    });
+                }
             }
         }
 
@@ -890,7 +878,9 @@
         };
         
         window.cetakLaporanPropkes = function() {
-            const oldTitle = document.title; document.title = `${document.getElementById("profileNama").textContent} - iPROPKES - ${new Date().toLocaleDateString('ms-MY').replace(/\//g, '-')}`;
+            const oldTitle = document.title; 
+            const uName = document.getElementById("profileNama") ? document.getElementById("profileNama").textContent : "Peserta";
+            document.title = `${uName} - iPROPKES - ${new Date().toLocaleDateString('ms-MY').replace(/\//g, '-')}`;
             window.print(); setTimeout(() => document.title = oldTitle, 1000);
         };
 
