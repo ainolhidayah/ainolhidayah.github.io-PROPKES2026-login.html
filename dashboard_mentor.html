@@ -6,34 +6,56 @@
     <title>Papan Pemuka | Mentor PROPKES</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js untuk Laporan i-PROPKES -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
         body { font-family: 'Inter', sans-serif; }
         .bg-pattern { background-color: #0f172a; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 20px 20px; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px;}
         .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+        .fade-in { animation: fadeIn 0.4s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media print {
+            body * { visibility: hidden; }
+            #printSection, #printSection * { visibility: visible; }
+            #printSection { position: absolute; left: 0; top: 0; width: 100%; }
+            body { background: white !important; }
+            .print-page { width: 100%; color: black; font-family: 'Arial', sans-serif; padding: 20px; page-break-after: always; }
+            .print-page:last-child { page-break-after: auto; }
+            table.print-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
+            table.print-table th, table.print-table td { border: 1px solid #000; padding: 10px; color: black; vertical-align: top; }
+            table.print-table th { background-color: #f1f5f9 !important; font-weight: bold; -webkit-print-color-adjust: exact; color: black; }
+        }
     </style>
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-lg shadow-blue-500/20">IAB</div>
-                    <span class="font-bold text-lg tracking-tight text-white hidden sm:block">PROPKES <span class="text-blue-400">2026</span></span>
-                    <span class="ml-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:flex items-center gap-1">
-                        <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div> Live DB
-                    </span>
-                    <span class="ml-2 bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:block">MOD MENTOR</span>
-                </div>
-                <div class="flex items-center gap-4">
-                    <div class="text-right hidden md:block">
-                        <p class="text-sm font-semibold text-white uppercase" id="navNameDisplay">MEMUATKAN...</p>
-                        <p class="text-xs text-purple-400 uppercase">MENTOR PROPKES</p>
+    <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 shadow-2xl no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4 lg:gap-5">
+                    <div class="flex items-center gap-3 bg-white/5 p-2 rounded-xl border border-white/10 shadow-inner backdrop-blur-sm">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png" alt="KPM" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg">
+                        <div class="w-px h-8 bg-slate-600"></div>
+                        <div class="h-10 lg:h-12 px-3 bg-gradient-to-br from-blue-600 to-indigo-800 rounded-lg flex items-center justify-center font-black text-white text-sm shadow-lg border border-blue-400/50">IAB</div>
                     </div>
-                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300 uppercase" id="navInitials">...</div>
-                    <button onclick="window.logout()" class="ml-2 bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg transition-colors cursor-pointer outline-none">
+                    <div class="hidden xl:flex flex-col justify-center">
+                        <h1 class="font-extrabold text-sm text-white uppercase drop-shadow-md">PROPKES <span class="text-blue-400">2026</span></h1>
+                        <h2 class="text-[10px] font-semibold text-slate-300 uppercase">Institut Aminuddin Baki, KPM</h2>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4 shrink-0">
+                    <div class="text-right hidden md:block border-l border-slate-700 pl-4">
+                        <p class="text-sm font-semibold text-white truncate max-w-[150px]" id="navNameDisplay">Memuatkan...</p>
+                        <p class="text-xs text-amber-400">Mentor / Penyelia</p>
+                    </div>
+                    <div class="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg" id="navInitials">...</div>
+                    <button onclick="window.logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-xl transition-all outline-none border border-slate-700 hover:border-rose-500" title="Log Keluar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
                 </div>
@@ -41,291 +63,564 @@
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-gradient-to-r from-purple-900/40 to-slate-900 border border-purple-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div>
-                <h1 class="text-2xl font-bold text-white mb-2 uppercase">Pusat Bimbingan Mentor</h1>
-                <p class="text-slate-400 text-sm max-w-2xl">Senarai mentee di bawah ditarik terus dari Pangkalan Data Awan (Firebase). Sila lengkapkan Borang Maklum Balas (Lampiran F) pada akhir setiap fasa.</p>
-            </div>
-            <div class="bg-slate-950/50 border border-purple-500/30 rounded-xl p-4 shrink-0 text-center flex gap-4">
-                <div>
-                    <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1">Peserta Jagaan</p>
-                    <div class="text-2xl font-bold text-purple-400"><span id="menteeCount">0</span> <span class="text-sm font-normal text-slate-500 uppercase">Orang</span></div>
-                </div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
+        
+        <div class="bg-gradient-to-r from-amber-900/40 to-slate-900 border border-amber-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-64 h-64 bg-amber-500/10 blur-3xl rounded-full pointer-events-none"></div>
+            <div class="relative z-10">
+                <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">Pusat Penilaian Mentor</h1>
+                <p class="text-slate-400 text-sm max-w-2xl">Sahkan kehadiran harian peserta di lokasi anda, semak jurnal kepimpinan, analisis i-PROPKES dan isikan maklum balas Lampiran F.</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
-            <div class="xl:col-span-2 space-y-6">
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
-                    <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
-                        <h3 class="font-bold text-white flex items-center gap-2 uppercase text-sm">
-                            <span class="w-1.5 h-5 bg-purple-500 rounded-full"></span> Senarai Peserta Seliaan Anda
-                        </h3>
-                    </div>
-                    <div class="overflow-x-auto custom-scrollbar">
-                        <table class="w-full text-left text-sm border-collapse whitespace-nowrap">
-                            <thead>
-                                <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 text-[11px] font-semibold tracking-wider uppercase">
-                                    <th class="py-3 px-6">Nama Peserta (Mentee)</th>
-                                    <th class="py-3 px-6 text-center">Jabatan / Tempat Bertugas</th>
-                                </tr>
-                            </thead>
-                            <tbody id="menteeTableBody" class="divide-y divide-slate-800/50 text-slate-300">
-                                <tr><td colspan="2" class="py-8 px-4 text-center text-slate-500 text-xs italic uppercase">Menyambung ke Awan...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-6">
-                <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-purple-500/30 rounded-2xl shadow-xl p-6 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-2xl rounded-full pointer-events-none"></div>
-                    <h3 class="font-bold text-white mb-2 text-sm flex items-center gap-2 relative z-10 uppercase">Penyerahan Maklum Balas</h3>
-                    <form class="space-y-4 relative z-10" id="formBukaMaklumBalas">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pilih Peserta (Mentee)</label>
-                            <select id="menteeSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500 outline-none cursor-pointer uppercase">
-                                <option value="" disabled selected>-- MEMUATKAN SENARAI... --</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Fasa Penilaian</label>
-                            <select id="fasaSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500 outline-none cursor-pointer uppercase">
-                                <option value="" disabled selected>-- SILA PILIH --</option>
-                                <option value="FASA 1">PROPKES FASA 1</option>
-                                <option value="FASA 2">PROPKES FASA 2</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg text-xs transition-colors outline-none cursor-pointer shadow-lg shadow-purple-600/30 mt-2 uppercase">
-                            Isi Borang Digital Lampiran F
-                        </button>
-                    </form>
-                </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6 mb-8">
+            <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm flex items-center gap-2">Maklumat Anda (Mentor)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Nama Penuh</p><p class="text-sm font-medium text-slate-200" id="profileNama">Memuat turun...</p></div>
+                <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">E-mel Rasmi</p><p class="text-sm font-medium text-slate-300" id="profileEmail">Belum Diisi</p></div>
             </div>
         </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
+                <h3 class="font-bold text-white text-sm">Senarai Peserta (Permata Citra)</h3>
+                <span class="text-xs font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20" id="menteeCount">0 Peserta</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm whitespace-nowrap">
+                    <thead>
+                        <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 text-[11px] font-semibold tracking-wider uppercase">
+                            <th class="py-4 px-6">Nama Peserta</th>
+                            <th class="py-4 px-6 text-center">Sekolah Sandaran</th>
+                            <th class="py-4 px-6 text-center">Pemantauan & Penilaian</th>
+                        </tr>
+                    </thead>
+                    <tbody id="menteeTableBody" class="divide-y divide-slate-800/50 text-slate-300">
+                        <tr><td colspan="3" class="py-8 text-center text-slate-500 italic">Memuat turun data dari awan...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </main>
 
-    <!-- Modal Maklum Balas F -->
-    <div id="maklumBalasModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-slate-900 border border-purple-500/50 rounded-2xl shadow-2xl max-w-3xl w-full flex flex-col max-h-[95vh] transform scale-95 transition-transform duration-300" id="maklumBalasModalContent">
-            <div class="p-6 border-b border-slate-800 shrink-0 bg-slate-950/50 rounded-t-2xl flex justify-between items-start">
+    <!-- MODAL LIHAT LOG HARIAN & PENGESAHAN MENTOR -->
+    <div id="logModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[110] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
+        <div class="bg-slate-900 border border-blue-500/50 rounded-2xl shadow-2xl max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="logModalContent">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
                 <div>
-                    <h3 class="text-lg font-extrabold text-white uppercase">LAMPIRAN F: MAKLUM BALAS MENTOR</h3>
-                    <p class="text-xs text-purple-400 mt-1 uppercase font-semibold tracking-wide">PROPKES 2026 - <span id="mbFasaTitle">FASA 1</span></p>
+                    <h3 class="text-lg font-bold text-white" id="logModalTitle">Rekod Kehadiran (Lampiran C)</h3>
+                    <p class="text-xs text-blue-400 mt-1" id="logModalSubtitle">Peserta: -</p>
                 </div>
-                <button type="button" onclick="window.closeMaklumBalasModal()" class="text-slate-500 hover:text-slate-300 bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg outline-none">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
+                <button onclick="window.closeLogModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             
-            <form id="submitFeedbackForm" class="flex-1 flex flex-col min-h-0">
-                <div class="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6">
-                    <div class="bg-slate-800/30 p-5 rounded-xl border border-slate-700/50">
-                        <div class="space-y-4">
-                            <input type="text" id="mbNamaPeserta" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase font-bold">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <input type="text" id="mbJawatan" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
-                                <input type="text" id="mbGred" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
-                                <input type="text" id="mbJabatan" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
-                                <input type="text" id="mbPusat" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tarikh Sandaran</label>
-                                <input type="text" id="mbTarikhSandaran" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-purple-500 outline-none uppercase">
-                            </div>
-                        </div>
+            <div id="logModalBody" class="space-y-4">
+                <!-- Kandungan jadual Log Harian diisi melalui JS -->
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 mt-6 flex justify-end">
+                <button onclick="window.closeLogModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL LIHAT JURNAL (D) -->
+    <div id="viewModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[110] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
+        <div class="bg-slate-900 border border-purple-500/50 rounded-2xl shadow-2xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="viewModalContent">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
+                <div>
+                    <h3 class="text-lg font-bold text-white" id="viewModalTitle">Rekod Jurnal</h3>
+                    <p class="text-xs text-purple-400 mt-1" id="viewModalSubtitle">Peserta: -</p>
+                </div>
+                <button onclick="window.closeViewModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            
+            <div id="viewModalBody" class="space-y-4">
+                <!-- Kandungan diisi melalui JS -->
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 mt-6 flex justify-end">
+                <button onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL LIHAT i-PROPKES (PRA & PASCA) -->
+    <div id="propkesModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[120] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
+        <div class="bg-slate-900 border border-emerald-500/50 rounded-2xl shadow-2xl max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="propkesModalContent">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
+                <div>
+                    <h3 class="text-lg font-bold text-white">Analisis i-PROPKES Peserta</h3>
+                    <p class="text-xs text-emerald-400 mt-1" id="propkesModalSubtitle">Peserta: -</p>
+                </div>
+                <button onclick="window.closePropkesModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            
+            <div id="propkesModalBody" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Carta Bar (Keseluruhan)</h4>
+                    <div class="w-full h-64"><canvas id="mentorBarChart"></canvas></div>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col items-center">
+                    <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Carta Web (Profil Domain)</h4>
+                    <div class="w-full max-w-[280px] aspect-square"><canvas id="mentorWebChart"></canvas></div>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 mt-6 flex justify-end">
+                <button onclick="window.closePropkesModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL MAKLUM BALAS MENTOR (LAMPIRAN F) -->
+    <div id="maklumBalasModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[130] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
+        <div class="bg-slate-900 border border-amber-500/50 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[95vh] overflow-y-auto custom-scrollbar p-6 transform scale-95 transition-transform duration-300" id="maklumBalasModalContent">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4 sticky top-0 bg-slate-900 z-10">
+                <div>
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2"><svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>Maklum Balas Mentor (Lampiran F)</h3>
+                    <p class="text-xs text-amber-400 mt-1" id="mbModalSubtitle">Peserta: -</p>
+                </div>
+                <button onclick="window.closeMaklumBalasModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            
+            <form id="maklumBalasForm" onsubmit="window.saveMaklumBalas(event)" class="space-y-5">
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Nama Peserta</label><input type="text" id="mbNamaPeserta" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 outline-none cursor-not-allowed"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Jawatan</label><input type="text" id="mbJawatan" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 outline-none cursor-not-allowed"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Gred</label><input type="text" id="mbGred" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 outline-none cursor-not-allowed"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Jabatan</label><input type="text" id="mbJabatan" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 outline-none cursor-not-allowed"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Pusat / Cawangan</label><input type="text" id="mbPusat" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 outline-none cursor-not-allowed"></div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-amber-400 uppercase mb-1">Fasa Program</label>
+                        <select id="mbFasa" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-amber-500 outline-none cursor-pointer">
+                            <option value="FASA 1">Fasa 1</option>
+                            <option value="FASA 2">Fasa 2</option>
+                        </select>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-bold text-purple-400 uppercase mb-2">Maklum Balas Mentor</label>
-                        <textarea id="mbMaklumBalas" required rows="4" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-y"></textarea>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
-                        <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 border-b border-slate-700 pb-2">Perakuan Mentor</h4>
-                        <input type="text" id="mbNamaMentor" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 mb-2 font-medium uppercase">
-                        <div class="flex items-center gap-4 bg-slate-950 p-4 rounded-lg border border-slate-800">
-                            <input type="checkbox" id="mbPengesahan" required class="w-5 h-5 cursor-pointer"/>
-                            <div>
-                                <label for="mbPengesahan" class="text-xs text-slate-300 font-medium cursor-pointer block uppercase">Saya mengesahkan maklum balas ini.</label>
-                                <p class="text-[10px] text-slate-500 mt-0.5 uppercase">Disahkan digital <span id="mbTarikhDigital" class="text-purple-400 font-mono ml-1"></span></p>
-                            </div>
-                        </div>
+                        <label class="block text-[10px] font-bold text-amber-400 uppercase mb-1">Tarikh Sandaran</label>
+                        <input type="text" id="mbTarikhSandaran" required placeholder="Cth: 3 Ogos - 4 Sept 2026" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-amber-500 outline-none">
                     </div>
                 </div>
-                <div class="p-6 border-t border-slate-800 shrink-0 bg-slate-950/50 rounded-b-2xl flex gap-3">
-                    <button type="button" onclick="window.closeMaklumBalasModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-sm font-bold outline-none uppercase">Batal</button>
-                    <button type="submit" id="btnHantarF" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl text-sm font-bold shadow-lg outline-none uppercase">Simpan ke Awan (Firebase)</button>
+
+                <div>
+                    <label class="block text-[11px] font-bold text-amber-400 uppercase mb-2">Maklum Balas Mentor</label>
+                    <textarea id="mbUlasan" rows="6" required placeholder="Sila berikan maklum balas terhadap prestasi dan keupayaan peserta sepanjang fasa sandaran ini..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-amber-500 outline-none resize-y"></textarea>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-800 sticky bottom-0 bg-slate-900 pb-2">
+                    <button type="button" onclick="window.closeMaklumBalasModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-3 px-6 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Batal</button>
+                    <button type="submit" id="btnSimpanMB" class="flex-1 bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-xl text-xs font-bold shadow-lg outline-none cursor-pointer transition-colors">Simpan Data</button>
+                    <button type="button" onclick="window.cetakLampiranF()" class="bg-slate-700 hover:bg-slate-600 text-amber-400 border border-slate-600 py-3 px-6 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors flex justify-center items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak Borang F</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2"></div>
+    <!-- CETAKAN SECTION -->
+    <div id="printSection" class="print-container no-print"></div>
 
-    <!-- FIREBASE MODULE -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
+
+    <!-- FIREBASE & LOKAL SCRIPTS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getDatabase, ref, get, set, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        import { getDatabase, ref, get, child, set, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCzlcyG6xyd2JXEMRNlDGi-_wxU2TXf6Y8",
             authDomain: "propkes-2026.firebaseapp.com",
-            databaseURL: "https://propkes-2026-default-rtdb.asia-southeast1.firebasedatabase.app",
+            databaseURL: "https://propkes-2026-default-rtdb.firebaseio.com",
             projectId: "propkes-2026",
             storageBucket: "propkes-2026.firebasestorage.app",
             messagingSenderId: "758954100529",
             appId: "1:758954100529:web:385531320681ceac8e9210"
         };
+
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
         const currentUser = localStorage.getItem("propkes_user");
-        if (!currentUser) window.location.href = "index.html";
+        if (!currentUser) window.location.replace("index.html");
 
-        let menteeList = [];
-        let mentorProfile = {};
+        window.menteesList = [];
+        window.profileData = {}; // Simpan profil mentor (diri sendiri)
+        window.currentMenteeF = {}; // Mentee semasa untuk Borang F
+        
+        let chartBarInstance = null;
+        let chartWebInstance = null;
 
-        async function initDashboard() {
-            try {
-                const snapshot = await get(child(ref(db), 'propkes_accounts'));
-                if (snapshot.exists()) {
-                    const accounts = snapshot.val();
-                    mentorProfile = accounts[currentUser] || {};
-                    const mentorName = mentorProfile.name || "Mentor";
-                    document.getElementById('navNameDisplay').textContent = mentorName.toUpperCase();
-                    document.getElementById('navInitials').textContent = mentorName.substring(0, 2).toUpperCase();
-
-                    const myNameLower = mentorName.trim().toLowerCase();
-                    menteeList = Object.entries(accounts)
-                        .filter(([username, data]) => {
-                            if (data.role !== 'peserta') return false;
-                            const mSekolah = (data.mentorSekolah || "").trim().toLowerCase();
-                            const mPpd = (data.mentorPpd || "").trim().toLowerCase();
-                            return mSekolah.includes(myNameLower) || mPpd.includes(myNameLower) || myNameLower.includes(mSekolah);
-                        })
-                        .map(([username, data]) => ({ username, ...data }));
-
-                    renderMenteeTable();
-                    populateMenteeDropdown();
-                }
-            } catch (error) {
-                console.error(error);
-                window.showToast("Gagal memuat turun data dari awan.", "error");
-            }
-        }
-        initDashboard();
-
-        function renderMenteeTable() {
-            const tbody = document.getElementById("menteeTableBody");
-            tbody.innerHTML = "";
-            document.getElementById("menteeCount").textContent = menteeList.length;
-
-            if (menteeList.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="2" class="py-8 px-4 text-center text-slate-500 text-xs italic uppercase">Tiada peserta di bawah seliaan anda buat masa ini.</td></tr>`;
-                return;
-            }
-            menteeList.forEach(mentee => {
-                const initials = mentee.name.substring(0, 2).toUpperCase();
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td class="py-4 px-6"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-700">${initials}</div><div><p class="font-medium text-white uppercase">${mentee.name.toUpperCase()}</p></div></div></td>
-                    <td class="py-4 px-6 text-center text-xs text-slate-400 uppercase">${(mentee.jabatan || mentee.sekolah || 'BELUM DIISI').toUpperCase()}</td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function populateMenteeDropdown() {
-            const select = document.getElementById("menteeSelect");
-            select.innerHTML = '<option value="" disabled selected>-- SILA PILIH MENTEE --</option>';
-            menteeList.forEach(mentee => {
-                const option = document.createElement("option");
-                option.value = mentee.username;
-                option.textContent = mentee.name.toUpperCase();
-                select.appendChild(option);
-            });
-        }
-
-        document.getElementById('formBukaMaklumBalas').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const menteeUsername = document.getElementById('menteeSelect').value;
-            const fasa = document.getElementById('fasaSelect').value;
-            const mentee = menteeList.find(m => m.username === menteeUsername);
-
-            document.getElementById('mbFasaTitle').textContent = fasa;
-            document.getElementById('mbNamaPeserta').value = mentee.name.toUpperCase();
-            document.getElementById('mbJawatan').value = (mentee.pesertaJawatan || "BELUM DIISI").toUpperCase();
-            document.getElementById('mbGred').value = (mentee.pesertaGred || "BELUM DIISI").toUpperCase();
-            document.getElementById('mbJabatan').value = (mentee.jabatan || mentee.sekolah || "BELUM DIISI").toUpperCase();
-            document.getElementById('mbPusat').value = (mentee.pesertaPusatAsal || "BELUM DIISI").toUpperCase();
-            document.getElementById('mbNamaMentor').value = (mentorProfile.name || "MENTOR").toUpperCase();
-            document.getElementById('mbTarikhDigital').textContent = `(${new Date().toLocaleDateString('ms-MY')})`;
-
-            const modal = document.getElementById('maklumBalasModal');
-            const content = document.getElementById('maklumBalasModalContent');
-            modal.classList.remove('hidden'); modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
-        });
-
-        window.closeMaklumBalasModal = function() {
-            const modal = document.getElementById('maklumBalasModal');
-            const content = document.getElementById('maklumBalasModalContent');
-            modal.classList.add('opacity-0'); content.classList.add('scale-95');
-            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
+        window.showToast = function(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const bgColor = type === 'success' ? 'bg-emerald-600' : (type==='warning' ? 'bg-amber-600' : 'bg-rose-600');
+            toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl shadow-black/20 text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3 z-[200]`;
+            toast.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-y-10', 'opacity-0'), 10);
+            setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
         };
 
-        document.getElementById('submitFeedbackForm').addEventListener('submit', async function(e) {
+        window.logout = function() { localStorage.removeItem("propkes_user"); window.location.replace("index.html"); };
+
+        async function loadMentorData() {
+            try {
+                const dbRef = ref(db);
+                // 1. Tarik profil mentor
+                const userSnap = await get(child(dbRef, `propkes_accounts/${currentUser}`));
+                let myNameLower = "";
+                
+                if (userSnap.exists()) {
+                    window.profileData = userSnap.val();
+                    const pName = window.profileData.name || "Mentor";
+                    document.getElementById('navNameDisplay').textContent = pName;
+                    document.getElementById('navInitials').textContent = pName.substring(0, 2).toUpperCase();
+                    document.getElementById('profileNama').textContent = pName;
+                    document.getElementById('profileEmail').textContent = window.profileData.email || "Tiada Maklumat";
+                    myNameLower = pName.trim().toLowerCase();
+                }
+
+                // 2. Tarik senarai semua peserta untuk padankan mentor
+                const allUsersSnap = await get(child(dbRef, 'propkes_accounts'));
+                const tbody = document.getElementById("menteeTableBody");
+                tbody.innerHTML = "";
+                window.menteesList = [];
+
+                if (allUsersSnap.exists() && myNameLower !== "") {
+                    const accounts = allUsersSnap.val();
+                    for (const [uname, data] of Object.entries(accounts)) {
+                        if (data.role === 'peserta') {
+                            const mSekolah = (data.mentorSekolah || "").trim().toLowerCase();
+                            const mPpd = (data.mentorPpd || "").trim().toLowerCase();
+                            
+                            // Mentor di Sekolah atau PPD
+                            if (mSekolah !== "" || mPpd !== "") {
+                                if (mSekolah.includes(myNameLower) || myNameLower.includes(mSekolah) || mPpd.includes(myNameLower) || myNameLower.includes(mPpd)) {
+                                    
+                                    // Tentukan jenis Mentor (Sekolah atau PPD)
+                                    let mentorType = "Sekolah";
+                                    if(mPpd.includes(myNameLower) || myNameLower.includes(mPpd)) { mentorType = "PPD"; }
+
+                                    window.menteesList.push({ 
+                                        id: uname, 
+                                        name: data.name, 
+                                        sekolah: data.sekolah || 'Belum Diisi',
+                                        jawatan: data.jawatan || '-',
+                                        gred: data.gred || '-',
+                                        jabatan: data.jabatan || '-',
+                                        pusat: data.pusatCawangan || '-',
+                                        mentorType: mentorType
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                document.getElementById("menteeCount").textContent = `${window.menteesList.length} Peserta`;
+
+                if (window.menteesList.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="3" class="py-8 text-center text-slate-500 text-xs italic">Tiada peserta di bawah seliaan anda. Pastikan peserta telah mengisi nama anda di profil mereka.</td></tr>`;
+                } else {
+                    window.menteesList.forEach(m => {
+                        let mBadge = m.mentorType === 'PPD' 
+                            ? `<span class="bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded text-[9px] font-bold uppercase ml-2 border border-indigo-500/30">M. PPD</span>`
+                            : `<span class="bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded text-[9px] font-bold uppercase ml-2 border border-blue-500/30">M. Sekolah</span>`;
+
+                        tbody.innerHTML += `
+                            <tr class="hover:bg-slate-800/30 transition-colors border-b border-slate-800/50">
+                                <td class="py-4 px-6">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-700">${m.name.substring(0,2).toUpperCase()}</div>
+                                        <div>
+                                            <p class="font-medium text-white">${m.name}</p>
+                                            <p class="mt-1">${mBadge}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 text-center text-xs text-slate-400">${m.sekolah}</td>
+                                <td class="py-4 px-6 text-center flex flex-wrap justify-center gap-2">
+                                    <button onclick="window.viewLog('${m.id}', '${m.name.replace(/'/g, "\\'")}', '${m.mentorType}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer">Sahkan Log (C)</button>
+                                    <button onclick="window.viewJournal('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-purple-600/20 text-purple-400 hover:bg-purple-600 hover:text-white border border-purple-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer">Jurnal (D)</button>
+                                    <button onclick="window.viewPropkes('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white border border-emerald-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg> i-PROPKES</button>
+                                    <button onclick="window.openMaklumBalas('${m.id}', '${m.name.replace(/'/g, "\\'")}', '${m.jawatan}', '${m.gred}', '${m.jabatan}', '${m.pusat}')" class="bg-amber-600/20 text-amber-400 hover:bg-amber-600 hover:text-white border border-amber-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer">Borang (F)</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+            } catch (error) {
+                console.error(error); window.showToast("Gagal memuat turun data.", "error");
+            }
+        }
+
+        // --- PENGESAHAN LOG HARIAN OLEH MENTOR ---
+        window.viewLog = async (id, nama, mentorType) => {
+            document.getElementById('logModalTitle').textContent = "Pengesahan Log Harian (Lampiran C)";
+            document.getElementById('logModalSubtitle').textContent = `Peserta: ${nama} | Kuasa Pengesahan Anda: Mentor ${mentorType}`;
+            const body = document.getElementById('logModalBody');
+            body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun log dari awan...</p>`;
+            
+            document.getElementById('logModal').classList.remove('hidden'); document.getElementById('logModal').classList.add('flex'); 
+            setTimeout(()=>document.getElementById('logModalContent').classList.remove('scale-95'),10); 
+            setTimeout(()=>document.getElementById('logModal').classList.remove('opacity-0'),10);
+            
+            try {
+                const snap = await get(child(ref(db), `propkes_attendance/${id}`));
+                if(snap.exists()) {
+                    const logs = snap.val();
+                    let html = `<table class="w-full text-left text-xs border-collapse"><thead><tr class="border-b border-slate-700 text-blue-400 uppercase"><th class="py-2">Tarikh & Lokasi</th><th>Aktiviti & Refleksi</th><th class="text-center">Tindakan Pengesahan</th></tr></thead><tbody class="divide-y divide-slate-800">`;
+                    
+                    Object.keys(logs).sort().reverse().forEach(date => {
+                        const l = logs[date];
+                        let locStr = l.loc; // sekolah, ppd, iab, cuti
+                        
+                        // Mentor Sekolah hanya boleh sahkan 'sekolah'. Mentor PPD sahkan 'ppd'.
+                        let canApprove = false;
+                        if(mentorType === "Sekolah" && locStr === "sekolah") canApprove = true;
+                        if(mentorType === "PPD" && locStr === "ppd") canApprove = true;
+                        
+                        let statusBadge = "";
+                        let actionBtn = "";
+
+                        if (l.status === 'approved') {
+                            statusBadge = `<span class="text-[9px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">Telah Disahkan</span>`;
+                            actionBtn = `<button disabled class="bg-emerald-600/10 text-emerald-500 border border-emerald-500/20 px-3 py-1.5 rounded text-xs opacity-50 cursor-not-allowed">Selesai</button>`;
+                        } else {
+                            statusBadge = `<span class="text-[9px] text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">Menunggu Sah</span>`;
+                            if (canApprove) {
+                                actionBtn = `<button onclick="window.approveLog('${id}', '${date}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded text-xs font-bold transition-colors outline-none cursor-pointer shadow-lg shadow-emerald-600/30">Sahkan</button>`;
+                            } else {
+                                actionBtn = `<button disabled class="bg-slate-800 text-slate-500 border border-slate-700 px-3 py-1.5 rounded text-[10px] cursor-not-allowed" title="Anda hanya boleh sahkan lokasi ${mentorType}">Bukan Bidang Kuasa</button>`;
+                            }
+                        }
+
+                        html += `<tr><td class="py-4 text-white font-medium align-top w-1/4">${date}<br><span class="text-slate-400 uppercase text-[10px]">${locStr}</span><br>${statusBadge}</td><td class="py-4 align-top w-2/4"><p class="text-slate-300 mb-1"><strong>Aktiviti:</strong> ${l.aktiviti || "-"}</p><p class="text-slate-400 text-[10px]"><strong>Refleksi:</strong> ${l.refleksi || "-"}</p></td><td class="py-4 align-top text-center w-1/4">${actionBtn}</td></tr>`;
+                    });
+                    html += `</tbody></table>`;
+                    body.innerHTML = html;
+                } else { body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Tiada log harian dihantar oleh peserta ini.</p>`; }
+            } catch(e) { body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan.</p>`; }
+        };
+
+        window.closeLogModal = () => { document.getElementById('logModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('logModal').classList.remove('flex'); document.getElementById('logModal').classList.add('hidden');},300); };
+
+        window.approveLog = async (menteeId, date) => {
+            try {
+                // Update Firebase Status ke 'approved'
+                await update(ref(db, `propkes_attendance/${menteeId}/${date}`), { status: 'approved' });
+                window.showToast(`Log tarikh ${date} berjaya disahkan.`, "success");
+                
+                // Refresh modal supaya butang bertukar kepada Selesai
+                const nama = document.getElementById('logModalSubtitle').textContent.split(":")[1].split("|")[0].trim();
+                const mentorType = document.getElementById('logModalSubtitle').textContent.split("Mentor")[1].trim();
+                window.viewLog(menteeId, nama, mentorType);
+                
+            } catch(e) { console.error(e); window.showToast("Ralat menyimpan pengesahan.", "error"); }
+        };
+
+        // --- MAKLUM BALAS LAMPIRAN F ---
+        window.openMaklumBalas = async (id, nama, jawatan, gred, jabatan, pusat) => {
+            window.currentMenteeF = { id, nama, jawatan, gred, jabatan, pusat };
+            
+            document.getElementById('mbModalSubtitle').textContent = `Peserta: ${nama}`;
+            document.getElementById('mbNamaPeserta').value = nama;
+            document.getElementById('mbJawatan').value = jawatan;
+            document.getElementById('mbGred').value = gred;
+            document.getElementById('mbJabatan').value = jabatan;
+            document.getElementById('mbPusat').value = pusat;
+
+            document.getElementById('mbFasa').value = "FASA 1";
+            await window.loadMaklumBalasData("FASA 1");
+
+            const modal = document.getElementById('maklumBalasModal');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(()=>document.getElementById('maklumBalasModalContent').classList.remove('scale-95'), 10);
+            setTimeout(()=>modal.classList.remove('opacity-0'), 10);
+        };
+
+        window.closeMaklumBalasModal = () => {
+            document.getElementById('maklumBalasModal').classList.add('opacity-0');
+            document.getElementById('maklumBalasModalContent').classList.add('scale-95');
+            setTimeout(()=>{document.getElementById('maklumBalasModal').classList.remove('flex'); document.getElementById('maklumBalasModal').classList.add('hidden');}, 300);
+        };
+
+        window.loadMaklumBalasData = async (fasa) => {
+            const id = window.currentMenteeF.id;
+            try {
+                const snap = await get(child(ref(db), `propkes_feedback_mentor/${id}/${fasa}`));
+                if(snap.exists()){
+                    const data = snap.val();
+                    document.getElementById('mbTarikhSandaran').value = data.tarikhSandaran || "";
+                    document.getElementById('mbUlasan').value = data.ulasan || "";
+                } else {
+                    document.getElementById('mbTarikhSandaran').value = "";
+                    document.getElementById('mbUlasan').value = "";
+                }
+            } catch(e) { console.error(e); }
+        };
+
+        document.getElementById('mbFasa').addEventListener('change', (e) => {
+            window.loadMaklumBalasData(e.target.value);
+        });
+
+        window.saveMaklumBalas = async (e) => {
             e.preventDefault();
-            const menteeUsername = document.getElementById('menteeSelect').value;
-            const fasa = document.getElementById('fasaSelect').value;
-            const btn = document.getElementById("btnHantarF");
+            const fasa = document.getElementById('mbFasa').value;
+            const btn = document.getElementById('btnSimpanMB');
+            btn.textContent = "Menyimpan..."; btn.disabled = true;
 
-            btn.textContent = "MENGHANTAR KE AWAN..."; btn.disabled = true;
-
-            const feedbackKey = `${menteeUsername}_${fasa.replace(/\s+/g, '')}`;
-            const feedbackData = {
-                fasa: fasa.toUpperCase(),
-                namaPeserta: document.getElementById('mbNamaPeserta').value.toUpperCase(),
-                jawatan: document.getElementById('mbJawatan').value.toUpperCase(),
-                gred: document.getElementById('mbGred').value.toUpperCase(),
-                tempatBertugas: document.getElementById('mbJabatan').value.toUpperCase(),
-                pusat: document.getElementById('mbPusat').value.toUpperCase(),
-                tarikhSandaran: document.getElementById('mbTarikhSandaran').value.toUpperCase(),
-                maklumBalas: document.getElementById('mbMaklumBalas').value, 
-                namaPenilai: document.getElementById('mbNamaMentor').value.toUpperCase(),
-                jawatanPenilai: "MENTOR SEKOLAH/PPD",
-                tarikhTandatangan: document.getElementById('mbTarikhDigital').textContent
+            const payload = {
+                tarikhSandaran: document.getElementById('mbTarikhSandaran').value,
+                ulasan: document.getElementById('mbUlasan').value,
+                mentorName: window.profileData.name || "Mentor",
+                mentorJawatan: window.profileData.jawatan || "Mentor Sekolah/PPD",
+                tarikhKemasKini: new Date().toLocaleDateString('ms-MY')
             };
 
             try {
-                await set(ref(db, `propkes_feedback_mentor/${feedbackKey}`), feedbackData);
-                localStorage.setItem(`propkes_feedback_mentor_${feedbackKey}`, JSON.stringify(feedbackData));
-
-                window.closeMaklumBalasModal();
-                window.showToast("Borang berjaya dihantar ke Firebase!", "success");
-                document.getElementById('formBukaMaklumBalas').reset();
-
-            } catch (error) {
-                console.error(error);
-                window.showToast("Gagal hantar ke Awan.", "error");
-            } finally {
-                btn.textContent = "SIMPAN KE AWAN (FIREBASE)"; btn.disabled = false;
+                await set(ref(db, `propkes_feedback_mentor/${window.currentMenteeF.id}/${fasa}`), payload);
+                window.showToast(`Maklum Balas ${fasa} berjaya disimpan.`);
+            } catch(e) { 
+                console.error(e); window.showToast("Ralat menyimpan data.", "error"); 
+            } finally { 
+                btn.textContent = "Simpan Data"; btn.disabled = false; 
             }
-        });
-
-        window.logout = function() { localStorage.removeItem("propkes_user"); window.location.href = "index.html"; };
-
-        window.showToast = function(msg, type='success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            const bg = type === 'success' ? 'bg-emerald-600' : 'bg-rose-600';
-            toast.className = `${bg} text-white px-4 py-3 rounded-lg shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 uppercase`;
-            toast.textContent = msg;
-            container.appendChild(toast);
-            setTimeout(() => { toast.classList.remove('translate-y-10', 'opacity-0'); }, 10);
-            setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
         };
+
+        // CETAKAN LAMPIRAN F
+        window.cetakLampiranF = function() {
+            const m = window.currentMenteeF;
+            const fasa = document.getElementById('mbFasa').value;
+            const tarikh = document.getElementById('mbTarikhSandaran').value || "-";
+            const ulasan = document.getElementById('mbUlasan').value || "-";
+            const pName = (window.profileData.name || "Mentor").toUpperCase();
+            const pJawatan = (window.profileData.jawatan || "Mentor Sekolah/PPD").toUpperCase();
+            const today = new Date().toLocaleDateString('ms-MY');
+
+            if(ulasan === "-" || ulasan === "") {
+                window.showToast("Sila isi dan simpan ulasan terlebih dahulu sebelum mencetak.", "warning");
+                return;
+            }
+
+            const html = `
+            <div class="print-page">
+                <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">LAMPIRAN F</h3>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">${fasa.toUpperCase()}</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">MAKLUM BALAS MENTOR</h2>
+
+                <table class="print-table" style="margin-bottom: 40px;">
+                    <tr><td style="width: 30%; font-weight: bold;">NAMA PESERTA</td><td>${m.nama.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold;">JAWATAN</td><td>${m.jawatan.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold;">GRED</td><td>${m.gred.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold;">JABATAN</td><td>${m.jabatan.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold;">PUSAT</td><td>${m.pusat.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold;">TARIKH SANDARAN</td><td>${tarikh}</td></tr>
+                    <tr><td style="font-weight: bold; height: 250px;">MAKLUM BALAS MENTOR</td><td style="white-space: pre-wrap;">${ulasan}</td></tr>
+                </table>
+
+                <div style="font-size: 12px; line-height: 1.8;">
+                    <p style="margin:0;">Nama Penuh Mentor: <strong>${pName}</strong></p>
+                    <p style="margin:0;">Jawatan: <strong>${pJawatan}</strong></p>
+                    <p style="margin:0;">Tarikh: <strong>${today}</strong></p>
+                    <p style="margin-top:20px; margin-bottom: 40px;">Cap Rasmi: </p>
+                    <p style="color: #666; font-style: italic;">*Borang ini dijana secara digital melalui Sistem PROPKES 2026.</p>
+                </div>
+            </div>`;
+
+            const oldTitle = document.title; 
+            document.title = `${m.nama.toUpperCase()} - Lampiran F - ${fasa}`;
+            document.getElementById('printSection').innerHTML = html;
+            window.print();
+            setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
+        };
+
+        // --- LAIN-LAIN MODAL ---
+        window.closeViewModal = () => { document.getElementById('viewModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('viewModal').classList.remove('flex'); document.getElementById('viewModal').classList.add('hidden');},300); };
+        window.closePropkesModal = () => { document.getElementById('propkesModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('propkesModal').classList.remove('flex'); document.getElementById('propkesModal').classList.add('hidden');},300); };
+
+        window.viewJournal = async (id, nama) => {
+            document.getElementById('viewModalTitle').textContent = "Jurnal Kepimpinan (Lampiran D)";
+            document.getElementById('viewModalSubtitle').textContent = `Peserta: ${nama}`;
+            const body = document.getElementById('viewModalBody');
+            body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun jurnal...</p>`;
+            document.getElementById('viewModal').classList.remove('hidden'); document.getElementById('viewModal').classList.add('flex'); setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); setTimeout(()=>document.getElementById('viewModal').classList.remove('opacity-0'),10);
+            
+            try {
+                const snap = await get(child(ref(db), `propkes_journals/${id}`));
+                if(snap.exists()) {
+                    const journals = snap.val();
+                    let html = `<div class="space-y-4">`;
+                    Object.keys(journals).sort().reverse().forEach(week => {
+                        const j = journals[week];
+                        const weekLabel = week.split('_')[0]; 
+                        html += `
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <h4 class="text-xs font-bold text-purple-400 mb-2 border-b border-slate-800 pb-2">MINGGU: ${weekLabel}</h4>
+                            <p class="text-[10px] text-slate-500 uppercase font-bold">Deskripsi</p><p class="text-xs text-slate-300 mb-3 whitespace-pre-wrap">${j.deskripsi || "-"}</p>
+                            <p class="text-[10px] text-slate-500 uppercase font-bold">Analisis</p><p class="text-xs text-slate-300 mb-3 whitespace-pre-wrap">${j.analisis || "-"}</p>
+                            <p class="text-[10px] text-slate-500 uppercase font-bold">Interpretasi & Kesimpulan</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.interpretasi || "-"}</p>
+                        </div>`;
+                    });
+                    html += `</div>`;
+                    body.innerHTML = html;
+                } else { body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Tiada jurnal direkodkan.</p>`; }
+            } catch(e) { body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan.</p>`; }
+        };
+
+        window.viewPropkes = async (id, nama) => {
+            document.getElementById('propkesModalSubtitle').textContent = `Peserta: ${nama}`;
+            const modal = document.getElementById('propkesModal');
+            const modalContent = document.getElementById('propkesModalContent');
+            
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modalContent.classList.remove('scale-95'); modal.classList.remove('opacity-0'); }, 10);
+
+            setTimeout(async () => {
+                try {
+                    const dbRef = ref(db);
+                    const snapPra = await get(child(dbRef, `propkes_ipropkes/${id}/pra`));
+                    const snapPasca = await get(child(dbRef, `propkes_ipropkes/${id}/pasca`));
+
+                    const pra = snapPra.exists() ? snapPra.val() : null;
+                    const pasca = snapPasca.exists() ? snapPasca.val() : null;
+
+                    if (!pra && !pasca) {
+                        window.showToast("Peserta belum menjawab Ujian i-PROPKES.", "warning");
+                        if(chartBarInstance) chartBarInstance.destroy();
+                        if(chartWebInstance) chartWebInstance.destroy();
+                        return;
+                    }
+
+                    const domains = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
+                    let praS = [], pascaS = [];
+                    domains.forEach(d => { praS.push(pra ? pra[d]||0 : 0); pascaS.push(pasca ? pasca[d]||0 : 0); });
+
+                    if(chartBarInstance) chartBarInstance.destroy();
+                    if(chartWebInstance) chartWebInstance.destroy();
+
+                    chartBarInstance = new Chart(document.getElementById('mentorBarChart').getContext('2d'), { 
+                        type: 'bar', data: { labels: domains, datasets: [{label: 'Pra', data: praS, backgroundColor: '#10b981'}, {label: 'Pasca', data: pascaS, backgroundColor: '#3b82f6'}] }, 
+                        options: { responsive: true, maintainAspectRatio: false, scales: { y: { min:0, max: 10, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} } } 
+                    });
+
+                    chartWebInstance = new Chart(document.getElementById('mentorWebChart').getContext('2d'), { 
+                        type: 'radar', data: { labels: domains, datasets: [{label: 'Pra', data: praS, borderColor: '#10b981', backgroundColor:'rgba(16,185,129,0.2)'}, {label: 'Pasca', data: pascaS, borderColor: '#3b82f6', backgroundColor:'rgba(59,130,246,0.2)'}] }, 
+                        options: { responsive: true, scales: { r: { min:0, max: 10, pointLabels: {color:'#cbd5e1', font:{size:9}}, ticks: {display:false, max:10} } } } 
+                    });
+
+                } catch (error) { console.error(error); window.showToast("Ralat menarik data i-PROPKES awan.", "error"); }
+            }, 300);
+        };
+
+        loadMentorData();
     </script>
 </body>
 </html>
