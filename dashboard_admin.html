@@ -158,9 +158,9 @@
                     </h3>
                 </div>
                 <div class="w-full h-64 flex justify-center">
-                    <canvas id="campusPieChart" class="max-w-[300px]"></canvas>
+                    <canvas id="campusPieChart" class="max-w-[280px]"></canvas>
                 </div>
-                <p class="text-[10px] text-slate-500 text-center mt-3">Dikumpulkan secara automatik (Pusat & Lain-lain = IAB Induk).</p>
+                <p class="text-[10px] text-slate-500 text-center mt-3">Dikumpulkan berdasarkan input Pusat/Cawangan (Induk & Cawangan).</p>
             </div>
 
         </div>
@@ -170,6 +170,7 @@
             <!-- Bahagian Kiri & Tengah: Jadual Pengguna Bersepadu -->
             <div class="xl:col-span-2 space-y-8">
                 
+                <!-- Jadual Pengguna (Dinaik taraf dengan Expand) -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
                     <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
                         <h3 class="font-bold text-white flex items-center gap-2">
@@ -199,6 +200,7 @@
 
             <!-- Bahagian Kanan: Pautan Cepat & Pendaftaran -->
             <div class="space-y-6 no-print">
+                <!-- Pangkalan Data Jump Links -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <h3 class="font-bold text-white mb-2 text-sm">Pautan Pantas Drive & Forms</h3>
                     <div class="space-y-3 mt-4">
@@ -222,6 +224,7 @@
                         <div><input type="text" id="regIc" required placeholder="No. KP (Cth: 800101011234)" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-amber-500"></div>
                         <div><input type="email" id="regEmail" required placeholder="E-mel Rasmi" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-amber-500"></div>
                         
+                        <!-- Extra -->
                         <div id="pesertaExtraFields" class="hidden space-y-3 bg-amber-950/20 p-3 rounded-lg border border-amber-900/30">
                             <div><input type="text" id="regSekolah" placeholder="Sekolah Sandaran" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none"></div>
                             <div><input type="text" id="regPpd" placeholder="PPD" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none"></div>
@@ -280,9 +283,9 @@
         </div>
     </div>
 
+    <!-- Toast Notification -->
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 no-print"></div>
 
-    <!-- FIREBASE & LOKAL SCRIPTS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, get, child, update, set, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -368,12 +371,11 @@
             let totalPeserta = 0, totalPemandu = 0, totalMentor = 0, praSelesai = 0;
             
             // Variabel untuk Analisis Keseluruhan i-PROPKES
-            const domains = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
             let totalPraScores = { d1:0, d2:0, d3:0, d4:0, d5:0, d6:0, d7:0 };
             let totalPascaScores = { d1:0, d2:0, d3:0, d4:0, d5:0, d6:0, d7:0 };
             let countPra = 0, countPasca = 0;
 
-            // Pemetaan Kampus dengan 5 nilai lalai tetap
+            // Pemetaan Kampus dengan 5 nilai lalai tetap (Selesaikan masalah undefined)
             let campusMap = {
                 "IAB Induk": 0,
                 "IAB Cawangan Utara": 0,
@@ -514,7 +516,7 @@
                         <p class="text-[10px] text-slate-500">${u.email || "-"} | ID: ${username}</p>
                         ${expandBtn}
                     </td>
-                    <td class="py-3 px-4 text-center">${roleBadge}</td>
+                    <td class="py-3 px-4 text-center"><span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-[10px] font-bold uppercase">Peserta</span></td>
                     <td class="py-3 px-4 text-center space-x-2 no-print">
                         <button onclick="window.openEditModal('${username}')" class="bg-amber-600/20 hover:bg-amber-600 text-amber-500 hover:text-white border border-amber-600/50 px-3 py-1.5 rounded text-xs font-bold transition-colors outline-none cursor-pointer">Edit</button>
                         <button onclick="window.openDeleteModal('${username}', '${u.name.replace(/'/g, "\\'")}')" class="bg-rose-600/20 hover:bg-rose-600 text-rose-500 hover:text-white border border-rose-600/50 px-3 py-1.5 rounded text-xs font-bold transition-colors outline-none cursor-pointer">Padam</button>
@@ -528,7 +530,6 @@
             document.getElementById("statTotalPeserta").textContent = totalPeserta;
             document.getElementById("statTotalPemandu").textContent = totalPemandu;
             document.getElementById("statTotalMentor").textContent = totalMentor;
-            
             document.getElementById("statPraSelesai").textContent = praSelesai;
             document.getElementById("statPraTotal").textContent = "/ " + totalPeserta;
 
@@ -543,11 +544,14 @@
             if(cPra > 0) pS = [praT.d1/cPra, praT.d2/cPra, praT.d3/cPra, praT.d4/cPra, praT.d5/cPra, praT.d6/cPra, praT.d7/cPra];
             if(cPasca > 0) paS = [pascaT.d1/cPasca, pascaT.d2/cPasca, pascaT.d3/cPasca, pascaT.d4/cPasca, pascaT.d5/cPasca, pascaT.d6/cPasca, pascaT.d7/cPasca];
 
+            // Tentukan max y-axis (Jika tiada data, paksa max 10 supaya tak nampak pelik)
+            const maxVal = (cPra > 0 || cPasca > 0) ? 10 : 1;
+
             if(window.adminCharts.bar) window.adminCharts.bar.destroy();
             window.adminCharts.bar = new Chart(document.getElementById('overallBarChart').getContext('2d'), {
                 type: 'bar',
                 data: { labels: d, datasets: [{label: 'Purata Pra', data: pS, backgroundColor: '#10b981'}, {label: 'Purata Pasca', data: paS, backgroundColor: '#3b82f6'}] },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { min:0, max:10, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} }, plugins: { legend: { labels: {color: '#cbd5e1'} } } }
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { min:0, max: maxVal, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} }, plugins: { legend: { labels: {color: '#cbd5e1'} } } }
             });
 
             // Draw Campus Pie
@@ -661,7 +665,7 @@
             document.getElementById('editRole').value = u.role;
             document.getElementById('editName').value = u.name;
             document.getElementById('editEmail').value = u.email || "";
-            document.getElementById('editPassword').value = "";
+            document.getElementById('editPassword').value = ""; // Kosongkan password sedia ada
 
             const pesertaFields = document.getElementById('editPesertaFields');
             if (u.role === 'peserta') {
