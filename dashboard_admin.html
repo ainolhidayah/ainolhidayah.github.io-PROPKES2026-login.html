@@ -122,6 +122,7 @@
                 <div class="text-4xl font-black text-white relative z-10" id="statTotalMentor">0</div>
             </div>
 
+            <!-- Tambahan Kotak Baharu: Status Selesai Pra -->
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg relative overflow-hidden">
                 <div class="absolute -right-4 -top-4 w-16 h-16 bg-emerald-500/10 rounded-full blur-xl"></div>
                 <div class="flex justify-between items-start mb-4 relative z-10">
@@ -160,7 +161,7 @@
                 <div class="w-full h-64 flex justify-center">
                     <canvas id="campusPieChart" class="max-w-[280px]"></canvas>
                 </div>
-                <p class="text-[10px] text-slate-500 text-center mt-3">Dikumpulkan berdasarkan input Pusat/Cawangan (Induk & Cawangan).</p>
+                <p class="text-[10px] text-slate-500 text-center mt-3">Dikumpulkan secara automatik (Pusat & Lain-lain = IAB Induk).</p>
             </div>
 
         </div>
@@ -286,6 +287,7 @@
     <!-- Toast Notification -->
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 no-print"></div>
 
+    <!-- FIREBASE & LOKAL SCRIPTS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, get, child, update, set, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -303,6 +305,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
+        // Utility: Toast & Logout
         window.showToast = function(msg, type='success') {
             const container = document.getElementById('toastContainer');
             if(!container) return;
@@ -320,7 +323,7 @@
             window.location.replace("index.html");
         };
 
-        // --- SIMULASI PEMASA ---
+        // Pemasa
         const today = new Date();
         const fasa1Date = new Date("2026-08-03"); const taklimatDate = new Date("2026-07-20");
         const daysToFasa1 = Math.ceil((fasa1Date - today) / (1000 * 60 * 60 * 24));
@@ -328,15 +331,15 @@
         document.getElementById("countdownFasa1").textContent = daysToFasa1 > 0 ? `${daysToFasa1} Hari` : "Telah Mula";
         document.getElementById("countdownTaklimat").textContent = daysToTaklimat > 0 ? `${daysToTaklimat} Hari` : "Selesai";
 
-        // --- BACA DATA PENGGUNA BERSEPADU ---
+        // Variabel Data
         let allAccounts = {}; 
         let propkesPraData = {}; 
         let logData = {}; 
         let taskData = {}; 
-
         window.userCharts = {};
         window.adminCharts = {};
 
+        // 1. FETCH DATA (KALIS RALAT)
         async function fetchAdminData() {
             try {
                 const tbody = document.getElementById("userTableBody");
@@ -360,22 +363,22 @@
                     tbody.innerHTML = `<tr><td colspan="3" class="py-8 px-4 text-center text-slate-500 text-xs italic">Tiada pendaftaran pengguna ditemui.</td></tr>`;
                 }
             } catch (error) {
-                console.error(error); window.showToast("Gagal menarik data dari awan.", "error");
+                console.error("Ralat Tarik Data Firebase:", error);
+                document.getElementById("userTableBody").innerHTML = `<tr><td colspan="3" class="py-8 px-4 text-center text-rose-500 text-xs italic">Ralat sambungan. Sila muat semula halaman.</td></tr>`;
             }
         }
 
+        // 2. RENDER JADUAL (KALIS RALAT)
         window.renderTableAndStats = function() {
             const tbody = document.getElementById("userTableBody");
             tbody.innerHTML = "";
 
             let totalPeserta = 0, totalPemandu = 0, totalMentor = 0, praSelesai = 0;
             
-            // Variabel untuk Analisis Keseluruhan i-PROPKES
             let totalPraScores = { d1:0, d2:0, d3:0, d4:0, d5:0, d6:0, d7:0 };
             let totalPascaScores = { d1:0, d2:0, d3:0, d4:0, d5:0, d6:0, d7:0 };
             let countPra = 0, countPasca = 0;
 
-            // Pemetaan Kampus dengan 5 nilai lalai tetap (Selesaikan masalah undefined)
             let campusMap = {
                 "IAB Induk": 0,
                 "IAB Cawangan Utara": 0,
@@ -391,140 +394,142 @@
                 return;
             }
 
+            // A. Pusingan Pertama (Kiraan Statistik)
             userKeys.forEach(username => {
-                const u = allAccounts[username];
-                
-                if(u.role === "peserta") {
-                    totalPeserta++;
-                    
-                    // --- KIRA SKOR i-PROPKES MACRO ---
-                    if(propkesPraData[username] && propkesPraData[username].pra) {
-                        praSelesai++; countPra++;
-                        const dPra = propkesPraData[username].pra;
-                        totalPraScores.d1 += dPra["Pengetahuan Teras"]||0; totalPraScores.d2 += dPra["Dasar & Matlamat"]||0; totalPraScores.d3 += dPra["Instruksional"]||0;
-                        totalPraScores.d4 += dPra["Inovasi & Perubahan"]||0; totalPraScores.d5 += dPra["Hubungan Manusia"]||0; totalPraScores.d6 += dPra["Sumber & Operasi"]||0; totalPraScores.d7 += dPra["Keberkesanan Kendiri"]||0;
-                    }
-                    if(propkesPraData[username] && propkesPraData[username].pasca) {
-                        countPasca++;
-                        const dPasca = propkesPraData[username].pasca;
-                        totalPascaScores.d1 += dPasca["Pengetahuan Teras"]||0; totalPascaScores.d2 += dPasca["Dasar & Matlamat"]||0; totalPascaScores.d3 += dPasca["Instruksional"]||0;
-                        totalPascaScores.d4 += dPasca["Inovasi & Perubahan"]||0; totalPascaScores.d5 += dPasca["Hubungan Manusia"]||0; totalPascaScores.d6 += dPasca["Sumber & Operasi"]||0; totalPascaScores.d7 += dPasca["Keberkesanan Kendiri"]||0;
-                    }
+                try {
+                    const u = allAccounts[username];
+                    if (!u) return;
 
-                    // --- MAPPING KAMPUS PINTAR ---
-                    let loc = (u.pusatCawangan || u.jabatan || u.sekolah || "").trim().toUpperCase();
-                    
-                    if (loc.includes("UTARA")) { campusMap["IAB Cawangan Utara"]++; }
-                    else if (loc.includes("GENTING") || loc.includes("GH")) { campusMap["IAB Cawangan Genting Highlands"]++; }
-                    else if (loc.includes("SABAH")) { campusMap["IAB Cawangan Sabah"]++; }
-                    else if (loc.includes("SARAWAK")) { campusMap["IAB Cawangan Sarawak"]++; }
-                    else { campusMap["IAB Induk"]++; } // Semua Pusat/Lain-lain akan dikira di IAB Induk
-                }
+                    if(u.role === "peserta") {
+                        totalPeserta++;
+                        
+                        if(propkesPraData[username] && propkesPraData[username].pra) {
+                            praSelesai++; countPra++;
+                            const dPra = propkesPraData[username].pra;
+                            totalPraScores.d1 += dPra["Pengetahuan Teras"]||0; totalPraScores.d2 += dPra["Dasar & Matlamat"]||0; totalPraScores.d3 += dPra["Instruksional"]||0;
+                            totalPraScores.d4 += dPra["Inovasi & Perubahan"]||0; totalPraScores.d5 += dPra["Hubungan Manusia"]||0; totalPraScores.d6 += dPra["Sumber & Operasi"]||0; totalPraScores.d7 += dPra["Keberkesanan Kendiri"]||0;
+                        }
+                        if(propkesPraData[username] && propkesPraData[username].pasca) {
+                            countPasca++;
+                            const dPasca = propkesPraData[username].pasca;
+                            totalPascaScores.d1 += dPasca["Pengetahuan Teras"]||0; totalPascaScores.d2 += dPasca["Dasar & Matlamat"]||0; totalPascaScores.d3 += dPasca["Instruksional"]||0;
+                            totalPascaScores.d4 += dPasca["Inovasi & Perubahan"]||0; totalPascaScores.d5 += dPasca["Hubungan Manusia"]||0; totalPascaScores.d6 += dPasca["Sumber & Operasi"]||0; totalPascaScores.d7 += dPasca["Keberkesanan Kendiri"]||0;
+                        }
+
+                        // MAPPING KAMPUS PINTAR
+                        let loc = (u.pusatCawangan || u.jabatan || u.sekolah || "").trim().toUpperCase();
+                        if (loc.includes("UTARA")) { campusMap["IAB Cawangan Utara"]++; }
+                        else if (loc.includes("GENTING") || loc.includes("GH")) { campusMap["IAB Cawangan Genting Highlands"]++; }
+                        else if (loc.includes("SABAH")) { campusMap["IAB Cawangan Sabah"]++; }
+                        else if (loc.includes("SARAWAK")) { campusMap["IAB Cawangan Sarawak"]++; }
+                        else { campusMap["IAB Induk"]++; } 
+                    }
+                } catch (e) { console.error("Ralat memproses statistik pengguna:", username, e); }
             });
 
-            // Loop untuk lukis jadual
+            // B. Pusingan Kedua (Lukis Jadual)
             userKeys.forEach(username => {
-                const u = allAccounts[username];
-                
-                let roleBadge = "";
-                if(u.role === "peserta") roleBadge = `<span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Peserta</span>`;
-                else if(u.role === "pemandu") roleBadge = `<span class="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Pemandu Citra</span>`;
-                else roleBadge = `<span class="bg-amber-500/20 text-amber-400 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Mentor</span>`;
+                try {
+                    const u = allAccounts[username];
+                    if (!u) return;
 
-                if(u.role === "pemandu") totalPemandu++;
-                if(u.role === "mentor") totalMentor++;
+                    const uName = u.name ? u.name.toUpperCase() : "TIADA NAMA (RALAT)";
+                    const uNameSafe = u.name ? u.name.replace(/'/g, "\\'") : "Tiada Nama";
+                    const uEmail = u.email || "-";
+                    
+                    let roleBadge = "";
+                    if(u.role === "peserta") roleBadge = `<span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Peserta</span>`;
+                    else if(u.role === "pemandu") roleBadge = `<span class="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Pemandu Citra</span>`;
+                    else roleBadge = `<span class="bg-amber-500/20 text-amber-400 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Mentor</span>`;
 
-                // --- LACI EXPAND (PERINCIAN PESERTA SAHAJA) ---
-                let expandBtn = "";
-                let expandContent = "";
-                
-                if(u.role === "peserta") {
-                    const hasPra = propkesPraData[username] && propkesPraData[username].pra;
-                    const hasPasca = propkesPraData[username] && propkesPraData[username].pasca;
-                    const logCount = logData[username] ? Object.keys(logData[username]).length : 0;
+                    if(u.role === "pemandu") totalPemandu++;
+                    if(u.role === "mentor") totalMentor++;
+
+                    let expandBtn = "";
+                    let expandContent = "";
                     
-                    const userTasks = taskData[username] || {};
-                    const totalT = 9; // Approx
-                    const doneT = Object.values(userTasks).filter(v => v===true).length;
-                    const pctTask = Math.round((doneT/totalT)*100) || 0;
-                    
-                    expandBtn = `
-                        <button onclick="window.toggleExpand('row_${username}', '${username}')" class="text-[10px] text-slate-400 hover:text-white mt-1.5 flex items-center gap-1 transition-colors outline-none cursor-pointer no-print">
-                            <svg id="icon_${username}" class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-                            Lihat Perincian
-                        </button>
-                    `;
-                    
-                    expandContent = `
-                        <tr>
-                            <td colspan="3" class="p-0 border-0">
-                                <div id="row_${username}" class="expand-content bg-slate-900/80 border-b border-slate-800">
-                                    <div class="p-4 grid grid-cols-1 lg:grid-cols-3 gap-6 text-xs">
-                                        <!-- Kolum Kiri: Data & Status -->
-                                        <div class="space-y-4">
-                                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800/50">
-                                                <p class="text-[9px] text-slate-500 font-bold uppercase mb-1">Sekolah / PPD</p>
-                                                <p class="text-slate-300 font-semibold truncate" title="${u.sekolah || '-'}">${u.sekolah || "-"}</p>
-                                                <p class="text-[10px] text-slate-500 mt-1">${u.ppd || "-"}</p>
-                                            </div>
-                                            
-                                            <!-- Penyelia -->
-                                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800/50">
-                                                <p class="text-[9px] text-slate-500 font-bold uppercase mb-1">Penyelia</p>
-                                                <p class="text-[10px] text-purple-400 truncate" title="${u.pemanduCitra || '-'}">PC: ${u.pemanduCitra || "-"}</p>
-                                                <p class="text-[10px] text-amber-400 mt-0.5 truncate" title="${u.mentorSekolah || '-'}">M1: ${u.mentorSekolah || "-"}</p>
-                                                <p class="text-[10px] text-amber-400/70 mt-0.5 truncate" title="${u.mentorPpd || '-'}">M2: ${u.mentorPpd || "-"}</p>
-                                            </div>
-                                            
-                                            <div class="grid grid-cols-2 gap-3">
+                    if(u.role === "peserta") {
+                        const hasPra = propkesPraData[username] && propkesPraData[username].pra;
+                        const hasPasca = propkesPraData[username] && propkesPraData[username].pasca;
+                        const logCount = logData[username] ? Object.keys(logData[username]).length : 0;
+                        
+                        const userTasks = taskData[username] || {};
+                        let doneT = 0;
+                        try { doneT = Object.values(userTasks).filter(v => v === true).length; } catch(e){}
+                        const pctTask = Math.round((doneT/9)*100) || 0;
+                        
+                        expandBtn = `
+                            <button onclick="window.toggleExpand('row_${username}', '${username}')" class="text-[10px] text-slate-400 hover:text-white mt-1.5 flex items-center gap-1 transition-colors outline-none cursor-pointer no-print">
+                                <svg id="icon_${username}" class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                                Lihat Perincian
+                            </button>
+                        `;
+                        
+                        expandContent = `
+                            <tr>
+                                <td colspan="3" class="p-0 border-0">
+                                    <div id="row_${username}" class="expand-content bg-slate-900/80 border-b border-slate-800">
+                                        <div class="p-4 grid grid-cols-1 lg:grid-cols-3 gap-6 text-xs">
+                                            <div class="space-y-4">
                                                 <div class="bg-slate-950 p-3 rounded-lg border border-slate-800/50">
-                                                    <p class="text-[9px] text-slate-500 font-bold uppercase mb-1">Kehadiran (Log)</p>
-                                                    <div class="text-lg font-bold text-blue-400">${logCount} <span class="text-[9px] text-slate-500 font-normal">Hari</span></div>
+                                                    <p class="text-[9px] text-slate-500 font-bold uppercase mb-1">Sekolah / PPD</p>
+                                                    <p class="text-slate-300 font-semibold truncate">${u.sekolah || "-"}</p>
+                                                    <p class="text-[10px] text-slate-500 mt-1">${u.ppd || "-"}</p>
                                                 </div>
                                                 <div class="bg-slate-950 p-3 rounded-lg border border-slate-800/50">
-                                                    <p class="text-[9px] text-slate-500 font-bold uppercase mb-1">Tugasan (A)</p>
-                                                    <div class="text-lg font-bold text-emerald-400">${pctTask}%</div>
+                                                    <p class="text-[9px] text-slate-500 font-bold uppercase mb-1">Penyelia</p>
+                                                    <p class="text-[10px] text-purple-400 truncate">PC: ${u.pemanduCitra || "-"}</p>
+                                                    <p class="text-[10px] text-amber-400 mt-0.5 truncate">M1: ${u.mentorSekolah || "-"}</p>
+                                                    <p class="text-[10px] text-amber-400/70 mt-0.5 truncate">M2: ${u.mentorPpd || "-"}</p>
+                                                </div>
+                                                <div class="grid grid-cols-2 gap-3">
+                                                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800/50">
+                                                        <p class="text-[9px] text-slate-500 font-bold uppercase mb-1">Kehadiran (Log)</p>
+                                                        <div class="text-lg font-bold text-blue-400">${logCount} <span class="text-[9px] text-slate-500 font-normal">Hari</span></div>
+                                                    </div>
+                                                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800/50">
+                                                        <p class="text-[9px] text-slate-500 font-bold uppercase mb-1">Tugasan (A)</p>
+                                                        <div class="text-lg font-bold text-emerald-400">${pctTask}%</div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        
-                                        <!-- Kolum Kanan: Carta Individu i-PROPKES -->
-                                        <div class="lg:col-span-2 bg-slate-950 p-4 rounded-xl border border-slate-800/50 flex flex-col items-center relative min-h-[250px]">
-                                            <div class="w-full flex justify-between items-center mb-2">
-                                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Profil Domain i-PROPKES</p>
-                                                <div class="flex gap-2 text-[9px] font-bold">
-                                                    <span class="${hasPra ? 'text-emerald-400' : 'text-slate-500'}">PRA: ${hasPra?'SELESAI':'BELUM'}</span> | 
-                                                    <span class="${hasPasca ? 'text-blue-400' : 'text-slate-500'}">PASCA: ${hasPasca?'SELESAI':'BELUM'}</span>
+                                            <div class="lg:col-span-2 bg-slate-950 p-4 rounded-xl border border-slate-800/50 flex flex-col items-center relative min-h-[250px] print:break-inside-avoid">
+                                                <div class="w-full flex justify-between items-center mb-2">
+                                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Profil Domain i-PROPKES</p>
+                                                    <div class="flex gap-2 text-[9px] font-bold">
+                                                        <span class="${hasPra ? 'text-emerald-400' : 'text-slate-500'}">PRA: ${hasPra?'SELESAI':'BELUM'}</span> | 
+                                                        <span class="${hasPasca ? 'text-blue-400' : 'text-slate-500'}">PASCA: ${hasPasca?'SELESAI':'BELUM'}</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="w-full h-64 flex justify-center items-center">
-                                                ${(!hasPra && !hasPasca) ? '<div class="text-xs text-slate-500 italic border border-dashed border-slate-700 rounded-full w-48 h-48 flex items-center justify-center">Tiada Rekod Ujian</div>' : `<canvas id="radar_${username}"></canvas>`}
+                                                <div class="w-full h-64 flex justify-center items-center">
+                                                    ${(!hasPra && !hasPasca) ? '<div class="text-xs text-slate-500 italic border border-dashed border-slate-700 rounded-full w-48 h-48 flex items-center justify-center">Tiada Rekod Ujian</div>' : `<canvas id="radar_${username}"></canvas>`}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                    `;
-                }
+                                </td>
+                            </tr>
+                        `;
+                    }
 
-                const tr = document.createElement("tr");
-                tr.className = "hover:bg-slate-800/30 transition-colors";
-                tr.innerHTML = `
-                    <td class="py-3 px-4">
-                        <p class="font-bold text-white text-xs">${u.name.toUpperCase()}</p>
-                        <p class="text-[10px] text-slate-500">${u.email || "-"} | ID: ${username}</p>
-                        ${expandBtn}
-                    </td>
-                    <td class="py-3 px-4 text-center"><span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-[10px] font-bold uppercase">Peserta</span></td>
-                    <td class="py-3 px-4 text-center space-x-2 no-print">
-                        <button onclick="window.openEditModal('${username}')" class="bg-amber-600/20 hover:bg-amber-600 text-amber-500 hover:text-white border border-amber-600/50 px-3 py-1.5 rounded text-xs font-bold transition-colors outline-none cursor-pointer">Edit</button>
-                        <button onclick="window.openDeleteModal('${username}', '${u.name.replace(/'/g, "\\'")}')" class="bg-rose-600/20 hover:bg-rose-600 text-rose-500 hover:text-white border border-rose-600/50 px-3 py-1.5 rounded text-xs font-bold transition-colors outline-none cursor-pointer">Padam</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-                
-                if(expandContent) tbody.insertAdjacentHTML('beforeend', expandContent);
+                    const tr = document.createElement("tr");
+                    tr.className = "hover:bg-slate-800/30 transition-colors";
+                    tr.innerHTML = `
+                        <td class="py-3 px-4">
+                            <p class="font-bold text-white text-xs">${uName}</p>
+                            <p class="text-[10px] text-slate-500">${uEmail} | ID: ${username}</p>
+                            ${expandBtn}
+                        </td>
+                        <td class="py-3 px-4 text-center">${roleBadge}</td>
+                        <td class="py-3 px-4 text-center space-x-2 no-print">
+                            <button onclick="window.openEditModal('${username}')" class="bg-amber-600/20 hover:bg-amber-600 text-amber-500 hover:text-white border border-amber-600/50 px-3 py-1.5 rounded text-xs font-bold transition-colors outline-none cursor-pointer">Edit</button>
+                            <button onclick="window.openDeleteModal('${username}', '${uNameSafe}')" class="bg-rose-600/20 hover:bg-rose-600 text-rose-500 hover:text-white border border-rose-600/50 px-3 py-1.5 rounded text-xs font-bold transition-colors outline-none cursor-pointer">Padam</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                    
+                    if(expandContent) tbody.insertAdjacentHTML('beforeend', expandContent);
+                } catch (e) { console.error("Ralat melukis jadual pengguna:", username, e); }
             });
 
             document.getElementById("statTotalPeserta").textContent = totalPeserta;
@@ -544,20 +549,16 @@
             if(cPra > 0) pS = [praT.d1/cPra, praT.d2/cPra, praT.d3/cPra, praT.d4/cPra, praT.d5/cPra, praT.d6/cPra, praT.d7/cPra];
             if(cPasca > 0) paS = [pascaT.d1/cPasca, pascaT.d2/cPasca, pascaT.d3/cPasca, pascaT.d4/cPasca, pascaT.d5/cPasca, pascaT.d6/cPasca, pascaT.d7/cPasca];
 
-            // Tentukan max y-axis (Jika tiada data, paksa max 10 supaya tak nampak pelik)
-            const maxVal = (cPra > 0 || cPasca > 0) ? 10 : 1;
-
             if(window.adminCharts.bar) window.adminCharts.bar.destroy();
             window.adminCharts.bar = new Chart(document.getElementById('overallBarChart').getContext('2d'), {
                 type: 'bar',
                 data: { labels: d, datasets: [{label: 'Purata Pra', data: pS, backgroundColor: '#10b981'}, {label: 'Purata Pasca', data: paS, backgroundColor: '#3b82f6'}] },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { min:0, max: maxVal, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} }, plugins: { legend: { labels: {color: '#cbd5e1'} } } }
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { min:0, max:10, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} }, plugins: { legend: { labels: {color: '#cbd5e1'} } } }
             });
 
-            // Draw Campus Pie
             const campLabels = Object.keys(cMap);
             const campData = Object.values(cMap);
-            const bgColors = ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b']; // Biru, Ungu, Pink, Hijau, Kuning
+            const bgColors = ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b']; 
 
             if(window.adminCharts.pie) window.adminCharts.pie.destroy();
             window.adminCharts.pie = new Chart(document.getElementById('campusPieChart').getContext('2d'), {
@@ -579,7 +580,6 @@
                 row.classList.add('open');
                 icon.style.transform = "rotate(180deg)";
                 
-                // Draw Chart dynamically if not drawn
                 if(!window.userCharts[username]) {
                     const canvas = document.getElementById(`radar_${username}`);
                     if(canvas) {
@@ -627,145 +627,53 @@
             const password = document.getElementById("regPassword").value;
             
             let sekolah = "", ppd = "", pemanduCitra = "";
-            if(role === "peserta") {
-                sekolah = document.getElementById("regSekolah").value;
-                ppd = document.getElementById("regPpd").value;
-                pemanduCitra = document.getElementById("regPemanduCitra").value;
-            }
+            if(role === "peserta") { sekolah = document.getElementById("regSekolah").value; ppd = document.getElementById("regPpd").value; pemanduCitra = document.getElementById("regPemanduCitra").value; }
 
-            if (allAccounts[username]) {
-                window.showToast("Ralat: ID Pengguna ini telah wujud. Sila guna ID lain.", "error");
-                btn.innerHTML = `Daftar & Jana E-mel`; btn.disabled = false;
-                return;
-            }
+            if (allAccounts[username]) { window.showToast("Ralat: ID Pengguna wujud.", "error"); btn.innerHTML = `Daftar & Jana E-mel`; btn.disabled = false; return; }
 
             const payload = { role, name, ic, email, password, sekolah, ppd, pemanduCitra };
-
-            try {
-                await set(ref(db, `propkes_accounts/${username}`), payload);
-                window.showToast("Akaun berjaya didaftar ke Awan!", "success");
-                
-                document.getElementById("registrationForm").reset();
-                document.getElementById("pesertaExtraFields").classList.add("hidden");
-                
-                fetchAdminData(); // Refresh table
-            } catch(e) {
-                console.error(e); window.showToast("Gagal menyimpan pendaftaran.", "error");
-            } finally {
-                btn.innerHTML = `Daftar & Jana E-mel`; btn.disabled = false;
-            }
+            try { await set(ref(db, `propkes_accounts/${username}`), payload); window.showToast("Didaftar ke Awan!", "success"); document.getElementById("registrationForm").reset(); document.getElementById("pesertaExtraFields").classList.add("hidden"); fetchAdminData(); } 
+            catch(e) { console.error(e); window.showToast("Gagal menyimpan.", "error"); } 
+            finally { btn.innerHTML = `Daftar & Jana E-mel`; btn.disabled = false; }
         });
 
-        // --- FUNGSI KEMAS KINI (EDIT) ---
+        // --- EDIT ---
         window.openEditModal = function(username) {
-            const u = allAccounts[username];
-            if(!u) return;
-
-            document.getElementById('editUsername').value = username;
-            document.getElementById('editRole').value = u.role;
-            document.getElementById('editName').value = u.name;
-            document.getElementById('editEmail').value = u.email || "";
-            document.getElementById('editPassword').value = ""; // Kosongkan password sedia ada
-
-            const pesertaFields = document.getElementById('editPesertaFields');
-            if (u.role === 'peserta') {
-                pesertaFields.classList.remove('hidden');
-                document.getElementById('editSekolah').value = u.sekolah || "";
-                document.getElementById('editPpd').value = u.ppd || "";
-                document.getElementById('editPemanduCitra').value = u.pemanduCitra || "";
-            } else {
-                pesertaFields.classList.add('hidden');
-            }
-
-            const modal = document.getElementById('editModal');
-            modal.classList.remove('hidden'); modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('editModalContent').classList.remove('scale-95'); }, 10);
+            const u = allAccounts[username]; if(!u) return;
+            document.getElementById('editUsername').value = username; document.getElementById('editRole').value = u.role; document.getElementById('editName').value = u.name; document.getElementById('editEmail').value = u.email || ""; document.getElementById('editPassword').value = "";
+            const pf = document.getElementById('editPesertaFields');
+            if (u.role === 'peserta') { pf.classList.remove('hidden'); document.getElementById('editSekolah').value = u.sekolah || ""; document.getElementById('editPpd').value = u.ppd || ""; document.getElementById('editPemanduCitra').value = u.pemanduCitra || ""; } 
+            else { pf.classList.add('hidden'); }
+            const m = document.getElementById('editModal'); m.classList.remove('hidden'); m.classList.add('flex'); setTimeout(() => { m.classList.remove('opacity-0'); document.getElementById('editModalContent').classList.remove('scale-95'); }, 10);
         };
-
-        window.closeEditModal = function() {
-            const modal = document.getElementById('editModal');
-            modal.classList.add('opacity-0'); document.getElementById('editModalContent').classList.add('scale-95');
-            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
-        };
-
+        window.closeEditModal = function() { const m = document.getElementById('editModal'); m.classList.add('opacity-0'); document.getElementById('editModalContent').classList.add('scale-95'); setTimeout(() => { m.classList.remove('flex'); m.classList.add('hidden'); }, 300); };
+        
         document.getElementById("editForm").addEventListener("submit", async function(e) {
-            e.preventDefault();
-            const username = document.getElementById('editUsername').value;
-            const role = document.getElementById('editRole').value;
-            const btn = document.getElementById("btnSimpanEdit");
-            btn.textContent = "Menyimpan..."; btn.disabled = true;
-            
-            let dataToUpdate = {
-                name: document.getElementById('editName').value,
-                email: document.getElementById('editEmail').value
-            };
-
-            const newPass = document.getElementById('editPassword').value;
-            if(newPass.trim() !== "") dataToUpdate.password = newPass;
-
-            if (role === 'peserta') {
-                dataToUpdate.sekolah = document.getElementById('editSekolah').value;
-                dataToUpdate.ppd = document.getElementById('editPpd').value;
-                dataToUpdate.pemanduCitra = document.getElementById('editPemanduCitra').value;
-            }
-
-            try {
-                await update(ref(db, `propkes_accounts/${username}`), dataToUpdate);
-                window.closeEditModal();
-                window.showToast(`Maklumat profil berjaya dikemas kini!`, 'success');
-                fetchAdminData();
-            } catch(e) { console.error(e); window.showToast("Gagal kemas kini profil.", "error"); }
-            finally { btn.textContent = "Simpan Perubahan"; btn.disabled = false; }
+            e.preventDefault(); const user = document.getElementById('editUsername').value; const r = document.getElementById('editRole').value; const btn = document.getElementById("btnSimpanEdit"); btn.textContent = "Menyimpan..."; btn.disabled = true;
+            let upd = { name: document.getElementById('editName').value, email: document.getElementById('editEmail').value };
+            const nP = document.getElementById('editPassword').value; if(nP.trim() !== "") upd.password = nP;
+            if (r === 'peserta') { upd.sekolah = document.getElementById('editSekolah').value; upd.ppd = document.getElementById('editPpd').value; upd.pemanduCitra = document.getElementById('editPemanduCitra').value; }
+            try { await update(ref(db, `propkes_accounts/${user}`), upd); window.closeEditModal(); window.showToast(`Kemas kini berjaya!`, 'success'); fetchAdminData(); } 
+            catch(e) { window.showToast("Gagal kemas kini.", "error"); } finally { btn.textContent = "Simpan"; btn.disabled = false; }
         });
 
-        // --- FUNGSI PADAM (DELETE) ---
-        window.openDeleteModal = function(username, name) {
-            document.getElementById('deleteUserId').value = username;
-            document.getElementById('deleteUserName').textContent = name;
-            
-            const modal = document.getElementById('deleteModal');
-            modal.classList.remove('hidden'); modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('deleteModalContent').classList.remove('scale-95'); }, 10);
-        };
-
-        window.closeDeleteModal = function() {
-            const modal = document.getElementById('deleteModal');
-            modal.classList.add('opacity-0'); document.getElementById('deleteModalContent').classList.add('scale-95');
-            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
-        };
-
+        // --- DELETE ---
+        window.openDeleteModal = function(u, n) { document.getElementById('deleteUserId').value = u; document.getElementById('deleteUserName').textContent = n; const m = document.getElementById('deleteModal'); m.classList.remove('hidden'); m.classList.add('flex'); setTimeout(() => { m.classList.remove('opacity-0'); document.getElementById('deleteModalContent').classList.remove('scale-95'); }, 10); };
+        window.closeDeleteModal = function() { const m = document.getElementById('deleteModal'); m.classList.add('opacity-0'); document.getElementById('deleteModalContent').classList.add('scale-95'); setTimeout(() => { m.classList.remove('flex'); m.classList.add('hidden'); }, 300); };
         window.confirmDelete = async function() {
-            const username = document.getElementById('deleteUserId').value;
-            const btn = document.getElementById("btnConfirmDelete");
-            btn.textContent = "Memadam..."; btn.disabled = true;
-
-            try {
-                await remove(ref(db, `propkes_accounts/${username}`));
-                await remove(ref(db, `propkes_attendance/${username}`));
-                await remove(ref(db, `propkes_journals/${username}`));
-                await remove(ref(db, `propkes_ipropkes/${username}`));
-
-                window.closeDeleteModal();
-                window.showToast(`Akaun dan data berkaitan telah berjaya dipadamkan.`, 'success');
-                fetchAdminData();
-            } catch(e) { console.error(e); window.showToast("Gagal memadam akaun.", "error"); }
-            finally { btn.textContent = "Ya, Padam"; btn.disabled = false; }
+            const u = document.getElementById('deleteUserId').value; const btn = document.getElementById("btnConfirmDelete"); btn.textContent = "Memadam..."; btn.disabled = true;
+            try { await remove(ref(db, `propkes_accounts/${u}`)); await remove(ref(db, `propkes_attendance/${u}`)); await remove(ref(db, `propkes_journals/${u}`)); await remove(ref(db, `propkes_ipropkes/${u}`)); window.closeDeleteModal(); window.showToast(`Berjaya dipadamkan.`, 'success'); fetchAdminData(); } 
+            catch(e) { window.showToast("Gagal memadam.", "error"); } finally { btn.textContent = "Ya, Padam"; btn.disabled = false; }
         };
 
         window.filterTable = function() {
             const term = document.getElementById("searchInput").value.toLowerCase();
             const rows = document.getElementById("userTableBody").getElementsByTagName("tr");
-            
             for (let i = 0; i < rows.length; i++) {
                 if(!rows[i].querySelector('.expand-content')) {
-                    const text = rows[i].textContent.toLowerCase();
-                    if(text.includes(term)) {
-                        rows[i].style.display = "";
-                        if(rows[i+1] && rows[i+1].querySelector('.expand-content')) rows[i+1].style.display = "";
-                    } else {
-                        rows[i].style.display = "none";
-                        if(rows[i+1] && rows[i+1].querySelector('.expand-content')) rows[i+1].style.display = "none";
-                    }
+                    const txt = rows[i].textContent.toLowerCase();
+                    if(txt.includes(term)) { rows[i].style.display = ""; if(rows[i+1] && rows[i+1].querySelector('.expand-content')) rows[i+1].style.display = ""; } 
+                    else { rows[i].style.display = "none"; if(rows[i+1] && rows[i+1].querySelector('.expand-content')) rows[i+1].style.display = "none"; }
                 }
             }
         };
