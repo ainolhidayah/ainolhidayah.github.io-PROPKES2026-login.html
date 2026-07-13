@@ -10,29 +10,14 @@
 
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .bg-pattern {
-            background-color: #0f172a;
-            background-image: radial-gradient(#1e293b 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-        
-        /* Animasi Transisi Halus */
+        .bg-pattern { background-color: #0f172a; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 20px 20px; }
         .fade-in { animation: fadeIn 0.4s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Custom Radio Button untuk Skala 1-10 */
-        .scale-radio:checked + label {
-            background-color: #3b82f6; /* Blue 500 */
-            color: white;
-            border-color: #3b82f6;
-            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5);
-            transform: scale(1.1);
-        }
+        .scale-radio:checked + label { background-color: #3b82f6; color: white; border-color: #3b82f6; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5); transform: scale(1.1); }
     </style>
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <!-- Navbar Simple -->
     <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -41,8 +26,7 @@
                     <span class="font-bold text-white">Instrumen i-PROPKES <span class="text-blue-400">(Pra)</span></span>
                 </div>
                 <button onclick="window.location.href='dashboard_peserta.html'" class="text-sm font-semibold text-slate-400 hover:text-white transition-colors outline-none cursor-pointer flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    Kembali
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg> Kembali
                 </button>
             </div>
         </div>
@@ -50,31 +34,26 @@
 
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10" id="mainContainer">
         
-        <!-- Muka Hadapan (Welcome) -->
         <div id="introSection" class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-8 md:p-12 text-center fade-in">
             <div class="w-20 h-20 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
             </div>
             <h1 class="text-3xl font-bold text-white mb-4">Penilaian Kendiri Kepimpinan</h1>
-            <p class="text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-                Assalamualaikum dan Selamat Sejahtera. Sila jawab semua 38 soalan ini berdasarkan skala 1 (Sangat Rendah) hingga 10 (Sangat Tinggi) untuk mengukur profil kepimpinan anda sebelum program bermula.
-            </p>
+            <p class="text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">Sila jawab 38 soalan berdasarkan skala 1 (Sangat Rendah) hingga 10 (Sangat Tinggi). Data ini akan dihantar ke awan untuk semakan Pemandu Citra anda.</p>
             <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 text-left mb-8">
                 <h3 class="font-bold text-blue-400 text-sm mb-3">Maklumat Anda:</h3>
                 <p class="text-xs text-slate-400 mb-1">NAMA: <strong class="text-white ml-2" id="introName">Memuatkan...</strong></p>
-                <p class="text-xs text-slate-400 mb-1">E-MEL: <strong class="text-white ml-2" id="introEmail">Memuatkan...</strong></p>
+                <p class="text-xs text-slate-400 mb-1">ID PENGGUNA: <strong class="text-white ml-2" id="introEmail">...</strong></p>
             </div>
-            <button onclick="startAssessment()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-blue-600/30 outline-none cursor-pointer text-lg">
+            <button onclick="window.startAssessment()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-blue-600/30 outline-none cursor-pointer text-lg">
                 Mula Menjawab
             </button>
         </div>
 
-        <!-- Bahagian Soalan (Form) -->
         <div id="questionSection" class="hidden fade-in">
-            
             <div class="bg-slate-900 border border-slate-800 rounded-t-2xl p-6 sticky top-16 z-40 border-b-2 border-b-blue-500 shadow-md">
                 <div class="flex justify-between items-end mb-2">
-                    <h2 class="text-xl font-bold text-white" id="domainTitle">Bahagian A: Profil</h2>
+                    <h2 class="text-xl font-bold text-white" id="domainTitle">Soalan i-PROPKES</h2>
                     <span class="text-xs font-bold text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full" id="progressText">0 / 38 Soalan</span>
                 </div>
                 <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-3">
@@ -83,51 +62,34 @@
             </div>
 
             <form id="assessmentForm" class="bg-slate-900/50 border border-t-0 border-slate-800 rounded-b-2xl p-6 md:p-10 space-y-12">
-                <!-- Ruangan Soalan akan diisi oleh JavaScript -->
                 <div id="questionsContainer" class="space-y-12"></div>
-
                 <div class="pt-8 border-t border-slate-800 flex justify-end">
-                    <button type="button" onclick="submitAssessment()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-emerald-600/30 outline-none cursor-pointer">
-                        Hantar & Lihat Keputusan
+                    <button type="submit" id="btnSubmit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-emerald-600/30 outline-none cursor-pointer">
+                        Hantar ke Awan & Lihat Keputusan
                     </button>
                 </div>
             </form>
         </div>
 
-        <!-- Bahagian Keputusan (Result & Chart) -->
         <div id="resultSection" class="hidden fade-in space-y-8">
             <div class="bg-emerald-950/20 border border-emerald-900/50 rounded-2xl p-8 text-center">
                 <div class="w-16 h-16 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-500/40">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
                 </div>
-                <h2 class="text-2xl font-bold text-emerald-400 mb-2">Tahniah, Instrumen i-PROPKES Selesai!</h2>
-                <p class="text-slate-400 text-sm">Maklum balas anda telah direkodkan. Berikut adalah profil kepimpinan awal anda.</p>
+                <h2 class="text-2xl font-bold text-emerald-400 mb-2">Tahniah, Instrumen Tersimpan!</h2>
+                <p class="text-slate-400 text-sm">Maklum balas anda telah direkodkan ke Awan. Pemandu Citra anda kini boleh melihat keputusan ini.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Carta Analisis -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col items-center justify-center">
                     <h3 class="font-bold text-white mb-6 w-full text-center">Profil Kepimpinan (Radar)</h3>
-                    <div class="w-full max-w-sm aspect-square">
-                        <canvas id="radarChart"></canvas>
-                    </div>
+                    <div class="w-full max-w-sm aspect-square"><canvas id="radarChart"></canvas></div>
                 </div>
-
-                <!-- Rumusan Markah -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
                     <h3 class="font-bold text-white mb-6">Skor Mengikut Domain (Min)</h3>
-                    <div class="space-y-4" id="scoreContainer">
-                        <!-- Markah diisi oleh JS -->
-                    </div>
-
+                    <div class="space-y-4" id="scoreContainer"></div>
                     <div class="mt-8 pt-6 border-t border-slate-800 text-center">
-                        <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2.5 px-6 rounded-lg transition-colors outline-none cursor-pointer flex items-center justify-center gap-2 w-full mb-3">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                            Cetak Analisis / Simpan PDF
-                        </button>
-                        <button onclick="kembaliKeDashboard()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg transition-all outline-none cursor-pointer w-full">
-                            Kembali ke Papan Pemuka
-                        </button>
+                        <button onclick="window.location.href='dashboard_peserta.html'" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg transition-all outline-none cursor-pointer w-full">Kembali ke Papan Pemuka</button>
                     </div>
                 </div>
             </div>
@@ -135,236 +97,186 @@
 
     </main>
 
-    <script>
+    <!-- TOAST -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- FIREBASE & LOGIK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzlcyG6xyd2JXEMRNlDGi-_wxU2TXf6Y8",
+            authDomain: "propkes-2026.firebaseapp.com",
+            databaseURL: "https://propkes-2026-default-rtdb.firebaseio.com",
+            projectId: "propkes-2026",
+            storageBucket: "propkes-2026.firebasestorage.app",
+            messagingSenderId: "758954100529",
+            appId: "1:758954100529:web:385531320681ceac8e9210"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const currentUser = localStorage.getItem("propkes_user");
+
+        if (!currentUser) window.location.replace("index.html");
+
+        window.showToast = function(msg, type='success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const bg = type === 'success' ? 'bg-emerald-600' : 'bg-rose-600';
+            toast.className = `${bg} text-white px-4 py-3 rounded-xl shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex gap-3`;
+            toast.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-y-10', 'opacity-0'), 10);
+            setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
+        };
+
+        // Data Soalan Asal
         const questionsData = [
-            // Pengetahuan Am (Soalan 1-13 PDF) - Saya satukan sebagai Domain 'Pengetahuan Teras'
             { id: "q1", domain: "Pengetahuan Teras", text: "Saya memiliki pengetahuan mengenai bidang pengurusan dan kepimpinan organisasi." },
             { id: "q2", domain: "Pengetahuan Teras", text: "Saya memiliki pengetahuan mengenai bidang pengurusan kurikulum." },
             { id: "q3", domain: "Pengetahuan Teras", text: "Saya memiliki pengetahuan mengenai bidang pengurusan kokurikulum." },
             { id: "q4", domain: "Pengetahuan Teras", text: "Saya memiliki pengetahuan mengenai bidang pengurusan hal ehwal murid." },
             { id: "q5", domain: "Pengetahuan Teras", text: "Saya memiliki pengetahuan mengenai bidang pengurusan kewangan." },
             { id: "q6", domain: "Pengetahuan Teras", text: "Saya memiliki pengetahuan mengenai bidang pengurusan pentadbiran pejabat." },
-            // Dasar dan Matlamat (14-17 PDF)
             { id: "q7", domain: "Dasar & Matlamat", text: "Dasar dan Matlamat: Saya mampu Membina Visi." },
             { id: "q8", domain: "Dasar & Matlamat", text: "Dasar dan Matlamat: Saya Fokus kepada Kualiti." },
             { id: "q9", domain: "Dasar & Matlamat", text: "Dasar dan Matlamat: Saya mengamalkan Pemikiran Strategik." },
             { id: "q10", domain: "Dasar & Matlamat", text: "Dasar dan Matlamat: Saya bersikap Proaktif." },
-            // Instruksional dan Pencapaian (18-21 PDF)
             { id: "q11", domain: "Instruksional", text: "Instruksional dan Pencapaian: Saya Berorientasikan Pencapaian." },
             { id: "q12", domain: "Instruksional", text: "Instruksional dan Pencapaian: Melaksanakan Perancangan dan Pembangunan Instruksional." },
             { id: "q13", domain: "Instruksional", text: "Instruksional dan Pencapaian: Saya sentiasa Berkongsi Pengetahuan." },
             { id: "q14", domain: "Instruksional", text: "Instruksional dan Pencapaian: Saya Mampu Menyelia Proses PdP." },
-            // Perubahan dan Inovasi (22-25 PDF)
             { id: "q15", domain: "Inovasi & Perubahan", text: "Perubahan dan Inovasi: Saya mahir dalam Penyelesaian Masalah." },
             { id: "q16", domain: "Inovasi & Perubahan", text: "Perubahan dan Inovasi: Saya mampu Mengurus Perubahan." },
             { id: "q17", domain: "Inovasi & Perubahan", text: "Perubahan dan Inovasi: Saya mampu Melaksanakan Penambahbaikan Sekolah." },
             { id: "q18", domain: "Inovasi & Perubahan", text: "Perubahan dan Inovasi: Saya memupuk Kreativiti." },
-            // Hubungan Sesama Manusia (26-30 PDF)
             { id: "q19", domain: "Hubungan Manusia", text: "Hubungan Sesama Manusia: Saya komited Membangun Kapasiti warga kerja." },
             { id: "q20", domain: "Hubungan Manusia", text: "Hubungan Sesama Manusia: Saya mengamalkan Komunikasi Berkesan." },
             { id: "q21", domain: "Hubungan Manusia", text: "Hubungan Sesama Manusia: Saya mampu Membina Jaringan dan Jalinan luas." },
             { id: "q22", domain: "Hubungan Manusia", text: "Hubungan Sesama Manusia: Saya memupuk Kerja Sepasukan yang erat." },
-            // Sumber dan Operasi (31-34 PDF)
             { id: "q23", domain: "Sumber & Operasi", text: "Sumber dan Operasi: Saya cekap dalam Pengurusan Kewangan." },
             { id: "q24", domain: "Sumber & Operasi", text: "Sumber dan Operasi: Saya mahir Merancang Pembangunan Fizikal sekolah." },
             { id: "q25", domain: "Sumber & Operasi", text: "Sumber dan Operasi: Saya cekap dalam Pengurusan ICT." },
             { id: "q26", domain: "Sumber & Operasi", text: "Sumber dan Operasi: Saya teliti dalam Pengurusan Prestasi staf." },
-            // Keberkesanan Kendiri (35-38 PDF)
             { id: "q27", domain: "Keberkesanan Kendiri", text: "Keberkesanan Kendiri: Saya Menyedari Kekuatan, Kelemahan dan Batasan diri." },
             { id: "q28", domain: "Keberkesanan Kendiri", text: "Keberkesanan Kendiri: Saya cekap dalam Pengurusan Kendiri." },
             { id: "q29", domain: "Keberkesanan Kendiri", text: "Keberkesanan Kendiri: Saya Peka Terhadap Perasaan Dan Keperluan Orang Lain." },
             { id: "q30", domain: "Keberkesanan Kendiri", text: "Keberkesanan Kendiri: Saya Mempunyai Kebolehan Menyesuaikan Diri dengan cepat." }
         ];
+        const domains = [...new Set(questionsData.map(q => q.domain))];
 
-        let currentUser = "";
-        const domains = [...new Set(questionsData.map(q => q.domain))]; // Unique domains
+        // Semak jika pernah jawab di Awan
+        async function initPage() {
+            try {
+                const dbRef = ref(db);
+                // Nama peserta
+                const uSnap = await get(child(dbRef, `propkes_accounts/${currentUser}`));
+                if(uSnap.exists()) {
+                    document.getElementById("introName").textContent = uSnap.val().name || "Peserta";
+                    document.getElementById("introEmail").textContent = currentUser;
+                }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            currentUser = localStorage.getItem("propkes_user");
-            if(!currentUser) { window.location.href = "index.html"; return; }
+                // Semak Result Awam
+                const rSnap = await get(child(dbRef, `propkes_ipropkes/${currentUser}/pra`));
+                if(rSnap.exists()) {
+                    // Kalau dah jawab, terus ke Result
+                    showResultSection(rSnap.val());
+                }
+            } catch(e) { console.error(e); }
+        }
+        initPage();
 
-            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            const profile = accounts[currentUser] || {};
-            
-            document.getElementById("introName").textContent = profile.name || "Peserta";
-            document.getElementById("introEmail").textContent = profile.email || "Tiada Maklumat";
-
-            // Jika dah pernah jawab, terus tunjuk result
-            const results = JSON.parse(localStorage.getItem(`propkes_pra_result_${currentUser}`));
-            if(results) {
-                showResultSection(results);
-            }
-        });
-
-        function startAssessment() {
+        window.startAssessment = function() {
             document.getElementById("introSection").classList.add("hidden");
             document.getElementById("questionSection").classList.remove("hidden");
-            renderQuestions();
-        }
-
-        function renderQuestions() {
+            
             const container = document.getElementById("questionsContainer");
             let currentDomain = "";
-            let questionHTML = "";
+            let html = "";
 
             questionsData.forEach((q, index) => {
-                // Tunjuk Tajuk Domain jika berubah
                 if(q.domain !== currentDomain) {
                     currentDomain = q.domain;
-                    questionHTML += `<div class="pt-6 border-t border-slate-800"><h3 class="text-lg font-bold text-blue-400 mb-6 uppercase tracking-wider">${currentDomain}</h3></div>`;
+                    html += `<div class="pt-6 border-t border-slate-800"><h3 class="text-lg font-bold text-blue-400 mb-6 uppercase tracking-wider">${currentDomain}</h3></div>`;
                 }
-
-                // Bina radio butang 1-10
-                let scaleHTML = `<div class="flex flex-wrap sm:flex-nowrap justify-between gap-2 mt-4">`;
+                let scales = `<div class="flex flex-wrap sm:flex-nowrap justify-between gap-2 mt-4">`;
                 for(let i=1; i<=10; i++) {
-                    scaleHTML += `
-                        <div class="flex-1 text-center">
-                            <input type="radio" name="${q.id}" id="${q.id}_${i}" value="${i}" class="scale-radio hidden" onchange="updateProgress()" required>
-                            <label for="${q.id}_${i}" class="block w-full py-2.5 sm:py-3 px-2 border-2 border-slate-700 bg-slate-800/50 rounded-lg text-slate-300 font-bold cursor-pointer transition-all hover:bg-slate-700 text-xs sm:text-sm">
-                                ${i}
-                            </label>
-                        </div>
-                    `;
+                    scales += `<div class="flex-1 text-center"><input type="radio" name="${q.id}" id="${q.id}_${i}" value="${i}" class="scale-radio hidden" onchange="window.updateProgress()" required><label for="${q.id}_${i}" class="block w-full py-2.5 sm:py-3 px-2 border-2 border-slate-700 bg-slate-800/50 rounded-lg text-slate-300 font-bold cursor-pointer transition-all hover:bg-slate-700 hover:border-blue-500/50 text-xs sm:text-sm">${i}</label></div>`;
                 }
-                scaleHTML += `</div>
-                    <div class="flex justify-between mt-2 text-[10px] font-medium text-slate-500 uppercase tracking-wide">
-                        <span>Sangat Rendah</span><span>Sangat Tinggi</span>
-                    </div>`;
-
-                questionHTML += `
-                    <div class="bg-slate-950 p-5 sm:p-6 rounded-xl border border-slate-800 hover:border-slate-600 transition-colors">
-                        <p class="font-medium text-slate-200 text-sm sm:text-base leading-relaxed"><span class="text-blue-500 font-bold mr-2">${index+1}.</span> ${q.text}</p>
-                        ${scaleHTML}
-                    </div>
-                `;
+                scales += `</div><div class="flex justify-between mt-2 text-[10px] font-medium text-slate-500 uppercase"><span>Sangat Rendah</span><span>Sangat Tinggi</span></div>`;
+                
+                html += `<div class="bg-slate-950 p-5 sm:p-6 rounded-xl border border-slate-800"><p class="font-medium text-slate-200 text-sm leading-relaxed"><span class="text-blue-500 font-bold mr-2">${index+1}.</span> ${q.text}</p>${scales}</div>`;
             });
+            container.innerHTML = html;
+        };
 
-            container.innerHTML = questionHTML;
-            updateProgress(); // init 0
-        }
-
-        function updateProgress() {
-            const total = questionsData.length;
-            let answered = 0;
-            
-            questionsData.forEach(q => {
-                const checked = document.querySelector(`input[name="${q.id}"]:checked`);
-                if(checked) answered++;
-            });
-
+        window.updateProgress = function() {
+            const total = questionsData.length; let answered = 0;
+            questionsData.forEach(q => { if(document.querySelector(`input[name="${q.id}"]:checked`)) answered++; });
             document.getElementById("progressText").textContent = `${answered} / ${total} Terjawab`;
             document.getElementById("progressBar").style.width = `${(answered/total)*100}%`;
-        }
+        };
 
-        function submitAssessment() {
-            const form = document.getElementById("assessmentForm");
-            if(!form.checkValidity()) {
-                alert("Sila jawab semua soalan sebelum menghantar.");
-                return;
-            }
+        document.getElementById("assessmentForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById("btnSubmit");
+            btn.textContent = "Menyimpan ke Awan..."; btn.disabled = true;
 
-            // Kira skor purata mengikut domain
-            let scores = {};
-            domains.forEach(d => scores[d] = { total: 0, count: 0 });
-
+            let scores = {}; domains.forEach(d => scores[d] = { total: 0, count: 0 });
             questionsData.forEach(q => {
                 const val = parseInt(document.querySelector(`input[name="${q.id}"]:checked`).value);
-                scores[q.domain].total += val;
-                scores[q.domain].count += 1;
+                scores[q.domain].total += val; scores[q.domain].count += 1;
             });
 
             let finalAverages = {};
-            domains.forEach(d => {
-                finalAverages[d] = parseFloat((scores[d].total / scores[d].count).toFixed(2));
-            });
+            domains.forEach(d => { finalAverages[d] = parseFloat((scores[d].total / scores[d].count).toFixed(2)); });
 
-            // Simpan Result ke memori
-            localStorage.setItem(`propkes_pra_result_${currentUser}`, JSON.stringify(finalAverages));
-            
-            // Tandakan Tugasan Borang Pra sebagai Selesai di Dashboard Peserta
-            const progKey = `propkes_progress_${currentUser}`;
-            let userProgress = JSON.parse(localStorage.getItem(progKey) || "{}");
-            userProgress["task_4"] = true; // ID task borang pra
-            localStorage.setItem(progKey, JSON.stringify(userProgress));
+            try {
+                // Simpan Skor ke Awan
+                await set(ref(db, `propkes_ipropkes/${currentUser}/pra`), finalAverages);
+                
+                // Simpan Salinan Local (Backup supaya Dashboard Peserta cepat diloading)
+                localStorage.setItem(`propkes_pra_result_${currentUser}`, JSON.stringify(finalAverages));
+                
+                // Tandakan Tugasan Borang Pra Selesai
+                let prog = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
+                prog["t4"] = true;
+                localStorage.setItem(`propkes_progress_${currentUser}`, JSON.stringify(prog));
 
-            // Tunjuk Keputusan
-            document.getElementById("questionSection").classList.add("hidden");
-            showResultSection(finalAverages);
-            window.scrollTo(0,0);
-        }
+                document.getElementById("questionSection").classList.add("hidden");
+                showResultSection(finalAverages);
+                window.scrollTo(0,0);
+                window.showToast("Penilaian berjaya disimpan di Awan!");
+
+            } catch(error) {
+                console.error(error);
+                window.showToast("Gagal menyimpan ke awan.", "error");
+            } finally {
+                btn.textContent = "Hantar ke Awan"; btn.disabled = false;
+            }
+        });
 
         function showResultSection(data) {
             document.getElementById("introSection").classList.add("hidden");
             document.getElementById("questionSection").classList.add("hidden");
             document.getElementById("resultSection").classList.remove("hidden");
 
-            // Tulis Markah Teks
-            let scoreHTML = "";
-            let chartLabels = [];
-            let chartData = [];
-
+            let scoreHTML = ""; let cLabels = []; let cData = [];
             domains.forEach(d => {
-                const val = data[d];
-                chartLabels.push(d);
-                chartData.push(val);
-
-                // Warna progress bar skor
-                let color = "bg-blue-500";
-                if(val >= 8) color = "bg-emerald-500";
-                else if (val <= 5) color = "bg-rose-500";
-
-                scoreHTML += `
-                    <div>
-                        <div class="flex justify-between text-xs mb-1">
-                            <span class="font-bold text-slate-300 uppercase">${d}</span>
-                            <span class="font-bold text-white">${val} / 10</span>
-                        </div>
-                        <div class="w-full bg-slate-800 rounded-full h-2">
-                            <div class="${color} h-2 rounded-full" style="width: ${(val/10)*100}%"></div>
-                        </div>
-                    </div>
-                `;
+                const val = data[d] || 0;
+                cLabels.push(d); cData.push(val);
+                let color = val >= 8 ? "bg-emerald-500" : (val <= 5 ? "bg-rose-500" : "bg-blue-500");
+                scoreHTML += `<div><div class="flex justify-between text-xs mb-1"><span class="font-bold text-slate-300 uppercase">${d}</span><span class="font-bold text-white">${val} / 10</span></div><div class="w-full bg-slate-800 rounded-full h-2"><div class="${color} h-2 rounded-full" style="width: ${(val/10)*100}%"></div></div></div>`;
             });
             document.getElementById("scoreContainer").innerHTML = scoreHTML;
 
-            // Render Chart Radar
-            const ctx = document.getElementById('radarChart').getContext('2d');
-            new Chart(ctx, {
+            new Chart(document.getElementById('radarChart').getContext('2d'), {
                 type: 'radar',
-                data: {
-                    labels: chartLabels,
-                    datasets: [{
-                        label: 'Skor Purata',
-                        data: chartData,
-                        backgroundColor: 'rgba(59, 130, 246, 0.2)', // Blue 500 transparent
-                        borderColor: 'rgba(59, 130, 246, 1)',
-                        pointBackgroundColor: 'rgba(16, 185, 129, 1)', // Emerald points
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgba(16, 185, 129, 1)',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        r: {
-                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                            pointLabels: { color: '#94a3b8', font: { size: 10, family: 'Inter' } },
-                            ticks: { 
-                                min: 0, max: 10, stepSize: 2, 
-                                display: false // sembunyikan nombor di tengah spider web
-                            }
-                        }
-                    },
-                    plugins: { legend: { display: false } }
-                }
+                data: { labels: cLabels, datasets: [{label: 'Skor', data: cData, backgroundColor: 'rgba(59, 130, 246, 0.2)', borderColor: '#3b82f6', pointBackgroundColor: '#10b981', borderWidth: 2}] },
+                options: { responsive: true, scales: { r: { pointLabels: {color:'#94a3b8', font:{size:10}}, ticks: {display:false, max:10} } }, plugins: {legend:{display:false}} }
             });
-        }
-
-        function kembaliKeDashboard() {
-            window.location.href = "dashboard_peserta.html";
         }
     </script>
 </body>
