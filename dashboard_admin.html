@@ -41,7 +41,9 @@
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-lg shadow-blue-500/20">IAB</div>
                     <span class="font-bold text-lg tracking-tight text-white hidden sm:block">PROPKES <span class="text-blue-400">2026</span></span>
-                    <span class="ml-2 bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:block">Mod Urus Setia</span>
+                    <span class="ml-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:flex items-center gap-1">
+                        <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div> Live DB
+                    </span>
                 </div>
                 <div class="flex items-center gap-4">
                     <div class="text-right hidden md:block">
@@ -49,7 +51,7 @@
                         <p class="text-xs text-rose-400">Admin</p>
                     </div>
                     <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300">US</div>
-                    <button onclick="logout()" class="ml-2 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-lg transition-colors cursor-pointer outline-none">
+                    <button onclick="window.logout()" class="ml-2 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-lg transition-colors cursor-pointer outline-none">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
                 </div>
@@ -91,10 +93,9 @@
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
                     <div class="p-6 border-b border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-950/50">
                         <div>
-                            <h3 class="font-bold text-white">Senarai Pengguna & Laporan Penilaian</h3>
-                            <p class="text-xs text-slate-400">Admin boleh memantau dan mencetak laporan Lampiran F & G dari sini.</p>
+                            <h3 class="font-bold text-white flex items-center gap-2">Senarai Pengguna Awam</h3>
+                            <p class="text-xs text-slate-400">Data ditarik secara masa nyata (Realtime) dari pelayan.</p>
                         </div>
-                        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Cari nama / peranan..." class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500 w-48">
                     </div>
                     <div class="overflow-x-auto custom-scrollbar">
                         <table class="w-full text-left text-sm border-collapse whitespace-nowrap">
@@ -103,23 +104,25 @@
                                     <th class="py-3 px-4">Nama Penuh & E-mel</th>
                                     <th class="py-3 px-4 text-center">Peranan</th>
                                     <th class="py-3 px-4 text-center">Laporan Penilaian (F & G)</th>
-                                    <th class="py-3 px-4 text-center">Tindakan Sistem</th>
+                                    <th class="py-3 px-4 text-center">Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody id="userTableBody" class="divide-y divide-slate-800/50 text-slate-300">
+                                <tr><td colspan="4" class="py-8 px-4 text-center text-slate-500">Memuat turun data dari Awan...</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
+            <!-- Pendaftaran -->
             <div class="space-y-6">
                 <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-emerald-500/30 rounded-2xl shadow-xl p-6">
                     <h3 class="font-bold text-white mb-2 flex items-center gap-2">
                         <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z" /></svg>
-                        Pendaftaran Pengguna Baru
+                        Daftar Pengguna ke Awan
                     </h3>
-                    <form id="registrationForm" onsubmit="handleRegistration(event)" class="space-y-4">
+                    <form id="registrationForm" class="space-y-4">
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pilih Peranan</label>
                             <select id="regRole" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
@@ -132,10 +135,6 @@
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Nama Penuh</label>
                             <input type="text" id="regName" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">No. Kad Pengenalan</label>
-                            <input type="text" id="regIc" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">E-mel Rasmi</label>
@@ -151,9 +150,8 @@
                                 <input type="password" id="regPassword" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
                             </div>
                         </div>
-
-                        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg text-xs transition-colors shadow-lg shadow-emerald-600/30 mt-4 outline-none cursor-pointer">
-                            Daftar Akaun
+                        <button type="submit" id="regSubmitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg text-xs transition-colors shadow-lg shadow-emerald-600/30 mt-4 outline-none">
+                            Daftar & Simpan ke Awan
                         </button>
                     </form>
                 </div>
@@ -164,7 +162,7 @@
     <!-- Modal Kemas Kini -->
     <div id="editModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-amber-500/50 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300" id="editModalContent">
-            <h3 class="text-lg font-bold text-white mb-4 border-b border-slate-800 pb-3">Kemas Kini Maklumat Asas</h3>
+            <h3 class="text-lg font-bold text-white mb-4 border-b border-slate-800 pb-3">Kemas Kini Maklumat</h3>
             <form id="editForm" class="space-y-4">
                 <input type="hidden" id="editUsername">
                 <div>
@@ -175,87 +173,83 @@
                     <label class="block text-[10px] font-bold text-slate-400 uppercase">E-mel</label>
                     <input type="email" id="editEmail" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none">
                 </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase">Kata Laluan Baru (Pilihan)</label>
-                    <input type="text" id="editPassword" placeholder="Kosongkan jika tidak mahu tukar" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none">
-                </div>
                 <div class="flex gap-3 pt-4 border-t border-slate-800">
-                    <button type="button" onclick="closeEditModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg text-xs font-bold outline-none cursor-pointer">Batal</button>
-                    <button type="submit" class="flex-1 bg-amber-600 hover:bg-amber-500 text-white py-2 rounded-lg text-xs font-bold outline-none cursor-pointer">Simpan</button>
+                    <button type="button" onclick="window.closeEditModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg text-xs font-bold outline-none cursor-pointer">Batal</button>
+                    <button type="submit" class="flex-1 bg-amber-600 hover:bg-amber-500 text-white py-2 rounded-lg text-xs font-bold outline-none cursor-pointer">Simpan Perubahan</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Modal Padam -->
-    <div id="deleteModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
-        <div class="bg-slate-900 border border-rose-700/50 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="deleteModalContent">
-            <h3 class="text-lg font-bold text-white text-center mb-2">Sahkan Padam</h3>
-            <p class="text-xs text-slate-400 text-center mb-6">Padam akaun <strong class="text-white" id="deleteUserName"></strong>?</p>
-            <input type="hidden" id="deleteUserId">
-            <div class="flex gap-3">
-                <button onclick="closeDeleteModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-xl text-sm font-bold cursor-pointer">Batal</button>
-                <button onclick="confirmDelete()" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white py-2.5 rounded-xl text-sm font-bold shadow-lg cursor-pointer">Ya, Padam</button>
-            </div>
-        </div>
-    </div>
-
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 no-print"></div>
-
     <div id="printSection" class="print-container no-print"></div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // STRICT GUARDRAIL: Hanya 'admin' dibenarkan
-            const currentUser = localStorage.getItem("propkes_user");
-            if (!currentUser) { window.location.replace("index.html"); return; }
-            
-            if (currentUser !== "admin") {
-                const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-                if (!accounts[currentUser] || accounts[currentUser].role !== "admin") {
-                    window.location.replace("index.html"); return;
+    <!-- FIREBASE MODULAR SCRIPTS UNTUK ADMIN -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, get, set, update, remove, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        // URL FIREBASE YANG BETUL TELAH DIMASUKKAN DI SINI
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzlcyG6xyd2JXEMRNlDGi-_wxU2TXf6Y8",
+            authDomain: "propkes-2026.firebaseapp.com",
+            databaseURL: "https://propkes-2026-default-rtdb.firebaseio.com",
+            projectId: "propkes-2026",
+            storageBucket: "propkes-2026.firebasestorage.app",
+            messagingSenderId: "758954100529",
+            appId: "1:758954100529:web:385531320681ceac8e9210",
+            measurementId: "G-XD4Z9ENX95"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Pastikan pengguna adalah Admin
+        const currentUser = localStorage.getItem("propkes_user");
+        if (!currentUser) window.location.href = "index.html";
+
+        // Global functions
+        window.showAdminToast = function(msg, type='success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const bg = type === 'success' ? 'bg-emerald-600' : 'bg-rose-600';
+            toast.className = `${bg} text-white px-4 py-3 rounded-lg shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0`;
+            toast.textContent = msg;
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.remove('translate-y-10', 'opacity-0'); }, 10);
+            setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
+        };
+
+        window.logout = function() {
+            localStorage.removeItem("propkes_user");
+            window.location.href = "index.html";
+        };
+
+        // --- BACA DARI FIREBASE ---
+        window.renderTableAndStats = async function() {
+            try {
+                const dbRef = ref(db);
+                const [accountsSnap, mentorFeedbackSnap, pemanduFeedbackSnap] = await Promise.all([
+                    get(child(dbRef, 'propkes_accounts')),
+                    get(child(dbRef, 'propkes_feedback_mentor')), 
+                    get(child(dbRef, 'propkes_feedback_pemandu'))
+                ]);
+
+                const accounts = accountsSnap.exists() ? accountsSnap.val() : {};
+                
+                const tbody = document.getElementById("userTableBody");
+                tbody.innerHTML = "";
+
+                let totalPeserta = 0, totalPemandu = 0, totalMentor = 0;
+
+                if (Object.keys(accounts).length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="4" class="py-8 px-4 text-center text-slate-500 text-xs italic">Tiada pengguna didaftarkan lagi.</td></tr>`;
+                    return;
                 }
-            }
 
-            renderTableAndStats();
-        });
+                for (const [username, u] of Object.entries(accounts)) {
+                    if (username === "admin") continue; 
 
-        function handleRegistration(e) {
-            e.preventDefault();
-            const role = document.getElementById("regRole").value;
-            const name = document.getElementById("regName").value;
-            const ic = document.getElementById("regIc").value;
-            const email = document.getElementById("regEmail").value.toLowerCase().trim();
-            const username = document.getElementById("regUsername").value.toLowerCase().trim();
-            const password = document.getElementById("regPassword").value;
-            
-            let accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            if (accounts[username]) {
-                showAdminToast("Ralat: ID Pengguna ini telah wujud.", "error"); return;
-            }
-
-            accounts[username] = { role, name, ic, email, password, status: "Aktif" };
-            localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
-            showAdminToast(`Akaun ${name} berjaya didaftar.`, "success");
-            
-            document.getElementById("registrationForm").reset();
-            renderTableAndStats();
-        }
-
-        function renderTableAndStats() {
-            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            const tbody = document.getElementById("userTableBody");
-            tbody.innerHTML = "";
-
-            let totalPeserta = 0, totalPemandu = 0, totalMentor = 0;
-            const userKeys = Object.keys(accounts);
-
-            if (userKeys.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="py-8 px-4 text-center text-slate-500 text-xs italic">Tiada pengguna didaftarkan lagi.</td></tr>`;
-            } else {
-                userKeys.forEach(username => {
-                    const u = accounts[username];
-                    
                     if(u.role === "peserta") totalPeserta++;
                     if(u.role === "pemandu") totalPemandu++;
                     if(u.role === "mentor") totalMentor++;
@@ -265,14 +259,14 @@
                     else if(u.role === "pemandu") roleBadge = `<span class="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-[10px] font-bold">Pemandu Citra</span>`;
                     else roleBadge = `<span class="bg-amber-500/20 text-amber-400 px-2 py-1 rounded text-[10px] font-bold">Mentor</span>`;
 
-                    let reportBtns = `<span class="text-[10px] text-slate-500 italic">Tiada Laporan</span>`;
+                    let reportBtns = `<span class="text-[10px] text-slate-500 italic">-</span>`;
                     if(u.role === "peserta") {
                         reportBtns = "";
-                        const hasMentor = localStorage.getItem(`propkes_feedback_mentor_${username}_FASA1`) || localStorage.getItem(`propkes_feedback_mentor_${username}_FASA2`);
-                        const hasPC = localStorage.getItem(`propkes_feedback_pemandu_${username}_FASA1`) || localStorage.getItem(`propkes_feedback_pemandu_${username}_FASA2`);
+                        const hasMentor = localStorage.getItem(`propkes_feedback_mentor_${username}_FASA1`);
+                        const hasPC = localStorage.getItem(`propkes_feedback_pemandu_${username}_FASA1`);
 
-                        if(hasMentor) reportBtns += `<button onclick="printMaklumBalas('${username}', 'mentor')" class="bg-amber-600/20 hover:bg-amber-600 text-amber-500 hover:text-white px-2 py-1 rounded text-[10px] font-bold transition-colors cursor-pointer mr-1">Cetak Lamp. F</button>`;
-                        if(hasPC) reportBtns += `<button onclick="printMaklumBalas('${username}', 'pemandu')" class="bg-teal-600/20 hover:bg-teal-600 text-teal-500 hover:text-white px-2 py-1 rounded text-[10px] font-bold transition-colors cursor-pointer">Cetak Lamp. G</button>`;
+                        if(hasMentor) reportBtns += `<button onclick="window.printMaklumBalas('${username}', 'mentor')" class="bg-amber-600/20 hover:bg-amber-600 text-amber-500 hover:text-white px-2 py-1 rounded text-[10px] font-bold cursor-pointer mr-1">Lamp. F</button>`;
+                        if(hasPC) reportBtns += `<button onclick="window.printMaklumBalas('${username}', 'pemandu')" class="bg-teal-600/20 hover:bg-teal-600 text-teal-500 hover:text-white px-2 py-1 rounded text-[10px] font-bold cursor-pointer">Lamp. G</button>`;
                         if(!hasMentor && !hasPC) reportBtns = `<span class="text-[10px] text-slate-500 italic">Belum Dinilai</span>`;
                     }
 
@@ -283,147 +277,102 @@
                         <td class="py-4 px-4 text-center">${roleBadge}</td>
                         <td class="py-4 px-4 text-center">${reportBtns}</td>
                         <td class="py-4 px-4 text-center space-x-1">
-                            <button onclick="openEditModal('${username}')" class="bg-slate-700 hover:bg-slate-600 text-white px-2 py-1 rounded text-[10px] font-bold transition-colors cursor-pointer">Edit</button>
-                            <button onclick="openDeleteModal('${username}', '${u.name.replace(/'/g, "\\'")}')" class="bg-rose-600/20 hover:bg-rose-600 text-rose-500 hover:text-white px-2 py-1 rounded text-[10px] font-bold transition-colors cursor-pointer">Padam</button>
+                            <button onclick="window.openEditModal('${username}', '${u.name}', '${u.email}')" class="bg-slate-700 hover:bg-slate-600 text-white px-2 py-1 rounded text-[10px] font-bold transition-colors cursor-pointer">Edit</button>
                         </td>
                     `;
                     tbody.appendChild(tr);
-                });
+                }
+
+                document.getElementById("statTotalPeserta").textContent = totalPeserta;
+                document.getElementById("statTotalPemandu").textContent = totalPemandu;
+                document.getElementById("statTotalMentor").textContent = totalMentor;
+
+            } catch (error) {
+                console.error("Firebase Read Error:", error);
+                window.showAdminToast("Gagal membaca pangkalan data awan.", "error");
             }
+        };
 
-            document.getElementById("statTotalPeserta").textContent = totalPeserta;
-            document.getElementById("statTotalPemandu").textContent = totalPemandu;
-            document.getElementById("statTotalMentor").textContent = totalMentor;
-        }
+        // --- PENDAFTARAN KE FIREBASE ---
+        document.getElementById("registrationForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const role = document.getElementById("regRole").value;
+            const name = document.getElementById("regName").value;
+            const email = document.getElementById("regEmail").value.toLowerCase().trim();
+            const username = document.getElementById("regUsername").value.toLowerCase().trim();
+            const password = document.getElementById("regPassword").value;
+            const btn = document.getElementById("regSubmitBtn");
+            
+            btn.textContent = "Menyimpan ke Awan...";
+            btn.disabled = true;
 
-        function openEditModal(username) {
-            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            const u = accounts[username];
-            if(!u) return;
+            try {
+                const dbRef = ref(db);
+                const userSnap = await get(child(dbRef, `propkes_accounts/${username}`));
+                if (userSnap.exists()) {
+                    window.showAdminToast("Ralat: ID Pengguna ini telah wujud di awan.", "error");
+                    return;
+                }
+
+                const newData = { role, name, email, password, status: "Aktif" };
+                await set(ref(db, `propkes_accounts/${username}`), newData);
+                
+                window.showAdminToast(`Akaun ${name} berjaya didaftar di Firebase!`, "success");
+                document.getElementById("registrationForm").reset();
+                window.renderTableAndStats();
+
+            } catch(error) {
+                console.error(error);
+                window.showAdminToast("Ralat menyimpan ke awan.", "error");
+            } finally {
+                btn.textContent = "Daftar & Simpan ke Awan";
+                btn.disabled = false;
+            }
+        });
+
+        // --- EDIT MODAL ---
+        window.openEditModal = function(username, name, email) {
             document.getElementById('editUsername').value = username;
-            document.getElementById('editName').value = u.name;
-            document.getElementById('editEmail').value = u.email;
-            document.getElementById('editPassword').value = ""; 
+            document.getElementById('editName').value = name;
+            document.getElementById('editEmail').value = email;
 
             const modal = document.getElementById('editModal');
             const content = document.getElementById('editModalContent');
             modal.classList.remove('hidden'); modal.classList.add('flex');
             setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
-        }
+        };
 
-        function closeEditModal() {
+        window.closeEditModal = function() {
             const modal = document.getElementById('editModal');
             const content = document.getElementById('editModalContent');
             modal.classList.add('opacity-0'); content.classList.add('scale-95');
             setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
-        }
+        };
 
-        document.getElementById("editForm").addEventListener("submit", function(e) {
+        document.getElementById("editForm").addEventListener("submit", async function(e) {
             e.preventDefault();
             const username = document.getElementById('editUsername').value;
-            let accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            if (accounts[username]) {
-                accounts[username].name = document.getElementById('editName').value;
-                accounts[username].email = document.getElementById('editEmail').value;
-                const newPass = document.getElementById('editPassword').value;
-                if(newPass.trim() !== "") accounts[username].password = newPass;
+            const newName = document.getElementById('editName').value;
+            const newEmail = document.getElementById('editEmail').value;
+            
+            try {
+                await update(ref(db, `propkes_accounts/${username}`), {
+                    name: newName,
+                    email: newEmail
+                });
+                
+                window.closeEditModal(); 
+                window.showAdminToast(`Maklumat ${newName} dikemas kini di Awan!`, 'success'); 
+                window.renderTableAndStats();
 
-                localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
-                closeEditModal(); showAdminToast(`Maklumat profil dikemas kini!`, 'success'); renderTableAndStats();
+            } catch(error) {
+                console.error(error);
+                window.showAdminToast("Gagal kemas kini.", 'error');
             }
         });
 
-        function openDeleteModal(username, name) {
-            document.getElementById('deleteUserId').value = username;
-            document.getElementById('deleteUserName').textContent = name;
-            const modal = document.getElementById('deleteModal');
-            modal.classList.remove('hidden'); modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
-        }
+        window.renderTableAndStats();
 
-        function closeDeleteModal() {
-            const modal = document.getElementById('deleteModal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
-        }
-
-        function confirmDelete() {
-            const username = document.getElementById('deleteUserId').value;
-            let accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            if (accounts[username]) {
-                delete accounts[username];
-                localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
-                closeDeleteModal(); showAdminToast(`Akaun dipadam.`, 'success'); renderTableAndStats();
-            }
-        }
-
-        function filterTable() {
-            const term = document.getElementById("searchInput").value.toLowerCase();
-            const rows = document.getElementById("userTableBody").getElementsByTagName("tr");
-            for (let i = 0; i < rows.length; i++) {
-                if(rows[i].textContent.toLowerCase().includes(term)) rows[i].style.display = "";
-                else rows[i].style.display = "none";
-            }
-        }
-
-        function showAdminToast(msg, type='success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            const bg = type === 'success' ? 'bg-emerald-600' : 'bg-rose-600';
-            toast.className = `${bg} text-white px-4 py-3 rounded-lg shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0`;
-            toast.textContent = msg;
-            container.appendChild(toast);
-            setTimeout(() => { toast.classList.remove('translate-y-10', 'opacity-0'); }, 10);
-            setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
-        }
-
-        function printMaklumBalas(username, type) {
-            let fasaKey = "FASA1";
-            let data = JSON.parse(localStorage.getItem(`propkes_feedback_${type}_${username}_${fasaKey}`));
-            if(!data) {
-                fasaKey = "FASA2";
-                data = JSON.parse(localStorage.getItem(`propkes_feedback_${type}_${username}_${fasaKey}`));
-            }
-            if(!data) { showAdminToast(`Tiada data ${type}.`, "error"); return; }
-
-            const title = type === 'mentor' ? 'LAMPIRAN F' : 'LAMPIRAN G';
-            const roleTitle = type === 'mentor' ? 'MENTOR' : 'PEMANDU CITRA / COACH';
-
-            const printHTML = `
-                <div class="print-page" style="font-family: Arial, sans-serif; color: black; line-height: 1.5; padding: 20px;">
-                    <p style="font-weight: bold; font-size: 16px; margin-bottom: 20px;">${title}</p>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 5px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 5px;">TAHUN 2026</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">${data.fasa}</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 30px; text-decoration: underline;">MAKLUM BALAS ${roleTitle}</h2>
-
-                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 40px; font-size: 12px;">
-                        <tr><td style="border: 1px solid black; padding: 12px; width: 35%; font-weight: bold;">NAMA PESERTA</td><td style="border: 1px solid black; padding: 12px; font-weight:bold;">${data.namaPeserta}</td></tr>
-                        <tr><td style="border: 1px solid black; padding: 12px; font-weight: bold;">JAWATAN</td><td style="border: 1px solid black; padding: 12px;">${data.jawatan}</td></tr>
-                        <tr><td style="border: 1px solid black; padding: 12px; font-weight: bold;">GRED</td><td style="border: 1px solid black; padding: 12px;">${data.gred}</td></tr>
-                        <tr><td style="border: 1px solid black; padding: 12px; font-weight: bold;">JABATAN (TEMPAT BERTUGAS)</td><td style="border: 1px solid black; padding: 12px;">${data.tempatBertugas}</td></tr>
-                        <tr><td style="border: 1px solid black; padding: 12px; font-weight: bold;">PUSAT</td><td style="border: 1px solid black; padding: 12px;">${data.pusat}</td></tr>
-                        <tr><td style="border: 1px solid black; padding: 12px; font-weight: bold;">TARIKH SANDARAN</td><td style="border: 1px solid black; padding: 12px;">${data.tarikhSandaran}</td></tr>
-                        <tr><td style="border: 1px solid black; padding: 12px; font-weight: bold; vertical-align: top;">MAKLUM BALAS ${roleTitle}</td><td style="border: 1px solid black; padding: 12px; min-height: 150px; vertical-align: top; white-space: pre-wrap;">${data.maklumBalas}</td></tr>
-                    </table>
-
-                    <div style="font-size: 12px; line-height: 1.8;">
-                        <p style="margin:0;">Nama Penuh: <strong>${data.namaPenilai}</strong></p>
-                        <p style="margin:0;">Jawatan: <strong>${data.jawatanPenilai}</strong></p>
-                        <p style="margin:0;">Tarikh: <strong>${data.tarikhTandatangan.replace(/[()]/g, '')}</strong></p>
-                        <p style="margin-top:10px;">Cap Rasmi: <br><br> <em style="color:#475569;">Telah diperaku dan disahkan secara digital.</em></p>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('printSection').innerHTML = printHTML;
-            const originalTitle = document.title;
-            document.title = `${title} - ${data.namaPeserta}`;
-            window.print();
-            setTimeout(() => { document.title = originalTitle; }, 1000);
-        }
-
-        function logout() { localStorage.removeItem("propkes_user"); window.location.replace("index.html"); }
     </script>
 </body>
 </html>
