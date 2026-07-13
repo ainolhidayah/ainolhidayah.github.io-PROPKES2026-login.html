@@ -144,7 +144,7 @@
         </div>
     </div>
 
-    <!-- MODAL LIHAT i-PROPKES (DIPERBAIKI) -->
+    <!-- MODAL LIHAT i-PROPKES -->
     <div id="propkesModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[120] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-slate-900 border border-emerald-500/50 rounded-2xl shadow-2xl max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="propkesModalContent">
             <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
@@ -227,6 +227,7 @@
                     myNameLower = pName.trim().toLowerCase();
                 }
 
+                // Load Mentees
                 const allUsersSnap = await get(child(dbRef, 'propkes_accounts'));
                 const tbody = document.getElementById("menteeTableBody");
                 tbody.innerHTML = "";
@@ -237,8 +238,13 @@
                     for (const [uname, data] of Object.entries(accounts)) {
                         if (data.role === 'peserta') {
                             const pCitra = (data.pemanduCitra || "").trim().toLowerCase();
-                            if (pCitra.includes(myNameLower) || myNameLower.includes(pCitra) || pCitra === myNameLower) {
-                                window.menteesList.push({ id: uname, name: data.name, sekolah: data.sekolah || 'Belum Diisi' });
+                            
+                            // PENTING: Semak pastikan pCitra TIDAK KOSONG. Jika kosong, abaikan terus.
+                            if (pCitra !== "") {
+                                // Jika nama pemandu ada dalam pCitra (cth: "Ainol" ada dlm "Coach Ainol") ATAU sebaliknya
+                                if (pCitra.includes(myNameLower) || myNameLower.includes(pCitra)) {
+                                    window.menteesList.push({ id: uname, name: data.name, sekolah: data.sekolah || 'Belum Diisi' });
+                                }
                             }
                         }
                     }
@@ -287,11 +293,13 @@
         window.closeViewModal = () => { document.getElementById('viewModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('viewModal').classList.remove('flex'); document.getElementById('viewModal').classList.add('hidden');},300); };
         window.closePropkesModal = () => { document.getElementById('propkesModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('propkesModal').classList.remove('flex'); document.getElementById('propkesModal').classList.add('hidden');},300); };
 
+        // LIHAT LOG HARIAN
         window.viewLog = async (id, nama) => {
             document.getElementById('viewModalTitle').textContent = "Rekod Log Harian (Lampiran C)";
             document.getElementById('viewModalSubtitle').textContent = `Peserta: ${nama}`;
             const body = document.getElementById('viewModalBody');
             body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun log dari awan...</p>`;
+            
             document.getElementById('viewModal').classList.remove('hidden'); document.getElementById('viewModal').classList.add('flex'); setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); setTimeout(()=>document.getElementById('viewModal').classList.remove('opacity-0'),10);
             
             try {
@@ -310,11 +318,13 @@
             } catch(e) { body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan.</p>`; }
         };
 
+        // LIHAT JURNAL MINGGUAN
         window.viewJournal = async (id, nama) => {
             document.getElementById('viewModalTitle').textContent = "Jurnal Kepimpinan (Lampiran D)";
             document.getElementById('viewModalSubtitle').textContent = `Peserta: ${nama}`;
             const body = document.getElementById('viewModalBody');
             body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun jurnal...</p>`;
+            
             document.getElementById('viewModal').classList.remove('hidden'); document.getElementById('viewModal').classList.add('flex'); setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); setTimeout(()=>document.getElementById('viewModal').classList.remove('opacity-0'),10);
             
             try {
@@ -339,24 +349,21 @@
             } catch(e) { body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan.</p>`; }
         };
 
-        // --- PENYELESAIAN ISU CHART KOSONG (TIMEOUT UNTUK REPAINT) ---
+        // LIHAT i-PROPKES CARTA
         window.viewPropkes = async (id, nama) => {
             document.getElementById('propkesModalSubtitle').textContent = `Peserta: ${nama}`;
             
             const modal = document.getElementById('propkesModal');
             const modalContent = document.getElementById('propkesModalContent');
             
-            // 1. Tunjuk Modal
             modal.classList.remove('hidden'); 
             modal.classList.add('flex');
             
-            // 2. Mainkan Animasi & Tunggu Ia Siap Supaya Canvas Ada Saiz
             setTimeout(() => {
                 modalContent.classList.remove('scale-95');
                 modal.classList.remove('opacity-0');
             }, 10);
 
-            // 3. Tarik Data & Lukis Carta Selepas Modal Betul-betul Terbuka (300ms)
             setTimeout(async () => {
                 try {
                     const dbRef = ref(db);
@@ -396,7 +403,7 @@
                     console.error(error);
                     window.showToast("Ralat menarik data i-PROPKES awan.", "error");
                 }
-            }, 300); // 300ms delay solves the blank chart bug!
+            }, 300);
         };
 
         loadPemanduData();
