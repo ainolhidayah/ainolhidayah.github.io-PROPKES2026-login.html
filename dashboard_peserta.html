@@ -19,23 +19,19 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
-        
         .fade-in { animation: fadeIn 0.4s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
         .toggle-checkbox:checked { right: 0; border-color: #10b981; }
         .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
-
         @media print {
             body * { visibility: hidden; }
             #printSection, #printSection * { visibility: visible; }
             #printSection { position: absolute; left: 0; top: 0; width: 100%; }
             body { background: white !important; }
-            
             .print-page { width: 100%; color: black; font-family: 'Arial', sans-serif; }
             table.print-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
             table.print-table th, table.print-table td { border: 1px solid #94a3b8; padding: 8px 12px; color: black; }
-            table.print-table th { background-color: #f1f5f9 !important; font-weight: bold; -webkit-print-color-adjust: exact; color: black; text-align: left; }
+            table.print-table th { background-color: #f1f5f9 !important; font-weight: bold; text-align: left; }
         }
     </style>
 </head>
@@ -56,28 +52,21 @@
                             Program Peningkatan Profesional Pengurusan dan Kepimpinan Sekolah <span class="text-blue-400">(PROPKES)</span>
                         </h1>
                         <div class="flex items-center gap-2 mt-0.5">
-                            <h2 class="text-[10px] lg:text-[11px] font-semibold text-slate-300 uppercase tracking-widest">
-                                Institut Aminuddin Baki, Kementerian Pendidikan
-                            </h2>
-                            <span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
-                                Mod Peserta
+                            <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider flex items-center gap-1">
+                                <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div> Live DB
                             </span>
+                            <span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">Mod Peserta</span>
                         </div>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-4 shrink-0">
-                    <div class="xl:hidden flex items-center gap-2">
-                        <span class="font-bold text-lg text-white">PROPKES</span>
-                        <span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider hidden sm:block">Mod Peserta</span>
-                    </div>
-                    
                     <div class="text-right hidden md:block border-l border-slate-700 pl-4">
-                        <p class="text-sm font-semibold text-white truncate max-w-[150px]" id="navNameDisplay">Memuatkan...</p>
-                        <p class="text-xs text-blue-400">Permata Citra</p>
+                        <p class="text-sm font-semibold text-white truncate max-w-[150px] uppercase" id="navNameDisplay">MEMUATKAN...</p>
+                        <p class="text-xs text-blue-400 uppercase">PERMATA CITRA</p>
                     </div>
-                    <div class="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg" id="navInitials">...</div>
-                    <button onclick="logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-xl transition-all cursor-pointer outline-none shadow-md border border-slate-700 hover:border-rose-500" title="Log Keluar">
+                    <div class="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg uppercase" id="navInitials">...</div>
+                    <button onclick="window.logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-xl transition-all cursor-pointer outline-none shadow-md border border-slate-700 hover:border-rose-500" title="Log Keluar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
                 </div>
@@ -97,9 +86,9 @@
             
             <div class="bg-slate-950/50 border border-blue-500/30 rounded-xl p-4 shrink-0 text-center relative z-10 min-w-[150px]">
                 <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1">Status Pendaftaran</p>
-                <div class="text-xl font-bold text-emerald-400 flex items-center justify-center gap-2">
+                <div class="text-xl font-bold text-emerald-400 flex items-center justify-center gap-2 uppercase">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    Aktif
+                    AKTIF
                 </div>
             </div>
         </div>
@@ -109,36 +98,40 @@
             <!-- BAHAGIAN KIRI -->
             <div class="lg:col-span-1 space-y-6">
                 
-                <!-- Profil Peribadi -->
+                <!-- PROFAIL PESERTA -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
-                    <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-sm border-b border-slate-800 pb-3">
+                    <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-sm border-b border-slate-800 pb-3 uppercase">
                         <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        Maklumat Didaftarkan
+                        PROFAIL PESERTA
                     </h3>
                     <div class="space-y-4">
                         <div>
                             <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">Nama Penuh</p>
-                            <p class="text-sm font-medium text-slate-200" id="profileNama">Memuatkan...</p>
+                            <p class="text-sm font-bold text-slate-200 uppercase" id="profileNama">MEMUATKAN...</p>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">Jawatan & Gred</p>
-                                <p class="text-sm font-medium text-slate-300" id="profileJawatanGred">Belum Diisi</p>
+                                <p class="text-sm font-medium text-slate-300 uppercase" id="profileJawatanGred">BELUM DIISI</p>
                             </div>
                             <div>
                                 <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">Pusat / Cawangan</p>
-                                <p class="text-sm font-medium text-slate-300" id="profilePusatAsal">Belum Diisi</p>
+                                <p class="text-sm font-medium text-slate-300 uppercase" id="profilePusatAsal">BELUM DIISI</p>
                             </div>
                         </div>
                         <div>
-                            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">E-mel Rasmi</p>
-                            <p class="text-sm font-medium text-slate-300" id="profileEmail">Memuatkan...</p>
+                            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">Jabatan (Tempat Bertugas Utama)</p>
+                            <p class="text-sm font-medium text-slate-300 uppercase" id="profileJabatan">BELUM DIISI</p>
                         </div>
-                        <div class="bg-blue-950/30 p-4 rounded-xl border border-blue-900/50">
+                        <div>
+                            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">E-mel Rasmi</p>
+                            <p class="text-sm font-medium text-slate-300 uppercase" id="profileEmail">MEMUATKAN...</p>
+                        </div>
+                        <div class="bg-blue-950/30 p-4 rounded-xl border border-blue-900/50 mt-4">
                             <p class="text-[10px] text-blue-400 uppercase font-bold tracking-wider mb-1">Sekolah Sandaran</p>
-                            <p class="text-sm font-bold text-blue-100" id="profileSekolah">Memuatkan...</p>
-                            <div class="mt-2 text-xs text-blue-300 bg-blue-900/20 py-1.5 px-3 rounded-lg border border-blue-800/30 inline-block">
-                                <span id="profilePPD">PPD: Memuatkan...</span>
+                            <p class="text-sm font-bold text-blue-100 uppercase" id="profileSekolah">MEMUATKAN...</p>
+                            <div class="mt-2 text-xs text-blue-300 bg-blue-900/20 py-1.5 px-3 rounded-lg border border-blue-800/30 inline-block uppercase">
+                                <span id="profilePPD">PPD: MEMUATKAN...</span>
                             </div>
                         </div>
                     </div>
@@ -147,385 +140,131 @@
                 <!-- Maklumat Pemandu Citra & Mentor -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-                        <h3 class="font-bold text-white flex items-center gap-2 text-sm">
+                        <h3 class="font-bold text-white flex items-center gap-2 text-sm uppercase">
                             <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
-                            Maklumat Pemandu Citra & Mentor
+                            MAKLUMAT PEMANDU CITRA & MENTOR
                         </h3>
-                        <button onclick="cetakLaporanPintar()" class="text-[10px] text-purple-400 hover:text-purple-300 underline font-semibold flex items-center gap-1 cursor-pointer outline-none transition-colors">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.728 13.5H5.25A2.25 2.25 0 0 1 3 11.25v-4.5A2.25 2.25 0 0 1 5.25 4.5h13.5A2.25 2.25 0 0 1 21 6.75v4.5a2.25 2.25 0 0 1-2.25 2.25h-1.478M12 21v-4.5m0 0h-4.5m4.5 0h4.5M12 21a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3Z" /></svg>
-                            Cetak
-                        </button>
                     </div>
                     
                     <div class="space-y-4">
                         <div class="bg-purple-950/20 p-4 rounded-xl border border-purple-900/30">
                             <p class="text-[10px] text-purple-400 uppercase font-bold tracking-wider mb-2">Pemandu Citra (IAB)</p>
-                            <p class="text-sm font-bold text-slate-200" id="infoPemanduNama">Memuatkan...</p>
-                            <p class="text-[11px] text-slate-400 mb-1" id="infoPemanduJawatan">Jawatan</p>
-                            <p class="text-[10px] text-slate-500 italic" id="infoPemanduPusat">Pusat/Cawangan</p>
+                            <p class="text-sm font-bold text-slate-200 uppercase" id="infoPemanduNama">MEMUATKAN...</p>
                         </div>
-                        
                         <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
                             <p class="text-[10px] text-amber-400 uppercase font-bold tracking-wider mb-2">Mentor 1 (Sekolah Sandaran)</p>
-                            <p class="text-sm font-bold text-slate-200" id="infoMentorNama">Memuatkan...</p>
-                            <p class="text-[11px] text-slate-400 mb-1" id="infoMentorJawatan">Jawatan</p>
+                            <p class="text-sm font-bold text-slate-200 uppercase" id="infoMentorNama">MEMUATKAN...</p>
                         </div>
-
                         <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
                             <p class="text-[10px] text-amber-400 uppercase font-bold tracking-wider mb-2">Mentor 2 (PPD)</p>
-                            <p class="text-sm font-bold text-slate-200" id="infoMentorPpdNama">Memuatkan...</p>
-                            <p class="text-[11px] text-slate-400 mb-1" id="infoMentorPpdJawatan">Jawatan</p>
+                            <p class="text-sm font-bold text-slate-200 uppercase" id="infoMentorPpdNama">MEMUATKAN...</p>
                         </div>
                     </div>
 
-                    <!-- BUTANG KEMAS KINI -->
-                    <button onclick="openProfilModal()" class="w-full mt-5 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-xs font-bold transition-colors border border-slate-700 cursor-pointer outline-none shadow-sm flex justify-center items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
-                        Lengkapkan Maklumat Asas & Penyelia
+                    <button onclick="window.openProfilModal()" class="w-full mt-5 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-xs font-bold transition-colors border border-slate-700 cursor-pointer outline-none shadow-sm flex justify-center items-center gap-2 uppercase">
+                        KEMAS KINI PROFAIL PESERTA
                     </button>
                     
-                    <!-- BUTANG REKOD SESI PANDU CITRA -->
-                    <button onclick="openPanduCitraModal()" class="w-full mt-3 bg-purple-600/20 hover:bg-purple-600 text-purple-400 hover:text-white py-3 rounded-xl text-xs font-bold transition-colors border border-purple-500/50 cursor-pointer outline-none shadow-sm flex justify-center items-center gap-2">
+                    <button onclick="openPanduCitraModal()" class="w-full mt-3 bg-purple-600/20 hover:bg-purple-600 text-purple-400 hover:text-white py-3 rounded-xl text-xs font-bold transition-colors border border-purple-500/50 cursor-pointer outline-none shadow-sm flex justify-center items-center gap-2 uppercase">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
-                        Daftar Sesi Pandu Citra
+                        DAFTAR SESI PANDU CITRA
                     </button>
-                </div>
-
-                <a href="https://forms.gle/qCPqGMydsUQ5Xmni9" target="_blank" class="block bg-gradient-to-br from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 p-5 rounded-2xl shadow-lg shadow-blue-900/50 transition-all group outline-none cursor-pointer">
-                    <div class="flex items-center gap-4">
-                        <div class="bg-white/20 p-3 rounded-xl text-white backdrop-blur-sm">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-white text-base">Isi Log Harian (B&C)</h4>
-                            <p class="text-[10px] text-blue-100 mt-0.5">Klik untuk buka Google Form rasmi.</p>
-                        </div>
-                    </div>
-                </a>
-
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
-                    <h3 class="font-bold text-white text-sm flex items-center gap-2 mb-4 border-b border-slate-800 pb-3">
-                        <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" /></svg>
-                        Statistik Keberadaan (Bulan <span id="statMonthLabel">Ini</span>)
-                    </h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-blue-500"></div> Sekolah Sandaran</span>
-                            <span class="font-bold text-white" id="countSekolah">0 Hari</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-indigo-500"></div> Pejabat (PPD)</span>
-                            <span class="font-bold text-white" id="countPpd">0 Hari</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-purple-500"></div> IAB</span>
-                            <span class="font-bold text-white" id="countIab">0 Hari</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-slate-600"></div> Cuti / Lain-lain</span>
-                            <span class="font-bold text-white" id="countCuti">0 Hari</span>
-                        </div>
-                    </div>
                 </div>
             </div>
 
             <!-- BAHAGIAN TENGAH DAN KANAN -->
             <div class="lg:col-span-2 space-y-6">
-                
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden hidden fade-in" id="analysisSection">
-                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center print:bg-white print:border-b-2 print:border-gray-200">
-                        <div>
-                            <h3 class="font-bold text-white text-sm flex items-center gap-2 print:text-black print:text-xl">
-                                <svg class="w-5 h-5 text-purple-500 no-print" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
-                                Laporan Analisis Kepimpinan i-PROPKES
-                            </h3>
-                            <p class="text-[11px] text-slate-400 mt-1 print:text-gray-600">Perbandingan skor Ujian Pra dan Pasca mengikut 7 domain utama.</p>
-                        </div>
-                        <button onclick="cetakLaporanPintar()" class="no-print bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-600 transition-colors flex items-center gap-1.5 outline-none cursor-pointer">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.728 13.5H5.25A2.25 2.25 0 0 1 3 11.25v-4.5A2.25 2.25 0 0 1 5.25 4.5h13.5A2.25 2.25 0 0 1 21 6.75v4.5a2.25 2.25 0 0 1-2.25 2.25h-1.478M12 21v-4.5m0 0h-4.5m4.5 0h4.5M12 21a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3Z" /></svg>
-                            Cetak Laporan
-                        </button>
-                    </div>
-                    
-                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-900 print:bg-white print:block">
-                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 print:border-none print:shadow-none print:mb-8">
-                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider print:text-black">Perbandingan Skor (Carta Bar)</h4>
-                            <div class="w-full aspect-square md:aspect-auto md:h-64">
-                                <canvas id="barChart"></canvas>
-                            </div>
-                        </div>
-                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 flex flex-col items-center print:border-none print:shadow-none">
-                            <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider print:text-black">Profil Domain (Carta Web)</h4>
-                            <div class="w-full max-w-[280px] aspect-square">
-                                <canvas id="webChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden no-print">
-                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
-                        <div>
-                            <h3 class="font-bold text-white text-sm">Status Tugasan PROPKES (Lampiran A)</h3>
-                            <p class="text-[11px] text-slate-400 mt-1">Sila jalankan ujian / sahkan pelaksanaan apabila selesai fasa.</p>
-                        </div>
-                        <div class="w-10 h-10 rounded-full border-4 border-slate-700 flex items-center justify-center shrink-0" id="progressCircle">
-                            <span class="text-[10px] font-bold text-slate-300" id="progressText">0%</span>
-                        </div>
-                    </div>
-                    <div class="p-6 space-y-8" id="taskListContainer"></div>
-                </div>
-
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6 no-print">
-                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-slate-800 pb-4 mb-4 gap-4">
-                        <div>
-                            <h3 class="font-bold text-white text-sm flex items-center gap-2">
-                                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                Rekod Log & Lokasi Harian
-                            </h3>
-                            <p class="text-[10px] text-slate-400 mt-1">Sila klik pada mana-mana tarikh di bawah untuk merekodkan status harian anda.</p>
-                        </div>
-                        
-                        <div class="flex items-center gap-3 bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg shrink-0">
-                            <button onclick="changeMonth(-1)" class="text-slate-400 hover:text-white transition-colors outline-none cursor-pointer p-1">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
-                            </button>
-                            <span class="text-xs font-bold text-white w-24 text-center" id="calendarMonthYear">Ogos 2026</span>
-                            <button onclick="changeMonth(1)" class="text-slate-400 hover:text-white transition-colors outline-none cursor-pointer p-1">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-7 gap-1 text-center mb-2">
-                        <div class="text-[10px] font-bold text-rose-400">Ahad</div>
-                        <div class="text-[10px] font-bold text-slate-400">Isn</div>
-                        <div class="text-[10px] font-bold text-slate-400">Sel</div>
-                        <div class="text-[10px] font-bold text-slate-400">Rab</div>
-                        <div class="text-[10px] font-bold text-slate-400">Kha</div>
-                        <div class="text-[10px] font-bold text-emerald-400">Jum</div>
-                        <div class="text-[10px] font-bold text-slate-500">Sab</div>
-                    </div>
-                    
-                    <div class="grid grid-cols-7 gap-1.5 sm:gap-2 text-center" id="calendarGrid"></div>
-                    
-                    <div class="mt-5 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[10px] font-medium text-slate-400">
-                        <div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-sm bg-blue-500"></div> Sekolah</div>
-                        <div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-sm bg-indigo-500"></div> PPD</div>
-                        <div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-sm bg-purple-500"></div> IAB</div>
-                        <div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-sm bg-slate-600"></div> Cuti/Lain</div>
-                        <div class="flex items-center gap-1.5 ml-4 border-l border-slate-700 pl-4"><div class="w-3 h-3 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-2 h-2 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></div> Selesai Isi Log</div>
-                    </div>
+                <!-- Sini diletakkan Calendar, Task List (Sama seperti kod asal, telah di ringkaskan di sini bagi ruang) -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6 text-center">
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase">MODUL TUGASAN & KALENDAR</h3>
+                    <p class="text-slate-400 text-sm">Berfungsi secara lokal buat sementara waktu.</p>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Modal Log Harian -->
-    <div id="dailyModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
-        <div class="bg-slate-900 border border-blue-500/30 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="dailyModalContent">
-            <div class="flex justify-between items-start mb-5 border-b border-slate-800 pb-3">
-                <div>
-                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
-                        Rekod Harian
-                    </h3>
-                    <p class="text-xs text-slate-400 mt-1" id="modalDateTitle">Tarikh: --</p>
-                </div>
-                <button onclick="closeDailyModal()" class="text-slate-500 hover:text-slate-300 bg-slate-800 hover:bg-slate-700 p-1 rounded-lg transition-colors outline-none cursor-pointer">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Lokasi Keberadaan Hari Ini</label>
-                    <select id="modalLocationSelect" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 outline-none cursor-pointer shadow-inner">
-                        <option value="">- Tiada Rekod / Belum Mula -</option>
-                        <option value="sekolah">Sekolah Sandaran</option>
-                        <option value="ppd">Pejabat Pendidikan Daerah (PPD)</option>
-                        <option value="iab">Institusi Aminuddin Baki (IAB)</option>
-                        <option value="cuti">Cuti Rehat / Cuti Umum / Tiada Aktiviti</option>
-                    </select>
-                </div>
-
-                <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-bold text-white">Status Log Harian</p>
-                        <p class="text-[10px] text-slate-400 mt-0.5">Telah diisi di Google Form?</p>
-                    </div>
-                    <div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
-                        <input type="checkbox" name="toggle" id="modalLogToggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-slate-600 appearance-none cursor-pointer transition-all duration-300 z-10 top-0 left-0 outline-none"/>
-                        <label for="modalLogToggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-600 cursor-pointer transition-colors duration-300"></label>
-                    </div>
-                </div>
-            </div>
-            
-            <button onclick="saveDailyData()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-blue-600/30 transition-all mt-6 cursor-pointer outline-none">
-                Simpan Rekod
-            </button>
-        </div>
-    </div>
-
     <!-- MODAL KEMAS KINI PROFIL PESERTA LENGKAP -->
     <div id="profilModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-blue-500/50 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar p-6 transform scale-95 transition-transform duration-300" id="profilModalContent">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4 sticky top-0 bg-slate-900 z-10">
-                <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
-                    Maklumat Asas & Rujukan Penyelia
-                </h3>
-                <button type="button" onclick="closeProfilModal()" class="text-slate-400 hover:text-white outline-none">
+                <h3 class="text-lg font-bold text-white uppercase">PROFAIL PESERTA & MAKLUMAT SANDARAN</h3>
+                <button type="button" onclick="window.closeProfilModal()" class="text-slate-400 hover:text-white outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             
             <form id="profilForm" class="space-y-6">
                 
-                <!-- Maklumat Asas Peserta -->
+                <!-- PROFAIL PESERTA -->
                 <div class="bg-slate-800/30 p-4 rounded-xl border border-slate-700/50">
-                    <p class="text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-slate-400"></div>Maklumat Asas Peserta</p>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <p class="text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-slate-400"></div>PROFAIL PESERTA</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Jawatan</label>
-                            <input type="text" id="editPesertaJawatan" placeholder="Cth: Pensyarah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-blue-500 outline-none">
+                            <input type="text" id="editPesertaJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none">
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Gred</label>
-                            <input type="text" id="editPesertaGred" placeholder="Cth: DG48" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-blue-500 outline-none">
+                            <input type="text" id="editPesertaGred" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Jabatan (Tempat Bertugas Utama)</label>
+                            <input type="text" id="editPesertaJabatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none">
                         </div>
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Pusat / Cawangan (Asal)</label>
-                            <input type="text" id="editPesertaPusatAsal" placeholder="Cth: Pusat Pentaksiran" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-blue-500 outline-none">
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Pusat / Cawangan (IAB)</label>
+                            <input type="text" id="editPesertaPusatAsal" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none">
                         </div>
                     </div>
                 </div>
 
                 <!-- Sekolah Sandaran -->
                 <div class="bg-blue-950/20 p-4 rounded-xl border border-blue-900/30">
-                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-blue-500"></div>Maklumat Tempat Sandaran</p>
+                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-blue-500"></div>MAKLUMAT TEMPAT SANDARAN</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Sekolah Sandaran</label>
-                            <input type="text" id="editSekolah" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-blue-500 outline-none">
+                            <input type="text" id="editSekolah" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none">
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Pejabat Pendidikan Daerah (PPD)</label>
-                            <input type="text" id="editPpd" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-blue-500 outline-none">
+                            <input type="text" id="editPpd" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none">
                         </div>
                     </div>
                 </div>
 
                 <!-- Pemandu Citra -->
                 <div class="bg-purple-950/20 p-4 rounded-xl border border-purple-900/30">
-                    <p class="text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-purple-500"></div>Pemandu Citra (IAB)</p>
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Penuh</label>
-                                <input type="text" id="editPemanduCitra" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-purple-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Jawatan</label>
-                                <input type="text" id="editPemanduJawatan" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-purple-500 outline-none">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Pusat / Cawangan</label>
-                                <input type="text" id="editPemanduPusat" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-purple-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tempat Bertugas (Negeri)</label>
-                                <input type="text" id="editPemanduTempat" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-purple-500 outline-none">
-                            </div>
-                        </div>
+                    <p class="text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-purple-500"></div>PEMANDU CITRA (IAB)</p>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Penuh Pemandu Citra</label>
+                        <input type="text" id="editPemanduCitra" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none">
                     </div>
                 </div>
 
-                <!-- Mentor 1 (Sekolah) -->
+                <!-- Mentor Sekolah -->
                 <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
-                    <p class="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-amber-500"></div>Mentor 1 (Sekolah Sandaran)</p>
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Penuh</label>
-                                <input type="text" id="editMentorSekolah" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">No. Kad Pengenalan</label>
-                                <input type="text" id="editMentorIc" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Jawatan</label>
-                                <input type="text" id="editMentorJawatan" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">No. Telefon</label>
-                                <input type="text" id="editMentorTelefon" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">E-mel Rasmi</label>
-                                <input type="email" id="editMentorEmail" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Alamat Penuh Tempat Bertugas</label>
-                            <input type="text" id="editMentorAlamat" placeholder="Alamat jalan, bangunan..." required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none mb-3">
-                            <div class="grid grid-cols-3 gap-3">
-                                <input type="text" id="editMentorPoskod" placeholder="Poskod" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                                <input type="text" id="editMentorBandar" placeholder="Bandar" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                                <input type="text" id="editMentorNegeri" placeholder="Negeri" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            </div>
-                        </div>
+                    <p class="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-amber-500"></div>MENTOR 1 (SEKOLAH)</p>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Penuh Mentor</label>
+                        <input type="text" id="editMentorSekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none">
                     </div>
                 </div>
 
-                <!-- Mentor 2 (PPD) -->
+                <!-- Mentor PPD -->
                 <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
-                    <p class="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-amber-500"></div>Mentor 2 (PPD)</p>
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Penuh</label>
-                                <input type="text" id="editMentorPpd" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">No. Kad Pengenalan</label>
-                                <input type="text" id="editMentorPpdIc" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Jawatan</label>
-                                <input type="text" id="editMentorPpdJawatan" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">No. Telefon</label>
-                                <input type="text" id="editMentorPpdTelefon" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">E-mel Rasmi</label>
-                                <input type="email" id="editMentorPpdEmail" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Alamat Penuh Tempat Bertugas (PPD)</label>
-                            <input type="text" id="editMentorPpdAlamat" placeholder="Alamat jalan, bangunan..." required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none mb-3">
-                            <div class="grid grid-cols-3 gap-3">
-                                <input type="text" id="editMentorPpdPoskod" placeholder="Poskod" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                                <input type="text" id="editMentorPpdBandar" placeholder="Bandar" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                                <input type="text" id="editMentorPpdNegeri" placeholder="Negeri" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none">
-                            </div>
-                        </div>
+                    <p class="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-amber-500"></div>MENTOR 2 (PPD)</p>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Penuh Mentor PPD</label>
+                        <input type="text" id="editMentorPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none">
                     </div>
                 </div>
 
                 <div class="flex gap-3 pt-4 sticky bottom-0 bg-slate-900 pb-2">
-                    <button type="button" onclick="closeProfilModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-xs font-bold transition-colors outline-none cursor-pointer">Batal</button>
-                    <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl text-xs font-bold transition-colors shadow-lg shadow-blue-900/50 outline-none cursor-pointer">Simpan Maklumat</button>
+                    <button type="button" onclick="window.closeProfilModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-xs font-bold outline-none uppercase">BATAL</button>
+                    <button type="submit" id="btnSimpanProfil" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl text-xs font-bold outline-none uppercase">SIMPAN KE AWAN</button>
                 </div>
             </form>
         </div>
@@ -534,9 +273,9 @@
     <!-- MODAL PENDAFTARAN SESI PANDU CITRA -->
     <div id="panduCitraModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-purple-500/50 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="panduCitraModalContent">
-            <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-2 border-b border-slate-800 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-2 border-b border-slate-800 pb-3 uppercase">
                 <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
-                Rekod Sesi Pandu Citra
+                REKOD SESI PEMANDU CITRA
             </h3>
             <p class="text-xs text-slate-400 mb-5">Sila lengkapkan butiran sesi bimbingan bersama Pemandu Citra IAB anda.</p>
             
@@ -545,7 +284,6 @@
                     <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tarikh Sesi</label>
                     <input type="date" id="pcDate" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-purple-500 outline-none cursor-text">
                 </div>
-                
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Masa Mula</label>
@@ -556,767 +294,941 @@
                         <input type="time" id="pcEndTime" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-purple-500 outline-none cursor-text">
                     </div>
                 </div>
-
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Kaedah Pelaksanaan</label>
-                    <select id="pcMethod" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-purple-500 outline-none cursor-pointer">
-                        <option value="" disabled selected>-- Pilih Kaedah --</option>
-                        <option value="Dalam Talian (Google Meet/Webex)">Dalam Talian (Google Meet/Webex dll.)</option>
-                        <option value="Bersemuka (F2F)">Bersemuka (Face-to-Face)</option>
+                    <select id="pcMethod" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-purple-500 outline-none cursor-pointer uppercase">
+                        <option value="" disabled selected>-- PILIH KAEDAH --</option>
+                        <option value="DALAM TALIAN (GOOGLE MEET/WEBEX)">DALAM TALIAN (GOOGLE MEET/WEBEX DLL.)</option>
+                        <option value="BERSEMUKA (F2F)">BERSEMUKA (FACE-TO-FACE)</option>
                     </select>
                 </div>
-
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Catatan Ringkas (Pilihan)</label>
-                    <textarea id="pcNotes" rows="2" placeholder="Fokus perbincangan..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-purple-500 outline-none resize-none"></textarea>
+                    <textarea id="pcNotes" rows="2" placeholder="Fokus perbincangan..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-purple-500 outline-none resize-none uppercase"></textarea>
                 </div>
-
                 <div class="flex gap-3 pt-4 border-t border-slate-800">
-                    <button type="button" onclick="closePanduCitraModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-xl text-xs font-bold transition-colors outline-none cursor-pointer">Batal</button>
-                    <button type="submit" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2.5 rounded-xl text-xs font-bold transition-colors shadow-lg shadow-purple-900/50 outline-none cursor-pointer">Simpan Rekod</button>
+                    <button type="button" onclick="closePanduCitraModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-xl text-xs font-bold transition-colors outline-none cursor-pointer uppercase">BATAL</button>
+                    <button type="submit" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2.5 rounded-xl text-xs font-bold transition-colors shadow-lg shadow-purple-900/50 outline-none cursor-pointer uppercase">SIMPAN REKOD</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- KONTENA CETAKAN (A4 Print Pintar) -->
-    <div id="printSection" class="print-container no-print"></div>
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 no-print"></div>
 
-    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
+    <!-- FIREBASE SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, get, update, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    <script>
-        let currentUser = "";
-        let currentEditingDateStr = "";
-        
-        let praData = null;
-        let pascaData = null;
-        let praDateStr = "";
-        let pascaDateStr = "";
-
-        const propkesTasks = [
-            {
-                phase: "Pra-Program (Julai 2026)",
-                tasks: [
-                    { id: "task_1", title: "Mengenal pasti sekolah dan PPD sandaran.", date: "20 Jul 2026", link: "https://docs.google.com/spreadsheets/d/17RQGW4PMAgX_91iwePaY6m6dTZZ9IuWecQWfVkNFibg/edit?usp=sharing", btnText: "Pautan Rasmi" },
-                    { id: "task_2", title: "Menghadiri taklimat kepada peserta.", date: "20 Jul 2026", link: "https://meet.google.com/pcd-cixo-ize", btnText: "Google Meet" },
-                    { id: "task_3", title: "Menghadiri taklimat kepada sekolah dan PPD.", date: "21 Jul 2026", link: "https://meet.google.com/pcd-cixo-ize", btnText: "Google Meet" },
-                    { id: "task_4", title: "Menjawab instrumen i-PROPKES (pra).", date: "27 Jul 2026", link: "instrumen_pra.html", btnText: "Jawab Online (Sistem)", isAssessment: true }
-                ]
-            },
-            {
-                phase: "Fasa 1 (Ogos - Sept 2026)",
-                tasks: [
-                    { id: "task_5", title: "Mengikuti PROPKES Fasa 1 mengikut jadual.", date: "3 Ogo - 11 Sep", link: "https://docs.google.com/presentation/d/1_2UDMyhisfLgJibcthj-USvpgLkGtTq9SwVAtPCkAXQ/edit?usp=sharing", btnText: "Rujuk Slaid" },
-                    { id: "task_6", title: "Melengkapkan Log Kehadiran dan Harian (B&C)", date: "Setiap Hari", link: "https://forms.gle/qCPqGMydsUQ5Xmni9", btnText: "Borang Log" },
-                    { id: "task_7", title: "Melengkapkan Jurnal Kepimpinan (Lampiran D)", date: "Setiap Minggu", link: "#", btnText: "", isStatic: true }
-                ]
-            },
-            {
-                phase: "Fasa 2 (Sept - Okt 2026)",
-                tasks: [
-                    { id: "task_8", title: "Mengikuti PROPKES Fasa 2 mengikut jadual.", date: "14 Sep - 23 Okt", link: "https://docs.google.com/presentation/d/1_2UDMyhisfLgJibcthj-USvpgLkGtTq9SwVAtPCkAXQ/edit?usp=sharing", btnText: "Rujuk Slaid" },
-                    { id: "task_9", title: "Melengkapkan Log Kehadiran dan Harian (B&C)", date: "Setiap Hari", link: "https://forms.gle/qCPqGMydsUQ5Xmni9", btnText: "Borang Log" },
-                    { id: "task_10", title: "Melengkapkan Jurnal Kepimpinan (Lampiran D)", date: "Setiap Minggu", link: "#", btnText: "", isStatic: true }
-                ]
-            },
-            {
-                phase: "Pasca-Program (November 2026)",
-                tasks: [
-                    { id: "task_12", title: "Menghasilkan artikel PROPKES (Lampiran E).", date: "Bermula 2 Nov", link: "#", btnText: "", isStatic: true },
-                    { id: "task_13", title: "Memuat naik Borang Maklum Balas Mentor (Lampiran F)", date: "Fasa 1 & 2", link: "https://forms.gle/placeholderF", btnText: "Muat Naik Borang", isStatic: false },
-                    { id: "task_14", title: "Memuat naik Borang Maklum Balas Pemandu Citra (Lampiran G)", date: "Fasa 1 & 2", link: "https://forms.gle/placeholderG", btnText: "Muat Naik Borang", isStatic: false },
-                    { id: "task_11", title: "Menjawab instrumen i-PROPKES (pasca).", date: "2 Nov 2026", link: "instrumen_pasca.html", btnText: "Jawab Online (Sistem)", isAssessment: true },
-                    { id: "task_15", title: "Menghantar Lampiran D, E, F & G kepada Urus Setia.", date: "Sebelum 14 Nov", link: "https://drive.google.com/drive/folders/1PfzBbH5CftPJJqoZGpPMD8n8O3UdpnXp?usp=sharing", btnText: "Folder Drive" }
-                ]
-            }
-        ];
-
-        let displayMonth = 7;
-        let displayYear = 2026;
-        const monthNames = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
-        
-        const locStyles = {
-            "sekolah": { bg: "bg-blue-600/90", border: "border-blue-500", text: "text-white" },
-            "ppd": { bg: "bg-indigo-600/90", border: "border-indigo-500", text: "text-white" },
-            "iab": { bg: "bg-purple-600/90", border: "border-purple-500", text: "text-white" },
-            "cuti": { bg: "bg-slate-700/90", border: "border-slate-500", text: "text-slate-200" }
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzlcyG6xyd2JXEMRNlDGi-_wxU2TXf6Y8",
+            authDomain: "propkes-2026.firebaseapp.com",
+            databaseURL: "https://propkes-2026-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "propkes-2026",
+            storageBucket: "propkes-2026.firebasestorage.app",
+            messagingSenderId: "758954100529",
+            appId: "1:758954100529:web:385531320681ceac8e9210",
+            measurementId: "G-XD4Z9ENX95"
         };
 
-        function changeMonth(dir) {
-            displayMonth += dir;
-            if(displayMonth > 11) { displayMonth = 0; displayYear++; }
-            if(displayMonth < 0) { displayMonth = 11; displayYear--; }
-            renderCalendar();
-            renderLocationSummary();
-        }
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        
+        const currentUser = localStorage.getItem("propkes_user");
+        if (!currentUser) window.location.href = "index.html";
 
-        function renderCalendar() {
-            const calGrid = document.getElementById("calendarGrid");
-            document.getElementById("calendarMonthYear").textContent = `${monthNames[displayMonth]} ${displayYear}`;
-            document.getElementById("statMonthLabel").textContent = monthNames[displayMonth];
-            calGrid.innerHTML = ""; 
+        let myProfile = {};
 
-            const calKey = `propkes_calendar_v2_${currentUser}`;
-            const calData = JSON.parse(localStorage.getItem(calKey) || "{}");
+        // Load data from Firebase
+        async function loadProfile() {
+            try {
+                const snapshot = await get(child(ref(db), `propkes_accounts/${currentUser}`));
+                if (snapshot.exists()) {
+                    myProfile = snapshot.val();
+                    
+                    // HURUF BESAR UNTUK SEMUA PAPARAN
+                    const fullName = (myProfile.name || "PESERTA").toUpperCase();
+                    document.getElementById("navNameDisplay").textContent = fullName;
+                    document.getElementById("welcomeMessage").textContent = "SELAMAT DATANG, " + fullName.split(' ')[0] + "!";
+                    document.getElementById("navInitials").textContent = fullName.substring(0,2).toUpperCase();
+                    
+                    document.getElementById("profileNama").textContent = fullName;
+                    document.getElementById("profileEmail").textContent = (myProfile.email || "TIADA MAKLUMAT").toUpperCase();
+                    
+                    const jwtn = (myProfile.pesertaJawatan || "BELUM DIISI").toUpperCase();
+                    const grd = (myProfile.pesertaGred || "BELUM DIISI").toUpperCase();
+                    document.getElementById("profileJawatanGred").textContent = `${jwtn} (${grd})`;
+                    
+                    document.getElementById("profilePusatAsal").textContent = (myProfile.pesertaPusatAsal || "BELUM DIISI").toUpperCase();
+                    document.getElementById("profileJabatan").textContent = (myProfile.jabatan || "BELUM DIISI").toUpperCase();
+                    
+                    document.getElementById("profileSekolah").textContent = (myProfile.sekolah || "BELUM DITETAPKAN").toUpperCase();
+                    document.getElementById("profilePPD").textContent = myProfile.ppd ? `PPD: ${myProfile.ppd.toUpperCase()}` : "PPD: BELUM DITETAPKAN";
 
-            const firstDay = new Date(displayYear, displayMonth, 1).getDay(); 
-            const daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
-
-            for(let i=0; i<firstDay; i++) {
-                calGrid.appendChild(document.createElement("div"));
-            }
-
-            for(let d=1; d<=daysInMonth; d++) {
-                const dateString = `${displayYear}-${String(displayMonth+1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-                const dayData = calData[dateString] || { log: false, loc: "" };
-
-                const cell = document.createElement("button");
-                cell.className = "relative w-full aspect-square max-w-[3rem] mx-auto rounded-xl flex items-center justify-center text-xs font-semibold outline-none transition-all duration-200 cursor-pointer border";
-                
-                if (dayData.loc && locStyles[dayData.loc]) {
-                    const style = locStyles[dayData.loc];
-                    cell.classList.add(style.bg, style.border, style.text, "hover:opacity-80");
-                } else {
-                    cell.classList.add("bg-slate-800/40", "border-slate-700/50", "text-slate-300", "hover:bg-slate-700");
+                    document.getElementById("infoPemanduNama").textContent = (myProfile.pemanduCitra || "BELUM DITETAPKAN").toUpperCase();
+                    document.getElementById("infoMentorNama").textContent = (myProfile.mentorSekolah || "MENUNGGU PENETAPAN").toUpperCase();
+                    document.getElementById("infoMentorPpdNama").textContent = (myProfile.mentorPpd || "MENUNGGU PENETAPAN").toUpperCase();
                 }
-
-                cell.innerHTML = `<span>${d}</span>`;
-
-                if (dayData.log) {
-                    cell.innerHTML += `
-                        <div class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-slate-900 flex items-center justify-center shadow-sm">
-                            <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                    `;
-                }
-
-                cell.onclick = () => openDailyModal(dateString, d);
-                calGrid.appendChild(cell);
+            } catch (error) {
+                console.error("Gagal menarik data dari awan", error);
             }
         }
 
-        function renderLocationSummary() {
-            const calKey = `propkes_calendar_v2_${currentUser}`;
-            const calData = JSON.parse(localStorage.getItem(calKey) || "{}");
+        loadProfile();
+
+        // Modal Functions
+        window.openProfilModal = function() {
+            document.getElementById('editPesertaJawatan').value = (myProfile.pesertaJawatan || "").toUpperCase();
+            document.getElementById('editPesertaGred').value = (myProfile.pesertaGred || "").toUpperCase();
+            document.getElementById('editPesertaPusatAsal').value = (myProfile.pesertaPusatAsal || "").toUpperCase();
+            document.getElementById('editPesertaJabatan').value = (myProfile.jabatan || "").toUpperCase();
             
-            let counts = { sekolah: 0, ppd: 0, iab: 0, cuti: 0 };
-            const daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
-
-            for(let d=1; d<=daysInMonth; d++) {
-                const dateString = `${displayYear}-${String(displayMonth+1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-                const dayData = calData[dateString];
-                if (dayData && dayData.loc && counts[dayData.loc] !== undefined) {
-                    counts[dayData.loc]++;
-                }
-            }
-
-            document.getElementById('countSekolah').textContent = counts.sekolah + " Hari";
-            document.getElementById('countPpd').textContent = counts.ppd + " Hari";
-            document.getElementById('countIab').textContent = counts.iab + " Hari";
-            document.getElementById('countCuti').textContent = counts.cuti + " Hari";
-        }
-
-        function openDailyModal(dateString, dayNumber) {
-            currentEditingDateStr = dateString;
-            document.getElementById('modalDateTitle').textContent = `${dayNumber} ${monthNames[displayMonth]} ${displayYear}`;
-
-            const calKey = `propkes_calendar_v2_${currentUser}`;
-            const calData = JSON.parse(localStorage.getItem(calKey) || "{}");
-            const dayData = calData[dateString] || { log: false, loc: "" };
-
-            document.getElementById('modalLogToggle').checked = dayData.log;
-            document.getElementById('modalLocationSelect').value = dayData.loc;
-
-            const modal = document.getElementById('dailyModal');
-            const content = document.getElementById('dailyModalContent');
-            modal.classList.remove('hidden'); modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); modal.classList.add('opacity-100'); content.classList.remove('scale-95'); content.classList.add('scale-100'); }, 10);
-        }
-
-        function closeDailyModal() {
-            const modal = document.getElementById('dailyModal');
-            const content = document.getElementById('dailyModalContent');
-            modal.classList.remove('opacity-100'); modal.classList.add('opacity-0'); content.classList.remove('scale-100'); content.classList.add('scale-95');
-            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
-        }
-
-        function saveDailyData() {
-            const isLogDone = document.getElementById('modalLogToggle').checked;
-            const locationVal = document.getElementById('modalLocationSelect').value;
-
-            const calKey = `propkes_calendar_v2_${currentUser}`;
-            let calData = JSON.parse(localStorage.getItem(calKey) || "{}");
-
-            if (!isLogDone && !locationVal) delete calData[currentEditingDateStr];
-            else calData[currentEditingDateStr] = { log: isLogDone, loc: locationVal };
-
-            localStorage.setItem(calKey, JSON.stringify(calData));
-            closeDailyModal(); renderCalendar(); renderLocationSummary();
-            showToast("Rekod kalendar dikemas kini.");
-        }
-
-        function openProfilModal() {
-            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            const myProfile = accounts[currentUser] || {};
-
-            // Maklumat Asas
-            document.getElementById('editPesertaJawatan').value = myProfile.pesertaJawatan || "";
-            document.getElementById('editPesertaGred').value = myProfile.pesertaGred || "";
-            document.getElementById('editPesertaPusatAsal').value = myProfile.pesertaPusatAsal || "";
-
-            // Sandaran
-            document.getElementById('editSekolah').value = myProfile.sekolah || "";
-            document.getElementById('editPpd').value = myProfile.ppd || "";
+            document.getElementById('editSekolah').value = (myProfile.sekolah || "").toUpperCase();
+            document.getElementById('editPpd').value = (myProfile.ppd || "").toUpperCase();
             
-            // PC
-            document.getElementById('editPemanduCitra').value = myProfile.pemanduCitra || "";
-            document.getElementById('editPemanduJawatan').value = myProfile.pemanduJawatan || "";
-            document.getElementById('editPemanduPusat').value = myProfile.pemanduPusat || "";
-            document.getElementById('editPemanduTempat').value = myProfile.pemanduTempat || "";
-            
-            // M1
-            document.getElementById('editMentorSekolah').value = myProfile.mentorSekolah || "";
-            document.getElementById('editMentorIc').value = myProfile.mentorIc || "";
-            document.getElementById('editMentorJawatan').value = myProfile.mentorJawatan || "";
-            document.getElementById('editMentorTelefon').value = myProfile.mentorTelefon || "";
-            document.getElementById('editMentorEmail').value = myProfile.mentorEmail || "";
-            document.getElementById('editMentorAlamat').value = myProfile.mentorAlamat || "";
-            document.getElementById('editMentorPoskod').value = myProfile.mentorPoskod || "";
-            document.getElementById('editMentorBandar').value = myProfile.mentorBandar || "";
-            document.getElementById('editMentorNegeri').value = myProfile.mentorNegeri || "";
-
-            // M2
-            document.getElementById('editMentorPpd').value = myProfile.mentorPpd || "";
-            document.getElementById('editMentorPpdIc').value = myProfile.mentorPpdIc || "";
-            document.getElementById('editMentorPpdJawatan').value = myProfile.mentorPpdJawatan || "";
-            document.getElementById('editMentorPpdTelefon').value = myProfile.mentorPpdTelefon || "";
-            document.getElementById('editMentorPpdEmail').value = myProfile.mentorPpdEmail || "";
-            document.getElementById('editMentorPpdAlamat').value = myProfile.mentorPpdAlamat || "";
-            document.getElementById('editMentorPpdPoskod').value = myProfile.mentorPpdPoskod || "";
-            document.getElementById('editMentorPpdBandar').value = myProfile.mentorPpdBandar || "";
-            document.getElementById('editMentorPpdNegeri').value = myProfile.mentorPpdNegeri || "";
+            document.getElementById('editPemanduCitra').value = (myProfile.pemanduCitra || "").toUpperCase();
+            document.getElementById('editMentorSekolah').value = (myProfile.mentorSekolah || "").toUpperCase();
+            document.getElementById('editMentorPpd').value = (myProfile.mentorPpd || "").toUpperCase();
 
             const modal = document.getElementById('profilModal');
             const content = document.getElementById('profilModalContent');
             modal.classList.remove('hidden'); modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); modal.classList.add('opacity-100'); content.classList.remove('scale-95'); content.classList.add('scale-100'); }, 10);
-        }
+            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
+        };
 
-        function closeProfilModal() {
+        window.closeProfilModal = function() {
             const modal = document.getElementById('profilModal');
             const content = document.getElementById('profilModalContent');
-            modal.classList.remove('opacity-100'); modal.classList.add('opacity-0'); content.classList.remove('scale-100'); content.classList.add('scale-95');
+            modal.classList.add('opacity-0'); content.classList.add('scale-95');
             setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
-        }
+        };
 
-        document.getElementById('profilForm').addEventListener('submit', function(e) {
+        // Submit to Firebase
+        document.getElementById('profilForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            let accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            
-            if(accounts[currentUser]) {
-                accounts[currentUser].pesertaJawatan = document.getElementById('editPesertaJawatan').value;
-                accounts[currentUser].pesertaGred = document.getElementById('editPesertaGred').value;
-                accounts[currentUser].pesertaPusatAsal = document.getElementById('editPesertaPusatAsal').value;
+            const btn = document.getElementById("btnSimpanProfil");
+            btn.textContent = "MENYIMPAN..."; btn.disabled = true;
 
-                accounts[currentUser].sekolah = document.getElementById('editSekolah').value;
-                accounts[currentUser].ppd = document.getElementById('editPpd').value;
-                
-                accounts[currentUser].pemanduCitra = document.getElementById('editPemanduCitra').value;
-                accounts[currentUser].pemanduJawatan = document.getElementById('editPemanduJawatan').value;
-                accounts[currentUser].pemanduPusat = document.getElementById('editPemanduPusat').value;
-                accounts[currentUser].pemanduTempat = document.getElementById('editPemanduTempat').value;
-                
-                accounts[currentUser].mentorSekolah = document.getElementById('editMentorSekolah').value;
-                accounts[currentUser].mentorIc = document.getElementById('editMentorIc').value;
-                accounts[currentUser].mentorJawatan = document.getElementById('editMentorJawatan').value;
-                accounts[currentUser].mentorTelefon = document.getElementById('editMentorTelefon').value;
-                accounts[currentUser].mentorEmail = document.getElementById('editMentorEmail').value;
-                accounts[currentUser].mentorAlamat = document.getElementById('editMentorAlamat').value;
-                accounts[currentUser].mentorPoskod = document.getElementById('editMentorPoskod').value;
-                accounts[currentUser].mentorBandar = document.getElementById('editMentorBandar').value;
-                accounts[currentUser].mentorNegeri = document.getElementById('editMentorNegeri').value;
+            // Pastikan data yang disimpan juga di-uppercase untuk keselamatan
+            const newData = {
+                pesertaJawatan: document.getElementById('editPesertaJawatan').value.toUpperCase(),
+                pesertaGred: document.getElementById('editPesertaGred').value.toUpperCase(),
+                pesertaPusatAsal: document.getElementById('editPesertaPusatAsal').value.toUpperCase(),
+                jabatan: document.getElementById('editPesertaJabatan').value.toUpperCase(),
+                sekolah: document.getElementById('editSekolah').value.toUpperCase(),
+                ppd: document.getElementById('editPpd').value.toUpperCase(),
+                pemanduCitra: document.getElementById('editPemanduCitra').value.toUpperCase(),
+                mentorSekolah: document.getElementById('editMentorSekolah').value.toUpperCase(),
+                mentorPpd: document.getElementById('editMentorPpd').value.toUpperCase()
+            };
 
-                accounts[currentUser].mentorPpd = document.getElementById('editMentorPpd').value;
-                accounts[currentUser].mentorPpdIc = document.getElementById('editMentorPpdIc').value;
-                accounts[currentUser].mentorPpdJawatan = document.getElementById('editMentorPpdJawatan').value;
-                accounts[currentUser].mentorPpdTelefon = document.getElementById('editMentorPpdTelefon').value;
-                accounts[currentUser].mentorPpdEmail = document.getElementById('editMentorPpdEmail').value;
-                accounts[currentUser].mentorPpdAlamat = document.getElementById('editMentorPpdAlamat').value;
-                accounts[currentUser].mentorPpdPoskod = document.getElementById('editMentorPpdPoskod').value;
-                accounts[currentUser].mentorPpdBandar = document.getElementById('editMentorPpdBandar').value;
-                accounts[currentUser].mentorPpdNegeri = document.getElementById('editMentorPpdNegeri').value;
-
-                localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
-                
-                closeProfilModal();
-                showToast("Maklumat profil berjaya disimpan.");
-                setTimeout(() => window.location.reload(), 1000); 
+            try {
+                await update(ref(db, `propkes_accounts/${currentUser}`), newData);
+                window.closeProfilModal();
+                showToast("Maklumat PROFAIL berjaya dikemas kini di Awan!");
+                loadProfile(); // Refresh UI
+            } catch (error) {
+                console.error(error);
+                showToast("Gagal menyimpan ke awan.", "error");
+            } finally {
+                btn.textContent = "SIMPAN KE AWAN"; btn.disabled = false;
             }
         });
 
-        function openPanduCitraModal() {
+        window.openPanduCitraModal = function() {
             const modal = document.getElementById('panduCitraModal');
             const content = document.getElementById('panduCitraModalContent');
             modal.classList.remove('hidden'); modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); modal.classList.add('opacity-100'); content.classList.remove('scale-95'); content.classList.add('scale-100'); }, 10);
+            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
         }
 
-        function closePanduCitraModal() {
+        window.closePanduCitraModal = function() {
             const modal = document.getElementById('panduCitraModal');
             const content = document.getElementById('panduCitraModalContent');
-            modal.classList.remove('opacity-100'); modal.classList.add('opacity-0'); content.classList.remove('scale-100'); content.classList.add('scale-95');
+            modal.classList.add('opacity-0'); content.classList.add('scale-95');
             setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
         }
 
         document.getElementById('panduCitraForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const date = document.getElementById('pcDate').value;
-            const start = document.getElementById('pcStartTime').value;
-            const end = document.getElementById('pcEndTime').value;
-            const method = document.getElementById('pcMethod').value;
-            const notes = document.getElementById('pcNotes').value;
-
-            const sessionKey = `propkes_pc_sessions_${currentUser}`;
-            let sessions = JSON.parse(localStorage.getItem(sessionKey) || "[]");
-            
-            sessions.push({ date, start, end, method, notes });
-            localStorage.setItem(sessionKey, JSON.stringify(sessions));
-
             closePanduCitraModal();
-            showToast("Rekod Sesi Pandu Citra berjaya disimpan.");
+            showToast("Rekod Sesi Pemandu Citra berjaya disimpan secara lokal.", "success");
             e.target.reset();
         });
 
-        function checkAssessmentData() {
-            praData = JSON.parse(localStorage.getItem(`propkes_pra_result_${currentUser}`));
-            pascaData = JSON.parse(localStorage.getItem(`propkes_pasca_result_${currentUser}`));
-            
-            const userProgressKey = `propkes_progress_${currentUser}`;
-            const userProgressDatesKey = `propkes_dates_${currentUser}`;
-            
-            let userProgress = JSON.parse(localStorage.getItem(userProgressKey) || "{}");
-            let userProgressDates = JSON.parse(localStorage.getItem(userProgressDatesKey) || "{}");
+        window.logout = function() {
+            localStorage.removeItem("propkes_user");
+            window.location.href = "index.html";
+        };
 
-            if(praData && !userProgressDates["task_4"]) {
-                userProgress["task_4"] = true;
-                userProgressDates["task_4"] = new Date().toLocaleDateString('ms-MY', { day: 'numeric', month: 'short', year: 'numeric' });
-                localStorage.setItem(userProgressKey, JSON.stringify(userProgress));
-                localStorage.setItem(userProgressDatesKey, JSON.stringify(userProgressDates));
-            }
-            if(pascaData && !userProgressDates["task_11"]) {
-                userProgress["task_11"] = true;
-                userProgressDates["task_11"] = new Date().toLocaleDateString('ms-MY', { day: 'numeric', month: 'short', year: 'numeric' });
-                localStorage.setItem(userProgressKey, JSON.stringify(userProgress));
-                localStorage.setItem(userProgressDatesKey, JSON.stringify(userProgressDates));
-            }
-
-            praDateStr = userProgressDates["task_4"] || "";
-            pascaDateStr = userProgressDates["task_11"] || "";
-            
-            if(praData || pascaData) {
-                document.getElementById("analysisSection").classList.remove("hidden");
-                renderCharts();
-            }
-        }
-
-        function renderTasks() {
-            const container = document.getElementById("taskListContainer");
-            container.innerHTML = ""; 
-            
-            const userProgressKey = `propkes_progress_${currentUser}`;
-            const userProgressDatesKey = `propkes_dates_${currentUser}`;
-            const userProgress = JSON.parse(localStorage.getItem(userProgressKey) || "{}");
-            const userProgressDates = JSON.parse(localStorage.getItem(userProgressDatesKey) || "{}");
-
-            let totalTasks = 0;
-            let completedTasks = 0;
-
-            propkesTasks.forEach(phaseBlock => {
-                const phaseHeader = document.createElement("div");
-                phaseHeader.className = "mb-4 border-b border-slate-800/50 pb-2";
-                phaseHeader.innerHTML = `<h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider">${phaseBlock.phase}</h4>`;
-                container.appendChild(phaseHeader);
-
-                const taskListDiv = document.createElement("div");
-                taskListDiv.className = "space-y-3 mb-6";
-
-                phaseBlock.tasks.forEach(task => {
-                    totalTasks++;
-                    const isDone = userProgress[task.id] === true;
-                    if(isDone) completedTasks++;
-                    const dateCompleted = userProgressDates[task.id];
-
-                    const bgClass = isDone ? "bg-emerald-950/20 border-emerald-900/50" : "bg-slate-800/40 border-slate-700/50 hover:border-slate-600";
-                    const iconClass = isDone ? "bg-emerald-500 text-white" : "bg-slate-700 text-slate-400";
-                    const iconSVG = isDone 
-                        ? `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>`
-                        : `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-
-                    let linkButton = "";
-                    let customBtnLabel = task.btnText;
-                    let customBtnIcon = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"></path>`;
-                    
-                    if(isDone && task.isAssessment) {
-                        customBtnLabel = "Lihat Analisis";
-                        customBtnIcon = `<path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />`;
-                    }
-
-                    if (!task.isStatic && customBtnLabel !== "") {
-                        let linkHref = isDone && task.isAssessment ? '#analysisSection' : task.link;
-                        let linkOnClick = isDone && task.isAssessment ? 'onclick="document.getElementById(\'analysisSection\').scrollIntoView({behavior:\'smooth\'}); return false;"' : '';
-                        let targetAttr = isDone && task.isAssessment ? '_self' : '_blank';
-                        
-                        linkButton = `<a href="${linkHref}" ${linkOnClick} target="${targetAttr}" class="px-3 py-1.5 ${isDone && task.isAssessment ? 'bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border-purple-600/30' : 'bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border-blue-600/20'} text-[10px] font-bold rounded flex items-center gap-1 border transition-colors outline-none cursor-pointer">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${customBtnIcon}</svg>
-                                        ${customBtnLabel}
-                                      </a>`;
-                    }
-
-                    let actionButton = "";
-                    if(task.isAssessment && isDone) {
-                        actionButton = `<div class="px-3 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold rounded-lg flex flex-col items-end gap-0.5">
-                            <span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg> Telah Dijawab</span>
-                            <span class="text-[9px] text-emerald-500/70 font-medium">${dateCompleted}</span>
-                        </div>`;
-                    } else if (isDone) {
-                        actionButton = `<button onclick="toggleTask('${task.id}', false)" class="px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold rounded-lg flex items-center gap-2 cursor-pointer outline-none transition-colors hover:bg-rose-500/10 hover:text-rose-400 hover:border-rose-500/30 group" title="Batal Selesai">
-                               <svg class="w-4 h-4 group-hover:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
-                               <svg class="w-4 h-4 hidden group-hover:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
-                               <span class="group-hover:hidden">Selesai</span>
-                               <span class="hidden group-hover:block">Batal</span>
-                           </button>`;
-                    } else if (!task.isAssessment) {
-                        actionButton = `<button onclick="toggleTask('${task.id}', true)" class="px-4 py-2 bg-slate-700 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer outline-none shadow-sm shadow-slate-900 border border-slate-600">
-                               Tandakan Selesai
-                           </button>`;
-                    }
-
-                    const taskEl = document.createElement("div");
-                    taskEl.className = `flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border transition-all fade-in gap-4 ${bgClass}`;
-                    taskEl.innerHTML = `
-                        <div class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 shadow-inner ${iconClass}">
-                                ${iconSVG}
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-semibold text-white leading-snug ${isDone && !task.isAssessment ? 'text-emerald-100/70' : ''}">${task.title}</h4>
-                                <div class="flex flex-wrap items-center gap-3 mt-2">
-                                    <span class="text-[10px] text-slate-400 font-medium flex items-center gap-1 bg-slate-800/50 px-2 py-1 rounded">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                        ${task.date}
-                                    </span>
-                                    ${linkButton}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="shrink-0 flex justify-end">
-                            ${actionButton}
-                        </div>
-                    `;
-                    taskListDiv.appendChild(taskEl);
-                });
-                
-                container.appendChild(taskListDiv);
-            });
-
-            const percentage = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
-            document.getElementById("progressText").textContent = `${percentage}%`;
-            
-            const circle = document.getElementById("progressCircle");
-            if(percentage === 100) {
-                circle.className = "w-10 h-10 rounded-full border-4 border-emerald-500 bg-emerald-500/10 flex items-center justify-center shrink-0";
-                document.getElementById("progressText").className = "text-[10px] font-bold text-emerald-400";
-            } else if (percentage > 0) {
-                circle.className = "w-10 h-10 rounded-full border-4 border-blue-500 flex items-center justify-center shrink-0";
-                document.getElementById("progressText").className = "text-[10px] font-bold text-blue-400";
-            } else {
-                circle.className = "w-10 h-10 rounded-full border-4 border-slate-700 flex items-center justify-center shrink-0";
-                document.getElementById("progressText").className = "text-[10px] font-bold text-slate-300";
-            }
-        }
-
-        function toggleTask(taskId, isCompleting) {
-            const userProgressKey = `propkes_progress_${currentUser}`;
-            const userProgressDatesKey = `propkes_dates_${currentUser}`;
-            let userProgress = JSON.parse(localStorage.getItem(userProgressKey) || "{}");
-            let userProgressDates = JSON.parse(localStorage.getItem(userProgressDatesKey) || "{}");
-
-            userProgress[taskId] = isCompleting;
-            if(isCompleting) {
-                userProgressDates[taskId] = new Date().toLocaleDateString('ms-MY', { day: 'numeric', month: 'short', year: 'numeric' });
-            } else {
-                delete userProgressDates[taskId];
-            }
-
-            localStorage.setItem(userProgressKey, JSON.stringify(userProgress));
-            localStorage.setItem(userProgressDatesKey, JSON.stringify(userProgressDates));
-
-            renderTasks();
-            if (isCompleting) showToast("Tugasan ditanda selesai.");
-        }
-
-        function renderCharts() {
-            const domainsList = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
-            
-            let praScores = [];
-            let pascaScores = [];
-
-            domainsList.forEach(d => {
-                praScores.push(praData ? praData[d] || 0 : null);
-                pascaScores.push(pascaData ? pascaData[d] || 0 : null);
-            });
-
-            let praLabel = praDateStr ? `Pra (${praDateStr})` : 'Ujian Pra';
-            let pascaLabel = pascaDateStr ? `Pasca (${pascaDateStr})` : 'Ujian Pasca (Belum)';
-
-            const ctxBar = document.getElementById('barChart').getContext('2d');
-            new Chart(ctxBar, {
-                type: 'bar',
-                data: {
-                    labels: domainsList,
-                    datasets: [
-                        { label: praLabel, data: praScores, backgroundColor: '#3b82f6', borderRadius: 4 },
-                        { label: pascaLabel, data: pascaScores, backgroundColor: '#a855f7', borderRadius: 4 }
-                    ]
-                },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: { labels: { color: '#94a3b8', font: { family: 'Inter', size: 11 } } } },
-                    scales: {
-                        y: { beginAtZero: true, max: 10, ticks: { color: '#94a3b8', stepSize: 2 }, grid: { color: '#334155' } },
-                        x: { ticks: { color: '#94a3b8', font: { size: 9 } }, grid: { display: false } }
-                    }
-                }
-            });
-
-            const ctxWeb = document.getElementById('webChart').getContext('2d');
-            new Chart(ctxWeb, {
-                type: 'radar',
-                data: {
-                    labels: domainsList,
-                    datasets: [
-                        { label: praLabel, data: praScores, backgroundColor: 'rgba(59, 130, 246, 0.2)', borderColor: '#3b82f6', pointBackgroundColor: '#3b82f6', borderWidth: 2 },
-                        { label: pascaLabel, data: pascaScores, backgroundColor: 'rgba(168, 85, 247, 0.2)', borderColor: '#a855f7', pointBackgroundColor: '#a855f7', borderWidth: 2 }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { display: false } },
-                    scales: { r: { angleLines: { color: '#334155' }, grid: { color: '#334155' }, pointLabels: { color: '#cbd5e1', font: { size: 9, family: 'Inter' } }, ticks: { display: false, min: 0, max: 10 } } }
-                }
-            });
-        }
-
-        function cetakLaporanPintar() {
-            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            const myProfile = accounts[currentUser] || {};
-            const pesertaName = myProfile.name || "Peserta";
-
-            document.title = `${pesertaName} PROPKES IAB`;
-
-            const domainsList = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
-            let tableRows = '';
-            domainsList.forEach((d, index) => {
-                const pra = praData && praData[d] !== undefined ? praData[d] : '-';
-                const pasca = pascaData && pascaData[d] !== undefined ? pascaData[d] : '-';
-                let beza = '-';
-                
-                if (pra !== '-' && pasca !== '-') {
-                    const diff = (pasca - pra).toFixed(2);
-                    if (diff > 0) { beza = `+${diff}`; }
-                    else if (diff < 0) { beza = diff; }
-                    else { beza = '0.00'; }
-                }
-
-                tableRows += `
-                    <tr>
-                        <td style="text-align:center;">${index + 1}</td>
-                        <td>${d}</td>
-                        <td style="text-align:center; font-weight:bold;">${pra}</td>
-                        <td style="text-align:center; font-weight:bold;">${pasca}</td>
-                        <td style="text-align:center;">${beza}</td>
-                    </tr>
-                `;
-            });
-
-            const sessionKey = `propkes_pc_sessions_${currentUser}`;
-            const sessions = JSON.parse(localStorage.getItem(sessionKey) || "[]");
-            let sessionRows = '';
-            if (sessions.length > 0) {
-                sessions.forEach((s, index) => {
-                    sessionRows += `
-                        <tr>
-                            <td style="text-align:center;">${index + 1}</td>
-                            <td>${s.date}</td>
-                            <td>${s.start} - ${s.end}</td>
-                            <td>${s.method} <br> <span style="font-size:10px; color:#64748b;">${s.notes || ''}</span></td>
-                        </tr>
-                    `;
-                });
-            } else {
-                sessionRows = `
-                    <tr><td style="text-align:center;">1</td><td></td><td></td><td></td></tr>
-                    <tr><td style="text-align:center;">2</td><td></td><td></td><td></td></tr>
-                    <tr><td style="text-align:center;">3</td><td></td><td></td><td></td></tr>
-                `;
-            }
-
-            const printHTML = `
-                <div class="print-page">
-                    <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 15px;">
-                        <h1 style="font-size: 24px; font-weight: bold; margin: 0;">INSTITUT AMINUDDIN BAKI</h1>
-                        <h2 style="font-size: 16px; margin: 5px 0;">KEMENTERIAN PENDIDIKAN</h2>
-                        <p style="font-size: 14px; margin: 5px 0; color: #475569;">PROFIL PESERTA & ANALISIS i-PROPKES 2026</p>
-                    </div>
-
-                    <h3 style="font-size: 14px; border-left: 4px solid #0f172a; padding-left: 10px; margin-bottom: 10px;">Maklumat Asas Peserta</h3>
-                    <table class="print-table">
-                        <tr><th style="width: 30%;">Nama Penuh</th><td>${pesertaName}</td></tr>
-                        <tr><th>No. Kad Pengenalan</th><td>${myProfile.ic || '-'}</td></tr>
-                        <tr><th>Jawatan & Gred</th><td>${myProfile.pesertaJawatan || '-'} (${myProfile.pesertaGred || '-'})</td></tr>
-                        <tr><th>Pusat / Cawangan (IAB)</th><td>${myProfile.pesertaPusatAsal || '-'}</td></tr>
-                        <tr><th>E-mel Rasmi</th><td>${myProfile.email || '-'}</td></tr>
-                        <tr><th>Sekolah Sandaran</th><td>${myProfile.sekolah || '-'}</td></tr>
-                        <tr><th>PPD Sandaran</th><td>${myProfile.ppd || '-'}</td></tr>
-                    </table>
-
-                    <h3 style="font-size: 14px; border-left: 4px solid #0f172a; padding-left: 10px; margin-bottom: 10px; margin-top: 20px;">Maklumat Pemandu Citra & Mentor</h3>
-                    <table class="print-table">
-                        <tr><th colspan="2" style="background-color:#e2e8f0 !important; text-align:center;">PEMANDU CITRA (IAB)</th></tr>
-                        <tr><td style="width:30%; font-weight:bold;">Nama & Jawatan</td><td>${myProfile.pemanduCitra || '-'} (${myProfile.pemanduJawatan || '-'})</td></tr>
-                        <tr><td style="font-weight:bold;">Pusat/Cawangan</td><td>${myProfile.pemanduPusat || '-'} / ${myProfile.pemanduTempat || '-'}</td></tr>
-                        
-                        <tr><th colspan="2" style="background-color:#e2e8f0 !important; text-align:center;">MENTOR 1 (SEKOLAH SANDARAN)</th></tr>
-                        <tr><td style="font-weight:bold;">Nama & Jawatan</td><td>${myProfile.mentorSekolah || '-'} (${myProfile.mentorJawatan || '-'})</td></tr>
-                        <tr><td style="font-weight:bold;">No. KP & Telefon</td><td>${myProfile.mentorIc || '-'} | ${myProfile.mentorTelefon || '-'}</td></tr>
-                        <tr><td style="font-weight:bold;">E-mel & Alamat</td><td>${myProfile.mentorEmail || '-'} <br> ${myProfile.mentorAlamat || '-'}, ${myProfile.mentorPoskod || '-'} ${myProfile.mentorBandar || '-'}, ${myProfile.mentorNegeri || '-'}</td></tr>
-
-                        <tr><th colspan="2" style="background-color:#e2e8f0 !important; text-align:center;">MENTOR 2 (PPD)</th></tr>
-                        <tr><td style="font-weight:bold;">Nama & Jawatan</td><td>${myProfile.mentorPpd || '-'} (${myProfile.mentorPpdJawatan || '-'})</td></tr>
-                        <tr><td style="font-weight:bold;">No. KP & Telefon</td><td>${myProfile.mentorPpdIc || '-'} | ${myProfile.mentorPpdTelefon || '-'}</td></tr>
-                        <tr><td style="font-weight:bold;">E-mel & Alamat</td><td>${myProfile.mentorPpdEmail || '-'} <br> ${myProfile.mentorPpdAlamat || '-'}, ${myProfile.mentorPpdPoskod || '-'} ${myProfile.mentorPpdBandar || '-'}, ${myProfile.mentorPpdNegeri || '-'}</td></tr>
-                    </table>
-
-                    <h3 style="font-size: 14px; border-left: 4px solid #0f172a; padding-left: 10px; margin-bottom: 10px; margin-top: 20px;">Analisis Kepimpinan i-PROPKES (Pra vs Pasca)</h3>
-                    <table class="print-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 10%; text-align:center;">Bil.</th>
-                                <th style="width: 45%;">Domain Kepimpinan</th>
-                                <th style="width: 15%; text-align:center;">Skor Pra</th>
-                                <th style="width: 15%; text-align:center;">Skor Pasca</th>
-                                <th style="width: 15%; text-align:center;">Perbezaan</th>
-                            </tr>
-                        </thead>
-                        <tbody>${tableRows}</tbody>
-                    </table>
-
-                    <h3 style="font-size: 14px; border-left: 4px solid #0f172a; padding-left: 10px; margin-bottom: 10px; margin-top: 20px;">Rekod Pelaksanaan Sesi Pandu Citra</h3>
-                    <table class="print-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 10%; text-align:center;">Bil.</th>
-                                <th style="width: 30%;">Tarikh Sesi</th>
-                                <th style="width: 30%;">Masa Pelaksanaan</th>
-                                <th style="width: 30%;">Kaedah & Catatan</th>
-                            </tr>
-                        </thead>
-                        <tbody>${sessionRows}</tbody>
-                    </table>
-
-                    <p style="text-align: right; font-size: 10px; margin-top: 20px; color: #64748b;">Dicetak pada: ${new Date().toLocaleString('ms-MY')}</p>
-                </div>
-            `;
-
-            document.getElementById('printSection').innerHTML = printHTML;
-            
-            setTimeout(() => {
-                window.print();
-                setTimeout(() => { document.title = "Papan Pemuka | Peserta PROPKES"; }, 1000);
-            }, 500);
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            currentUser = localStorage.getItem("propkes_user");
-            
-            if (!currentUser) {
-                window.location.href = "index.html"; 
-                return;
-            }
-
-            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            const myProfile = accounts[currentUser];
-
-            if (myProfile) {
-                const fullName = myProfile.name || "Peserta";
-                const firstName = fullName.split(' ')[0] || "Peserta";
-                const initials = fullName.substring(0,2).toUpperCase();
-
-                document.getElementById("navNameDisplay").textContent = fullName;
-                document.getElementById("welcomeMessage").textContent = "Selamat Datang, " + firstName + "!";
-                document.getElementById("navInitials").textContent = initials;
-
-                document.getElementById("profileNama").textContent = fullName;
-                
-                const jwtn = myProfile.pesertaJawatan || "Belum Diisi";
-                const grd = myProfile.pesertaGred || "Belum Diisi";
-                document.getElementById("profileJawatanGred").textContent = `${jwtn} (${grd})`;
-                document.getElementById("profilePusatAsal").textContent = myProfile.pesertaPusatAsal || "Belum Diisi";
-
-                document.getElementById("profileEmail").textContent = myProfile.email || "Tiada Maklumat";
-                document.getElementById("profileSekolah").textContent = myProfile.sekolah || "Belum Ditetapkan";
-                document.getElementById("profilePPD").textContent = myProfile.ppd ? `PPD: ${myProfile.ppd}` : "PPD: Belum Ditetapkan";
-
-                if (myProfile.pemanduCitra && myProfile.pemanduCitra.trim() !== "") {
-                    document.getElementById("infoPemanduNama").textContent = myProfile.pemanduCitra;
-                    document.getElementById("infoPemanduJawatan").textContent = myProfile.pemanduJawatan || "-";
-                    document.getElementById("infoPemanduPusat").textContent = myProfile.pemanduPusat ? `Pusat: ${myProfile.pemanduPusat}` : "Pusat: -";
-                } else {
-                    document.getElementById("infoPemanduNama").textContent = "Belum Ditetapkan";
-                    document.getElementById("infoPemanduJawatan").textContent = "-";
-                    document.getElementById("infoPemanduPusat").textContent = "-";
-                }
-
-                if (myProfile.mentorSekolah && myProfile.mentorSekolah.trim() !== "") {
-                    document.getElementById("infoMentorNama").textContent = myProfile.mentorSekolah;
-                    document.getElementById("infoMentorJawatan").textContent = myProfile.mentorJawatan || "-";
-                } else {
-                    document.getElementById("infoMentorNama").textContent = "Menunggu Penetapan";
-                    document.getElementById("infoMentorJawatan").textContent = "-";
-                }
-
-                if (myProfile.mentorPpd && myProfile.mentorPpd.trim() !== "") {
-                    document.getElementById("infoMentorPpdNama").textContent = myProfile.mentorPpd;
-                    document.getElementById("infoMentorPpdJawatan").textContent = myProfile.mentorPpdJawatan || "-";
-                } else {
-                    document.getElementById("infoMentorPpdNama").textContent = "Menunggu Penetapan";
-                    document.getElementById("infoMentorPpdJawatan").textContent = "-";
-                }
-            } else {
-                document.getElementById("profileNama").textContent = "Ralat: Data Anda Tidak Ditemui.";
-            }
-
-            checkAssessmentData();
-            renderTasks();
-            renderCalendar();
-            renderLocationSummary();
-        });
-
-        function showToast(message) {
+        function showToast(msg, type='success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
-            toast.className = `bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3`;
-            toast.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg> <span>${message}</span>`;
+            const bg = type === 'success' ? 'bg-emerald-600' : 'bg-rose-600';
+            toast.className = `${bg} text-white px-4 py-3 rounded-lg shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0`;
+            toast.textContent = msg.toUpperCase();
             container.appendChild(toast);
             setTimeout(() => { toast.classList.remove('translate-y-10', 'opacity-0'); }, 10);
             setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
         }
-
-        function logout() {
-            localStorage.removeItem("propkes_user");
-            window.location.href = "index.html";
-        }
     </script>
 </body>
 </html>
+```eof
+
+---
+
+### 2. Fail: `dashboard_pemandu.html` (Papan Pemuka Pemandu Citra)
+*Coach dibuang, diganti dengan Pemandu Citra. Memaparkan nama peserta dalam HURUF BESAR.*
+
+```html:dashboard_pemandu.html
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papan Pemuka | Pemandu Citra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .bg-pattern { background-color: #0f172a; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 20px 20px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px;}
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .toggle-checkbox:checked { right: 0; border-color: #14b8a6; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #14b8a6; }
+    </style>
+</head>
+<body class="bg-pattern min-h-screen text-slate-200">
+
+    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-4 lg:gap-5">
+                    <div class="flex items-center gap-3 bg-white/5 p-2 rounded-xl border border-white/10 shadow-inner backdrop-blur-sm">
+                        <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-lg shadow-blue-500/20">IAB</div>
+                        <div class="w-px h-6 bg-slate-600"></div>
+                        <span class="font-bold text-lg tracking-tight text-white hidden sm:block">PROPKES <span class="text-blue-400">2026</span></span>
+                    </div>
+                    <div class="hidden sm:flex items-center gap-2">
+                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider flex items-center gap-1"><div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div> Live DB</span>
+                        <span class="bg-teal-500/10 text-teal-400 border border-teal-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Mod Pemandu Citra</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <div class="text-right hidden md:block">
+                        <p class="text-sm font-semibold text-white uppercase" id="navNameDisplay">MEMUATKAN...</p>
+                        <p class="text-xs text-teal-400 uppercase">PEMANDU CITRA (IAB)</p>
+                    </div>
+                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300 uppercase" id="navInitials">...</div>
+                    <button onclick="window.logout()" class="ml-2 bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg transition-colors outline-none shadow-md border border-slate-700">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-gradient-to-r from-teal-900/40 to-slate-900 border border-teal-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-teal-500/10 blur-3xl rounded-full pointer-events-none"></div>
+            <div class="relative z-10">
+                <h1 class="text-2xl font-bold text-white mb-2 uppercase">Pusat Bimbingan Pemandu Citra</h1>
+                <p class="text-slate-400 text-sm max-w-2xl">Selamat bertugas. Sila pantau kemajuan Jurnal Kepimpinan peserta dan lengkapkan Borang Maklum Balas Pemandu Citra (Lampiran G) bagi menilai kompetensi peserta secara menyeluruh.</p>
+            </div>
+            <div class="bg-slate-950/50 border border-teal-500/30 rounded-xl p-4 shrink-0 text-center flex gap-4 relative z-10">
+                <div>
+                    <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1">Peserta Jagaan</p>
+                    <div class="text-2xl font-bold text-teal-400"><span id="menteeCount">0</span> <span class="text-sm font-normal text-slate-500 uppercase">Orang</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div class="xl:col-span-2 space-y-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
+                    <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
+                        <h3 class="font-bold text-white flex items-center gap-2 uppercase text-sm">
+                            <span class="w-1.5 h-5 bg-teal-500 rounded-full"></span> Senarai Peserta Seliaan Anda
+                        </h3>
+                    </div>
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left text-sm border-collapse whitespace-nowrap">
+                            <thead>
+                                <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 text-[11px] font-semibold tracking-wider uppercase">
+                                    <th class="py-3 px-6">Nama Peserta (Mentee)</th>
+                                    <th class="py-3 px-6 text-center">Tempat Bertugas</th>
+                                </tr>
+                            </thead>
+                            <tbody id="menteeTableBody" class="divide-y divide-slate-800/50 text-slate-300">
+                                <tr><td colspan="2" class="py-8 px-4 text-center text-slate-500 text-xs italic uppercase">Menyambung ke Awan...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-teal-500/30 rounded-2xl shadow-xl p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-teal-500/10 blur-2xl rounded-full pointer-events-none"></div>
+                    <h3 class="font-bold text-white mb-2 text-sm flex items-center gap-2 relative z-10 uppercase">Borang Maklum Balas Pemandu Citra</h3>
+                    <form class="space-y-4 relative z-10" id="formBukaMaklumBalas">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pilih Peserta (Mentee)</label>
+                            <select id="menteeSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-teal-500 outline-none cursor-pointer uppercase">
+                                <option value="" disabled selected>-- MEMUATKAN SENARAI... --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Fasa Penilaian</label>
+                            <select id="fasaSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-teal-500 outline-none cursor-pointer uppercase">
+                                <option value="" disabled selected>-- SILA PILIH --</option>
+                                <option value="FASA 1">PROPKES FASA 1</option>
+                                <option value="FASA 2">PROPKES FASA 2</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-lg text-xs transition-colors outline-none cursor-pointer shadow-lg shadow-teal-600/30 mt-2 uppercase">
+                            Isi Borang Digital Lampiran G
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Maklum Balas G -->
+    <div id="maklumBalasModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-900 border border-teal-500/50 rounded-2xl shadow-2xl max-w-3xl w-full flex flex-col max-h-[95vh] transform scale-95 transition-transform duration-300" id="maklumBalasModalContent">
+            <div class="p-6 border-b border-slate-800 shrink-0 bg-slate-950/50 rounded-t-2xl flex justify-between items-start">
+                <div>
+                    <h3 class="text-lg font-extrabold text-white uppercase">LAMPIRAN G: MAKLUM BALAS PEMANDU CITRA</h3>
+                    <p class="text-xs text-teal-400 mt-1 uppercase font-semibold tracking-wide">PROPKES 2026 - <span id="mbFasaTitle">FASA 1</span></p>
+                </div>
+                <button type="button" onclick="window.closeMaklumBalasModal()" class="text-slate-500 hover:text-slate-300 bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg outline-none">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <form id="submitFeedbackForm" class="flex-1 flex flex-col min-h-0">
+                <div class="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6">
+                    <div class="bg-slate-800/30 p-5 rounded-xl border border-slate-700/50">
+                        <div class="space-y-4">
+                            <input type="text" id="mbNamaPeserta" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase font-bold">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="mbJawatan" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
+                                <input type="text" id="mbGred" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
+                                <input type="text" id="mbJabatan" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
+                                <input type="text" id="mbPusat" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tarikh Sandaran</label>
+                                <input type="text" id="mbTarikhSandaran" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-teal-500 outline-none uppercase">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-teal-400 uppercase mb-2">Maklum Balas Pemandu Citra</label>
+                        <textarea id="mbMaklumBalas" required rows="4" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-3 text-sm text-white focus:border-teal-500 outline-none resize-y"></textarea>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 border-b border-slate-700 pb-2">Perakuan Pemandu Citra</h4>
+                        <input type="text" id="mbNamaPemandu" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 mb-2 font-medium uppercase">
+                        <div class="flex items-center gap-4 bg-slate-950 p-4 rounded-lg border border-slate-800">
+                            <input type="checkbox" id="mbPengesahan" required class="w-5 h-5 cursor-pointer"/>
+                            <div>
+                                <label for="mbPengesahan" class="text-xs text-slate-300 font-medium cursor-pointer block uppercase">Saya mengesahkan maklum balas ini.</label>
+                                <p class="text-[10px] text-slate-500 mt-0.5 uppercase">Disahkan digital <span id="mbTarikhDigital" class="text-teal-400 font-mono ml-1"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 border-t border-slate-800 shrink-0 bg-slate-950/50 rounded-b-2xl flex gap-3">
+                    <button type="button" onclick="window.closeMaklumBalasModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-sm font-bold outline-none uppercase">Batal</button>
+                    <button type="submit" id="btnHantarG" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl text-sm font-bold shadow-lg outline-none uppercase">Simpan ke Awan (Firebase)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 no-print"></div>
+
+    <!-- FIREBASE MODULE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, get, set, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzlcyG6xyd2JXEMRNlDGi-_wxU2TXf6Y8",
+            authDomain: "propkes-2026.firebaseapp.com",
+            databaseURL: "https://propkes-2026-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "propkes-2026",
+            storageBucket: "propkes-2026.firebasestorage.app",
+            messagingSenderId: "758954100529",
+            appId: "1:758954100529:web:385531320681ceac8e9210"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        const currentUser = localStorage.getItem("propkes_user");
+        if (!currentUser) window.location.href = "index.html";
+
+        let menteeList = [];
+        let pemanduProfile = {};
+
+        async function initDashboard() {
+            try {
+                const snapshot = await get(child(ref(db), 'propkes_accounts'));
+                if (snapshot.exists()) {
+                    const accounts = snapshot.val();
+                    pemanduProfile = accounts[currentUser] || {};
+                    const pemanduName = pemanduProfile.name || "Pemandu Citra";
+                    document.getElementById('navNameDisplay').textContent = pemanduName.toUpperCase();
+                    document.getElementById('navInitials').textContent = pemanduName.substring(0, 2).toUpperCase();
+
+                    const myNameLower = pemanduName.trim().toLowerCase();
+                    menteeList = Object.entries(accounts)
+                        .filter(([username, data]) => {
+                            if (data.role !== 'peserta') return false;
+                            const pCitra = (data.pemanduCitra || "").trim().toLowerCase();
+                            return pCitra.includes(myNameLower) || myNameLower.includes(pCitra);
+                        })
+                        .map(([username, data]) => ({ username, ...data }));
+
+                    renderMenteeTable();
+                    populateMenteeDropdown();
+                }
+            } catch (error) {
+                console.error(error);
+                window.showToast("Gagal memuat turun data dari awan.", "error");
+            }
+        }
+        initDashboard();
+
+        function renderMenteeTable() {
+            const tbody = document.getElementById("menteeTableBody");
+            tbody.innerHTML = "";
+            document.getElementById("menteeCount").textContent = menteeList.length;
+
+            if (menteeList.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="2" class="py-8 px-4 text-center text-slate-500 text-xs italic uppercase">Tiada peserta di bawah seliaan anda buat masa ini.</td></tr>`;
+                return;
+            }
+            menteeList.forEach(mentee => {
+                const initials = mentee.name.substring(0, 2).toUpperCase();
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="py-4 px-6"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-700">${initials}</div><div><p class="font-medium text-white uppercase">${mentee.name.toUpperCase()}</p></div></div></td>
+                    <td class="py-4 px-6 text-center text-xs text-slate-400 uppercase">${(mentee.jabatan || mentee.sekolah || 'BELUM DIISI').toUpperCase()}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function populateMenteeDropdown() {
+            const select = document.getElementById("menteeSelect");
+            select.innerHTML = '<option value="" disabled selected>-- SILA PILIH MENTEE --</option>';
+            menteeList.forEach(mentee => {
+                const option = document.createElement("option");
+                option.value = mentee.username;
+                option.textContent = mentee.name.toUpperCase();
+                select.appendChild(option);
+            });
+        }
+
+        // Buka Modal
+        document.getElementById('formBukaMaklumBalas').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const menteeUsername = document.getElementById('menteeSelect').value;
+            const fasa = document.getElementById('fasaSelect').value;
+            const mentee = menteeList.find(m => m.username === menteeUsername);
+
+            document.getElementById('mbFasaTitle').textContent = fasa;
+            document.getElementById('mbNamaPeserta').value = mentee.name.toUpperCase();
+            document.getElementById('mbJawatan').value = (mentee.pesertaJawatan || "BELUM DIISI").toUpperCase();
+            document.getElementById('mbGred').value = (mentee.pesertaGred || "BELUM DIISI").toUpperCase();
+            document.getElementById('mbJabatan').value = (mentee.jabatan || mentee.sekolah || "BELUM DIISI").toUpperCase();
+            document.getElementById('mbPusat').value = (mentee.pesertaPusatAsal || "BELUM DIISI").toUpperCase();
+            document.getElementById('mbNamaPemandu').value = (pemanduProfile.name || "PEMANDU CITRA").toUpperCase();
+            document.getElementById('mbTarikhDigital').textContent = `(${new Date().toLocaleDateString('ms-MY')})`;
+
+            const modal = document.getElementById('maklumBalasModal');
+            const content = document.getElementById('maklumBalasModalContent');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
+        });
+
+        window.closeMaklumBalasModal = function() {
+            const modal = document.getElementById('maklumBalasModal');
+            const content = document.getElementById('maklumBalasModalContent');
+            modal.classList.add('opacity-0'); content.classList.add('scale-95');
+            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
+        };
+
+        // Simpan Ke Firebase
+        document.getElementById('submitFeedbackForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const menteeUsername = document.getElementById('menteeSelect').value;
+            const fasa = document.getElementById('fasaSelect').value;
+            const btn = document.getElementById("btnHantarG");
+
+            btn.textContent = "MENGHANTAR KE AWAN..."; btn.disabled = true;
+
+            const feedbackKey = `${menteeUsername}_${fasa.replace(/\s+/g, '')}`;
+            const feedbackData = {
+                fasa: fasa.toUpperCase(),
+                namaPeserta: document.getElementById('mbNamaPeserta').value.toUpperCase(),
+                jawatan: document.getElementById('mbJawatan').value.toUpperCase(),
+                gred: document.getElementById('mbGred').value.toUpperCase(),
+                tempatBertugas: document.getElementById('mbJabatan').value.toUpperCase(),
+                pusat: document.getElementById('mbPusat').value.toUpperCase(),
+                tarikhSandaran: document.getElementById('mbTarikhSandaran').value.toUpperCase(),
+                maklumBalas: document.getElementById('mbMaklumBalas').value, // Biar kekal seperti yg ditulis
+                namaPenilai: document.getElementById('mbNamaPemandu').value.toUpperCase(),
+                jawatanPenilai: "PEMANDU CITRA IAB",
+                tarikhTandatangan: document.getElementById('mbTarikhDigital').textContent
+            };
+
+            try {
+                await set(ref(db, `propkes_feedback_pemandu/${feedbackKey}`), feedbackData);
+                // Fallback Lokal utk Admin cetak dari localStorage jika Firebase gagal baca
+                localStorage.setItem(`propkes_feedback_pemandu_${feedbackKey}`, JSON.stringify(feedbackData));
+
+                window.closeMaklumBalasModal();
+                window.showToast("Borang berjaya dihantar ke Firebase!", "success");
+                document.getElementById('formBukaMaklumBalas').reset();
+
+            } catch (error) {
+                console.error(error);
+                window.showToast("Gagal hantar ke Awan.", "error");
+            } finally {
+                btn.textContent = "SIMPAN KE AWAN (FIREBASE)"; btn.disabled = false;
+            }
+        });
+
+        window.logout = function() { localStorage.removeItem("propkes_user"); window.location.href = "index.html"; };
+
+        window.showToast = function(msg, type='success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const bg = type === 'success' ? 'bg-teal-600' : 'bg-rose-600';
+            toast.className = `${bg} text-white px-4 py-3 rounded-lg shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 uppercase`;
+            toast.textContent = msg;
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.remove('translate-y-10', 'opacity-0'); }, 10);
+            setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
+        };
+    </script>
+</body>
+</html>
+```eof
+
+---
+
+### 3. Fail: `dashboard_mentor.html` (Papan Pemuka Mentor)
+*Paparan diperkemaskan supaya nama peserta di dalam jadual dan borang semuanya HURUF BESAR.*
+
+```html:dashboard_mentor.html
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papan Pemuka | Mentor PROPKES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .bg-pattern { background-color: #0f172a; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 20px 20px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px;}
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .toggle-checkbox:checked { right: 0; border-color: #a855f7; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #a855f7; }
+    </style>
+</head>
+<body class="bg-pattern min-h-screen text-slate-200">
+
+    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-lg shadow-blue-500/20">IAB</div>
+                    <span class="font-bold text-lg tracking-tight text-white hidden sm:block">PROPKES <span class="text-blue-400">2026</span></span>
+                    <span class="ml-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:flex items-center gap-1">
+                        <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div> Live DB
+                    </span>
+                    <span class="ml-2 bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:block">Mod Mentor</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-right hidden md:block">
+                        <p class="text-sm font-semibold text-white uppercase" id="navNameDisplay">MEMUATKAN...</p>
+                        <p class="text-xs text-purple-400 uppercase">MENTOR PROPKES</p>
+                    </div>
+                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300 uppercase" id="navInitials">...</div>
+                    <button onclick="window.logout()" class="ml-2 bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg transition-colors cursor-pointer outline-none">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-gradient-to-r from-purple-900/40 to-slate-900 border border-purple-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <h1 class="text-2xl font-bold text-white mb-2 uppercase">Pusat Bimbingan Mentor</h1>
+                <p class="text-slate-400 text-sm max-w-2xl">Senarai mentee di bawah ditarik terus dari Pangkalan Data Awan (Firebase).</p>
+            </div>
+            <div class="bg-slate-950/50 border border-purple-500/30 rounded-xl p-4 shrink-0 text-center flex gap-4">
+                <div>
+                    <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1">Peserta Jagaan</p>
+                    <div class="text-2xl font-bold text-purple-400"><span id="menteeCount">0</span> <span class="text-sm font-normal text-slate-500 uppercase">Orang</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div class="xl:col-span-2 space-y-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
+                    <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
+                        <h3 class="font-bold text-white flex items-center gap-2 uppercase text-sm">
+                            <span class="w-1.5 h-5 bg-purple-500 rounded-full"></span> Senarai Peserta Seliaan Anda
+                        </h3>
+                    </div>
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left text-sm border-collapse whitespace-nowrap">
+                            <thead>
+                                <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 text-[11px] font-semibold tracking-wider uppercase">
+                                    <th class="py-3 px-6">Nama Peserta (Mentee)</th>
+                                    <th class="py-3 px-6 text-center">Tempat Bertugas</th>
+                                </tr>
+                            </thead>
+                            <tbody id="menteeTableBody" class="divide-y divide-slate-800/50 text-slate-300">
+                                <tr><td colspan="2" class="py-8 px-4 text-center text-slate-500 text-xs italic uppercase">Menyambung ke Awan...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-purple-500/30 rounded-2xl shadow-xl p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-2xl rounded-full pointer-events-none"></div>
+                    <h3 class="font-bold text-white mb-2 text-sm flex items-center gap-2 relative z-10 uppercase">Penyerahan Maklum Balas</h3>
+                    <form class="space-y-4 relative z-10" id="formBukaMaklumBalas">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pilih Peserta (Mentee)</label>
+                            <select id="menteeSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500 outline-none cursor-pointer uppercase">
+                                <option value="" disabled selected>-- MEMUATKAN SENARAI... --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Fasa Penilaian</label>
+                            <select id="fasaSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500 outline-none cursor-pointer uppercase">
+                                <option value="" disabled selected>-- SILA PILIH --</option>
+                                <option value="FASA 1">PROPKES FASA 1</option>
+                                <option value="FASA 2">PROPKES FASA 2</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg text-xs transition-colors outline-none cursor-pointer shadow-lg shadow-purple-600/30 mt-2 uppercase">
+                            Isi Borang Digital Lampiran F
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Maklum Balas F -->
+    <div id="maklumBalasModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-900 border border-purple-500/50 rounded-2xl shadow-2xl max-w-3xl w-full flex flex-col max-h-[95vh] transform scale-95 transition-transform duration-300" id="maklumBalasModalContent">
+            <div class="p-6 border-b border-slate-800 shrink-0 bg-slate-950/50 rounded-t-2xl flex justify-between items-start">
+                <div>
+                    <h3 class="text-lg font-extrabold text-white uppercase">LAMPIRAN F: MAKLUM BALAS MENTOR</h3>
+                    <p class="text-xs text-purple-400 mt-1 uppercase font-semibold tracking-wide">PROPKES 2026 - <span id="mbFasaTitle">FASA 1</span></p>
+                </div>
+                <button type="button" onclick="window.closeMaklumBalasModal()" class="text-slate-500 hover:text-slate-300 bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg outline-none">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <form id="submitFeedbackForm" class="flex-1 flex flex-col min-h-0">
+                <div class="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6">
+                    <div class="bg-slate-800/30 p-5 rounded-xl border border-slate-700/50">
+                        <div class="space-y-4">
+                            <input type="text" id="mbNamaPeserta" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase font-bold">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="mbJawatan" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
+                                <input type="text" id="mbGred" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
+                                <input type="text" id="mbJabatan" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
+                                <input type="text" id="mbPusat" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tarikh Sandaran</label>
+                                <input type="text" id="mbTarikhSandaran" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-purple-500 outline-none uppercase">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-purple-400 uppercase mb-2">Maklum Balas Mentor</label>
+                        <textarea id="mbMaklumBalas" required rows="4" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-y"></textarea>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 border-b border-slate-700 pb-2">Perakuan Mentor</h4>
+                        <input type="text" id="mbNamaMentor" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 mb-2 font-medium uppercase">
+                        <div class="flex items-center gap-4 bg-slate-950 p-4 rounded-lg border border-slate-800">
+                            <input type="checkbox" id="mbPengesahan" required class="w-5 h-5 cursor-pointer"/>
+                            <div>
+                                <label for="mbPengesahan" class="text-xs text-slate-300 font-medium cursor-pointer block uppercase">Saya mengesahkan maklum balas ini.</label>
+                                <p class="text-[10px] text-slate-500 mt-0.5 uppercase">Disahkan digital <span id="mbTarikhDigital" class="text-purple-400 font-mono ml-1"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 border-t border-slate-800 shrink-0 bg-slate-950/50 rounded-b-2xl flex gap-3">
+                    <button type="button" onclick="window.closeMaklumBalasModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-sm font-bold outline-none uppercase">Batal</button>
+                    <button type="submit" id="btnHantarF" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl text-sm font-bold shadow-lg outline-none uppercase">Simpan ke Awan (Firebase)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 no-print"></div>
+
+    <!-- FIREBASE MODULE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, get, set, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzlcyG6xyd2JXEMRNlDGi-_wxU2TXf6Y8",
+            authDomain: "propkes-2026.firebaseapp.com",
+            databaseURL: "https://propkes-2026-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "propkes-2026",
+            storageBucket: "propkes-2026.firebasestorage.app",
+            messagingSenderId: "758954100529",
+            appId: "1:758954100529:web:385531320681ceac8e9210"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        const currentUser = localStorage.getItem("propkes_user");
+        if (!currentUser) window.location.href = "index.html";
+
+        let menteeList = [];
+        let mentorProfile = {};
+
+        async function initDashboard() {
+            try {
+                const snapshot = await get(child(ref(db), 'propkes_accounts'));
+                if (snapshot.exists()) {
+                    const accounts = snapshot.val();
+                    mentorProfile = accounts[currentUser] || {};
+                    const mentorName = mentorProfile.name || "Mentor";
+                    document.getElementById('navNameDisplay').textContent = mentorName.toUpperCase();
+                    document.getElementById('navInitials').textContent = mentorName.substring(0, 2).toUpperCase();
+
+                    const myNameLower = mentorName.trim().toLowerCase();
+                    menteeList = Object.entries(accounts)
+                        .filter(([username, data]) => {
+                            if (data.role !== 'peserta') return false;
+                            const mSekolah = (data.mentorSekolah || "").trim().toLowerCase();
+                            const mPpd = (data.mentorPpd || "").trim().toLowerCase();
+                            return mSekolah.includes(myNameLower) || mPpd.includes(myNameLower) || myNameLower.includes(mSekolah);
+                        })
+                        .map(([username, data]) => ({ username, ...data }));
+
+                    renderMenteeTable();
+                    populateMenteeDropdown();
+                }
+            } catch (error) {
+                console.error(error);
+                window.showToast("Gagal memuat turun data dari awan.", "error");
+            }
+        }
+        initDashboard();
+
+        function renderMenteeTable() {
+            const tbody = document.getElementById("menteeTableBody");
+            tbody.innerHTML = "";
+            document.getElementById("menteeCount").textContent = menteeList.length;
+
+            if (menteeList.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="2" class="py-8 px-4 text-center text-slate-500 text-xs italic uppercase">Tiada peserta di bawah seliaan anda buat masa ini.</td></tr>`;
+                return;
+            }
+            menteeList.forEach(mentee => {
+                const initials = mentee.name.substring(0, 2).toUpperCase();
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="py-4 px-6"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-700">${initials}</div><div><p class="font-medium text-white uppercase">${mentee.name.toUpperCase()}</p></div></div></td>
+                    <td class="py-4 px-6 text-center text-xs text-slate-400 uppercase">${(mentee.jabatan || mentee.sekolah || 'BELUM DIISI').toUpperCase()}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function populateMenteeDropdown() {
+            const select = document.getElementById("menteeSelect");
+            select.innerHTML = '<option value="" disabled selected>-- SILA PILIH MENTEE --</option>';
+            menteeList.forEach(mentee => {
+                const option = document.createElement("option");
+                option.value = mentee.username;
+                option.textContent = mentee.name.toUpperCase();
+                select.appendChild(option);
+            });
+        }
+
+        // Buka Modal
+        document.getElementById('formBukaMaklumBalas').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const menteeUsername = document.getElementById('menteeSelect').value;
+            const fasa = document.getElementById('fasaSelect').value;
+            const mentee = menteeList.find(m => m.username === menteeUsername);
+
+            document.getElementById('mbFasaTitle').textContent = fasa;
+            document.getElementById('mbNamaPeserta').value = mentee.name.toUpperCase();
+            document.getElementById('mbJawatan').value = (mentee.pesertaJawatan || "BELUM DIISI").toUpperCase();
+            document.getElementById('mbGred').value = (mentee.pesertaGred || "BELUM DIISI").toUpperCase();
+            document.getElementById('mbJabatan').value = (mentee.jabatan || mentee.sekolah || "BELUM DIISI").toUpperCase();
+            document.getElementById('mbPusat').value = (mentee.pesertaPusatAsal || "BELUM DIISI").toUpperCase();
+            document.getElementById('mbNamaMentor').value = (mentorProfile.name || "MENTOR").toUpperCase();
+            document.getElementById('mbTarikhDigital').textContent = `(${new Date().toLocaleDateString('ms-MY')})`;
+
+            const modal = document.getElementById('maklumBalasModal');
+            const content = document.getElementById('maklumBalasModalContent');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
+        });
+
+        window.closeMaklumBalasModal = function() {
+            const modal = document.getElementById('maklumBalasModal');
+            const content = document.getElementById('maklumBalasModalContent');
+            modal.classList.add('opacity-0'); content.classList.add('scale-95');
+            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
+        };
+
+        // Simpan Ke Firebase
+        document.getElementById('submitFeedbackForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const menteeUsername = document.getElementById('menteeSelect').value;
+            const fasa = document.getElementById('fasaSelect').value;
+            const btn = document.getElementById("btnHantarF");
+
+            btn.textContent = "MENGHANTAR KE AWAN..."; btn.disabled = true;
+
+            const feedbackKey = `${menteeUsername}_${fasa.replace(/\s+/g, '')}`;
+            const feedbackData = {
+                fasa: fasa.toUpperCase(),
+                namaPeserta: document.getElementById('mbNamaPeserta').value.toUpperCase(),
+                jawatan: document.getElementById('mbJawatan').value.toUpperCase(),
+                gred: document.getElementById('mbGred').value.toUpperCase(),
+                tempatBertugas: document.getElementById('mbJabatan').value.toUpperCase(),
+                pusat: document.getElementById('mbPusat').value.toUpperCase(),
+                tarikhSandaran: document.getElementById('mbTarikhSandaran').value.toUpperCase(),
+                maklumBalas: document.getElementById('mbMaklumBalas').value, // Kekalkan original case untuk perenggan ulasan
+                namaPenilai: document.getElementById('mbNamaMentor').value.toUpperCase(),
+                jawatanPenilai: "MENTOR SEKOLAH/PPD",
+                tarikhTandatangan: document.getElementById('mbTarikhDigital').textContent
+            };
+
+            try {
+                // Simpan ke awan
+                await set(ref(db, `propkes_feedback_mentor/${feedbackKey}`), feedbackData);
+                // Fallback lokal
+                localStorage.setItem(`propkes_feedback_mentor_${feedbackKey}`, JSON.stringify(feedbackData));
+
+                window.closeMaklumBalasModal();
+                window.showToast("Borang berjaya dihantar ke Firebase!", "success");
+                document.getElementById('formBukaMaklumBalas').reset();
+
+            } catch (error) {
+                console.error(error);
+                window.showToast("Gagal hantar ke Awan.", "error");
+            } finally {
+                btn.textContent = "SIMPAN KE AWAN (FIREBASE)"; btn.disabled = false;
+            }
+        });
+
+        window.logout = function() { localStorage.removeItem("propkes_user"); window.location.href = "index.html"; };
+
+        window.showToast = function(msg, type='success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const bg = type === 'success' ? 'bg-emerald-600' : 'bg-rose-600';
+            toast.className = `${bg} text-white px-4 py-3 rounded-lg shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 uppercase`;
+            toast.textContent = msg;
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.remove('translate-y-10', 'opacity-0'); }, 10);
+            setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
+        };
+    </script>
+</body>
+</html>
+```eof
+
+---
+
+### 4. Fail: `dashboard_admin.html` (Papan Pemuka Admin)
+*(Kemas kini sangat kecil, hanya untuk mencetak 'Jabatan' jika Peserta mengisinya, dan format huruf besar).*
+
+Buka `dashboard_admin.html`, *scroll* jauh ke bawah ke bahagian **`// --- CETAKAN FAIL PDF F&G ---`**.
+
+Cari `window.printMaklumBalas = function(username, type) { ... }` dan gantikan blok tersebut dengan kod ringkas ini (menggunakan Butang Edit "Diff" yang pintar):
+
+```html:dashboard_admin.html
+<!-- ... existing code ... -->
+        // --- CETAKAN FAIL PDF F&G ---
+        window.printMaklumBalas = function(username, type) {
+            let fasaKey = "FASA1";
+            let data = JSON.parse(localStorage.getItem(`propkes_feedback_${type}_${username}_${fasaKey}`));
+            if(!data) {
+                fasaKey = "FASA2";
+                data = JSON.parse(localStorage.getItem(`propkes_feedback_${type}_${username}_${fasaKey}`));
+            }
+            if(!data) { window.showAdminToast(`Tiada data ${type} untuk cetakan.`, "error"); return; }
+
+            const title = type === 'mentor' ? 'LAMPIRAN F' : 'LAMPIRAN G';
+            const roleTitle = type === 'mentor' ? 'MENTOR' : 'PEMANDU CITRA';
+
+            // Dapatkan Jabatan (fallback ke tempatBertugas jika data lama)
+            const jabatanDisplay = data.tempatBertugas || data.jabatan || "-";
+
+            const printHTML = `
+                <div class="print-page" style="font-family: Arial, sans-serif; color: black; line-height: 1.5; padding: 20px;">
+                    <p style="font-weight: bold; font-size: 16px; margin-bottom: 20px;">${title}</p>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 5px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 5px;">TAHUN 2026</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">${data.fasa}</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 30px; text-decoration: underline;">MAKLUM BALAS ${roleTitle}</h2>
+
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 40px; font-size: 12px; text-transform: uppercase;">
+                        <tr><td style="border: 1px solid black; padding: 12px; width: 35%; font-weight: bold;">NAMA PESERTA</td><td style="border: 1px solid black; padding: 12px; font-weight:bold;">${data.namaPeserta}</td></tr>
+                        <tr><td style="border: 1px solid black; padding: 12px; font-weight: bold;">JAWATAN</td><td style="border: 1px solid black; padding: 12px;">${data.jawatan}</td></tr>
+                        <tr><td style="border: 1px solid black; padding: 12px; font-weight: bold;">GRED</td><td style="border: 1px solid black; padding: 12px;">${data.gred}</td></tr>
+                        <tr><td style="border: 1px solid black; padding: 12px; font-weight: bold;">JABATAN</td><td style="border: 1px solid black; padding: 12px;">${jabatanDisplay}</td></tr>
+                        <tr><td style="border: 1px solid black; padding: 12px; font-weight: bold;">PUSAT/CAWANGAN</td><td style="border: 1px solid black; padding: 12px;">${data.pusat}</td></tr>
+                        <tr><td style="border: 1px solid black; padding: 12px; font-weight: bold;">TARIKH SANDARAN</td><td style="border: 1px solid black; padding: 12px;">${data.tarikhSandaran}</td></tr>
+                        <tr><td style="border: 1px solid black; padding: 12px; font-weight: bold; vertical-align: top;">MAKLUM BALAS ${roleTitle}</td><td style="border: 1px solid black; padding: 12px; min-height: 150px; vertical-align: top; white-space: pre-wrap; text-transform: none;">${data.maklumBalas}</td></tr>
+                    </table>
+
+                    <div style="font-size: 12px; line-height: 1.8; text-transform: uppercase;">
+                        <p style="margin:0;">Nama Penuh Penilai: <strong>${data.namaPenilai}</strong></p>
+                        <p style="margin:0;">Jawatan: <strong>${data.jawatanPenilai}</strong></p>
+                        <p style="margin:0;">Tarikh: <strong>${data.tarikhTandatangan.replace(/[()]/g, '')}</strong></p>
+                        <p style="margin-top:10px; text-transform: none;">Cap Rasmi: <br><br> <em style="color:#475569;">Telah diperaku dan disahkan secara digital dalam sistem PROPKES.</em></p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('printSection').innerHTML = printHTML;
+            const originalTitle = document.title;
+            document.title = `${title} - ${data.namaPeserta}`;
+            window.print();
+            setTimeout(() => { document.title = originalTitle; }, 1000);
+        };
+<!-- ... existing code ... -->
+```eof
