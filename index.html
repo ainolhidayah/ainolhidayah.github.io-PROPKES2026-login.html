@@ -20,6 +20,7 @@
 
     <div class="max-w-4xl w-full bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
         
+        <!-- BAHAGIAN KIRI (Branding & Info) -->
         <div class="md:w-5/12 bg-gradient-to-br from-blue-900 to-slate-900 p-8 text-white flex flex-col justify-between relative overflow-hidden">
             <div class="absolute -top-16 -left-16 w-48 h-48 bg-blue-500/20 blur-3xl rounded-full"></div>
             <div class="absolute -bottom-16 -right-16 w-48 h-48 bg-emerald-500/20 blur-3xl rounded-full"></div>
@@ -28,6 +29,7 @@
                 <div class="w-12 h-12 bg-blue-500 text-white font-bold text-xl rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 mb-6">IAB</div>
                 <h1 class="text-3xl font-bold mb-2 tracking-tight">PROPKES <span class="text-blue-400">2026</span></h1>
                 <p class="text-sm text-slate-300 leading-relaxed font-medium">Program Peningkatan Profesional Pengurusan dan Kepimpinan Sekolah</p>
+                
                 <div class="mt-4 inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-3 py-1.5 rounded-full text-[10px] font-bold tracking-wider">
                     <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
                     Sistem Awan Terhubung
@@ -45,6 +47,7 @@
             </div>
         </div>
 
+        <!-- BAHAGIAN KANAN (Borang Log Masuk) -->
         <div class="md:w-7/12 p-8 md:p-12 relative">
             <div class="mb-8">
                 <h2 class="text-2xl font-bold text-white mb-2">Log Masuk Sistem</h2>
@@ -58,7 +61,7 @@
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
                         </div>
-                        <input type="text" id="username" required placeholder="Cth: admin / suria@moe.gov.my" class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 outline-none">
+                        <input type="text" id="username" required placeholder="Sila masukkan ID anda" class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 outline-none">
                     </div>
                 </div>
 
@@ -79,19 +82,10 @@
                     <span id="errorText">Maklumat tidak sah atau akaun belum didaftarkan.</span>
                 </div>
 
-                <div class="bg-slate-800/50 border border-slate-700/50 p-4 rounded-lg mt-6">
-                    <p class="text-[10px] text-slate-400 mb-2 font-semibold uppercase">Pintasan Lalai Sistem (Kata Laluan: 123456)</p>
-                    <ul class="text-[10px] text-slate-500 space-y-1 font-mono grid grid-cols-2 gap-2">
-                        <li>Urus Setia: <span class="text-blue-400 cursor-pointer hover:underline" onclick="fillLogin('admin', '123456')">admin</span></li>
-                        <li>Peserta: <span class="text-blue-400 cursor-pointer hover:underline" onclick="fillLogin('peserta1', '123456')">peserta1</span></li>
-                        <li>Pemandu: <span class="text-blue-400 cursor-pointer hover:underline" onclick="fillLogin('pemandu1', '123456')">pemandu1</span></li>
-                        <li>Mentor: <span class="text-blue-400 cursor-pointer hover:underline" onclick="fillLogin('mentor1', '123456')">mentor1</span></li>
-                    </ul>
-                </div>
-
-                <button type="submit" id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg shadow-blue-600/30 transition-all mt-4 flex justify-center items-center gap-2 outline-none cursor-pointer">
+                <!-- Butang Log Masuk -->
+                <button type="submit" id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg shadow-blue-600/30 transition-all mt-8 flex justify-center items-center gap-2 outline-none cursor-pointer">
                     <span id="btnText">Log Masuk</span>
-                    <svg id="btnIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <svg id="btnIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     <svg id="btnLoader" class="w-4 h-4 animate-spin hidden" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                 </button>
             </form>
@@ -103,7 +97,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, get, child, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-        // Konfigurasi Pangkalan Data Awan Anda
         const firebaseConfig = {
             apiKey: "AIzaSyCzlcyG6xyd2JXEMRNlDGi-_wxU2TXf6Y8",
             authDomain: "propkes-2026.firebaseapp.com",
@@ -118,36 +111,24 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Helper Fungsi untuk HTML
-        window.fillLogin = function(user, pass) {
-            document.getElementById("username").value = user;
-            document.getElementById("password").value = pass;
-        };
-
-        // Semak dan Suntik Data Lalai ke Awan jika Kosong
-        async function checkAndSeedDatabase() {
+        // Semak dan cipta default admin jika kosong
+        async function checkDatabase() {
             try {
                 const dbRef = ref(db);
                 const snapshot = await get(child(dbRef, 'propkes_accounts'));
                 
                 if (!snapshot.exists()) {
-                    console.log("Database awan kosong. Menyuntik data permulaan...");
-                    const defaultData = {
-                        "admin": { role: "admin", name: "Urus Setia IAB", email: "admin@iab.edu.my", password: "123456" },
-                        "peserta1": { role: "peserta", name: "Peserta Demo", email: "peserta@sekolah.edu.my", password: "123456", sekolah: "SMK Contoh", pemanduCitra: "Dr. Pemandu Citra Demo", mentorSekolah: "En. Mentor Demo" },
-                        "pemandu1": { role: "pemandu", name: "Dr. Pemandu Citra Demo", email: "pemandu@iab.edu.my", password: "123456" },
-                        "mentor1": { role: "mentor", name: "En. Mentor Demo", email: "mentor@sekolah.edu.my", password: "123456" }
+                    const defaultAdmin = {
+                        "admin": { role: "admin", name: "Urus Setia IAB", email: "admin@iab.edu.my", password: "admin" }
                     };
-                    await set(ref(db, 'propkes_accounts'), defaultData);
+                    await set(ref(db, 'propkes_accounts'), defaultAdmin);
                 }
             } catch (error) {
-                console.error("Ralat Sambungan Firebase:", error);
+                console.warn("Semak rules Firebase anda.");
             }
         }
-        
-        checkAndSeedDatabase(); // Laksanakan semasa page dimuatkan
+        checkDatabase();
 
-        // FUNGSI LOG MASUK KE AWAN
         document.getElementById("loginForm").addEventListener("submit", async function(e) {
             e.preventDefault();
 
@@ -160,14 +141,29 @@
 
             errorMsg.classList.add("hidden");
             
-            // Animasi Loading
             btnText.textContent = "Menyemak Awan...";
             btnIcon.classList.add("hidden");
             btnLoader.classList.remove("hidden");
 
+            // --- JIKA FIREBASE TERLALU LAMA / SANGKUT (FAILSAFE TIMER) ---
+            const timeout = setTimeout(() => {
+                btnText.textContent = "Log Masuk (Lokal)";
+                btnIcon.classList.remove("hidden");
+                btnLoader.classList.add("hidden");
+                // Cuba bypass guna localStorage kalau Firebase sangkut
+                if (loginInput === "admin" && (passwordInput === "admin" || passwordInput === "123456")) {
+                    localStorage.setItem("propkes_user", "admin");
+                    window.location.href = "dashboard_admin.html";
+                } else {
+                    document.getElementById("errorText").textContent = "Gagal menghubungi awan. Pastikan Rules Firebase 'true'.";
+                    errorMsg.classList.remove("hidden");
+                }
+            }, 5000); // 5 saat timeout
+
             try {
                 const dbRef = ref(db);
                 const snapshot = await get(child(dbRef, 'propkes_accounts'));
+                clearTimeout(timeout); // Batal failsafe jika berjaya sambung
                 
                 if (snapshot.exists()) {
                     const accounts = snapshot.val();
@@ -194,11 +190,13 @@
                     }
                 }
                 
+                document.getElementById("errorText").textContent = "ID atau Kata Laluan salah.";
                 errorMsg.classList.remove("hidden");
 
             } catch (error) {
+                clearTimeout(timeout);
                 console.error(error);
-                document.getElementById("errorText").textContent = "Gagal menyambung ke pangkalan data awan.";
+                document.getElementById("errorText").textContent = "Gagal menyambung ke awan. Hubungi Admin.";
                 errorMsg.classList.remove("hidden");
             } finally {
                 btnText.textContent = "Log Masuk";
