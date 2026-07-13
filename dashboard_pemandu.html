@@ -6,21 +6,12 @@
     <title>Papan Pemuka | Pemandu Citra</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .bg-pattern {
-            background-color: #0f172a;
-            background-image: radial-gradient(#1e293b 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
+        .bg-pattern { background-color: #0f172a; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 20px 20px; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px;}
         .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
-        
-        .toggle-checkbox:checked { right: 0; border-color: #14b8a6; } /* Teal-500 */
-        .toggle-checkbox:checked + .toggle-label { background-color: #14b8a6; }
     </style>
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
@@ -30,23 +21,23 @@
             <div class="flex justify-between h-16">
                 <div class="flex items-center gap-4 lg:gap-5">
                     <div class="flex items-center gap-3 bg-white/5 p-2 rounded-xl border border-white/10 shadow-inner backdrop-blur-sm">
-                        <img src="logo IAB KPM.png" alt="KPM" class="h-8 lg:h-10 w-auto object-contain drop-shadow-lg" onerror="this.src='https://placehold.co/80x80/transparent/white?text=KPM'">
+                        <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-lg shadow-blue-500/20">IAB</div>
                         <div class="w-px h-6 bg-slate-600"></div>
-                        <div class="h-8 lg:h-10 px-3 bg-gradient-to-br from-blue-600 to-indigo-800 rounded-lg flex items-center justify-center font-black text-white text-xs lg:text-sm shadow-lg shadow-blue-900/50 border border-blue-400/50">IAB</div>
+                        <span class="font-bold text-lg tracking-tight text-white hidden sm:block">PROPKES <span class="text-blue-400">2026</span></span>
                     </div>
-                    <div class="hidden sm:block">
-                        <span class="font-bold text-lg tracking-tight text-white">PROPKES <span class="text-blue-400">2026</span></span>
-                        <span class="ml-2 bg-teal-500/10 text-teal-400 border border-teal-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider hidden md:inline-block">Mod Pemandu Citra</span>
+                    <div class="hidden sm:flex items-center gap-2">
+                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider flex items-center gap-1"><div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div> Live DB</span>
+                        <span class="bg-teal-500/10 text-teal-400 border border-teal-500/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">MOD PEMANDU CITRA</span>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-4">
                     <div class="text-right hidden md:block">
-                        <p class="text-sm font-semibold text-white" id="navNameDisplay">Memuatkan...</p>
-                        <p class="text-xs text-teal-400">Pemandu Citra (IAB)</p>
+                        <p class="text-sm font-semibold text-white uppercase" id="navNameDisplay">MEMUATKAN...</p>
+                        <p class="text-xs text-teal-400 uppercase">PEMANDU CITRA (IAB)</p>
                     </div>
-                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300" id="navInitials">...</div>
-                    <button onclick="logout()" class="ml-2 bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg transition-colors cursor-pointer outline-none shadow-md border border-slate-700" title="Log Keluar">
+                    <div class="w-10 h-10 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center font-bold text-slate-300 uppercase" id="navInitials">...</div>
+                    <button onclick="window.logout()" class="ml-2 bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg transition-colors outline-none shadow-md border border-slate-700">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
                 </div>
@@ -55,17 +46,16 @@
     </nav>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
         <div class="bg-gradient-to-r from-teal-900/40 to-slate-900 border border-teal-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
             <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-teal-500/10 blur-3xl rounded-full pointer-events-none"></div>
             <div class="relative z-10">
-                <h1 class="text-2xl font-bold text-white mb-2">Pusat Bimbingan Pemandu Citra</h1>
-                <p class="text-slate-400 text-sm max-w-2xl">Selamat bertugas. Senarai di bawah memaparkan peserta yang telah mendaftarkan anda sebagai Pemandu Citra mereka.</p>
+                <h1 class="text-2xl font-bold text-white mb-2 uppercase">Pusat Bimbingan Pemandu Citra</h1>
+                <p class="text-slate-400 text-sm max-w-2xl">Data peserta ditarik terus dari pangkalan awan (Firebase). Sila lengkapkan Borang Maklum Balas Pemandu Citra (Lampiran G).</p>
             </div>
             <div class="bg-slate-950/50 border border-teal-500/30 rounded-xl p-4 shrink-0 text-center flex gap-4 relative z-10">
                 <div>
                     <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1">Peserta Jagaan</p>
-                    <div class="text-2xl font-bold text-teal-400"><span id="menteeCount">0</span> <span class="text-sm font-normal text-slate-500">Orang</span></div>
+                    <div class="text-2xl font-bold text-teal-400"><span id="menteeCount">0</span> <span class="text-sm font-normal text-slate-500 uppercase">Orang</span></div>
                 </div>
             </div>
         </div>
@@ -74,23 +64,20 @@
             <div class="xl:col-span-2 space-y-6">
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
                     <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
-                        <h3 class="font-bold text-white flex items-center gap-2">
-                            <span class="w-1.5 h-5 bg-teal-500 rounded-full"></span>
-                            Senarai Peserta Seliaan Anda
+                        <h3 class="font-bold text-white flex items-center gap-2 uppercase text-sm">
+                            <span class="w-1.5 h-5 bg-teal-500 rounded-full"></span> Senarai Peserta Seliaan Anda
                         </h3>
                     </div>
-                    
                     <div class="overflow-x-auto custom-scrollbar">
                         <table class="w-full text-left text-sm border-collapse whitespace-nowrap">
                             <thead>
                                 <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 text-[11px] font-semibold tracking-wider uppercase">
                                     <th class="py-3 px-6">Nama Peserta (Mentee)</th>
-                                    <th class="py-3 px-6 text-center">Tempat Bertugas</th>
-                                    <th class="py-3 px-6 text-center">Tindakan</th>
+                                    <th class="py-3 px-6 text-center">Jabatan / Tempat Bertugas</th>
                                 </tr>
                             </thead>
                             <tbody id="menteeTableBody" class="divide-y divide-slate-800/50 text-slate-300">
-                                <tr><td colspan="4" class="py-8 px-4 text-center text-slate-500 text-xs italic">Memuatkan data...</td></tr>
+                                <tr><td colspan="2" class="py-8 px-4 text-center text-slate-500 text-xs italic uppercase">Menyambung ke Awan...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -100,27 +87,23 @@
             <div class="space-y-6">
                 <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-teal-500/30 rounded-2xl shadow-xl p-6 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-teal-500/10 blur-2xl rounded-full pointer-events-none"></div>
-                    
-                    <h3 class="font-bold text-white mb-2 text-sm flex items-center gap-2 relative z-10">
-                        <svg class="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75" /></svg>
-                        Borang Maklum Balas Coach
-                    </h3>
-                    <form class="space-y-4 relative z-10" onsubmit="openMaklumBalasModal(event)">
+                    <h3 class="font-bold text-white mb-2 text-sm flex items-center gap-2 relative z-10 uppercase">Borang Maklum Balas Pemandu Citra</h3>
+                    <form class="space-y-4 relative z-10" id="formBukaMaklumBalas">
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pilih Peserta (Mentee)</label>
-                            <select id="menteeSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-teal-500 outline-none cursor-pointer">
-                                <option value="" disabled selected>-- Memuatkan Senarai... --</option>
+                            <select id="menteeSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-teal-500 outline-none cursor-pointer uppercase">
+                                <option value="" disabled selected>-- MEMUATKAN SENARAI... --</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Fasa Penilaian</label>
-                            <select id="fasaSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-teal-500 outline-none cursor-pointer">
-                                <option value="" disabled selected>-- Sila Pilih --</option>
-                                <option value="FASA 1">PROPKES Fasa 1</option>
-                                <option value="FASA 2">PROPKES Fasa 2</option>
+                            <select id="fasaSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-teal-500 outline-none cursor-pointer uppercase">
+                                <option value="" disabled selected>-- SILA PILIH --</option>
+                                <option value="FASA 1">PROPKES FASA 1</option>
+                                <option value="FASA 2">PROPKES FASA 2</option>
                             </select>
                         </div>
-                        <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-lg text-xs transition-colors outline-none cursor-pointer shadow-lg shadow-teal-600/30 mt-2">
+                        <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-lg text-xs transition-colors outline-none cursor-pointer shadow-lg shadow-teal-600/30 mt-2 uppercase">
                             Isi Borang Digital Lampiran G
                         </button>
                     </form>
@@ -134,107 +117,108 @@
         <div class="bg-slate-900 border border-teal-500/50 rounded-2xl shadow-2xl max-w-3xl w-full flex flex-col max-h-[95vh] transform scale-95 transition-transform duration-300" id="maklumBalasModalContent">
             <div class="p-6 border-b border-slate-800 shrink-0 bg-slate-950/50 rounded-t-2xl flex justify-between items-start">
                 <div>
-                    <h3 class="text-lg font-extrabold text-white">LAMPIRAN G: MAKLUM BALAS PEMANDU CITRA/COACH</h3>
+                    <h3 class="text-lg font-extrabold text-white uppercase">LAMPIRAN G: MAKLUM BALAS PEMANDU CITRA</h3>
                     <p class="text-xs text-teal-400 mt-1 uppercase font-semibold tracking-wide">PROPKES 2026 - <span id="mbFasaTitle">FASA 1</span></p>
                 </div>
-                <button onclick="closeMaklumBalasModal()" class="text-slate-500 hover:text-slate-300 bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg outline-none cursor-pointer">
+                <button type="button" onclick="window.closeMaklumBalasModal()" class="text-slate-500 hover:text-slate-300 bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg outline-none">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             
-            <div class="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6">
-                <div class="bg-slate-800/30 p-5 rounded-xl border border-slate-700/50">
-                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-700 pb-2">Maklumat Peserta (Mentee)</h4>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nama Peserta</label>
-                            <input type="text" id="mbNamaPeserta" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed font-semibold">
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Jawatan & Gred</label>
-                                <input type="text" id="mbJawatan" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
+            <form id="submitFeedbackForm" class="flex-1 flex flex-col min-h-0">
+                <div class="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6">
+                    <div class="bg-slate-800/30 p-5 rounded-xl border border-slate-700/50">
+                        <div class="space-y-4">
+                            <input type="text" id="mbNamaPeserta" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase font-bold">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="mbJawatan" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
+                                <input type="text" id="mbGred" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
+                                <input type="text" id="mbJabatan" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
+                                <input type="text" id="mbPusat" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 uppercase">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Pusat / Cawangan (IAB)</label>
-                                <input type="text" id="mbPusat" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tarikh Sandaran</label>
+                                <input type="text" id="mbTarikhSandaran" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-teal-500 outline-none uppercase">
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-teal-400 uppercase mb-2">Maklum Balas Pemandu Citra</label>
+                        <textarea id="mbMaklumBalas" required rows="4" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-3 text-sm text-white focus:border-teal-500 outline-none resize-y"></textarea>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 border-b border-slate-700 pb-2">Perakuan Pemandu Citra</h4>
+                        <input type="text" id="mbNamaPemandu" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 mb-2 font-medium uppercase">
+                        <div class="flex items-center gap-4 bg-slate-950 p-4 rounded-lg border border-slate-800">
+                            <input type="checkbox" id="mbPengesahan" required class="w-5 h-5 cursor-pointer"/>
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tempat Bertugas (Sekolah/PPD)</label>
-                                <input type="text" id="mbTempatBertugas" readonly class="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tarikh Sandaran</label>
-                                <input type="text" id="mbTarikhSandaran" required placeholder="Cth: 3 Ogos 2026 hingga 4 September 2026" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-teal-500 transition-colors">
+                                <label for="mbPengesahan" class="text-xs text-slate-300 font-medium cursor-pointer block uppercase">Saya mengesahkan maklum balas ini.</label>
+                                <p class="text-[10px] text-slate-500 mt-0.5 uppercase">Disahkan digital <span id="mbTarikhDigital" class="text-teal-400 font-mono ml-1"></span></p>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div>
-                    <label class="block text-[11px] font-bold text-teal-400 uppercase tracking-wider mb-2">Maklum Balas Coach</label>
-                    <textarea id="mbMaklumBalas" required rows="6" placeholder="Sila berikan rumusan dan ulasan terhadap prestasi peserta..." class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500 transition-colors resize-y"></textarea>
+                <div class="p-6 border-t border-slate-800 shrink-0 bg-slate-950/50 rounded-b-2xl flex gap-3">
+                    <button type="button" onclick="window.closeMaklumBalasModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-sm font-bold outline-none uppercase">Batal</button>
+                    <button type="submit" id="btnHantarG" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl text-sm font-bold shadow-lg outline-none uppercase">Simpan ke Awan (Firebase)</button>
                 </div>
-
-                <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
-                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-700 pb-2">Perakuan Coach</h4>
-                    <div class="flex items-center gap-4 bg-slate-950 p-4 rounded-lg border border-slate-800">
-                        <div class="relative inline-block w-10 h-5 align-middle select-none transition duration-200 ease-in shrink-0">
-                            <input type="checkbox" id="mbPengesahan" required class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-600 appearance-none cursor-pointer z-10 top-0 left-0 outline-none"/>
-                            <label for="mbPengesahan" class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-600 cursor-pointer"></label>
-                        </div>
-                        <div>
-                            <label for="mbPengesahan" class="text-xs text-slate-300 font-medium cursor-pointer block">Saya mengesahkan maklum balas ini.</label>
-                            <p class="text-[10px] text-slate-500 mt-0.5">Disahkan oleh: <span id="mbNamaPemandu" class="text-white font-bold"></span> <span id="mbTarikhDigital" class="text-teal-400 font-mono ml-1"></span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-6 border-t border-slate-800 shrink-0 bg-slate-950/50 rounded-b-2xl flex gap-3">
-                <button type="button" onclick="closeMaklumBalasModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-sm font-bold outline-none cursor-pointer border border-slate-700">Batal</button>
-                <button type="button" onclick="submitDigitalFeedback()" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl text-sm font-bold shadow-lg shadow-teal-900/50 outline-none cursor-pointer">Simpan & Hantar Penilaian</button>
-            </div>
+            </form>
         </div>
     </div>
 
-    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2"></div>
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 no-print"></div>
 
-    <script>
+    <!-- FIREBASE MODULE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, get, set, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzlcyG6xyd2JXEMRNlDGi-_wxU2TXf6Y8",
+            authDomain: "propkes-2026.firebaseapp.com",
+            databaseURL: "https://propkes-2026-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "propkes-2026",
+            storageBucket: "propkes-2026.firebasestorage.app",
+            messagingSenderId: "758954100529",
+            appId: "1:758954100529:web:385531320681ceac8e9210"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        const currentUser = localStorage.getItem("propkes_user");
+        if (!currentUser) window.location.href = "index.html";
+
         let menteeList = [];
+        let pemanduProfile = {};
 
-        document.addEventListener("DOMContentLoaded", () => {
-            // STRICT GUARDRAIL: Hanya Pemandu
-            const currentUser = localStorage.getItem("propkes_user");
-            if (!currentUser) { window.location.replace("index.html"); return; }
-            
-            if (currentUser === "admin") { window.location.replace("dashboard_admin.html"); return; }
+        async function initDashboard() {
+            try {
+                const snapshot = await get(child(ref(db), 'propkes_accounts'));
+                if (snapshot.exists()) {
+                    const accounts = snapshot.val();
+                    pemanduProfile = accounts[currentUser] || {};
+                    const pemanduName = pemanduProfile.name || "Pemandu Citra";
+                    document.getElementById('navNameDisplay').textContent = pemanduName.toUpperCase();
+                    document.getElementById('navInitials').textContent = pemanduName.substring(0, 2).toUpperCase();
 
-            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            const myProfile = accounts[currentUser];
-            if (!myProfile || myProfile.role !== "pemandu") {
-                window.location.replace("index.html"); return;
+                    const myNameLower = pemanduName.trim().toLowerCase();
+                    menteeList = Object.entries(accounts)
+                        .filter(([username, data]) => {
+                            if (data.role !== 'peserta') return false;
+                            const pCitra = (data.pemanduCitra || "").trim().toLowerCase();
+                            return pCitra.includes(myNameLower) || myNameLower.includes(pCitra);
+                        })
+                        .map(([username, data]) => ({ username, ...data }));
+
+                    renderMenteeTable();
+                    populateMenteeDropdown();
+                }
+            } catch (error) {
+                console.error(error);
+                window.showToast("Gagal memuat turun data dari awan.", "error");
             }
-
-            const pemanduName = myProfile.name || "Pemandu Citra";
-            document.getElementById('navNameDisplay').textContent = pemanduName;
-            document.getElementById('navInitials').textContent = pemanduName.substring(0, 2).toUpperCase();
-
-            // PENAPISAN PINTAR: Tarik peserta jika nama Pemandu ini ada diisi oleh Peserta
-            const myNameLower = pemanduName.trim().toLowerCase();
-            menteeList = Object.entries(accounts)
-                .filter(([username, data]) => {
-                    if (data.role !== 'peserta') return false;
-                    const pCitra = (data.pemanduCitra || "").trim().toLowerCase();
-                    return pCitra.includes(myNameLower) || myNameLower.includes(pCitra);
-                })
-                .map(([username, data]) => ({ username, ...data }));
-
-            renderMenteeTable();
-            populateMenteeDropdown();
-        });
+        }
+        initDashboard();
 
         function renderMenteeTable() {
             const tbody = document.getElementById("menteeTableBody");
@@ -242,30 +226,15 @@
             document.getElementById("menteeCount").textContent = menteeList.length;
 
             if (menteeList.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="py-8 px-4 text-center text-slate-400 text-xs leading-loose">Tiada peserta di bawah seliaan anda buat masa ini.<br><span class="text-teal-400">Peserta perlu mengemas kini profil mereka dan memasukkan ejaan nama anda dengan tepat.</span></td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="2" class="py-8 px-4 text-center text-slate-500 text-xs italic uppercase">Tiada peserta di bawah seliaan anda buat masa ini.</td></tr>`;
                 return;
             }
-
             menteeList.forEach(mentee => {
                 const initials = mentee.name.substring(0, 2).toUpperCase();
-                const tempatBertugas = mentee.sekolah || '<span class="text-rose-400 italic">Belum Diisi</span>';
-
                 const tr = document.createElement("tr");
-                tr.className = "hover:bg-slate-800/30 transition-colors";
                 tr.innerHTML = `
-                    <td class="py-4 px-6">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-700">${initials}</div>
-                            <div>
-                                <p class="font-medium text-white">${mentee.name}</p>
-                                <p class="text-[10px] text-slate-500">${mentee.email}</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="py-4 px-6 text-center text-xs text-slate-400">${tempatBertugas}</td>
-                    <td class="py-4 px-6 text-center">
-                        <button onclick="showToast('Modul Jurnal akan dibuka kelak.', 'info')" class="bg-slate-800 hover:bg-teal-600 text-slate-300 hover:text-white px-3 py-1.5 rounded-lg text-xs outline-none cursor-pointer transition-colors mx-auto">Baca Jurnal</button>
-                    </td>
+                    <td class="py-4 px-6"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-700">${initials}</div><div><p class="font-medium text-white uppercase">${mentee.name.toUpperCase()}</p></div></div></td>
+                    <td class="py-4 px-6 text-center text-xs text-slate-400 uppercase">${(mentee.jabatan || mentee.sekolah || 'BELUM DIISI').toUpperCase()}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -273,93 +242,95 @@
 
         function populateMenteeDropdown() {
             const select = document.getElementById("menteeSelect");
-            select.innerHTML = '<option value="" disabled selected>-- Sila Pilih Mentee --</option>';
+            select.innerHTML = '<option value="" disabled selected>-- SILA PILIH MENTEE --</option>';
             menteeList.forEach(mentee => {
                 const option = document.createElement("option");
                 option.value = mentee.username;
-                option.textContent = mentee.name;
+                option.textContent = mentee.name.toUpperCase();
                 select.appendChild(option);
             });
         }
 
-        const maklumBalasModal = document.getElementById('maklumBalasModal');
-        const maklumBalasModalContent = document.getElementById('maklumBalasModalContent');
-
-        function openMaklumBalasModal(e) {
+        document.getElementById('formBukaMaklumBalas').addEventListener('submit', function(e) {
             e.preventDefault();
             const menteeUsername = document.getElementById('menteeSelect').value;
             const fasa = document.getElementById('fasaSelect').value;
-            if(!menteeUsername || !fasa) { showToast("Sila pilih peserta dan fasa terlebih dahulu.", "info"); return; }
-
             const mentee = menteeList.find(m => m.username === menteeUsername);
-            const currentUser = localStorage.getItem("propkes_user");
-            const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            const pemanduProfile = accounts[currentUser] || {};
 
             document.getElementById('mbFasaTitle').textContent = fasa;
-            document.getElementById('mbNamaPeserta').value = mentee.name;
-            document.getElementById('mbJawatan').value = (mentee.pesertaJawatan || "Belum Diisi") + " (" + (mentee.pesertaGred || "-") + ")";
-            document.getElementById('mbPusat').value = mentee.pesertaPusatAsal || "Belum Diisi";
-            document.getElementById('mbTempatBertugas').value = mentee.sekolah || mentee.ppd || "Belum Diisi";
-            
-            document.getElementById('mbNamaPemandu').textContent = pemanduProfile.name || "Pemandu Citra PROPKES";
-            
-            const today = new Date();
-            document.getElementById('mbTarikhDigital').textContent = `(${today.toLocaleDateString('ms-MY')})`;
+            document.getElementById('mbNamaPeserta').value = mentee.name.toUpperCase();
+            document.getElementById('mbJawatan').value = (mentee.pesertaJawatan || "BELUM DIISI").toUpperCase();
+            document.getElementById('mbGred').value = (mentee.pesertaGred || "BELUM DIISI").toUpperCase();
+            document.getElementById('mbJabatan').value = (mentee.jabatan || mentee.sekolah || "BELUM DIISI").toUpperCase();
+            document.getElementById('mbPusat').value = (mentee.pesertaPusatAsal || "BELUM DIISI").toUpperCase();
+            document.getElementById('mbNamaPemandu').value = (pemanduProfile.name || "PEMANDU CITRA").toUpperCase();
+            document.getElementById('mbTarikhDigital').textContent = `(${new Date().toLocaleDateString('ms-MY')})`;
 
-            maklumBalasModal.classList.remove('hidden'); maklumBalasModal.classList.add('flex');
-            setTimeout(() => { maklumBalasModal.classList.remove('opacity-0'); maklumBalasModalContent.classList.remove('scale-95'); }, 10);
-        }
+            const modal = document.getElementById('maklumBalasModal');
+            const content = document.getElementById('maklumBalasModalContent');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
+        });
 
-        function closeMaklumBalasModal() {
-            maklumBalasModal.classList.add('opacity-0'); maklumBalasModalContent.classList.add('scale-95');
-            setTimeout(() => { maklumBalasModal.classList.remove('flex'); maklumBalasModal.classList.add('hidden'); }, 300);
-        }
+        window.closeMaklumBalasModal = function() {
+            const modal = document.getElementById('maklumBalasModal');
+            const content = document.getElementById('maklumBalasModalContent');
+            modal.classList.add('opacity-0'); content.classList.add('scale-95');
+            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
+        };
 
-        function submitDigitalFeedback() {
+        document.getElementById('submitFeedbackForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
             const menteeUsername = document.getElementById('menteeSelect').value;
             const fasa = document.getElementById('fasaSelect').value;
-            const tarikh = document.getElementById('mbTarikhSandaran').value;
-            const maklumBalas = document.getElementById('mbMaklumBalas').value;
-            const disahkan = document.getElementById('mbPengesahan').checked;
+            const btn = document.getElementById("btnHantarG");
 
-            if(!tarikh || !maklumBalas) { showToast("Sila lengkapkan tarikh sandaran dan ulasan.", "info"); return; }
-            if(!disahkan) { showToast("Sila tandakan perakuan.", "info"); return; }
+            btn.textContent = "MENGHANTAR KE AWAN..."; btn.disabled = true;
 
-            const feedbackKey = `propkes_feedback_pemandu_${menteeUsername}_${fasa.replace(/\s+/g, '')}`;
+            const feedbackKey = `${menteeUsername}_${fasa.replace(/\s+/g, '')}`;
             const feedbackData = {
-                fasa: fasa,
-                namaPeserta: document.getElementById('mbNamaPeserta').value,
-                jawatan: document.getElementById('mbJawatan').value.split(" (")[0],
-                gred: document.getElementById('mbJawatan').value.match(/\(([^)]+)\)/)?.[1] || "-",
-                tempatBertugas: document.getElementById('mbTempatBertugas').value,
-                pusat: document.getElementById('mbPusat').value,
-                tarikhSandaran: tarikh,
-                maklumBalas: maklumBalas,
-                namaPenilai: document.getElementById('mbNamaPemandu').textContent,
-                jawatanPenilai: "Pemandu Citra IAB",
+                fasa: fasa.toUpperCase(),
+                namaPeserta: document.getElementById('mbNamaPeserta').value.toUpperCase(),
+                jawatan: document.getElementById('mbJawatan').value.toUpperCase(),
+                gred: document.getElementById('mbGred').value.toUpperCase(),
+                tempatBertugas: document.getElementById('mbJabatan').value.toUpperCase(),
+                pusat: document.getElementById('mbPusat').value.toUpperCase(),
+                tarikhSandaran: document.getElementById('mbTarikhSandaran').value.toUpperCase(),
+                maklumBalas: document.getElementById('mbMaklumBalas').value, 
+                namaPenilai: document.getElementById('mbNamaPemandu').value.toUpperCase(),
+                jawatanPenilai: "PEMANDU CITRA IAB",
                 tarikhTandatangan: document.getElementById('mbTarikhDigital').textContent
             };
-            localStorage.setItem(feedbackKey, JSON.stringify(feedbackData));
 
-            closeMaklumBalasModal();
-            setTimeout(() => { showToast("Borang berjaya dihantar ke Urus Setia.", "success"); }, 300);
-            
-            document.getElementById('menteeSelect').value = ""; document.getElementById('fasaSelect').value = "";
-        }
+            try {
+                await set(ref(db, `propkes_feedback_pemandu/${feedbackKey}`), feedbackData);
+                localStorage.setItem(`propkes_feedback_pemandu_${feedbackKey}`, JSON.stringify(feedbackData));
 
-        function showToast(message, type = 'success') {
+                window.closeMaklumBalasModal();
+                window.showToast("Borang berjaya dihantar ke Firebase!", "success");
+                document.getElementById('formBukaMaklumBalas').reset();
+
+            } catch (error) {
+                console.error(error);
+                window.showToast("Gagal hantar ke Awan.", "error");
+            } finally {
+                btn.textContent = "SIMPAN KE AWAN (FIREBASE)"; btn.disabled = false;
+            }
+        });
+
+        window.logout = function() { localStorage.removeItem("propkes_user"); window.location.href = "index.html"; };
+
+        window.showToast = function(msg, type='success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
-            const bgColor = type === 'success' ? 'bg-teal-600' : 'bg-blue-600';
-            toast.className = `${bgColor} text-white px-4 py-3 rounded-lg shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3`;
-            toast.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <span>${message}</span>`;
+            const bg = type === 'success' ? 'bg-teal-600' : 'bg-rose-600';
+            toast.className = `${bg} text-white px-4 py-3 rounded-lg shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 uppercase`;
+            toast.textContent = msg;
             container.appendChild(toast);
             setTimeout(() => { toast.classList.remove('translate-y-10', 'opacity-0'); }, 10);
             setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
-        }
-
-        function logout() { localStorage.removeItem("propkes_user"); window.location.replace("index.html"); }
+        };
     </script>
 </body>
 </html>
+```eof
