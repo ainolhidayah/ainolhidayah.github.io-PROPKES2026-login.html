@@ -88,7 +88,10 @@
                     <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm flex items-center gap-2">Maklumat Didaftarkan</h3>
                     <div class="space-y-4">
                         <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Nama Penuh</p><p class="text-sm font-medium text-slate-200" id="profileNama">Memuat turun...</p></div>
-                        <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">E-mel Rasmi</p><p class="text-sm font-medium text-slate-300" id="profileEmail">Belum Diisi</p></div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">E-mel Rasmi</p><p class="text-sm font-medium text-slate-300 truncate" id="profileEmail">Belum Diisi</p></div>
+                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">No. KP</p><p class="text-sm font-medium text-amber-400" id="profileIC">Belum Diisi</p></div>
+                        </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Jawatan/Gred</p><p class="text-sm font-medium text-slate-300" id="profileJawatanGred">Belum Diisi</p></div>
                             <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Pusat/Jabatan</p><p class="text-sm font-medium text-slate-300" id="profileJabatanPusat">Belum Diisi</p></div>
@@ -123,7 +126,7 @@
                     </div>
                     
                     <button onclick="window.openProfilModal()" class="w-full mt-4 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-lg text-xs font-bold border border-slate-700 outline-none cursor-pointer">
-                        Kemaskini Maklumat Penyelia
+                        Kemaskini Maklumat Profil
                     </button>
                     <button onclick="window.openPanduCitraModal()" class="w-full mt-3 bg-purple-600/20 hover:bg-purple-600 text-purple-400 hover:text-white py-2.5 rounded-lg text-xs font-bold border border-purple-500/50 outline-none cursor-pointer transition-colors">
                         Daftar Sesi Pandu Citra
@@ -179,14 +182,14 @@
                     </div>
                 </div>
 
-                <!-- Laporan i-PROPKES -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6" id="analysisSectionContainer">
+                <!-- Laporan i-PROPKES (Boleh Diperluas) -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <div class="flex justify-between items-center">
                         <div>
                             <h3 class="font-bold text-white text-sm">Keputusan i-PROPKES</h3>
                             <p class="text-[10px] text-slate-400 mt-1">Selesai Ujian Pra dan Pasca.</p>
                         </div>
-                        <button onclick="document.getElementById('analisisBox').classList.toggle('hidden')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-700 outline-none cursor-pointer">Lihat Carta</button>
+                        <button onclick="document.getElementById('analisisBox').classList.toggle('hidden')" class="bg-slate-800 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-700 outline-none cursor-pointer hover:bg-slate-700">Lihat Carta</button>
                     </div>
                     <div id="analisisBox" class="hidden mt-6 pt-6 border-t border-slate-800">
                         <div class="flex justify-end mb-4">
@@ -271,18 +274,18 @@
             <form id="journalForm" class="space-y-5">
                 <div>
                     <label class="block text-[11px] font-bold text-purple-400 uppercase mb-2">1. Deskripsi (Aktiviti/Peristiwa)</label>
-                    <textarea id="jDeskripsi" rows="4" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
+                    <textarea id="jDeskripsi" rows="4" required placeholder="Contoh: Sepanjang minggu ini, saya telah terlibat dalam sesi perbincangan..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
                 </div>
                 <div>
                     <label class="block text-[11px] font-bold text-amber-400 uppercase mb-2">2. Analisis</label>
-                    <textarea id="jAnalisis" rows="3" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
+                    <textarea id="jAnalisis" rows="3" required placeholder="Contoh: Analisis terhadap perancangan menunjukkan..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
                 </div>
                 <div>
                     <label class="block text-[11px] font-bold text-emerald-400 uppercase mb-2">3. Interpretasi & Kesimpulan</label>
-                    <textarea id="jInterpretasi" rows="3" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
+                    <textarea id="jInterpretasi" rows="3" required placeholder="Contoh: Kolaborasi aktif diperlukan bagi memastikan kejayaan..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none"></textarea>
                 </div>
                 <div class="flex gap-3 pt-4 border-t border-slate-800">
-                    <button type="button" onclick="window.closeJournalForm()" class="flex-1 bg-slate-800 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer">Batal</button>
+                    <button type="button" onclick="window.closeJournalForm()" class="flex-1 bg-slate-800 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer hover:bg-slate-700">Batal</button>
                     <button type="submit" id="btnSimpanJurnal" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl text-xs font-bold shadow-lg shadow-purple-600/30 outline-none cursor-pointer">Simpan Jurnal</button>
                 </div>
             </form>
@@ -304,17 +307,17 @@
             <div class="space-y-4" id="modalFormArea">
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">1. Lokasi</label>
-                    <select id="modalLocationSelect" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none cursor-pointer">
+                    <select id="modalLocationSelect" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none cursor-pointer focus:border-blue-500">
                         <option value="">- Belum Mula -</option><option value="sekolah">Sekolah Sandaran</option><option value="ppd">PPD</option><option value="iab">IAB</option><option value="cuti">Cuti Rehat / Umum</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">2. Aktiviti Ringkas</label>
-                    <textarea id="modalAktiviti" rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none"></textarea>
+                    <textarea id="modalAktiviti" rows="2" placeholder="Cth: Mesyuarat pengurusan..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none focus:border-blue-500"></textarea>
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">3. Domain SKKSM</label>
-                    <select id="modalSkksm" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none cursor-pointer">
+                    <select id="modalSkksm" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none cursor-pointer focus:border-blue-500">
                         <option value="-">Tiada (Jika Cuti)</option>
                         <option value="Pengurusan dan Kepimpinan Organisasi">Pengurusan dan Kepimpinan Organisasi</option>
                         <option value="Pengurusan Kurikulum">Pengurusan Kurikulum</option>
@@ -329,7 +332,7 @@
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">4. Catatan Refleksi</label>
-                    <textarea id="modalRefleksi" rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none"></textarea>
+                    <textarea id="modalRefleksi" rows="2" placeholder="Cth: Perlu komunikasi lebih jelas..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none focus:border-blue-500"></textarea>
                 </div>
                 
                 <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex items-center justify-between mt-2">
@@ -354,55 +357,57 @@
                 <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
                     <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Maklumat Pegawai (IAB)</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Gred</label><input type="text" id="editGred" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jabatan</label><input type="text" id="editJabatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Pusat / Cawangan</label><input type="text" id="editPusatCawangan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Kad Pengenalan</label><input type="text" id="editIc" placeholder="Contoh: 800101011234" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Gred</label><input type="text" id="editGred" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jabatan</label><input type="text" id="editJabatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Pusat / Cawangan</label><input type="text" id="editPusatCawangan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
                     </div>
                 </div>
                 <!-- 2. Sekolah -->
                 <div class="bg-blue-950/20 p-4 rounded-xl border border-blue-900/30">
                     <p class="text-[10px] font-bold text-blue-400 uppercase mb-3">Maklumat Bertugas (Sandaran)</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Sekolah Sandaran</label><input type="text" id="editSekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">PPD</label><input type="text" id="editPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Sekolah Sandaran</label><input type="text" id="editSekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">PPD</label><input type="text" id="editPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
                     </div>
                 </div>
                 <!-- 3. Pemandu -->
                 <div class="bg-purple-950/20 p-4 rounded-xl border border-purple-900/30">
-                    <p class="text-[10px] font-bold text-purple-400 uppercase mb-3">Pemandu Citra (IAB)</p>
+                    <p class="text-[10px] font-bold text-purple-400 uppercase mb-1">Pemandu Citra (IAB)</p>
+                    <p class="text-[9px] text-purple-300/70 mb-3 italic">*Penting: Ejaan nama mesti tepat supaya Pemandu Citra dapat mencari anda.</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh Pemandu</label><input type="text" id="editPemanduCitra" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan Pemandu</label><input type="text" id="editPemanduJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Pusat/Cawangan</label><input type="text" id="editPemanduPusat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
+                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh Pemandu</label><input type="text" id="editPemanduCitra" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-purple-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan Pemandu</label><input type="text" id="editPemanduJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-purple-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Pusat/Cawangan</label><input type="text" id="editPemanduPusat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-purple-500"></div>
                     </div>
                 </div>
                 <!-- 4. Mentor 1 -->
                 <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
                     <p class="text-[10px] font-bold text-amber-400 uppercase mb-3">Mentor 1 (Sekolah)</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh</label><input type="text" id="editMentorSekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editMentorJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Telefon</label><input type="text" id="editMentorTelefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel Rasmi</label><input type="email" id="editMentorEmail" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none"></div>
-                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap (Jalan & Bangunan)</label><input type="text" id="editMentorAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none mb-3"><div class="grid grid-cols-3 gap-3"><input type="text" id="editMentorPoskod" placeholder="Poskod" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase"><input type="text" id="editMentorBandar" placeholder="Bandar" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase"><input type="text" id="editMentorNegeri" placeholder="Negeri" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase"></div></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh</label><input type="text" id="editMentorSekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-amber-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editMentorJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-amber-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Telefon</label><input type="text" id="editMentorTelefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-amber-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel Rasmi</label><input type="email" id="editMentorEmail" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-amber-500"></div>
+                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap (Jalan & Bangunan)</label><input type="text" id="editMentorAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none mb-3 focus:border-amber-500"><div class="grid grid-cols-3 gap-3"><input type="text" id="editMentorPoskod" placeholder="Poskod" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"><input type="text" id="editMentorBandar" placeholder="Bandar" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"><input type="text" id="editMentorNegeri" placeholder="Negeri" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"></div></div>
                     </div>
                 </div>
                 <!-- 5. Mentor 2 -->
                 <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
                     <p class="text-[10px] font-bold text-amber-400 uppercase mb-3">Mentor 2 (PPD)</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh (PPD)</label><input type="text" id="editMentorPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editMentorPpdJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Telefon</label><input type="text" id="editMentorPpdTelefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel Rasmi</label><input type="email" id="editMentorPpdEmail" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none"></div>
-                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap PPD</label><input type="text" id="editMentorPpdAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none mb-3"><div class="grid grid-cols-3 gap-3"><input type="text" id="editMentorPpdPoskod" placeholder="Poskod" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase"><input type="text" id="editMentorPpdBandar" placeholder="Bandar" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase"><input type="text" id="editMentorPpdNegeri" placeholder="Negeri" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase"></div></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh (PPD)</label><input type="text" id="editMentorPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-amber-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editMentorPpdJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-amber-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Telefon</label><input type="text" id="editMentorPpdTelefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-amber-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel Rasmi</label><input type="email" id="editMentorPpdEmail" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-amber-500"></div>
+                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap PPD</label><input type="text" id="editMentorPpdAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none mb-3 focus:border-amber-500"><div class="grid grid-cols-3 gap-3"><input type="text" id="editMentorPpdPoskod" placeholder="Poskod" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"><input type="text" id="editMentorPpdBandar" placeholder="Bandar" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"><input type="text" id="editMentorPpdNegeri" placeholder="Negeri" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"></div></div>
                     </div>
                 </div>
 
-                <div class="flex gap-3 pt-4 sticky bottom-0 bg-slate-900 pb-2 border-t border-slate-800">
-                    <button type="button" onclick="window.closeProfilModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer">Batal</button>
-                    <button type="submit" id="btnSimpanProfil" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer">Simpan ke Awan</button>
+                <div class="flex gap-3 pt-4 sticky bottom-0 bg-slate-900 pb-2 border-t border-slate-800 mt-4">
+                    <button type="button" onclick="window.closeProfilModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Batal</button>
+                    <button type="submit" id="btnSimpanProfil" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Simpan ke Awan</button>
                 </div>
             </form>
         </div>
@@ -420,7 +425,7 @@
                     <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Masa Tamat</label><input type="time" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"></div>
                 </div>
                 <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Kaedah</label><select required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"><option value="Atas Talian">Dalam Talian (Meet/Webex)</option><option value="Bersemuka">Bersemuka (F2F)</option></select></div>
-                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Catatan Ringkas</label><textarea rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white resize-none outline-none"></textarea></div>
+                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Catatan Ringkas (Pilihan)</label><textarea rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white resize-none outline-none"></textarea></div>
                 <p class="text-xs text-amber-400 font-semibold italic mt-2 bg-amber-500/10 p-2 rounded">* Sila Buat Penilaian Sesi Pandu Citra di Sistem Insyst.</p>
                 <div class="flex gap-3 pt-4 border-t border-slate-800 mt-2">
                     <button type="button" onclick="window.closePanduCitraModal()" class="flex-1 bg-slate-800 text-white py-2.5 rounded-xl text-xs font-bold outline-none cursor-pointer">Batal</button>
@@ -460,10 +465,21 @@
         window.journalData = {};
         window.profileData = {}; 
 
+        // Fungsi Keselamatan untuk elak skrin tersekat kalau kotak tiada
+        function safeSetText(id, text) {
+            const el = document.getElementById(id);
+            if(el) el.textContent = text;
+        }
+        function safeSetValue(id, value) {
+            const el = document.getElementById(id);
+            if(el) el.value = value;
+        }
+
         window.showToast = function(message, type = 'success') {
             const container = document.getElementById('toastContainer');
+            if(!container) return;
             const toast = document.createElement('div');
-            const bgColor = type === 'success' ? 'bg-emerald-600' : (type === 'warning' ? 'bg-amber-600' : 'bg-blue-600');
+            const bgColor = type === 'success' ? 'bg-emerald-600' : (type === 'warning' ? 'bg-amber-600' : 'bg-rose-600');
             toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl shadow-black/20 text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3 z-[200]`;
             toast.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg> <span>${message}</span>`;
             container.appendChild(toast);
@@ -475,6 +491,13 @@
 
         async function loadUserData() {
             try {
+                // Periksa jika currentUser ada simpan string email yg salah
+                if(currentUser.includes('@')) {
+                    window.showToast("Ralat ID. Sila Log Keluar dan masuk menggunakan ID sahaja, bukan e-mel.", "warning");
+                    safeSetText("profileNama", "Ralat Log Masuk");
+                    return;
+                }
+
                 const dbRef = ref(db);
                 const [userSnap, calSnap, jurSnap] = await Promise.all([
                     get(child(dbRef, `propkes_accounts/${currentUser}`)),
@@ -487,42 +510,44 @@
                     const u = window.profileData;
                     const fName = u.name || "Peserta";
                     
-                    // Safe checks untuk HTML updates
-                    if(document.getElementById("navNameDisplay")) document.getElementById("navNameDisplay").textContent = fName;
-                    if(document.getElementById("welcomeMessage")) document.getElementById("welcomeMessage").textContent = `Selamat Datang, ${fName.split(' ')[0]}!`;
-                    if(document.getElementById("navInitials")) document.getElementById("navInitials").textContent = fName.substring(0, 2).toUpperCase();
-                    if(document.getElementById("profileNama")) document.getElementById("profileNama").textContent = fName;
-                    if(document.getElementById("profileEmail")) document.getElementById("profileEmail").textContent = u.email || "Tiada Maklumat";
+                    // Header & Profile Display
+                    safeSetText("navNameDisplay", fName);
+                    safeSetText("welcomeMessage", `Selamat Datang, ${fName.split(' ')[0]}!`);
+                    safeSetText("navInitials", fName.substring(0, 2).toUpperCase());
+                    safeSetText("profileNama", fName);
+                    safeSetText("profileEmail", u.email || "Tiada Maklumat");
+                    safeSetText("profileIC", u.ic || "Belum Diisi");
                     
                     const jawatan = u.jawatan || ""; const gred = u.gred || "";
-                    if(document.getElementById("profileJawatanGred")) document.getElementById("profileJawatanGred").textContent = (jawatan || gred) ? `${jawatan} ${gred ? '('+gred+')' : ''}` : "Belum Diisi";
+                    safeSetText("profileJawatanGred", (jawatan || gred) ? `${jawatan} ${gred ? '('+gred+')' : ''}` : "Belum Diisi");
                     
                     const jabatan = u.jabatan || ""; const pusat = u.pusatCawangan || "";
-                    if(document.getElementById("profileJabatanPusat")) document.getElementById("profileJabatanPusat").textContent = (jabatan || pusat) ? `${jabatan} ${pusat ? '- '+pusat : ''}` : "Belum Diisi";
-                    if(document.getElementById("profileSekolah")) document.getElementById("profileSekolah").textContent = u.sekolah || "Belum Diisi";
-                    if(document.getElementById("profilePPD")) document.getElementById("profilePPD").textContent = u.ppd ? `PPD: ${u.ppd}` : "PPD: Belum Diisi";
+                    safeSetText("profileJabatanPusat", (jabatan || pusat) ? `${jabatan} ${pusat ? '- '+pusat : ''}` : "Belum Diisi");
+                    safeSetText("profileSekolah", u.sekolah || "Belum Diisi");
+                    safeSetText("profilePPD", u.ppd ? `PPD: ${u.ppd}` : "PPD: Belum Diisi");
                     
-                    // Bahagian Penyelia
-                    if(document.getElementById("infoPemanduNama")) document.getElementById("infoPemanduNama").textContent = u.pemanduCitra || "Belum Diisi";
-                    if(document.getElementById("infoPemanduJawatan")) document.getElementById("infoPemanduJawatan").textContent = (u.pemanduJawatan || "") + " " + (u.pemanduPusat ? `(${u.pemanduPusat})` : "");
-                    if(document.getElementById("infoMentorNama")) document.getElementById("infoMentorNama").textContent = u.mentorSekolah || "Belum Diisi";
-                    if(document.getElementById("infoMentorJawatan")) document.getElementById("infoMentorJawatan").textContent = u.mentorJawatan || "-";
-                    if(document.getElementById("infoMentorPpdNama")) document.getElementById("infoMentorPpdNama").textContent = u.mentorPpd || "Belum Diisi";
-                    if(document.getElementById("infoMentorPpdJawatan")) document.getElementById("infoMentorPpdJawatan").textContent = u.mentorPpdJawatan || "-";
+                    // Bahagian Penyelia Display
+                    safeSetText("infoPemanduNama", u.pemanduCitra || "Belum Diisi");
+                    safeSetText("infoPemanduJawatan", (u.pemanduJawatan || "") + " " + (u.pemanduPusat ? `(${u.pemanduPusat})` : ""));
+                    safeSetText("infoMentorNama", u.mentorSekolah || "Belum Diisi");
+                    safeSetText("infoMentorJawatan", u.mentorJawatan || "-");
+                    safeSetText("infoMentorPpdNama", u.mentorPpd || "Belum Diisi");
+                    safeSetText("infoMentorPpdJawatan", u.mentorPpdJawatan || "-");
 
-                    // Form
-                    if(document.getElementById('editJawatan')) {
-                        document.getElementById('editJawatan').value = u.jawatan || ""; document.getElementById('editGred').value = u.gred || "";
-                        document.getElementById('editJabatan').value = u.jabatan || ""; document.getElementById('editPusatCawangan').value = u.pusatCawangan || "";
-                        document.getElementById('editSekolah').value = u.sekolah || ""; document.getElementById('editPpd').value = u.ppd || "";
-                        document.getElementById('editPemanduCitra').value = u.pemanduCitra || ""; document.getElementById('editPemanduJawatan').value = u.pemanduJawatan || ""; document.getElementById('editPemanduPusat').value = u.pemanduPusat || "";
-                        document.getElementById('editMentorSekolah').value = u.mentorSekolah || ""; document.getElementById('editMentorJawatan').value = u.mentorJawatan || "";
-                        document.getElementById('editMentorTelefon').value = u.mentorTelefon || ""; document.getElementById('editMentorEmail').value = u.mentorEmail || "";
-                        document.getElementById('editMentorAlamat').value = u.mentorAlamat || ""; document.getElementById('editMentorPoskod').value = u.mentorPoskod || ""; document.getElementById('editMentorBandar').value = u.mentorBandar || ""; document.getElementById('editMentorNegeri').value = u.mentorNegeri || "";
-                        document.getElementById('editMentorPpd').value = u.mentorPpd || ""; document.getElementById('editMentorPpdJawatan').value = u.mentorPpdJawatan || "";
-                        document.getElementById('editMentorPpdTelefon').value = u.mentorPpdTelefon || ""; document.getElementById('editMentorPpdEmail').value = u.mentorPpdEmail || "";
-                        document.getElementById('editMentorPpdAlamat').value = u.mentorPpdAlamat || ""; document.getElementById('editMentorPpdPoskod').value = u.mentorPpdPoskod || ""; document.getElementById('editMentorPpdBandar').value = u.mentorPpdBandar || ""; document.getElementById('editMentorPpdNegeri').value = u.mentorPpdNegeri || "";
-                    }
+                    // Modal Form (Safe Set Value)
+                    safeSetValue('editIc', u.ic || "");
+                    safeSetValue('editJawatan', u.jawatan || ""); safeSetValue('editGred', u.gred || "");
+                    safeSetValue('editJabatan', u.jabatan || ""); safeSetValue('editPusatCawangan', u.pusatCawangan || "");
+                    safeSetValue('editSekolah', u.sekolah || ""); safeSetValue('editPpd', u.ppd || "");
+                    safeSetValue('editPemanduCitra', u.pemanduCitra || ""); safeSetValue('editPemanduJawatan', u.pemanduJawatan || ""); safeSetValue('editPemanduPusat', u.pemanduPusat || "");
+                    safeSetValue('editMentorSekolah', u.mentorSekolah || ""); safeSetValue('editMentorJawatan', u.mentorJawatan || "");
+                    safeSetValue('editMentorTelefon', u.mentorTelefon || ""); safeSetValue('editMentorEmail', u.mentorEmail || "");
+                    safeSetValue('editMentorAlamat', u.mentorAlamat || ""); safeSetValue('editMentorPoskod', u.mentorPoskod || ""); safeSetValue('editMentorBandar', u.mentorBandar || ""); safeSetValue('editMentorNegeri', u.mentorNegeri || "");
+                    safeSetValue('editMentorPpd', u.mentorPpd || ""); safeSetValue('editMentorPpdJawatan', u.mentorPpdJawatan || "");
+                    safeSetValue('editMentorPpdTelefon', u.mentorPpdTelefon || ""); safeSetValue('editMentorPpdEmail', u.mentorPpdEmail || "");
+                    safeSetValue('editMentorPpdAlamat', u.mentorPpdAlamat || ""); safeSetValue('editMentorPpdPoskod', u.mentorPpdPoskod || ""); safeSetValue('editMentorPpdBandar', u.mentorPpdBandar || ""); safeSetValue('editMentorPpdNegeri', u.mentorPpdNegeri || "");
+                } else {
+                    safeSetText("profileNama", "Ralat: Data tidak ditemui di Awan.");
                 }
 
                 if(calSnap.exists()) window.calendarData = calSnap.val();
@@ -530,7 +555,7 @@
                 window.renderCal();
 
             } catch (error) {
-                console.error(error); window.showToast("Gagal memuat turun data.", "error");
+                console.error(error); window.showToast("Gagal menyambung ke pangkalan data.", "error");
             }
         }
 
@@ -562,7 +587,9 @@
         document.getElementById("profilForm").addEventListener("submit", async function(e) {
             e.preventDefault();
             const btn = document.getElementById("btnSimpanProfil"); btn.textContent = "Menyimpan..."; btn.disabled = true;
+            
             const dataToSave = {
+                ic: document.getElementById('editIc').value,
                 jawatan: document.getElementById('editJawatan').value.toUpperCase(), gred: document.getElementById('editGred').value.toUpperCase(), jabatan: document.getElementById('editJabatan').value.toUpperCase(), pusatCawangan: document.getElementById('editPusatCawangan').value.toUpperCase(),
                 sekolah: document.getElementById('editSekolah').value.toUpperCase(), ppd: document.getElementById('editPpd').value.toUpperCase(),
                 pemanduCitra: document.getElementById('editPemanduCitra').value.toUpperCase(), pemanduJawatan: document.getElementById('editPemanduJawatan').value.toUpperCase(), pemanduPusat: document.getElementById('editPemanduPusat').value.toUpperCase(),
@@ -621,7 +648,13 @@
                 btn.className += " " + bC;
                 
                 let iconHtml = "";
-                if(data.log) iconHtml = data.status === 'approved' ? `<div class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-slate-900 flex items-center justify-center"><svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></div>` : `<div class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-amber-500 rounded-full border-2 border-slate-900 flex items-center justify-center"></div>`;
+                if(data.log) {
+                    if(data.status === 'approved') {
+                        iconHtml = `<div class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-slate-900 flex items-center justify-center shadow-sm"><svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></div>`;
+                    } else {
+                        iconHtml = `<div class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-amber-500 rounded-full border-2 border-slate-900 flex items-center justify-center shadow-sm"></div>`;
+                    }
+                }
 
                 btn.innerHTML = `<span>${d}</span>` + iconHtml;
                 btn.onclick = () => window.openDailyModal(dt, d); 
@@ -674,8 +707,8 @@
                     window.calendarData[curEditDate] = payload;
                     await set(ref(db, `propkes_attendance/${currentUser}/${curEditDate}`), payload);
                 }
-                window.closeDailyModal(); window.renderCal(); window.showToast("Rekod disimpan.");
-            } catch(e) { console.error(e); window.showToast("Ralat menyimpan.", "error"); } 
+                window.closeDailyModal(); window.renderCal(); window.showToast("Rekod kalendar disimpan (Menunggu Pengesahan).");
+            } catch(e) { console.error(e); window.showToast("Gagal menyimpan kalendar ke awan.", "error"); } 
             finally { btn.textContent = "Simpan Lampiran C"; btn.disabled = false; }
         };
 
@@ -739,7 +772,7 @@
             const pra = JSON.parse(localStorage.getItem(`propkes_pra_result_${currentUser}`));
             const pasca = JSON.parse(localStorage.getItem(`propkes_pasca_result_${currentUser}`));
             if(pra || pasca) {
-                document.getElementById("analysisSectionContainer").classList.remove("hidden");
+                document.getElementById("analysisSection").classList.remove("hidden");
                 const domains = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
                 let praS = [], pascaS = [];
                 domains.forEach(d => { praS.push(pra ? pra[d]||0 : 0); pascaS.push(pasca ? pasca[d]||0 : 0); });
@@ -757,7 +790,7 @@
             }
         }
 
-        // --- CETAKAN PINTAR (PDF) ---
+        // --- CETAKAN PINTAR ---
         function getDatesInRange(startDate, endDate) {
             const dateArray = []; let currentDate = new Date(startDate); const stopDate = new Date(endDate);
             while (currentDate <= stopDate) { dateArray.push(new Date(currentDate).toISOString().split('T')[0]); currentDate.setDate(currentDate.getDate() + 1); }
