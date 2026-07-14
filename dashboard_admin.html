@@ -20,7 +20,7 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
         
-        /* STREAMING_CHUNK: Menyelesaikan isu limpahan paparan cetakan (image_6d4a5b.png)... */
+        /* Menyembunyikan bahagian cetakan daripada skrin komputer bagi mengelakkan limpahan visual (image_6d4a5b.png) */
         @media screen {
             #printSection { display: none !important; }
         }
@@ -31,15 +31,16 @@
             body { background: white !important; }
             .print-page { width: 100%; color: black; font-family: 'Arial', sans-serif; padding: 20px; page-break-after: always; }
             .print-page:last-child { page-break-after: auto; }
-            table.print-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
-            table.print-table th, table.print-table td { border: 1px solid #000; padding: 10px; color: black; vertical-align: top; }
+            table.print-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 11px; }
+            table.print-table th, table.print-table td { border: 1px solid #000; padding: 8px; color: black; vertical-align: top; }
             table.print-table th { background-color: #f1f5f9 !important; font-weight: bold; -webkit-print-color-adjust: exact; color: black; }
         }
     </style>
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <!-- STREAMING_CHUNK: Membina Navigasi Urus Setia Bersih... -->
+    <!-- STREAMING_CHUNK: Building Urus Setia responsive navigation... -->
+    <!-- NAV BAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 shadow-2xl no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex justify-between items-center">
@@ -67,9 +68,10 @@
         </div>
     </nav>
 
-    <!-- STREAMING_CHUNK: Memaparkan Banner Aluan Puan Ainol... -->
+    <!-- MAIN PANEL -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
         
+        <!-- BANNER ALUALAN BARU -->
         <div class="bg-gradient-to-r from-rose-900/40 to-slate-900 border border-rose-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-rose-500/10 blur-3xl rounded-full pointer-events-none"></div>
             <div class="relative z-10">
@@ -78,8 +80,8 @@
             </div>
         </div>
 
-        <!-- STREAMING_CHUNK: Menyediakan 4 Metrik Berasingan (Peserta, Pemandu, Mentor Sekolah, Mentor PPD)... -->
-        <!-- Kad Metrik Utama (Diasingkan Mentor Sekolah & Mentor PPD) -->
+        <!-- STREAMING_CHUNK: Building metric stats for Peserta, Pemandu, Mentor 1, and Mentor 2... -->
+        <!-- PANEL METRIK DIASINGKAN MENTOR 1 & MENTOR 2 (image_6d5c2c.png) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg flex justify-between items-center">
                 <div><p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Peserta Berdaftar</p><p class="text-2xl font-black text-white mt-1" id="statPeserta">0</p></div>
@@ -90,46 +92,42 @@
                 <div class="w-10 h-10 bg-teal-500/10 border border-teal-500/20 text-teal-400 rounded-xl flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
             </div>
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg flex justify-between items-center">
-                <div><p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Mentor Sekolah</p><p class="text-2xl font-black text-white mt-1" id="statMentorSekolah">0</p></div>
+                <div><p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Mentor 1 (Sekolah)</p><p class="text-2xl font-black text-white mt-1" id="statMentorSekolah">0</p></div>
                 <div class="w-10 h-10 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-xl flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg></div>
             </div>
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg flex justify-between items-center">
-                <div><p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Mentor PPD</p><p class="text-2xl font-black text-white mt-1" id="statMentorPpd">0</p></div>
+                <div><p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Mentor 2 (PPD)</p><p class="text-2xl font-black text-white mt-1" id="statMentorPpd">0</p></div>
                 <div class="w-10 h-10 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
             </div>
         </div>
 
+        <!-- STREAMING_CHUNK: Building i-PROPKES overall bar chart and branch pie chart... -->
+        <!-- PANEL CARTA -->
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
-            
-            <!-- SEKSYEN KIRI & TENGAH: CARTA & JADUAL -->
             <div class="xl:col-span-2 space-y-6">
-                
-                <!-- STREAMING_CHUNK: Membina Carta i-PROPKES & Carta Pai Cawangan... -->
-                <!-- Bahagian Carta Berkembar -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg flex flex-col justify-between">
                         <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Purata i-PROPKES Keseluruhan Peserta</h3>
                         <div class="w-full h-48"><canvas id="overallIPropkesChart"></canvas></div>
                     </div>
                     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg flex flex-col justify-between items-center">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider w-full mb-4">Peserta Mengikut Induk & Cawangan IAB</h3>
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider w-full mb-4">Pecahan Peserta mengikut Cawangan IAB</h3>
                         <div class="w-full max-w-[180px] aspect-square"><canvas id="branchDistributionChart"></canvas></div>
                     </div>
                 </div>
 
-                <!-- STREAMING_CHUNK: Membina Jadual Pengguna dengan Dropdown Filter... -->
-                <!-- Jadual Pengguna Bersepadu -->
+                <!-- STREAMING_CHUNK: Building the main dynamic accounts table with dropdown filters... -->
+                <!-- JADUAL PENGGUNA DENGAN PENAPISAN DINAMIK -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
                     <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center">
                         <h3 class="font-bold text-white text-sm">Pangkalan Pengguna Sistem</h3>
                         <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                            <!-- Dropdown Peranan Pengguna untuk Mengurangkan Kesesakan -->
                             <select id="roleFilter" onchange="window.filterTable()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none cursor-pointer">
                                 <option value="all">Semua Peranan</option>
                                 <option value="peserta">Peserta (Permata Citra)</option>
                                 <option value="pemandu">Pemandu Citra</option>
-                                <option value="mentor">Mentor Sekolah</option>
-                                <option value="mentor-ppd">Mentor PPD</option>
+                                <option value="mentor">Mentor 1 (Sekolah)</option>
+                                <option value="mentor-ppd">Mentor 2 (PPD)</option>
                             </select>
                             <input type="text" id="searchInput" onkeyup="window.filterTable()" placeholder="Cari nama..." class="bg-slate-950 border border-slate-700 rounded-xl px-4 py-1.5 text-xs text-white focus:border-rose-500 outline-none sm:w-48">
                         </div>
@@ -149,11 +147,10 @@
                         </table>
                     </div>
                 </div>
-
             </div>
 
-            <!-- STREAMING_CHUNK: Membina Form Pendaftaran Mudah... -->
-            <!-- SEKSYEN KANAN: FORM PENDAFTARAN -->
+            <!-- STREAMING_CHUNK: Building the full registration form with branch dropdown... -->
+            <!-- BORANG PENDAFTARAN -->
             <div class="xl:col-span-1 space-y-6">
                 <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-rose-500/30 rounded-2xl shadow-2xl p-6">
                     <h3 class="font-bold text-white text-sm mb-4 border-b border-slate-800 pb-3 flex items-center gap-2"><svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z"></path></svg>Daftar Pengguna Baru</h3>
@@ -165,8 +162,8 @@
                                 <option value="" disabled selected>-- Sila Pilih --</option>
                                 <option value="peserta">Peserta (Permata Citra)</option>
                                 <option value="pemandu">Pemandu Citra</option>
-                                <option value="mentor">Mentor Sekolah</option>
-                                <option value="mentor-ppd">Mentor PPD</option>
+                                <option value="mentor">Mentor 1 (Sekolah)</option>
+                                <option value="mentor-ppd">Mentor 2 (PPD)</option>
                             </select>
                         </div>
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh</label><input type="text" id="regName" required placeholder="Cth: Ali bin Abu" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-rose-500 outline-none"></div>
@@ -176,6 +173,16 @@
                         <!-- Medan Tambahan Khas untuk Peserta -->
                         <div id="pesertaExtraFields" class="hidden space-y-3 bg-rose-950/10 p-4 rounded-xl border border-rose-900/30">
                             <p class="text-[9px] font-bold text-rose-400 uppercase border-b border-rose-900/50 pb-1 mb-2">Maklumat Sandaran & Penyelia</p>
+                            <div>
+                                <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Pusat / Cawangan IAB</label>
+                                <select id="regPusatCawangan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none cursor-pointer">
+                                    <option value="IAB INDUK">IAB Induk</option>
+                                    <option value="IAB UTARA">IAB Cawangan Utara</option>
+                                    <option value="IAB GENTING">IAB Cawangan Genting Highlands</option>
+                                    <option value="IAB SABAH">IAB Cawangan Sabah</option>
+                                    <option value="IAB SARAWAK">IAB Cawangan Sarawak</option>
+                                </select>
+                            </div>
                             <div><label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Sekolah Sandaran</label><input type="text" id="regSekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none"></div>
                             <div><label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">PPD</label><input type="text" id="regPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none"></div>
                             <div><label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Nama Pemandu Citra (IAB)</label><input type="text" id="regPemandu" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none"></div>
@@ -188,17 +195,21 @@
                             <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Kata Laluan</label><input type="password" id="regPassword" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-rose-500 outline-none"></div>
                         </div>
 
-                        <!-- DITUKAR KEPADA DAFTAR SAHAJA -->
                         <button type="submit" id="btnDaftar" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-lg text-xs transition-colors shadow-lg mt-4 outline-none cursor-pointer">Daftar</button>
                     </form>
                 </div>
             </div>
-
         </div>
 
     </main>
 
-    <!-- STREAMING_CHUNK: Menyediakan Modals Edit, Delete & Pencerapan Laporan... -->
+    <!-- STREAMING_CHUNK: Building the hidden canvases for printable i-PROPKES charts... -->
+    <!-- ELEMEN TERSEMBUNYI UNTUK MENJANA CARTA CETAKAN HIGH-RES (KERAWANG & BAR) -->
+    <div class="hidden">
+        <canvas id="hiddenPrintBarChart" width="600" height="300"></canvas>
+        <canvas id="hiddenPrintRadarChart" width="450" height="450"></canvas>
+    </div>
+
     <!-- MODAL EDIT PENGGUNA -->
     <div id="editModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-amber-500/50 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300" id="editModalContent">
@@ -210,6 +221,16 @@
                 <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel</label><input type="email" id="editEmail" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-amber-500"></div>
                 
                 <div id="editPesertaExtra" class="hidden space-y-3 bg-amber-950/10 p-3 rounded-lg border border-amber-900/30">
+                    <div>
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Pusat / Cawangan IAB</label>
+                        <select id="editPusatCawangan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:border-amber-500 outline-none cursor-pointer">
+                            <option value="IAB INDUK">IAB Induk</option>
+                            <option value="IAB UTARA">IAB Cawangan Utara</option>
+                            <option value="IAB GENTING">IAB Cawangan Genting Highlands</option>
+                            <option value="IAB SABAH">IAB Cawangan Sabah</option>
+                            <option value="IAB SARAWAK">IAB Cawangan Sarawak</option>
+                        </select>
+                    </div>
                     <div><label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Sekolah Sandaran</label><input type="text" id="editSekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-amber-500"></div>
                     <div><label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">PPD</label><input type="text" id="editPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-amber-500"></div>
                     <div><label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Pemandu Citra</label><input type="text" id="editPemandu" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-amber-500"></div>
@@ -257,11 +278,12 @@
         </div>
     </div>
 
-    <div id="printSection" class="print-container"></div>
+    <!-- ELEMENT UTAMA TEMPAT CETAKAN DIJANA -->
+    <div id="printSection"></div>
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
-    <!-- STREAMING_CHUNK: Mengaktifkan Integrasi Pangkalan Data Firebase... -->
-    <!-- FIREBASE MODULE -->
+    <!-- FIREBASE MODULE & LOGICS -->
+    <!-- STREAMING_CHUNK: Integrating Firebase SDK and initializing parameters... -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, get, child, set, update, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -287,6 +309,9 @@
 
         let overallChartInstance = null;
         let branchChartInstance = null;
+        
+        let printBarChartInstance = null;
+        let printRadarChartInstance = null;
 
         window.showToast = function(message, type = 'success') {
             const container = document.getElementById('toastContainer');
@@ -307,7 +332,6 @@
             if(role === 'peserta') extra.classList.remove('hidden'); else extra.classList.add('hidden');
         };
 
-        /* STREAMING_CHUNK: Menguruskan Penyerahan Data Pengguna Baru... */
         window.handleRegistration = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btnDaftar');
@@ -323,6 +347,7 @@
             let payload = { role, name, ic, email, password };
 
             if(role === 'peserta') {
+                payload.pusatCawangan = document.getElementById('regPusatCawangan').value;
                 payload.sekolah = document.getElementById('regSekolah').value.trim().toUpperCase();
                 payload.ppd = document.getElementById('regPpd').value.trim().toUpperCase();
                 payload.pemanduCitra = document.getElementById('regPemandu').value.trim().toUpperCase();
@@ -341,7 +366,6 @@
                 await set(ref(db, `propkes_accounts/${username}`), payload);
                 window.showToast("Pengguna berjaya didaftarkan di awan!");
                 
-                // Mailto triggering
                 const subject = encodeURIComponent("Akses Sistem PROPKES 2026");
                 const body = encodeURIComponent(`Salam Sejahtera ${name},\n\nSistem PROPKES 2026 anda telah bersedia.\nID LOG MASUK: ${username}\nKATA LALUAN: ${password}\nPERANAN: ${role.toUpperCase()}\n\nSila layari portal log masuk: https://ainolhidayah.github.io/PROPKES2026/\n\nSekian, terima kasih.\nUrus Setia PROPKES 2026.`);
                 window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
@@ -353,7 +377,7 @@
             finally { btn.textContent = "Daftar"; btn.disabled = false; }
         };
 
-        /* STREAMING_CHUNK: Menyedut Semua Pengguna & Menjana Statistik Dinamik... */
+        // --- STREAMING_CHUNK: Creating charts rendering functions and branch parsing logic... ---
         async function loadAccounts() {
             try {
                 const snap = await get(child(ref(db), 'propkes_accounts'));
@@ -363,17 +387,22 @@
                 if (snap.exists()) {
                     window.accountsData = snap.val();
                     let cPeserta = 0, cPemandu = 0, cMentorSekolah = 0, cMentorPpd = 0;
+                    
+                    // Inisialisasi Kategori Pecahan Cawangan
                     let branchCount = { "IAB INDUK": 0, "IAB UTARA": 0, "IAB GENTING": 0, "IAB SABAH": 0, "IAB SARAWAK": 0 };
 
                     Object.keys(window.accountsData).sort().forEach(username => {
                         const u = window.accountsData[username];
                         
-                        // Pemetaan Metrik Mengikut Jenis Peranan Sebenar
                         if(u.role === 'peserta') {
                             cPeserta++;
-                            // Tentukan cawangan peserta
-                            const pCawangan = (u.pusatCawangan || "IAB INDUK").trim().toUpperCase();
-                            if(branchCount[pCawangan] !== undefined) branchCount[pCawangan]++;
+                            
+                            // Parse cawangan pesertakan dengan lebih pintar (Pencegahan kesilapan string)
+                            let pCaw = (u.pusatCawangan || "IAB INDUK").trim().toUpperCase();
+                            if(pCaw.includes("UTARA")) branchCount["IAB UTARA"]++;
+                            else if(pCaw.includes("GENTING") || pCaw.includes("HIGHLANDS")) branchCount["IAB GENTING"]++;
+                            else if(pCaw.includes("SABAH")) branchCount["IAB SABAH"]++;
+                            else if(pCaw.includes("SARAWAK")) branchCount["IAB SARAWAK"]++;
                             else branchCount["IAB INDUK"]++;
                         }
                         else if(u.role === 'pemandu') cPemandu++;
@@ -385,14 +414,13 @@
 
                         if(u.role === 'peserta') {
                             roleBadge = `<span class="bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-blue-500/20">Peserta</span>`;
-                            /* DITUKAR KEPADA LIHAT & CETAK */
                             pencerapanBtn = `<button onclick="window.viewParticipantReports('${username}', '${u.name.replace(/'/g, "\\'")}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none">Lihat & Cetak</button>`;
                         } else if(u.role === 'pemandu') {
                             roleBadge = `<span class="bg-teal-500/10 text-teal-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-teal-500/20">Pemandu</span>`;
                         } else if(u.role === 'mentor') {
-                            roleBadge = `<span class="bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-amber-500/20">Mentor Sekolah</span>`;
+                            roleBadge = `<span class="bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-amber-500/20">Mentor 1 (Sekolah)</span>`;
                         } else if(u.role === 'mentor-ppd') {
-                            roleBadge = `<span class="bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-indigo-500/20">Mentor PPD</span>`;
+                            roleBadge = `<span class="bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-indigo-500/20">Mentor 2 (PPD)</span>`;
                         }
 
                         tbody.innerHTML += `
@@ -411,21 +439,18 @@
                         `;
                     });
 
-                    // Update Metrik Panel
+                    // Update Metrik Panel (Asingkan Mentor 1 & 2 mengikut Imej image_6d5c2c.png)
                     document.getElementById('statPeserta').textContent = cPeserta;
                     document.getElementById('statPemandu').textContent = cPemandu;
                     document.getElementById('statMentorSekolah').textContent = cMentorSekolah;
                     document.getElementById('statMentorPpd').textContent = cMentorPpd;
 
-                    // Bina Carta Pai Cawangan Peserta
                     renderBranchPieChart(branchCount);
-                    // Ambil analisa purata i-PROPKES keseluruhan
                     loadOverallIPropkesData();
                 } else { tbody.innerHTML = `<tr><td colspan="3" class="py-8 text-center text-slate-500 text-xs italic">Tiada akaun didaftarkan.</td></tr>`; }
             } catch(e) { console.error(e); }
         }
 
-        /* STREAMING_CHUNK: Menjana Analisis i-PROPKES Purata bagi Peserta Keseluruhan... */
         async function loadOverallIPropkesData() {
             try {
                 const snap = await get(child(ref(db), 'propkes_ipropkes'));
@@ -502,7 +527,6 @@
             });
         }
 
-        /* STREAMING_CHUNK: Menyediakan Navigasi Penapisan Jadual Peranan Dinamik... */
         window.filterTable = () => {
             const term = document.getElementById("searchInput").value.toLowerCase();
             const roleFilter = document.getElementById("roleFilter").value;
@@ -534,6 +558,7 @@
             const extra = document.getElementById('editPesertaExtra');
             if(u.role === 'peserta') {
                 extra.classList.remove('hidden');
+                document.getElementById('editPusatCawangan').value = u.pusatCawangan || "IAB INDUK";
                 document.getElementById('editSekolah').value = u.sekolah || "";
                 document.getElementById('editPpd').value = u.ppd || "";
                 document.getElementById('editPemandu').value = u.pemanduCitra || "";
@@ -567,6 +592,7 @@
             if(pass !== "") payload.password = pass;
 
             if(role === 'peserta') {
+                payload.pusatCawangan = document.getElementById('editPusatCawangan').value;
                 payload.sekolah = document.getElementById('editSekolah').value.toUpperCase();
                 payload.ppd = document.getElementById('editPpd').value.toUpperCase();
                 payload.pemanduCitra = document.getElementById('editPemandu').value.toUpperCase();
@@ -607,7 +633,6 @@
             } catch(e) { console.error(e); window.showToast("Gagal memadam akaun.", "error"); }
         };
 
-        /* STREAMING_CHUNK: Menyediakan Laporan Cetakan Lampiran Komprehensif... */
         window.viewParticipantReports = async (username, name) => {
             document.getElementById('reportsModalSubtitle').textContent = `Peserta: ${name}`;
             const body = document.getElementById('reportsBody');
@@ -694,7 +719,7 @@
             setTimeout(()=> { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
         };
 
-        /* STREAMING_CHUNK: Cetakan Rasmi Dengan Kedudukan Logo di Tengah-tengah Dokumen... */
+        // --- STREAMING_CHUNK: Designing printable report engines with high-res base64 charts... ---
         window.printB = () => {
             const u = window.activeViewingUser;
             const nameUpper = u.name.toUpperCase();
@@ -902,6 +927,7 @@
             window.print();
         };
 
+        // --- DINAMIK i-PROPKES DENGAN CARTA BAR & CARTA KERAWANG (RADAR) PADA CETAKAN ---
         window.printIPropkes = () => {
             const u = window.activeViewingUser;
             const nameUpper = u.name.toUpperCase();
@@ -912,33 +938,97 @@
 
             const domains = ["Pengetahuan Teras", "Dasar & Matlamat", "Instruksional", "Inovasi & Perubahan", "Hubungan Manusia", "Sumber & Operasi", "Keberkesanan Kendiri"];
             let tableRows = "";
+            let praS = [], pascaS = [];
+
             domains.forEach(d => {
                 const scorePra = pra ? pra[d]||0 : 0;
                 const scorePasca = pasca ? pasca[d]||0 : 0;
+                praS.push(scorePra);
+                pascaS.push(scorePasca);
+
                 const beza = parseFloat((scorePasca - scorePra).toFixed(2));
                 tableRows += `<tr><td style="font-weight:bold; border: 1px solid #000; padding:10px;">${d.toUpperCase()}</td><td style="text-align:center; border: 1px solid #000; padding:10px;">${scorePra}</td><td style="text-align:center; border: 1px solid #000; padding:10px;">${scorePasca}</td><td style="text-align:center; font-weight:bold; border: 1px solid #000; padding:10px; color:${beza > 0 ? 'green' : 'black'}">${beza > 0 ? '+'+beza : beza}</td></tr>`;
             });
 
-            document.getElementById('printSection').innerHTML = `
-            <div class="print-page">
-                <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
-                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
-                </div>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LAPORAN ANALISIS i-PROPKES (PRA & PASCA)</h2>
-                
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 12px;">
-                    <tr><td style="padding: 6px; width: 25%; font-weight: bold;">NAMA PESERTA</td><td>${nameUpper}</td></tr>
-                    <tr><td style="padding: 6px; font-weight: bold;">JAWATAN / GRED</td><td>${(u.jawatan||'-').toUpperCase()} (${(u.gred||'-').toUpperCase()})</td></tr>
-                </table>
+            // Musnahkan carta cetakan lama jika ada
+            if(printBarChartInstance) printBarChartInstance.destroy();
+            if(printRadarChartInstance) printRadarChartInstance.destroy();
 
-                <table class="print-table" style="width:100%; border-collapse: collapse;">
-                    <thead><tr style="background-color:#f1f5f9;"><th style="border: 1px solid #000; padding:10px;">DOMAIN KOMPETENSI</th><th style="border: 1px solid #000; padding:10px;">SKOR PRA (MIN)</th><th style="border: 1px solid #000; padding:10px;">SKOR PASCA (MIN)</th><th style="border: 1px solid #000; padding:10px;">PERBEZAAN</th></tr></thead>
-                    <tbody>${tableRows}</tbody>
-                </table>
-            </div>`;
-            window.print();
+            // Render pada kanvas tersembunyi
+            const ctxBar = document.getElementById('hiddenPrintBarChart').getContext('2d');
+            printBarChartInstance = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: domains,
+                    datasets: [
+                        { label: 'Ujian Pra', data: praS, backgroundColor: 'rgba(59, 130, 246, 0.85)' },
+                        { label: 'Ujian Pasca', data: pascaS, backgroundColor: 'rgba(168, 85, 247, 0.85)' }
+                    ]
+                },
+                options: {
+                    responsive: false,
+                    animation: false,
+                    scales: { y: { min: 0, max: 10 } }
+                }
+            });
+
+            const ctxRadar = document.getElementById('hiddenPrintRadarChart').getContext('2d');
+            printRadarChartInstance = new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: domains,
+                    datasets: [
+                        { label: 'Ujian Pra', data: praS, borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.15)', borderWidth: 2 },
+                        { label: 'Ujian Pasca', data: pascaS, borderColor: 'rgba(168, 85, 247, 1)', backgroundColor: 'rgba(168, 85, 247, 0.15)', borderWidth: 2 }
+                    ]
+                },
+                options: {
+                    responsive: false,
+                    animation: false,
+                    scales: { r: { min: 0, max: 10, ticks: { display: false } } }
+                }
+            });
+
+            // Beri ruang milisaat untuk Chart.js melakar canvas sebelum kita tukar kepada Base64 Image
+            setTimeout(() => {
+                const barImgBase64 = document.getElementById('hiddenPrintBarChart').toDataURL('image/png');
+                const radarImgBase64 = document.getElementById('hiddenPrintRadarChart').toDataURL('image/png');
+
+                document.getElementById('printSection').innerHTML = `
+                <div class="print-page">
+                    <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
+                    </div>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LAPORAN ANALISIS i-PROPKES (PRA & PASCA)</h2>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 12px;">
+                        <tr><td style="padding: 6px; width: 25%; font-weight: bold;">NAMA PESERTA</td><td>${nameUpper}</td></tr>
+                        <tr><td style="padding: 6px; font-weight: bold;">JAWATAN / GRED</td><td>${(u.jawatan||'-').toUpperCase()} (${(u.gred||'-').toUpperCase()})</td></tr>
+                    </table>
+
+                    <table class="print-table" style="width:100%; border-collapse: collapse; margin-bottom: 40px;">
+                        <thead><tr style="background-color:#f1f5f9;"><th style="border: 1px solid #000; padding:10px;">DOMAIN KOMPETENSI</th><th style="border: 1px solid #000; padding:10px;">SKOR PRA (MIN)</th><th style="border: 1px solid #000; padding:10px;">SKOR PASCA (MIN)</th><th style="border: 1px solid #000; padding:10px;">PERBEZAAN</th></tr></thead>
+                        <tbody>${tableRows}</tbody>
+                    </table>
+
+                    <div style="page-break-before: always; text-align: center; padding-top: 20px;">
+                        <h3 style="font-weight: bold; font-size: 12px; margin-bottom: 20px;">VISUALISASI PERBANDINGAN DOMAIN</h3>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 40px; justify-content: center; width: 100%;">
+                            <div>
+                                <h4 style="font-size: 11px; font-weight: bold; margin-bottom: 10px;">Carta Bar Perbandingan Skor</h4>
+                                <img src="${barImgBase64}" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; display: block; margin: 0 auto;">
+                            </div>
+                            <div style="margin-top: 30px;">
+                                <h4 style="font-size: 11px; font-weight: bold; margin-bottom: 10px;">Carta Web i-PROPKES (Profil Domain)</h4>
+                                <img src="${radarImgBase64}" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; display: block; margin: 0 auto;">
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                window.print();
+            }, 300);
         };
 
         loadAccounts();
