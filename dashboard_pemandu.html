@@ -50,7 +50,7 @@
                 <div class="flex items-center gap-4 shrink-0">
                     <div class="text-right hidden md:block border-l border-slate-700 pl-4">
                         <p class="text-sm font-semibold text-white truncate max-w-[150px]" id="navNameDisplay">Memuatkan...</p>
-                        <p class="text-xs text-blue-400">Pemandu Citra IAB</p>
+                        <p class="text-xs text-teal-400">Pemandu Citra</p>
                     </div>
                     <div class="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg" id="navInitials">...</div>
                     <button onclick="window.logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-xl transition-all outline-none border border-slate-700 hover:border-rose-500" title="Log Keluar">
@@ -63,32 +63,35 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
         
-        <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
-            <div class="absolute -right-10 -top-10 w-64 h-64 bg-blue-500/10 blur-3xl rounded-full pointer-events-none"></div>
+        <div class="bg-gradient-to-r from-teal-900/40 to-slate-900 border border-teal-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-64 h-64 bg-teal-500/10 blur-3xl rounded-full pointer-events-none"></div>
             <div class="relative z-10">
                 <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">Pusat Bimbingan Pemandu Citra</h1>
                 <p class="text-slate-400 text-sm max-w-2xl">Pantau kemajuan peserta di bawah seliaan anda. Semak log harian, jurnal kepimpinan, analisis i-PROPKES dan isikan maklum balas mereka.</p>
             </div>
             <div class="relative z-10">
-                <button onclick="window.openPanduCitraModal()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-purple-600/30 flex items-center gap-2 outline-none transition-all cursor-pointer">
+                <button onclick="window.openPanduCitraModal()" class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-teal-600/30 flex items-center gap-2 outline-none transition-all cursor-pointer">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
-                    Daftar Sesi Pandu Citra
+                    Daftar Sesi Bimbingan
                 </button>
             </div>
         </div>
 
         <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6 mb-8">
-            <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm flex items-center gap-2">Maklumat Pemandu Citra</h3>
+            <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm flex items-center gap-2">
+                Maklumat Anda (Ditarik Automatik dari Profil Peserta)
+            </h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Nama Penuh</p><p class="text-sm font-medium text-slate-200" id="profileNama">Memuat turun...</p></div>
-                <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">E-mel Rasmi</p><p class="text-sm font-medium text-slate-300" id="profileEmail">Belum Diisi</p></div>
+                <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">E-mel Rasmi</p><p class="text-sm font-medium text-slate-300" id="profileEmail">Ditarik Automatik...</p></div>
+                <div><p class="text-[10px] text-teal-500 font-bold uppercase mb-1">Jawatan Hakiki</p><p class="text-sm font-bold text-teal-400" id="profileJawatan">Ditarik Automatik...</p></div>
             </div>
         </div>
 
         <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
             <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
                 <h3 class="font-bold text-white text-sm">Senarai Peserta (Permata Citra)</h3>
-                <span class="text-xs font-bold text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20" id="menteeCount">0 Peserta</span>
+                <span class="text-xs font-bold text-teal-400 bg-teal-500/10 px-3 py-1 rounded-full border border-teal-500/20" id="menteeCount">0 Peserta</span>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm whitespace-nowrap">
@@ -110,7 +113,7 @@
 
     <!-- MODAL PENDAFTARAN SESI PANDU CITRA -->
     <div id="panduCitraModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
-        <div class="bg-slate-900 border border-purple-500/50 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="panduCitraModalContent">
+        <div class="bg-slate-900 border border-teal-500/50 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="panduCitraModalContent">
             <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-2 border-b border-slate-800 pb-3">Rekod Sesi Pandu Citra</h3>
             <form id="panduCitraForm" class="space-y-4" onsubmit="window.savePanduCitra(event)">
                 <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Peserta Terlibat</label>
@@ -125,10 +128,10 @@
                 </div>
                 <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Kaedah</label><select required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"><option value="Atas Talian">Dalam Talian (Meet/Webex)</option><option value="Bersemuka">Bersemuka (F2F)</option></select></div>
                 <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Catatan Ringkas (Pilihan)</label><textarea rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white resize-none outline-none"></textarea></div>
-                <p class="text-xs text-amber-400 font-semibold italic mt-2 bg-amber-500/10 p-2 rounded">* Sila Buat Penilaian Sesi Pandu Citra di Sistem Insyst.</p>
+                <p class="text-xs text-teal-400 font-semibold italic mt-2 bg-teal-500/10 p-2 rounded">* Sila Buat Penilaian Sesi Pandu Citra di Sistem Insyst.</p>
                 <div class="flex gap-3 pt-4 border-t border-slate-800 mt-2">
                     <button type="button" onclick="window.closePanduCitraModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-2.5 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Batal</button>
-                    <button type="submit" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2.5 rounded-xl text-xs font-bold shadow-lg outline-none cursor-pointer transition-colors">Simpan Sesi</button>
+                    <button type="submit" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white py-2.5 rounded-xl text-xs font-bold shadow-lg outline-none cursor-pointer transition-colors">Simpan Sesi</button>
                 </div>
             </form>
         </div>
@@ -145,9 +148,7 @@
                 <button onclick="window.closeViewModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             
-            <div id="viewModalBody" class="space-y-4">
-                <!-- Kandungan diisi melalui JS -->
-            </div>
+            <div id="viewModalBody" class="space-y-4"></div>
 
             <div class="pt-4 border-t border-slate-800 mt-6 flex justify-end">
                 <button onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
@@ -185,11 +186,12 @@
 
     <!-- MODAL MAKLUM BALAS (LAMPIRAN G) -->
     <div id="maklumBalasModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[130] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
-        <div class="bg-slate-900 border border-amber-500/50 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[95vh] overflow-y-auto custom-scrollbar p-6 transform scale-95 transition-transform duration-300" id="maklumBalasModalContent">
+        <div class="bg-slate-900 border border-teal-500/50 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[95vh] overflow-y-auto custom-scrollbar p-6 transform scale-95 transition-transform duration-300" id="maklumBalasModalContent">
             <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4 sticky top-0 bg-slate-900 z-10">
                 <div>
-                    <h3 class="text-lg font-bold text-white flex items-center gap-2"><svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>Maklum Balas (Lampiran G)</h3>
-                    <p class="text-xs text-amber-400 mt-1" id="mbModalSubtitle">Peserta: -</p>
+                    <!-- DIGUGURKAN PERKATAAN COACH -->
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2"><svg class="w-5 h-5 text-teal-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>Maklum Balas (Lampiran G)</h3>
+                    <p class="text-xs text-teal-400 mt-1" id="mbModalSubtitle">Peserta: -</p>
                 </div>
                 <button onclick="window.closeMaklumBalasModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
@@ -205,27 +207,28 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-[10px] font-bold text-amber-400 uppercase mb-1">Fasa Program</label>
-                        <select id="mbFasa" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-amber-500 outline-none cursor-pointer">
+                        <label class="block text-[10px] font-bold text-teal-400 uppercase mb-1">Fasa Program</label>
+                        <select id="mbFasa" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-teal-500 outline-none cursor-pointer">
                             <option value="FASA 1">Fasa 1</option>
                             <option value="FASA 2">Fasa 2</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-[10px] font-bold text-amber-400 uppercase mb-1">Tarikh Sandaran</label>
-                        <input type="text" id="mbTarikhSandaran" required placeholder="Cth: 3 Ogos - 4 Sept 2026" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-amber-500 outline-none">
+                        <label class="block text-[10px] font-bold text-teal-400 uppercase mb-1">Tarikh Sandaran</label>
+                        <input type="text" id="mbTarikhSandaran" required placeholder="Cth: 3 Ogos - 4 Sept 2026" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-teal-500 outline-none">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-bold text-amber-400 uppercase mb-2">Maklum Balas Pemandu Citra / Coach</label>
-                    <textarea id="mbUlasan" rows="6" required placeholder="Sila berikan rumusan dan ulasan terhadap prestasi peserta sepanjang fasa ini..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-amber-500 outline-none resize-y"></textarea>
+                    <!-- DIGUGURKAN PERKATAAN COACH -->
+                    <label class="block text-[11px] font-bold text-teal-400 uppercase mb-2">Maklum Balas Pemandu Citra</label>
+                    <textarea id="mbUlasan" rows="6" required placeholder="Sila berikan rumusan dan ulasan terhadap prestasi peserta sepanjang fasa ini..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-teal-500 outline-none resize-y"></textarea>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-800 sticky bottom-0 bg-slate-900 pb-2">
                     <button type="button" onclick="window.closeMaklumBalasModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-3 px-6 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Batal</button>
-                    <button type="submit" id="btnSimpanMB" class="flex-1 bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-xl text-xs font-bold shadow-lg outline-none cursor-pointer transition-colors">Simpan Data</button>
-                    <button type="button" onclick="window.cetakLampiranG()" class="bg-slate-700 hover:bg-slate-600 text-amber-400 border border-slate-600 py-3 px-6 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors flex justify-center items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak Borang G</button>
+                    <button type="submit" id="btnSimpanMB" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl text-xs font-bold shadow-lg outline-none cursor-pointer transition-colors">Simpan Data</button>
+                    <button type="button" onclick="window.cetakLampiranG()" class="bg-slate-700 hover:bg-slate-600 text-teal-400 border border-slate-600 py-3 px-6 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors flex justify-center items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak Borang G</button>
                 </div>
             </form>
         </div>
@@ -289,7 +292,6 @@
                     document.getElementById('navNameDisplay').textContent = pName;
                     document.getElementById('navInitials').textContent = pName.substring(0, 2).toUpperCase();
                     document.getElementById('profileNama').textContent = pName;
-                    document.getElementById('profileEmail').textContent = window.profileData.email || "Tiada Maklumat";
                     myNameLower = pName.trim().toLowerCase();
                 }
 
@@ -298,6 +300,9 @@
                 tbody.innerHTML = "";
                 window.menteesList = [];
 
+                let jawatanHakikiDitarik = null;
+                let emailRasmiDitarik = null;
+
                 if (allUsersSnap.exists() && myNameLower !== "") {
                     const accounts = allUsersSnap.val();
                     for (const [uname, data] of Object.entries(accounts)) {
@@ -305,6 +310,11 @@
                             const pCitra = (data.pemanduCitra || "").trim().toLowerCase();
                             if (pCitra !== "") {
                                 if (pCitra.includes(myNameLower) || myNameLower.includes(pCitra) || pCitra === myNameLower) {
+                                    
+                                    // Sedut jawatan dan emel daripada data peserta pertama yang dijumpai
+                                    if(!jawatanHakikiDitarik) jawatanHakikiDitarik = data.pemanduJawatan || "PEMANDU CITRA IAB";
+                                    if(!emailRasmiDitarik) emailRasmiDitarik = window.profileData.email || "Tiada E-mel";
+
                                     window.menteesList.push({ 
                                         id: uname, 
                                         name: data.name, 
@@ -319,6 +329,13 @@
                         }
                     }
                 }
+
+                // Masukkan data ditarik ke dalam profil Pemandu
+                window.profileData.jawatan = jawatanHakikiDitarik || "Pemandu Citra IAB";
+                window.profileData.email = emailRasmiDitarik || "Belum Diisi";
+
+                document.getElementById('profileEmail').textContent = window.profileData.email;
+                document.getElementById('profileJawatan').textContent = window.profileData.jawatan;
 
                 document.getElementById("menteeCount").textContent = `${window.menteesList.length} Peserta`;
                 const selectMentee = document.getElementById('pcMenteeSelect');
@@ -342,7 +359,7 @@
                                     <button onclick="window.viewLog('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer">Log (C)</button>
                                     <button onclick="window.viewJournal('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-purple-600/20 text-purple-400 hover:bg-purple-600 hover:text-white border border-purple-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer">Jurnal (D)</button>
                                     <button onclick="window.viewPropkes('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white border border-emerald-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg> i-PROPKES</button>
-                                    <button onclick="window.openMaklumBalas('${m.id}', '${m.name.replace(/'/g, "\\'")}', '${m.jawatan}', '${m.gred}', '${m.jabatan}', '${m.pusat}')" class="bg-amber-600/20 text-amber-400 hover:bg-amber-600 hover:text-white border border-amber-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer">Borang (G)</button>
+                                    <button onclick="window.openMaklumBalas('${m.id}', '${m.name.replace(/'/g, "\\'")}', '${m.jawatan}', '${m.gred}', '${m.jabatan}', '${m.pusat}')" class="bg-teal-600/20 text-teal-400 hover:bg-teal-600 hover:text-white border border-teal-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer">Borang (G)</button>
                                 </td>
                             </tr>
                         `;
@@ -530,14 +547,16 @@
             }
         };
 
-        // CETAKAN LAMPIRAN G DENGAN LOGO
+        // CETAKAN LAMPIRAN G DENGAN LOGO DI TENGAH DAN JAWATAN HAKIKI
         window.cetakLampiranG = function() {
             const m = window.currentMenteeG;
             const fasa = document.getElementById('mbFasa').value;
             const tarikh = document.getElementById('mbTarikhSandaran').value || "-";
             const ulasan = document.getElementById('mbUlasan').value || "-";
             const pName = (window.profileData.name || "Pemandu Citra").toUpperCase();
-            const pJawatan = (window.profileData.jawatan || "Pemandu Citra IAB").toUpperCase();
+            
+            // JAWATAN DITARIK DARI PESERTA
+            const pJawatan = (window.profileData.jawatan || "PEMANDU CITRA IAB").toUpperCase();
             const today = new Date().toLocaleDateString('ms-MY');
 
             if(ulasan === "-" || ulasan === "") {
@@ -547,29 +566,29 @@
 
             const html = `
             <div class="print-page">
-                <!-- LOGO IAB & KPM -->
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 80px; width: auto; object-fit: contain;">
+                <!-- LOGO IAB & KPM DIPAKSA KE TENGAH -->
+                <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
                 </div>
 
                 <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN G</h3>
                 <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
                 <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
                 <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">${fasa.toUpperCase()}</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">MAKLUM BALAS PEMANDU CITRA / COACH</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">MAKLUM BALAS PEMANDU CITRA</h2>
 
-                <table class="print-table" style="margin-bottom: 40px;">
-                    <tr><td style="width: 30%; font-weight: bold;">NAMA PESERTA</td><td>${m.nama.toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">JAWATAN</td><td>${m.jawatan.toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">GRED</td><td>${m.gred.toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">JABATAN</td><td>${m.jabatan.toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">PUSAT</td><td>${m.pusat.toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">TARIKH SANDARAN</td><td>${tarikh}</td></tr>
-                    <tr><td style="font-weight: bold; height: 250px;">MAKLUM BALAS PEMANDU CITRA / COACH</td><td style="white-space: pre-wrap;">${ulasan}</td></tr>
+                <table class="print-table" style="margin-bottom: 40px; width: 100%; border-collapse: collapse;">
+                    <tr><td style="width: 30%; font-weight: bold; border: 1px solid #000; padding: 10px;">NAMA PESERTA</td><td style="border: 1px solid #000; padding: 10px;">${m.nama.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold; border: 1px solid #000; padding: 10px;">JAWATAN</td><td style="border: 1px solid #000; padding: 10px;">${m.jawatan.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold; border: 1px solid #000; padding: 10px;">GRED</td><td style="border: 1px solid #000; padding: 10px;">${m.gred.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold; border: 1px solid #000; padding: 10px;">JABATAN</td><td style="border: 1px solid #000; padding: 10px;">${m.jabatan.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold; border: 1px solid #000; padding: 10px;">PUSAT</td><td style="border: 1px solid #000; padding: 10px;">${m.pusat.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold; border: 1px solid #000; padding: 10px;">TARIKH SANDARAN</td><td style="border: 1px solid #000; padding: 10px;">${tarikh}</td></tr>
+                    <tr><td style="font-weight: bold; height: 250px; border: 1px solid #000; padding: 10px;">MAKLUM BALAS PEMANDU CITRA</td><td style="white-space: pre-wrap; border: 1px solid #000; padding: 10px;">${ulasan}</td></tr>
                 </table>
 
                 <div style="font-size: 12px; line-height: 1.8;">
-                    <p style="margin:0;">Nama Penuh Pemandu Citra/Coach: <strong>${pName}</strong></p>
+                    <p style="margin:0;">Nama Penuh Pemandu Citra: <strong>${pName}</strong></p>
                     <p style="margin:0;">Jawatan: <strong>${pJawatan}</strong></p>
                     <p style="margin:0;">Tarikh: <strong>${today}</strong></p>
                     <p style="margin-top:20px; margin-bottom: 40px;">Cap Rasmi: </p>
