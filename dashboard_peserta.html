@@ -42,7 +42,6 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-4 lg:gap-5">
                     <div class="flex items-center gap-3 bg-white/5 p-2 rounded-xl border border-white/10 shadow-inner backdrop-blur-sm">
-                        <!-- LOGO IAB KPM DI SINI -->
                         <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
                     <div class="hidden xl:flex flex-col justify-center">
@@ -470,7 +469,7 @@
                             <tr><td>NAMA PESERTA</td><td>${nama}</td></tr>
                             <tr><td>NO. KAD PENGENALAN</td><td>${(u.ic || "-").toUpperCase()}</td></tr>
                             <tr><td>JAWATAN / GRED</td><td>${(u.jawatan || "-").toUpperCase()} (${(u.gred || "-").toUpperCase()})</td></tr>
-                            <tr><td>JABATAN / PUSAT</td><td>${(u.jabatan || "-").toUpperCase()} / ${(u.pusatCawangan || "-").toUpperCase()}</td></tr>
+                            <tr><td>JABATAN / PUSAT</td><td>${(u.jawatan || "-").toUpperCase()} / ${(u.pusatCawangan || "-").toUpperCase()}</td></tr>
                             <tr><td>TARIKH CETAKAN</td><td>${tarikh}</td></tr>
                         </table>
 
@@ -526,25 +525,15 @@
         window.profileData = {}; 
 
         // ----------------------------------------------------
-        // INTEGRASI EMEL EMAILJS (SUDAH DIAKTIFKAN KODNYA)
+        // INTEGRASI EMEL EMAILJS (AKTIF 100%!)
         // ----------------------------------------------------
-        // NOTA: Sila masukkan PUBLIC KEY, SERVICE ID, dan TEMPLATE ID anda di bawah kelak
-        
-        const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY_HERE"; 
-        const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID_HERE";
-        const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID_HERE";
+        const EMAILJS_PUBLIC_KEY = "s1-CZxnlw_v-G1dap"; 
+        const EMAILJS_SERVICE_ID = "service_r8gyjit";
+        const EMAILJS_TEMPLATE_ID = "template_him70hd";
 
-        // Hanya initialize jika Public Key telah dimasukkan (supaya tak keluar ralat di console buat masa ni)
-        if(EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY_HERE") {
-            emailjs.init(EMAILJS_PUBLIC_KEY);
-        }
+        emailjs.init(EMAILJS_PUBLIC_KEY);
 
         window.hantarNotifikasiEmel = function(subjek, mesej, keEmel) {
-            if(EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY_HERE") {
-                console.log("Sistem EmailJS sedia ada: ", {to_email: keEmel, subject: subjek, message: mesej});
-                return; // Batalkan hantaran sebenar jika ID belum diisi
-            }
-
             emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                 to_email: keEmel,
                 subject: subjek,
@@ -602,7 +591,7 @@
                     const jawatan = u.jawatan || ""; const gred = u.gred || "";
                     safeSetText("profileJawatanGred", (jawatan || gred) ? `${jawatan} ${gred ? '('+gred+')' : ''}` : "Belum Diisi");
                     
-                    const jabatan = u.jabatan || ""; const pusat = u.pusatCawangan || "";
+                    const jabatan = u.jawatan || ""; const pusat = u.pusatCawangan || "";
                     safeSetText("profileJabatanPusat", (jabatan || pusat) ? `${jabatan} ${pusat ? '- '+pusat : ''}` : "Belum Diisi");
                     safeSetText("profileSekolah", u.sekolah || "Belum Diisi");
                     safeSetText("profilePPD", u.ppd ? `PPD: ${u.ppd}` : "PPD: Belum Diisi");
@@ -704,12 +693,14 @@
                 window.closeJournalForm(); 
                 window.showToast("Jurnal Lampiran D disimpan."); 
                 
-                // PANGGIL FUNGSI NOTIFIKASI
-                window.hantarNotifikasiEmel(
-                    "Penghantaran Jurnal Mingguan (Lampiran D)", 
-                    `Peserta ${window.profileData.name} telah menghantar Jurnal Mingguan untuk minggu ${weekVal.split('_')[0]}.`, 
-                    window.profileData.email
-                );
+                // NOTIFIKASI KEPADA PEMANDU CITRA
+                if(window.profileData.pemanduEmail) {
+                    window.hantarNotifikasiEmel(
+                        "Jurnal Mingguan Baharu Menunggu Semakan", 
+                        `Peserta seliaan anda, ${window.profileData.name} telah menghantar Jurnal Mingguan (Lampiran D) baharu untuk minggu ${weekVal.split('_')[0]}. Sila log masuk ke Sistem PROPKES 2026 untuk membuat semakan.`, 
+                        window.profileData.pemanduEmail
+                    );
+                }
             } 
             catch(e) { console.error(e); window.showToast("Ralat menyimpan Jurnal.", "error"); }
             finally { btn.textContent = "Simpan Jurnal"; btn.disabled = false; }
@@ -829,8 +820,26 @@
                 
                 window.closeDailyModal(); window.renderCal(); window.showToast("Rekod disimpan.");
                 
+                // HALA LALUAN NOTIFIKASI DINAMIK (DYNAMIC ROUTING)
                 if (log) {
-                    window.hantarNotifikasiEmel("Log Kehadiran Baharu", `Peserta ${window.profileData.name} telah menghantar log harian untuk tarikh ${curEditDate} untuk pengesahan.`, window.profileData.email);
+                    let targetEmail = null;
+                    let recipientRole = "";
+
+                    if(loc === 'sekolah') {
+                        targetEmail = window.profileData.mentorEmail;
+                        recipientRole = "Mentor Sekolah";
+                    } else if (loc === 'ppd') {
+                        targetEmail = window.profileData.mentorPpdEmail;
+                        recipientRole = "Mentor PPD";
+                    }
+
+                    if(targetEmail) {
+                        window.hantarNotifikasiEmel(
+                            "Log Kehadiran Baharu Menunggu Pengesahan", 
+                            `Peserta seliaan anda, ${window.profileData.name} telah menghantar log harian baharu untuk tarikh ${curEditDate} (Lokasi: ${loc.toUpperCase()}). Sila log masuk ke Sistem PROPKES 2026 untuk membuat pengesahan kehadiran peserta.`, 
+                            targetEmail
+                        );
+                    }
                 }
             } catch(e) { console.error(e); window.showToast("Gagal menyimpan.", "error"); } 
             finally { btn.textContent = "Simpan Lampiran C"; btn.disabled = false; }
