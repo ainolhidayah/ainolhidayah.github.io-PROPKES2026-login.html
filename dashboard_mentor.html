@@ -6,7 +6,6 @@
     <title>Papan Pemuka | Mentor PROPKES</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chart.js untuk Laporan i-PROPKES -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -39,9 +38,8 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-4 lg:gap-5">
                     <div class="flex items-center gap-3 bg-white/5 p-2 rounded-xl border border-white/10 shadow-inner backdrop-blur-sm">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png" alt="KPM" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg">
-                        <div class="w-px h-8 bg-slate-600"></div>
-                        <div class="h-10 lg:h-12 px-3 bg-gradient-to-br from-blue-600 to-indigo-800 rounded-lg flex items-center justify-center font-black text-white text-sm shadow-lg border border-blue-400/50">IAB</div>
+                        <!-- LOGO IAB KPM DI MASUKKAN DI SINI -->
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
                     <div class="hidden xl:flex flex-col justify-center">
                         <h1 class="font-extrabold text-sm text-white uppercase drop-shadow-md">PROPKES <span class="text-blue-400">2026</span></h1>
@@ -450,9 +448,8 @@
 
         window.loadMaklumBalasData = async (fasa) => {
             const id = window.currentMenteeF.id;
-            const mType = window.currentMenteeF.mentorType; // Ambil 'Sekolah' atau 'PPD'
+            const mType = window.currentMenteeF.mentorType; 
             try {
-                // KUNCI BARU: Asingkan bilik Mentor Sekolah dan PPD di Firebase
                 const snap = await get(child(ref(db), `propkes_feedback_mentor/${id}/${mType}/${fasa}`));
                 if(snap.exists()){
                     const data = snap.val();
@@ -485,7 +482,6 @@
             };
 
             try {
-                // Simpan ke bilik asingan
                 await set(ref(db, `propkes_feedback_mentor/${window.currentMenteeF.id}/${mType}/${fasa}`), payload);
                 window.showToast(`Maklum Balas ${fasa} berjaya disimpan.`);
             } catch(e) { 
@@ -495,7 +491,7 @@
             }
         };
 
-        // CETAKAN LAMPIRAN F
+        // CETAKAN LAMPIRAN F DENGAN LOGO
         window.cetakLampiranF = function() {
             const m = window.currentMenteeF;
             const fasa = document.getElementById('mbFasa').value;
@@ -512,7 +508,12 @@
 
             const html = `
             <div class="print-page">
-                <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">LAMPIRAN F</h3>
+                <!-- LOGO IAB & KPM -->
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 80px; width: auto; object-fit: contain;">
+                </div>
+                
+                <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN F</h3>
                 <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
                 <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
                 <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">${fasa.toUpperCase()}</h2>
