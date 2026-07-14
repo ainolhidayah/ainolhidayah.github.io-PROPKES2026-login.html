@@ -38,9 +38,8 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-4 lg:gap-5">
                     <div class="flex items-center gap-3 bg-white/5 p-2 rounded-xl border border-white/10 shadow-inner backdrop-blur-sm">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png" alt="KPM" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg">
-                        <div class="w-px h-8 bg-slate-600"></div>
-                        <div class="h-10 lg:h-12 px-3 bg-gradient-to-br from-blue-600 to-indigo-800 rounded-lg flex items-center justify-center font-black text-white text-sm shadow-lg border border-blue-400/50">IAB</div>
+                        <!-- LOGO IAB KPM DI MASUKKAN DI SINI -->
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
                     <div class="hidden xl:flex flex-col justify-center">
                         <h1 class="font-extrabold text-sm text-white uppercase drop-shadow-md">PROPKES <span class="text-blue-400">2026</span></h1>
@@ -259,8 +258,8 @@
         if (!currentUser) window.location.replace("index.html");
 
         window.menteesList = [];
-        window.profileData = {}; // Simpan profil pemandu citra (diri sendiri)
-        window.currentMenteeG = {}; // Simpan data mentee semasa borang G dibuka
+        window.profileData = {}; 
+        window.currentMenteeG = {}; 
 
         let chartBarInstance = null;
         let chartWebInstance = null;
@@ -354,125 +353,6 @@
             }
         }
 
-        // --- MAKLUM BALAS LAMPIRAN G ---
-        window.openMaklumBalas = async (id, nama, jawatan, gred, jabatan, pusat) => {
-            window.currentMenteeG = { id, nama, jawatan, gred, jabatan, pusat };
-            
-            document.getElementById('mbModalSubtitle').textContent = `Peserta: ${nama}`;
-            document.getElementById('mbNamaPeserta').value = nama;
-            document.getElementById('mbJawatan').value = jawatan;
-            document.getElementById('mbGred').value = gred;
-            document.getElementById('mbJabatan').value = jabatan;
-            document.getElementById('mbPusat').value = pusat;
-
-            document.getElementById('mbFasa').value = "FASA 1";
-            await window.loadMaklumBalasData("FASA 1");
-
-            const modal = document.getElementById('maklumBalasModal');
-            modal.classList.remove('hidden'); modal.classList.add('flex');
-            setTimeout(()=>document.getElementById('maklumBalasModalContent').classList.remove('scale-95'), 10);
-            setTimeout(()=>modal.classList.remove('opacity-0'), 10);
-        };
-
-        window.closeMaklumBalasModal = () => {
-            document.getElementById('maklumBalasModal').classList.add('opacity-0');
-            document.getElementById('maklumBalasModalContent').classList.add('scale-95');
-            setTimeout(()=>{document.getElementById('maklumBalasModal').classList.remove('flex'); document.getElementById('maklumBalasModal').classList.add('hidden');}, 300);
-        };
-
-        window.loadMaklumBalasData = async (fasa) => {
-            const id = window.currentMenteeG.id;
-            try {
-                const snap = await get(child(ref(db), `propkes_feedback_pemandu/${id}/${fasa}`));
-                if(snap.exists()){
-                    const data = snap.val();
-                    document.getElementById('mbTarikhSandaran').value = data.tarikhSandaran || "";
-                    document.getElementById('mbUlasan').value = data.ulasan || "";
-                } else {
-                    document.getElementById('mbTarikhSandaran').value = "";
-                    document.getElementById('mbUlasan').value = "";
-                }
-            } catch(e) { console.error(e); }
-        };
-
-        document.getElementById('mbFasa').addEventListener('change', (e) => {
-            window.loadMaklumBalasData(e.target.value);
-        });
-
-        window.saveMaklumBalas = async (e) => {
-            e.preventDefault();
-            const fasa = document.getElementById('mbFasa').value;
-            const btn = document.getElementById('btnSimpanMB');
-            btn.textContent = "Menyimpan..."; btn.disabled = true;
-
-            const payload = {
-                tarikhSandaran: document.getElementById('mbTarikhSandaran').value,
-                ulasan: document.getElementById('mbUlasan').value,
-                pemanduName: window.profileData.name || "Pemandu Citra",
-                pemanduJawatan: window.profileData.jawatan || "Pemandu Citra IAB",
-                tarikhKemasKini: new Date().toLocaleDateString('ms-MY')
-            };
-
-            try {
-                await set(ref(db, `propkes_feedback_pemandu/${window.currentMenteeG.id}/${fasa}`), payload);
-                window.showToast(`Maklum Balas ${fasa} berjaya disimpan.`);
-            } catch(e) { 
-                console.error(e); window.showToast("Ralat menyimpan data.", "error"); 
-            } finally { 
-                btn.textContent = "Simpan Data"; btn.disabled = false; 
-            }
-        };
-
-        // CETAKAN LAMPIRAN G (CETAKAN TERSEMBUNYI)
-        window.cetakLampiranG = function() {
-            const m = window.currentMenteeG;
-            const fasa = document.getElementById('mbFasa').value;
-            const tarikh = document.getElementById('mbTarikhSandaran').value || "-";
-            const ulasan = document.getElementById('mbUlasan').value || "-";
-            const pName = (window.profileData.name || "Pemandu Citra").toUpperCase();
-            const pJawatan = (window.profileData.jawatan || "Pemandu Citra IAB").toUpperCase();
-            const today = new Date().toLocaleDateString('ms-MY');
-
-            if(ulasan === "-" || ulasan === "") {
-                window.showToast("Sila isi dan simpan ulasan terlebih dahulu sebelum mencetak.", "warning");
-                return;
-            }
-
-            const html = `
-            <div class="print-page">
-                <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">LAMPIRAN G</h3>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">${fasa.toUpperCase()}</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">MAKLUM BALAS PEMANDU CITRA / COACH</h2>
-
-                <table class="print-table" style="margin-bottom: 40px;">
-                    <tr><td style="width: 30%; font-weight: bold;">NAMA PESERTA</td><td>${m.nama.toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">JAWATAN</td><td>${m.jawatan.toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">GRED</td><td>${m.gred.toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">JABATAN</td><td>${m.jabatan.toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">PUSAT</td><td>${m.pusat.toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">TARIKH SANDARAN</td><td>${tarikh}</td></tr>
-                    <tr><td style="font-weight: bold; height: 250px;">MAKLUM BALAS PEMANDU CITRA / COACH</td><td style="white-space: pre-wrap;">${ulasan}</td></tr>
-                </table>
-
-                <div style="font-size: 12px; line-height: 1.8;">
-                    <p style="margin:0;">Nama Penuh Pemandu Citra/Coach: <strong>${pName}</strong></p>
-                    <p style="margin:0;">Jawatan: <strong>${pJawatan}</strong></p>
-                    <p style="margin:0;">Tarikh: <strong>${today}</strong></p>
-                    <p style="margin-top:20px; margin-bottom: 40px;">Cap Rasmi: </p>
-                    <p style="color: #666; font-style: italic;">*Borang ini dijana secara digital melalui Sistem PROPKES 2026.</p>
-                </div>
-            </div>`;
-
-            const oldTitle = document.title; 
-            document.title = `${m.nama.toUpperCase()} - Lampiran G - ${fasa}`;
-            document.getElementById('printSection').innerHTML = html;
-            window.print();
-            setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
-        };
-
-        // --- LAIN-LAIN MODAL ---
         window.openPanduCitraModal = () => { document.getElementById('panduCitraModal').classList.remove('hidden'); document.getElementById('panduCitraModal').classList.add('flex'); setTimeout(()=>document.getElementById('panduCitraModal').classList.remove('opacity-0'),10); };
         window.closePanduCitraModal = () => { document.getElementById('panduCitraModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('panduCitraModal').classList.remove('flex'); document.getElementById('panduCitraModal').classList.add('hidden');},300); };
         window.savePanduCitra = async (e) => { 
@@ -577,8 +457,131 @@
                         options: { responsive: true, scales: { r: { min:0, max: 10, pointLabels: {color:'#cbd5e1', font:{size:9}}, ticks: {display:false, max:10} } } } 
                     });
 
-                } catch (error) { console.error(error); window.showToast("Ralat menarik data awan.", "error"); }
+                } catch (error) { console.error(error); window.showToast("Ralat menarik data i-PROPKES awan.", "error"); }
             }, 300);
+        };
+
+        // --- MAKLUM BALAS LAMPIRAN G ---
+        window.openMaklumBalas = async (id, nama, jawatan, gred, jabatan, pusat) => {
+            window.currentMenteeG = { id, nama, jawatan, gred, jabatan, pusat };
+            
+            document.getElementById('mbModalSubtitle').textContent = `Peserta: ${nama}`;
+            document.getElementById('mbNamaPeserta').value = nama;
+            document.getElementById('mbJawatan').value = jawatan;
+            document.getElementById('mbGred').value = gred;
+            document.getElementById('mbJabatan').value = jabatan;
+            document.getElementById('mbPusat').value = pusat;
+
+            document.getElementById('mbFasa').value = "FASA 1";
+            await window.loadMaklumBalasData("FASA 1");
+
+            const modal = document.getElementById('maklumBalasModal');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(()=>document.getElementById('maklumBalasModalContent').classList.remove('scale-95'), 10);
+            setTimeout(()=>modal.classList.remove('opacity-0'), 10);
+        };
+
+        window.closeMaklumBalasModal = () => {
+            document.getElementById('maklumBalasModal').classList.add('opacity-0');
+            document.getElementById('maklumBalasModalContent').classList.add('scale-95');
+            setTimeout(()=>{document.getElementById('maklumBalasModal').classList.remove('flex'); document.getElementById('maklumBalasModal').classList.add('hidden');}, 300);
+        };
+
+        window.loadMaklumBalasData = async (fasa) => {
+            const id = window.currentMenteeG.id;
+            try {
+                const snap = await get(child(ref(db), `propkes_feedback_pemandu/${id}/${fasa}`));
+                if(snap.exists()){
+                    const data = snap.val();
+                    document.getElementById('mbTarikhSandaran').value = data.tarikhSandaran || "";
+                    document.getElementById('mbUlasan').value = data.ulasan || "";
+                } else {
+                    document.getElementById('mbTarikhSandaran').value = "";
+                    document.getElementById('mbUlasan').value = "";
+                }
+            } catch(e) { console.error(e); }
+        };
+
+        document.getElementById('mbFasa').addEventListener('change', (e) => {
+            window.loadMaklumBalasData(e.target.value);
+        });
+
+        window.saveMaklumBalas = async (e) => {
+            e.preventDefault();
+            const fasa = document.getElementById('mbFasa').value;
+            const btn = document.getElementById('btnSimpanMB');
+            btn.textContent = "Menyimpan..."; btn.disabled = true;
+
+            const payload = {
+                tarikhSandaran: document.getElementById('mbTarikhSandaran').value,
+                ulasan: document.getElementById('mbUlasan').value,
+                pemanduName: window.profileData.name || "Pemandu Citra",
+                pemanduJawatan: window.profileData.jawatan || "Pemandu Citra IAB",
+                tarikhKemasKini: new Date().toLocaleDateString('ms-MY')
+            };
+
+            try {
+                await set(ref(db, `propkes_feedback_pemandu/${window.currentMenteeG.id}/${fasa}`), payload);
+                window.showToast(`Maklum Balas ${fasa} berjaya disimpan.`);
+            } catch(e) { 
+                console.error(e); window.showToast("Ralat menyimpan data.", "error"); 
+            } finally { 
+                btn.textContent = "Simpan Data"; btn.disabled = false; 
+            }
+        };
+
+        // CETAKAN LAMPIRAN G DENGAN LOGO
+        window.cetakLampiranG = function() {
+            const m = window.currentMenteeG;
+            const fasa = document.getElementById('mbFasa').value;
+            const tarikh = document.getElementById('mbTarikhSandaran').value || "-";
+            const ulasan = document.getElementById('mbUlasan').value || "-";
+            const pName = (window.profileData.name || "Pemandu Citra").toUpperCase();
+            const pJawatan = (window.profileData.jawatan || "Pemandu Citra IAB").toUpperCase();
+            const today = new Date().toLocaleDateString('ms-MY');
+
+            if(ulasan === "-" || ulasan === "") {
+                window.showToast("Sila isi dan simpan ulasan terlebih dahulu sebelum mencetak.", "warning");
+                return;
+            }
+
+            const html = `
+            <div class="print-page">
+                <!-- LOGO IAB & KPM -->
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 80px; width: auto; object-fit: contain;">
+                </div>
+
+                <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN G</h3>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">${fasa.toUpperCase()}</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">MAKLUM BALAS PEMANDU CITRA / COACH</h2>
+
+                <table class="print-table" style="margin-bottom: 40px;">
+                    <tr><td style="width: 30%; font-weight: bold;">NAMA PESERTA</td><td>${m.nama.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold;">JAWATAN</td><td>${m.jawatan.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold;">GRED</td><td>${m.gred.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold;">JABATAN</td><td>${m.jabatan.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold;">PUSAT</td><td>${m.pusat.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold;">TARIKH SANDARAN</td><td>${tarikh}</td></tr>
+                    <tr><td style="font-weight: bold; height: 250px;">MAKLUM BALAS PEMANDU CITRA / COACH</td><td style="white-space: pre-wrap;">${ulasan}</td></tr>
+                </table>
+
+                <div style="font-size: 12px; line-height: 1.8;">
+                    <p style="margin:0;">Nama Penuh Pemandu Citra/Coach: <strong>${pName}</strong></p>
+                    <p style="margin:0;">Jawatan: <strong>${pJawatan}</strong></p>
+                    <p style="margin:0;">Tarikh: <strong>${today}</strong></p>
+                    <p style="margin-top:20px; margin-bottom: 40px;">Cap Rasmi: </p>
+                    <p style="color: #666; font-style: italic;">*Borang ini dijana secara digital melalui Sistem PROPKES 2026.</p>
+                </div>
+            </div>`;
+
+            const oldTitle = document.title; 
+            document.title = `${m.nama.toUpperCase()} - Lampiran G - ${fasa}`;
+            document.getElementById('printSection').innerHTML = html;
+            window.print();
+            setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
         };
 
         loadPemanduData();
