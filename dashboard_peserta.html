@@ -605,7 +605,7 @@
 
                     safeSetValue('editIc', u.ic || "");
                     safeSetValue('editJawatan', u.jawatan || ""); safeSetValue('editGred', u.gred || "");
-                    safeSetValue('editJabatan', u.jabatan || ""); safeSetValue('editPusatCawangan', u.pusatCawangan || "");
+                    safeSetValue('editJabatan', u.jawatan || ""); safeSetValue('editPusatCawangan', u.pusatCawangan || "");
                     safeSetValue('editSekolah', u.sekolah || ""); safeSetValue('editPpd', u.ppd || "");
                     safeSetValue('editPemanduCitra', u.pemanduCitra || ""); safeSetValue('editPemanduJawatan', u.pemanduJawatan || ""); safeSetValue('editPemanduPusat', u.pemanduPusat || "");
                     safeSetValue('editMentorSekolah', u.mentorSekolah || ""); safeSetValue('editMentorJawatan', u.mentorJawatan || "");
@@ -697,7 +697,7 @@
                 if(window.profileData.pemanduEmail) {
                     window.hantarNotifikasiEmel(
                         "Jurnal Mingguan Baharu Menunggu Semakan", 
-                        `Peserta seliaan anda, ${window.profileData.name} telah menghantar Jurnal Mingguan (Lampiran D) baharu untuk minggu ${weekVal.split('_')[0]}. Sila log masuk ke Sistem PROPKES 2026 untuk membuat semakan.`, 
+                        `Peserta seliaan anda, ${window.profileData.name} telah hantar Jurnal Mingguan (Lampiran D) baharu untuk minggu ${weekVal.split('_')[0]}. Sila log masuk ke Sistem PROPKES 2026 untuk membuat semakan.`, 
                         window.profileData.pemanduEmail
                     );
                 }
@@ -1030,5 +1030,10 @@
         
         window.renderTasks(); loadCharts(); loadUserData();
     </script>
+
+    <!-- INTEGRASI PEMBANTU MAYA (SAYA AINDA) -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/07/14/13/20260714134346-FN0YXLI1.js" defer></script>
+
 </body>
 </html>
