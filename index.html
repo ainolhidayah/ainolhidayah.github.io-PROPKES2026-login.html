@@ -16,87 +16,122 @@
         }
     </style>
 </head>
-<body class="bg-pattern min-h-screen flex items-center justify-center p-4">
+<body class="bg-pattern min-h-screen flex items-center justify-center p-4 m-0 overflow-x-hidden">
 
-    <div class="max-w-4xl w-full bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+    <!-- Container Utama -->
+    <div class="max-w-5xl w-full bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row m-auto">
         
-        <!-- BAHAGIAN KIRI -->
-        <div class="md:w-5/12 bg-gradient-to-br from-blue-900 to-slate-900 p-8 text-white flex flex-col justify-between relative overflow-hidden">
+        <!-- BAHAGIAN KIRI (Branding, QR Code dengan Google Drive, & Senarai Admin) -->
+        <div class="md:w-6/12 bg-gradient-to-br from-blue-900 to-slate-900 p-8 text-white flex flex-col justify-between relative overflow-hidden shrink-0 border-r border-slate-800">
+            <!-- Hiasan Visual Latar Belakang -->
             <div class="absolute -top-16 -left-16 w-48 h-48 bg-blue-500/20 blur-3xl rounded-full"></div>
             <div class="absolute -bottom-16 -right-16 w-48 h-48 bg-emerald-500/20 blur-3xl rounded-full"></div>
 
-            <div class="relative z-10">
-                <div class="w-12 h-12 bg-blue-500 text-white font-bold text-xl rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 mb-6">IAB</div>
-                <h1 class="text-3xl font-bold mb-2 tracking-tight">PROPKES <span class="text-blue-400">2026</span></h1>
-                <p class="text-sm text-slate-300 leading-relaxed font-medium">Program Peningkatan Profesional Pengurusan dan Kepimpinan Sekolah</p>
-                
-                <div class="mt-4 inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-3 py-1.5 rounded-full text-[10px] font-bold tracking-wider">
-                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                    Sistem Awan Terhubung
+            <div class="relative z-10 mb-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-white p-1 rounded-lg flex items-center justify-center shadow-lg">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-8 w-auto object-contain" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight">PROPKES <span class="text-blue-400">2026</span></h1>
+                        <p class="text-[9px] text-slate-400 uppercase font-semibold">Institut Aminuddin Baki, KPM</p>
+                    </div>
                 </div>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium">
+                    Program Peningkatan Profesional Pengurusan dan Kepimpinan Sekolah.
+                </p>
             </div>
 
-            <div class="relative z-10 mt-12 md:mt-0">
-                <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Gerbang Akses Bersepadu:</h3>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-3 text-sm text-slate-300"><div class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></div>Peserta (Permata Citra)</li>
-                    <li class="flex items-center gap-3 text-sm text-slate-300"><div class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></div>Pemandu Citra</li>
-                    <li class="flex items-center gap-3 text-sm text-slate-300"><div class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></div>Mentor</li>
-                    <li class="flex items-center gap-3 text-sm text-slate-300"><div class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></div>Urus Setia (Admin)</li>
-                </ul>
+            <!-- SMART QR CODE TERHUBUNG TERUS KE GOOGLE DRIVE MANUAL PENGGUNA -->
+            <a href="https://drive.google.com/drive/folders/1j9kxXYzpEgY8tCOeIEcIqyeE3E3riEYX?usp=drive_link" target="_blank" 
+               class="block relative z-10 bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800 hover:border-blue-500/50 rounded-xl p-4 mb-6 transition-all group">
+                <p class="text-[9px] text-blue-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                    Rujukan & Manual Pengguna
+                    <svg class="w-3 h-3 text-blue-400 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </p>
+                <div class="flex items-center gap-4">
+                    <!-- Memaparkan qr_manual.png dari GitHub. Jika ralat, ia secara automatik menjana QR Code dinamik sementara menghala ke Google Drive puan -->
+                    <div class="w-20 h-20 bg-white rounded-lg p-1 shrink-0 flex items-center justify-center shadow-inner overflow-hidden">
+                        <img id="qrImageElement" src="qr_manual.png" alt="QR Code Manual" class="w-full h-full object-contain animate-fade-in" 
+                            onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://drive.google.com/drive/folders/1j9kxXYzpEgY8tCOeIEcIqyeE3E3riEYX?usp=drive_link';">
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white group-hover:text-blue-400 transition-colors">Manual Pengguna Sistem</h4>
+                        <p class="text-[10px] text-slate-400 mt-1 leading-normal">Imbas QR Code di sebelah atau <span class="text-blue-400 underline font-semibold">Klik Sini</span> untuk membaca panduan pengoperasian terus dari Google Drive.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- SENARAI HUBUNGAN URUS SETIA SISTEM -->
+            <div class="relative z-10">
+                <h3 class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-3">Urus Setia Sistem:</h3>
+                <div class="space-y-2 bg-slate-950/40 p-3 rounded-lg border border-slate-800/50">
+                    <div class="text-[10px] leading-relaxed">
+                        <p class="font-bold text-slate-200">1. Puan Ainol Hidayah binti Abdul Rauof</p>
+                        <p class="text-slate-500">Talian: <a href="tel:0192203212" class="text-blue-400 hover:underline font-semibold">019-2203212</a> | E-mel: <a href="mailto:ainol.hidayah@iab.moe.gov.my" class="text-blue-400 hover:underline">ainol.hidayah@iab.moe.gov.my</a></p>
+                    </div>
+                    <div class="text-[10px] leading-relaxed border-t border-slate-800/80 pt-1.5">
+                        <p class="font-bold text-slate-200">2. Dr. Noriadah binti Abdul Karim</p>
+                        <p class="text-slate-500">Talian: <a href="tel:0187678122" class="text-blue-400 hover:underline font-semibold">018-7678122</a> | E-mel: <a href="mailto:noriadah@iab.moe.gov.my" class="text-blue-400 hover:underline">noriadah@iab.moe.gov.my</a></p>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- BAHAGIAN KANAN (Borang Log Masuk) -->
-        <div class="md:w-7/12 p-8 md:p-12 relative">
-            <div class="mb-8">
+        <div class="md:w-6/12 p-8 md:p-12 shrink-0 flex flex-col justify-center">
+            <div class="mb-6">
                 <h2 class="text-2xl font-bold text-white mb-2">Log Masuk Sistem</h2>
-                <p class="text-sm text-slate-400">Sila masukkan ID Pengguna atau E-mel yang telah didaftarkan.</p>
+                <p class="text-sm text-slate-400">Sila masukkan ID Pengguna dan Kata Laluan yang didaftarkan oleh Urus Setia.</p>
             </div>
 
-            <form id="loginForm" class="space-y-5">
+            <form id="loginForm" class="space-y-4">
+                
+                <!-- ID PENGGUNA -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">ID Pengguna / E-mel Rasmi</label>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1.5">ID Pengguna (Username)</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         </div>
-                        <input type="text" id="username" required placeholder="Sila masukkan ID anda" class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 outline-none">
+                        <input type="text" id="username" required placeholder="Cth: admin / peserta1" 
+                            class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors placeholder-slate-700 outline-none">
                     </div>
                 </div>
 
+                <!-- KATA LALUAN -->
                 <div>
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wide">Kata Laluan</label>
-                    </div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1.5">Kata Laluan</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         </div>
-                        <input type="password" id="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 outline-none">
+                        <input type="password" id="password" required placeholder="••••••••" 
+                            class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors placeholder-slate-700 outline-none">
                     </div>
                 </div>
 
-                <div id="errorMsg" class="hidden bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs p-3 rounded-lg flex items-center gap-2 transition-all">
+                <!-- Paparan Ralat -->
+                <div id="errorMsg" class="hidden bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs p-3 rounded-lg flex items-center gap-2">
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span id="errorText">Maklumat tidak sah atau akaun belum didaftarkan.</span>
+                    <span>ID atau Kata Laluan salah. Hubungi Urus Setia untuk bantuan reset.</span>
                 </div>
 
-                <button type="submit" id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg shadow-blue-600/30 transition-all mt-8 flex justify-center items-center gap-2 outline-none cursor-pointer">
-                    <span id="btnText">Log Masuk</span>
-                    <svg id="btnIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    <svg id="btnLoader" class="w-4 h-4 animate-spin hidden" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                <!-- BUTANG LOG MASUK -->
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg shadow-lg shadow-blue-600/30 transition-all mt-3 flex justify-center items-center gap-2 outline-none cursor-pointer">
+                    Log Masuk
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </button>
+
             </form>
         </div>
     </div>
 
-    <!-- FIREBASE MODULAR SCRIPTS -->
+    <!-- FIREBASE DB CONNECTED AUTHENTICATION -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getDatabase, ref, get, child, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-        // URL FIREBASE YANG BETUL TELAH DIMASUKKAN DI SINI
         const firebaseConfig = {
             apiKey: "AIzaSyCzlcyG6xyd2JXEMRNlDGi-_wxU2TXf6Y8",
             authDomain: "propkes-2026.firebaseapp.com",
@@ -104,88 +139,48 @@
             projectId: "propkes-2026",
             storageBucket: "propkes-2026.firebasestorage.app",
             messagingSenderId: "758954100529",
-            appId: "1:758954100529:web:385531320681ceac8e9210",
-            measurementId: "G-XD4Z9ENX95"
+            appId: "1:758954100529:web:385531320681ceac8e9210"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Fungsi Admin Lalai
-        async function checkDatabase() {
-            try {
-                const dbRef = ref(db);
-                const snapshot = await get(child(dbRef, 'propkes_accounts'));
-                
-                if (!snapshot.exists()) {
-                    const defaultAdmin = {
-                        "admin": { role: "admin", name: "Urus Setia IAB", email: "admin@iab.edu.my", password: "admin" }
-                    };
-                    await set(ref(db, 'propkes_accounts'), defaultAdmin);
-                }
-            } catch (error) {
-                console.warn("Semak rules Firebase anda.");
-            }
-        }
-        checkDatabase();
-
-        // FUNGSI LOG MASUK
         document.getElementById("loginForm").addEventListener("submit", async function(e) {
             e.preventDefault();
 
-            const loginInput = document.getElementById("username").value.toLowerCase().trim();
-            const passwordInput = document.getElementById("password").value;
+            const usernameInput = document.getElementById("username").value.toLowerCase().trim();
+            const passwordInput = document.getElementById("password").value.trim();
             const errorMsg = document.getElementById("errorMsg");
-            const btnText = document.getElementById("btnText");
-            const btnIcon = document.getElementById("btnIcon");
-            const btnLoader = document.getElementById("btnLoader");
-
             errorMsg.classList.add("hidden");
-            
-            btnText.textContent = "Menyemak Awan...";
-            btnIcon.classList.add("hidden");
-            btnLoader.classList.remove("hidden");
+
+            // Bypass Admin Lalai Urus Setia
+            if (usernameInput === "admin" && passwordInput === "123456") {
+                localStorage.setItem("propkes_user", "admin");
+                window.location.replace("dashboard_admin.html");
+                return;
+            }
 
             try {
                 const dbRef = ref(db);
-                const snapshot = await get(child(dbRef, 'propkes_accounts'));
-                
-                if (snapshot.exists()) {
-                    const accounts = snapshot.val();
-                    let matchedUsername = null;
-                    let matchedUser = null;
+                const snap = await get(child(dbRef, `propkes_accounts/${usernameInput}`));
 
-                    for (const [uname, data] of Object.entries(accounts)) {
-                        if (uname === loginInput || (data.email && data.email.toLowerCase() === loginInput)) {
-                            matchedUsername = uname;
-                            matchedUser = data;
-                            break;
-                        }
-                    }
-                    
-                    if (matchedUser && matchedUser.password === passwordInput) {
-                        localStorage.setItem("propkes_user", matchedUsername);
+                if (snap.exists()) {
+                    const u = snap.val();
+                    if(u.password === passwordInput) {
+                        localStorage.setItem("propkes_user", usernameInput);
 
-                        const userRole = matchedUser.role;
-                        if (userRole === "peserta") window.location.href = "dashboard_peserta.html";
-                        else if (userRole === "pemandu") window.location.href = "dashboard_pemandu.html";
-                        else if (userRole === "mentor") window.location.href = "dashboard_mentor.html";
-                        else if (userRole === "admin") window.location.href = "dashboard_admin.html";
+                        if (u.role === "peserta") window.location.replace("dashboard_peserta.html");
+                        else if (u.role === "pemandu") window.location.replace("dashboard_pemandu.html");
+                        else if (u.role === "mentor" || u.role === "mentor-ppd") window.location.replace("dashboard_mentor.html");
+                        else if (u.role === "admin") window.location.replace("dashboard_admin.html");
                         return;
                     }
                 }
-                
-                document.getElementById("errorText").textContent = "ID atau Kata Laluan salah.";
                 errorMsg.classList.remove("hidden");
-
-            } catch (error) {
-                console.error(error);
-                document.getElementById("errorText").textContent = "Gagal menyambung ke awan. Hubungi Admin.";
+            } catch(err) {
+                console.error(err);
+                errorMsg.querySelector('span').textContent = "Ralat pelayan. Sila cuba lagi kemudian.";
                 errorMsg.classList.remove("hidden");
-            } finally {
-                btnText.textContent = "Log Masuk";
-                btnIcon.classList.remove("hidden");
-                btnLoader.classList.add("hidden");
             }
         });
     </script>
