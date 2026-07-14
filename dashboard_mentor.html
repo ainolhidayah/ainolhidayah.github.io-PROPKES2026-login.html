@@ -83,7 +83,8 @@
 
         <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
             <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
-                <h3 class="font-bold text-white text-sm">Senarai Peserta (Permata Citra)</h3>
+                <!-- DITUKAR KEPADA MENTEE SEPERTI PERMINTAAN -->
+                <h3 class="font-bold text-white text-sm">Senarai Peserta (Mentee)</h3>
                 <span class="text-xs font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20" id="menteeCount">0 Peserta</span>
             </div>
             <div class="overflow-x-auto">
@@ -437,7 +438,7 @@
             } catch(e) { console.error(e); window.showToast("Ralat menyimpan pengesahan.", "error"); }
         };
 
-        // --- MAKLUM BALAS LAMPIRAN F ---
+        // --- MAKLUM BALAS LAMPIRAN F DENGAN PENGASINGAN DATA MENTOR ---
         window.openMaklumBalas = async (id, nama, jawatan, gred, jabatan, pusat, mentorType) => {
             window.currentMenteeF = { id, nama, jawatan, gred, jabatan, pusat, mentorType };
             
@@ -508,13 +509,14 @@
             }
         };
 
-        // CETAKAN LAMPIRAN F DENGAN JAWATAN HAKIKI DARI PESERTA (DIBETULKAN ALIGNMENT LOGO)
+        // CETAKAN LAMPIRAN F DENGAN JAWATAN HAKIKI
         window.cetakLampiranF = function() {
             const m = window.currentMenteeF;
             const fasa = document.getElementById('mbFasa').value;
             const tarikh = document.getElementById('mbTarikhSandaran').value || "-";
             const ulasan = document.getElementById('mbUlasan').value || "-";
             const pName = (window.profileData.name || "Mentor").toUpperCase();
+            
             const pJawatan = (window.profileData.jawatan || "BELUM DIISI").toUpperCase();
             const today = new Date().toLocaleDateString('ms-MY');
 
@@ -523,10 +525,8 @@
                 return;
             }
 
-            // KEMAS KINI CSS UNTUK LOGO: flex, justify-center untuk memastikan ia betul-betul di tengah
             const html = `
             <div class="print-page">
-                <!-- LOGO IAB & KPM DIPAKSA KE TENGAH -->
                 <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
                     <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
                 </div>
