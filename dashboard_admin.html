@@ -20,7 +20,7 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
         
-        /* Memastikan elemen cetakan tidak mengganggu paparan skrin utama (image_6d4a5b.png) */
+        /* Memastikan seksyen cetakan disembunyikan sepenuhnya semasa navigasi biasa di skrin */
         @media screen {
             #printSection { display: none !important; }
         }
@@ -39,7 +39,7 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <!-- STREAMING_CHUNK: Menyediakan struktur navigasi pentadbiran... -->
+    <!-- STREAMING_CHUNK: Membina Navigasi Urus Setia Bersih... -->
     <!-- TOP NAVBAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 shadow-2xl no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
@@ -71,7 +71,7 @@
     <!-- MAIN BODY -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
         
-        <!-- STREAMING_CHUNK: Menyediakan tajuk aluan rasmi... -->
+        <!-- STREAMING_CHUNK: Menyediakan Teks Aluan Baharu Puan Ainol... -->
         <!-- BANNER ALUALAN -->
         <div class="bg-gradient-to-r from-rose-900/40 to-slate-900 border border-rose-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-rose-500/10 blur-3xl rounded-full pointer-events-none"></div>
@@ -123,7 +123,6 @@
                     <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center">
                         <h3 class="font-bold text-white text-sm">Pangkalan Pengguna Sistem</h3>
                         <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                            <!-- Dropdown Filter Kunci Peranan (Tidak perlu tunjuk nama secara pukal) -->
                             <select id="roleFilter" onchange="window.filterTable()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none cursor-pointer">
                                 <option value="none" selected>-- Pilih Peranan Pengguna --</option>
                                 <option value="peserta">Peserta (Permata Citra)</option>
@@ -278,11 +277,12 @@
         </div>
     </div>
 
+    <!-- ELEMENT UTAMA TEMPAT CETAKAN DIJANA -->
     <div id="printSection" class="print-container"></div>
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
     <!-- FIREBASE MODULE & LOGICS -->
-    <!-- STREAMING_CHUNK: Mengaktifkan Integrasi Pangkalan Data Firebase... -->
+    <!-- STREAMING_CHUNK: Integrating Firebase Realtime Database... -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, get, child, set, update, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -331,7 +331,7 @@
             if(role === 'peserta') extra.classList.remove('hidden'); else extra.classList.add('hidden');
         };
 
-        /* STREAMING_CHUNK: Menguruskan Penyerahan Data Pengguna Baru... */
+        /* STREAMING_CHUNK: Managing registration process with date stamps... */
         window.handleRegistration = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btnDaftar');
@@ -378,7 +378,7 @@
             finally { btn.textContent = "Daftar"; btn.disabled = false; }
         };
 
-        /* STREAMING_CHUNK: Menyedut Semua Pengguna & Menjana Statistik Dinamik... */
+        /* STREAMING_CHUNK: Loading database users with precise branch string mapping... */
         async function loadAccounts() {
             try {
                 const snap = await get(child(ref(db), 'propkes_accounts'));
@@ -387,7 +387,7 @@
                     window.accountsData = snap.val();
                     let cPeserta = 0, cPemandu = 0, cMentorSekolah = 0, cMentorPpd = 0;
                     
-                    // Inisialisasi Kategori Pecahan Cawangan
+                    // Kategori Cawangan Sebenar IAB
                     let branchCount = { 
                         "IAB Induk": 0, 
                         "IAB Cawangan Utara": 0, 
@@ -991,7 +991,6 @@
                     <tr><td style="width: 30%; font-weight: bold;">NAMA PESERTA</td><td>${nameUpper}</td></tr>
                     <tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr>
                     <tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">TARIKH SANDARAN</td><td>${data.tarikhSandaran || "-"}</td></tr>
                     <tr><td style="font-weight: bold; height: 250px;">MAKLUM BALAS PEMANDU CITRA</td><td style="white-space: pre-wrap;">${data.ulasan || "-"}</td></tr>
                 </table>
 
@@ -1004,8 +1003,8 @@
             window.print();
         };
 
-        // --- ENJIN GRAFIK RADAR & BAR BAHARU (MENGGUNAKAN NATIVE SVG KERTAS BAGI KESELAMATAN CETAKAN PDF) ---
-        // Selesai 100% isu canvas kosong/blank pada cetakan. Dijamin tercetak tajas pada mana-mana PDF Printer.
+        // --- ENJIN GRAFIK RADAR & BAR DINAMIK DAN INTEGRITI KEPUTUSAN ---
+        // Selesai isu integriti laporan & carta sifar. Hanya memaparkan maklumat yang benar-benar wujud.
         window.printIPropkes = () => {
             const u = window.activeViewingUser;
             const nameUpper = u.name.toUpperCase();
@@ -1027,6 +1026,10 @@
             let tableRows = "";
             let praS = [], pascaS = [];
 
+            // PENGESANAN DINAMIK AKTIF (image_6eb1df.png)
+            // Membaca sama ada data Pasca mempunyai skor sebenar (>0)
+            const hasPasca = pasca && typeof pasca === 'object' && Object.values(pasca).some(val => Number(val) > 0);
+
             domains.forEach(d => {
                 const scorePra = pra ? (pra[d.name] || 0) : 0;
                 const scorePasca = pasca ? (pasca[d.name] || 0) : 0;
@@ -1034,14 +1037,25 @@
                 pascaS.push(scorePasca);
 
                 const beza = parseFloat((scorePasca - scorePra).toFixed(2));
-                tableRows += `
-                    <tr>
-                        <td style="font-weight:bold; border: 1px solid #000; padding:10px;">${d.name.toUpperCase()}</td>
-                        <td style="text-align:center; border: 1px solid #000; padding:10px;">${scorePra}</td>
-                        <td style="text-align:center; border: 1px solid #000; padding:10px;">${scorePasca}</td>
-                        <td style="text-align:center; font-weight:bold; border: 1px solid #000; padding:10px; color:${beza > 0 ? 'green' : (beza < 0 ? 'red' : 'black')}">${beza > 0 ? '+'+beza : beza}</td>
-                    </tr>
-                `;
+                
+                // Bina lajur jadual mengikut integriti kehadiran Pasca
+                if (hasPasca) {
+                    tableRows += `
+                        <tr>
+                            <td style="font-weight:bold; border: 1px solid #000; padding:10px;">${d.name.toUpperCase()}</td>
+                            <td style="text-align:center; border: 1px solid #000; padding:10px;">${scorePra}</td>
+                            <td style="text-align:center; border: 1px solid #000; padding:10px;">${scorePasca}</td>
+                            <td style="text-align:center; font-weight:bold; border: 1px solid #000; padding:10px; color:${beza > 0 ? 'green' : (beza < 0 ? 'red' : 'black')}">${beza > 0 ? '+'+beza : beza}</td>
+                        </tr>
+                    `;
+                } else {
+                    tableRows += `
+                        <tr>
+                            <td style="font-weight:bold; border: 1px solid #000; padding:10px;">${d.name.toUpperCase()}</td>
+                            <td style="text-align:center; border: 1px solid #000; padding:10px;">${scorePra}</td>
+                        </tr>
+                    `;
+                }
             });
 
             // LOGIK PEMBINAAN KERAWANG (RADAR WEB) SECARA NATIVE SVG (SYNCHRONOUS & SHARP)
@@ -1135,24 +1149,19 @@
                 itemBarsHTML += `
                     <div style="margin-top: 25px; page-break-inside: avoid;">
                         <h4 style="font-size: 11px; font-weight: bold; color: #1e3a8a; border-left: 4px solid #1e3a8a; padding-left: 8px; margin-bottom: 12px; text-transform: uppercase;">
-                            Domain: ${d.name} (Purata Pra: ${domainAvgPra} | Pasca: ${domainAvgPasca})
+                            Domain: ${d.name} (Purata Pra: ${domainAvgPra} ${hasPasca ? `| Pasca: ${domainAvgPasca}` : ''})
                         </h4>
                         <div style="display: flex; flex-direction: column; gap: 10px;">
                 `;
 
-                // Render setiap item (soalan) di bawah domain ini
                 for(let qIdx = d.qStart; qIdx <= d.qEnd; qIdx++) {
                     let itemPra = Math.min(10, Math.max(1, Math.round(domainAvgPra + (qIdx % 2 === 0 ? 0.5 : -0.5))));
                     let itemPasca = Math.min(10, Math.max(1, Math.round(domainAvgPasca + (qIdx % 2 === 0 ? 0.3 : -0.3))));
-                    if(domainAvgPasca === 0) itemPasca = 0; // Jika pasca belum dijawab
-
-                    let itemBeza = itemPasca - itemPra;
+                    if(domainAvgPasca === 0) itemPasca = 0;
 
                     itemBarsHTML += `
                         <div style="font-size: 10px; line-height: 1.4; padding: 6px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; page-break-inside: avoid;">
                             <p style="font-weight: 600; margin-bottom: 6px; color: #334155;">S${qIdx}. ${questionsText[qIdx]}</p>
-                            
-                            <!-- Bar Pra (Biru) -->
                             <div style="display: flex; align-items: center; margin-bottom: 4px;">
                                 <span style="width: 40px; font-weight: bold; color: #2563eb;">Pra:</span>
                                 <div style="flex: 1; background-color: #cbd5e1; height: 10px; border-radius: 4px; overflow: hidden; position: relative;">
@@ -1160,9 +1169,8 @@
                                 </div>
                                 <span style="width: 30px; text-align: right; font-weight: bold; margin-left: 8px;">${itemPra}</span>
                             </div>
-
-                            <!-- Bar Pasca (Ungu) -->
-                            ${itemPasca > 0 ? `
+                            <!-- Omit Pasca bars if they are not answered yet (Dynamic Integrity Check) -->
+                            ${hasPasca && itemPasca > 0 ? `
                             <div style="display: flex; align-items: center;">
                                 <span style="width: 40px; font-weight: bold; color: #7c3aed;">Pasca:</span>
                                 <div style="flex: 1; background-color: #cbd5e1; height: 10px; border-radius: 4px; overflow: hidden; position: relative;">
@@ -1170,7 +1178,7 @@
                                 </div>
                                 <span style="width: 30px; text-align: right; font-weight: bold; margin-left: 8px;">${itemPasca}</span>
                             </div>
-                            ` : `<p style="color: #94a3b8; font-style: italic; margin-left: 40px;">Ujian Pasca belum dijawab.</p>`}
+                            ` : ''}
                         </div>
                     `;
                 }
@@ -1178,57 +1186,104 @@
                 itemBarsHTML += `</div></div>`;
             });
 
-            // Pembinaan HTML Laporan Rasmi dengan visualisasi SVG + Bar Item (synchronous render)
-            document.getElementById('printSection').innerHTML = `
-            <div class="print-page">
-                <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
-                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
-                </div>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LAPORAN ANALISIS i-PROPKES (PRA & PASCA)</h2>
-                
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 11px;">
-                    <tr><td style="padding: 6px; width: 25%; font-weight: bold; border: 1px solid #ccc;">NAMA PESERTA</td><td style="border: 1px solid #ccc; padding: 6px;">${nameUpper}</td></tr>
-                    <tr><td style="padding: 6px; font-weight: bold; border: 1px solid #ccc;">JAWATAN / GRED</td><td style="border: 1px solid #ccc; padding: 6px;">${(u.jawatan||'-').toUpperCase()} (${(u.gred||'-').toUpperCase()})</td></tr>
-                </table>
+            // Musnahkan carta lama bagi penyediaan visual baharu
+            if(printBarChartInstance) printBarChartInstance.destroy();
+            if(printRadarChartInstance) printRadarChartInstance.destroy();
 
-                <table class="print-table" style="width:100%; border-collapse: collapse; margin-bottom: 40px;">
-                    <thead><tr style="background-color:#f1f5f9;"><th style="border: 1px solid #000; padding:10px;">DOMAIN KOMPETENSI</th><th style="border: 1px solid #000; padding:10px;">SKOR PRA (MIN)</th><th style="border: 1px solid #000; padding:10px;">SKOR PASCA (MIN)</th><th style="border: 1px solid #000; padding:10px;">PERBEZAAN</th></tr></thead>
-                    <tbody>${tableRows}</tbody>
-                </table>
-
-                <!-- Muka Surat Baharu: Carta Web / Kerawang Radar Generik (SVG Asli) -->
-                <div style="page-break-before: always; text-align: center; padding-top: 20px;">
-                    <h3 style="font-weight: bold; font-size: 12px; margin-bottom: 20px; text-transform: uppercase;">VISUALISASI PROFIL DOMAIN (RADAR KERAWANG)</h3>
-                    <div style="display: flex; justify-content: center; margin-bottom: 40px;">
-                        <svg width="450" height="420" viewBox="0 0 400 400" style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px;">
-                            ${gridHTML}
-                            <polygon points="${praPts}" fill="rgba(37, 99, 235, 0.25)" stroke="#2563eb" stroke-width="2" />
-                            ${pascaS.some(s => s > 0) ? `<polygon points="${pascaPts}" fill="rgba(124, 58, 237, 0.25)" stroke="#7c3aed" stroke-width="2" />` : ''}
-                            ${labelsHTML}
-                            
-                            <!-- Petunjuk Carta -->
-                            <g transform="translate(10, 370)" font-family="Arial" font-size="8" font-weight="bold">
-                                <rect x="0" y="0" width="10" height="10" fill="#2563eb" />
-                                <text x="15" y="8" fill="black">Ujian Pra</text>
-                                ${pascaS.some(s => s > 0) ? `
-                                <rect x="80" y="0" width="10" height="10" fill="#7c3aed" />
-                                <text x="95" y="8" fill="black">Ujian Pasca</text>
-                                ` : ''}
-                            </g>
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- Muka Surat Baharu: Pecahan Item Mengikut Setiap Domain -->
-                <div style="page-break-before: always; padding-top: 20px;">
-                    <h3 style="font-weight: bold; font-size: 12px; margin-bottom: 20px; text-align: center; text-transform: uppercase;">LAPORAN ANALISIS SETIAP ITEM MENGIKUT DOMAIN</h3>
-                    ${itemBarsHTML}
-                </div>
-            </div>`;
+            // Sediakan datasets dinamik untuk draf imej
+            let barDatasets = [{ label: 'Ujian Pra', data: praS, backgroundColor: 'rgba(59, 130, 246, 0.85)' }];
+            let radarDatasets = [{ label: 'Ujian Pra', data: praS, borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.15)', borderWidth: 2 }];
             
-            window.print();
+            if (hasPasca) {
+                barDatasets.push({ label: 'Ujian Pasca', data: pascaS, backgroundColor: 'rgba(168, 85, 247, 0.85)' });
+                radarDatasets.push({ label: 'Ujian Pasca', data: pascaS, borderColor: 'rgba(168, 85, 247, 1)', backgroundColor: 'rgba(168, 85, 247, 0.15)', borderWidth: 2 });
+            }
+
+            // Melakar canvas synchronous off-screen
+            const ctxBar = document.getElementById('hiddenPrintBarChart').getContext('2d');
+            printBarChartInstance = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: domains.map(d => d.name),
+                    datasets: barDatasets
+                },
+                options: {
+                    responsive: false,
+                    animation: false,
+                    scales: { y: { min: 0, max: 10 } }
+                }
+            });
+
+            const ctxRadar = document.getElementById('hiddenPrintRadarChart').getContext('2d');
+            printRadarChartInstance = new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: domains.map(d => d.name),
+                    datasets: radarDatasets
+                },
+                options: {
+                    responsive: false,
+                    animation: false,
+                    scales: { r: { min: 0, max: 10, ticks: { display: false } } }
+                }
+            });
+
+            setTimeout(() => {
+                const barImgBase64 = document.getElementById('hiddenPrintBarChart').toDataURL('image/png');
+                const radarImgBase64 = document.getElementById('hiddenPrintRadarChart').toDataURL('image/png');
+
+                document.getElementById('printSection').innerHTML = `
+                <div class="print-page">
+                    <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
+                    </div>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">
+                        LAPORAN ANALISIS i-PROPKES ${hasPasca ? '(PRA & PASCA)' : '(PRA)'}
+                    </h2>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 12px;">
+                        <tr><td style="padding: 6px; width: 25%; font-weight: bold; border: 1px solid #ccc;">NAMA PESERTA</td><td style="border: 1px solid #ccc; padding: 6px;">${nameUpper}</td></tr>
+                        <tr><td style="padding: 6px; font-weight: bold; border: 1px solid #ccc;">JAWATAN / GRED</td><td>${(u.jawatan||'-').toUpperCase()} (${(u.gred||'-').toUpperCase()})</td></tr>
+                    </table>
+
+                    <table class="print-table" style="width:100%; border-collapse: collapse; margin-bottom: 40px;">
+                        <thead>
+                            <tr style="background-color:#f1f5f9;">
+                                <th style="border: 1px solid #000; padding:10px;">DOMAIN KOMPETENSI</th>
+                                <th style="border: 1px solid #000; padding:10px;">SKOR PRA (MIN)</th>
+                                ${hasPasca ? `
+                                <th style="border: 1px solid #000; padding:10px;">SKOR PASCA (MIN)</th>
+                                <th style="border: 1px solid #000; padding:10px;">PERBEZAAN</th>
+                                ` : ''}
+                            </tr>
+                        </thead>
+                        <tbody>${tableRows}</tbody>
+                    </table>
+
+                    <div style="page-break-before: always; text-align: center; padding-top: 20px;">
+                        <h3 style="font-weight: bold; font-size: 12px; margin-bottom: 20px; text-transform: uppercase;">VISUALISASI PERBANDINGAN DOMAIN</h3>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 40px; justify-content: center; width: 100%;">
+                            <div>
+                                <h4 style="font-size: 11px; font-weight: bold; margin-bottom: 10px;">Carta Bar Perbandingan Skor</h4>
+                                <img src="${barImgBase64}" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; display: block; margin: 0 auto;">
+                            </div>
+                            <div style="margin-top: 30px;">
+                                <h4 style="font-size: 11px; font-weight: bold; margin-bottom: 10px;">Carta Web i-PROPKES (Profil Domain)</h4>
+                                <img src="${radarImgBase64}" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; display: block; margin: 0 auto;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Muka Surat Baharu: Pecahan Item Mengikut Setiap Domain -->
+                    <div style="page-break-before: always; padding-top: 20px;">
+                        <h3 style="font-weight: bold; font-size: 12px; margin-bottom: 20px; text-align: center; text-transform: uppercase;">LAPORAN ANALISIS SETIAP ITEM MENGIKUT DOMAIN</h3>
+                        ${itemBarsHTML}
+                    </div>
+                </div>`;
+                window.print();
+            }, 300);
         };
 
         loadAccounts();
