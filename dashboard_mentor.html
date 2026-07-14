@@ -39,7 +39,7 @@
                 <div class="flex items-center gap-4 lg:gap-5">
                     <div class="flex items-center gap-3 bg-white/5 p-2 rounded-xl border border-white/10 shadow-inner backdrop-blur-sm">
                         <!-- LOGO IAB KPM DI MASUKKAN DI SINI -->
-                        <img src="logo%20IAB%20KPM.png" alt="Logo KPM & IAB" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
                     <div class="hidden xl:flex flex-col justify-center">
                         <h1 class="font-extrabold text-sm text-white uppercase drop-shadow-md">PROPKES <span class="text-blue-400">2026</span></h1>
@@ -72,10 +72,17 @@
         </div>
 
         <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6 mb-8">
-            <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm flex items-center gap-2">Maklumat Anda (Mentor)</h3>
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+                <h3 class="font-bold text-white text-sm flex items-center gap-2">Maklumat Anda (Mentor)</h3>
+                <button onclick="window.openProfilModal()" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 px-3 py-1.5 rounded-lg outline-none transition-colors cursor-pointer flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path></svg>
+                    Kemaskini Profil & Jawatan
+                </button>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Nama Penuh</p><p class="text-sm font-medium text-slate-200" id="profileNama">Memuat turun...</p></div>
                 <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">E-mel Rasmi</p><p class="text-sm font-medium text-slate-300" id="profileEmail">Belum Diisi</p></div>
+                <div><p class="text-[10px] text-amber-500 font-bold uppercase mb-1">Jawatan Hakiki</p><p class="text-sm font-bold text-amber-400" id="profileJawatan">Belum Diisi</p></div>
             </div>
         </div>
 
@@ -102,6 +109,29 @@
 
     </main>
 
+    <!-- MODAL KEMASKINI PROFIL MENTOR -->
+    <div id="profilModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[110] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
+        <div class="bg-slate-900 border border-amber-500/50 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300" id="profilModalContent">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
+                <h3 class="text-lg font-bold text-white">Kemaskini Profil</h3>
+                <button onclick="window.closeProfilModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            <form id="profilForm" onsubmit="window.saveProfil(event)" class="space-y-4">
+                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh</label><input type="text" id="editNamaPenuh" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-amber-500"></div>
+                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel Rasmi</label><input type="email" id="editEmelPenuh" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-amber-500"></div>
+                <div>
+                    <label class="block text-[10px] font-bold text-amber-400 uppercase mb-1">Jawatan Hakiki (Untuk Cetakan Borang F)</label>
+                    <input type="text" id="editJawatanPenuh" required placeholder="Cth: Guru Besar / Pegawai PPD" class="w-full bg-slate-950 border border-amber-500/50 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-amber-500">
+                    <p class="text-[9px] text-slate-500 mt-1 italic">Jawatan ini akan tertera di ruang tandatangan Laporan Maklum Balas (Lampiran F).</p>
+                </div>
+                <div class="flex gap-3 pt-4 mt-2 border-t border-slate-800">
+                    <button type="button" onclick="window.closeProfilModal()" class="flex-1 bg-slate-800 text-white py-2.5 rounded-xl text-xs font-bold outline-none cursor-pointer hover:bg-slate-700">Batal</button>
+                    <button type="submit" id="btnSimpanProfil" class="flex-1 bg-amber-600 hover:bg-amber-700 text-white py-2.5 rounded-xl text-xs font-bold shadow-lg shadow-amber-600/30 outline-none cursor-pointer">Simpan Maklumat</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- MODAL LIHAT LOG HARIAN & PENGESAHAN MENTOR -->
     <div id="logModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[110] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-blue-500/50 rounded-2xl shadow-2xl max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="logModalContent">
@@ -113,9 +143,7 @@
                 <button onclick="window.closeLogModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             
-            <div id="logModalBody" class="space-y-4">
-                <!-- Kandungan jadual Log Harian diisi melalui JS -->
-            </div>
+            <div id="logModalBody" class="space-y-4"></div>
 
             <div class="pt-4 border-t border-slate-800 mt-6 flex justify-end">
                 <button onclick="window.closeLogModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
@@ -134,9 +162,7 @@
                 <button onclick="window.closeViewModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             
-            <div id="viewModalBody" class="space-y-4">
-                <!-- Kandungan diisi melalui JS -->
-            </div>
+            <div id="viewModalBody" class="space-y-4"></div>
 
             <div class="pt-4 border-t border-slate-800 mt-6 flex justify-end">
                 <button onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
@@ -247,8 +273,8 @@
         if (!currentUser) window.location.replace("index.html");
 
         window.menteesList = [];
-        window.profileData = {}; // Simpan profil mentor (diri sendiri)
-        window.currentMenteeF = {}; // Mentee semasa untuk Borang F
+        window.profileData = {}; 
+        window.currentMenteeF = {}; 
         
         let chartBarInstance = null;
         let chartWebInstance = null;
@@ -276,10 +302,13 @@
                 if (userSnap.exists()) {
                     window.profileData = userSnap.val();
                     const pName = window.profileData.name || "Mentor";
+                    const pJawatan = window.profileData.jawatan || "Belum Diisi";
+
                     document.getElementById('navNameDisplay').textContent = pName;
                     document.getElementById('navInitials').textContent = pName.substring(0, 2).toUpperCase();
                     document.getElementById('profileNama').textContent = pName;
                     document.getElementById('profileEmail').textContent = window.profileData.email || "Tiada Maklumat";
+                    document.getElementById('profileJawatan').textContent = pJawatan;
                     myNameLower = pName.trim().toLowerCase();
                 }
 
@@ -357,6 +386,46 @@
             }
         }
 
+        // --- KEMASKINI PROFIL MENTOR ---
+        window.openProfilModal = () => {
+            document.getElementById('editNamaPenuh').value = window.profileData.name || "";
+            document.getElementById('editEmelPenuh').value = window.profileData.email || "";
+            document.getElementById('editJawatanPenuh').value = window.profileData.jawatan || "";
+
+            const modal = document.getElementById('profilModal');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('profilModalContent').classList.remove('scale-95'); }, 10);
+        };
+
+        window.closeProfilModal = () => {
+            const modal = document.getElementById('profilModal');
+            modal.classList.add('opacity-0'); document.getElementById('profilModalContent').classList.add('scale-95');
+            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
+        };
+
+        window.saveProfil = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnSimpanProfil');
+            btn.textContent = "Menyimpan..."; btn.disabled = true;
+
+            const newData = {
+                name: document.getElementById('editNamaPenuh').value,
+                email: document.getElementById('editEmelPenuh').value,
+                jawatan: document.getElementById('editJawatanPenuh').value
+            };
+
+            try {
+                await update(ref(db, `propkes_accounts/${currentUser}`), newData);
+                window.showToast("Profil dan Jawatan berjaya dikemas kini.");
+                window.closeProfilModal();
+                loadMentorData(); // Refresh to show new jawatan
+            } catch (err) {
+                console.error(err); window.showToast("Ralat kemas kini profil.", "error");
+            } finally {
+                btn.textContent = "Simpan Maklumat"; btn.disabled = false;
+            }
+        };
+
         // --- PENGESAHAN LOG HARIAN OLEH MENTOR ---
         window.viewLog = async (id, nama, mentorType) => {
             document.getElementById('logModalTitle').textContent = "Pengesahan Log Harian (Lampiran C)";
@@ -378,7 +447,6 @@
                         const l = logs[date];
                         let locStr = l.loc; 
                         
-                        // Mentor Sekolah hanya boleh sahkan 'sekolah'. Mentor PPD sahkan 'ppd'.
                         let canApprove = false;
                         if(mentorType === "Sekolah" && locStr === "sekolah") canApprove = true;
                         if(mentorType === "PPD" && locStr === "ppd") canApprove = true;
@@ -450,7 +518,6 @@
             const id = window.currentMenteeF.id;
             const mType = window.currentMenteeF.mentorType; 
             try {
-                // KUNCI BARU: Asingkan bilik Mentor Sekolah dan PPD di Firebase
                 const snap = await get(child(ref(db), `propkes_feedback_mentor/${id}/${mType}/${fasa}`));
                 if(snap.exists()){
                     const data = snap.val();
@@ -483,7 +550,6 @@
             };
 
             try {
-                // Simpan ke bilik asingan
                 await set(ref(db, `propkes_feedback_mentor/${window.currentMenteeF.id}/${mType}/${fasa}`), payload);
                 window.showToast(`Maklum Balas ${fasa} berjaya disimpan.`);
             } catch(e) { 
@@ -493,14 +559,17 @@
             }
         };
 
-        // CETAKAN LAMPIRAN F DENGAN LOGO DI TENGAH
+        // CETAKAN LAMPIRAN F DENGAN JAWATAN HAKIKI
         window.cetakLampiranF = function() {
             const m = window.currentMenteeF;
             const fasa = document.getElementById('mbFasa').value;
             const tarikh = document.getElementById('mbTarikhSandaran').value || "-";
             const ulasan = document.getElementById('mbUlasan').value || "-";
             const pName = (window.profileData.name || "Mentor").toUpperCase();
-            const pJawatan = (window.profileData.jawatan || "Mentor Sekolah/PPD").toUpperCase();
+            
+            // JAWATAN HAKIKI YANG DIDAFTARKAN!
+            const pJawatan = (window.profileData.jawatan || "BELUM DIISI").toUpperCase();
+            
             const today = new Date().toLocaleDateString('ms-MY');
 
             if(ulasan === "-" || ulasan === "") {
@@ -510,11 +579,11 @@
 
             const html = `
             <div class="print-page">
-                <!-- LOGO IAB & KPM DITENGAH -->
-                <center style="width: 100%; margin-bottom: 20px;">
-                    <img src="logo%20IAB%20KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; display: block; margin: 0 auto;">
-                </center>
-
+                <!-- LOGO IAB & KPM -->
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 80px; width: auto; object-fit: contain;">
+                </div>
+                
                 <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN F</h3>
                 <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
                 <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
