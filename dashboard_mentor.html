@@ -227,7 +227,8 @@
                 localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
             }
 
-            if (!myProfile || myProfile.role !== "mentor") {
+            // PENYELASAN: Membenarkan peranan 'mentor' (Sekolah) dan 'mentor-ppd' (PPD) secara serentak
+            if (!myProfile || (myProfile.role !== "mentor" && myProfile.role !== "mentor-ppd")) {
                 window.location.replace("index.html"); return;
             }
 
