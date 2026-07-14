@@ -204,12 +204,26 @@
 
             const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
             
-            // --- JARINGAN KESELAMATAN DINAMIK UNTUK AKAUN UJIAN "mentor" ---
+            // --- JARINGAN KESELAMATAN DINAMIK UNTUK AKAUN "mentor" & AKAUN AWAN (Firebase) ---
             let myProfile = accounts[currentUser];
-            if (currentUser === "mentor" && !myProfile) {
-                // Bina profil mockup jika menggunakan ID ujian "mentor" lalai
-                myProfile = { name: "Datin Paduka Zaleha", role: "mentor" };
-                accounts["mentor"] = myProfile;
+            
+            // Khas untuk meluluskan akses nama dinamik seperti 'mentorkhaidir' secara lancar
+            if (!myProfile && currentUser) {
+                let tempName = currentUser;
+                if (currentUser.toLowerCase().includes("mentor")) {
+                    // Cth: mentorkhaidir -> Mentor Khaidir
+                    let rawName = currentUser.toLowerCase().replace("mentor", "").trim();
+                    tempName = "Mentor " + (rawName.charAt(0).toUpperCase() + rawName.slice(1));
+                } else {
+                    tempName = currentUser.toUpperCase();
+                }
+                
+                myProfile = { 
+                    name: tempName, 
+                    role: "mentor", 
+                    email: currentUser + "@iab.edu.my" 
+                };
+                accounts[currentUser] = myProfile;
                 localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
             }
 
@@ -233,7 +247,7 @@
                 .map(([username, data]) => ({ username, ...data }));
 
             // JALANAN HARIAN COHORT PINTAR: Jika tiada mentee berdaftar di bawah mentor ini, berikan mentee demo untuk ujian mesra pengguna
-            if (menteeList.length === 0 && currentUser === "mentor") {
+            if (menteeList.length === 0) {
                 menteeList = [
                     { username: "peserta1", name: "Siti Nurhaliza binti Tarudin", email: "siti@iab.edu.my", sekolah: "SMK Bawang Merah", pesertaJawatan: "GURU KANAN", pesertaGred: "DG44", pesertaPusatAsal: "IAB INDUK" },
                     { username: "peserta2", name: "Ahmad Albab bin Kassim", email: "ahmad@iab.edu.my", sekolah: "SK Durian Runtuh", pesertaJawatan: "GURU BESAR", pesertaGred: "DG48", pesertaPusatAsal: "IAB UTARA" }
@@ -302,7 +316,7 @@
             const mentee = menteeList.find(m => m.username === menteeUsername);
             const currentUser = localStorage.getItem("propkes_user");
             const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
-            const mentorProfile = accounts[currentUser] || { name: "Datin Paduka Zaleha" };
+            const mentorProfile = accounts[currentUser] || { name: "Mentor PROPKES" };
 
             document.getElementById('mbFasaTitle').textContent = fasa;
             document.getElementById('mbNamaPeserta').value = mentee.name;
