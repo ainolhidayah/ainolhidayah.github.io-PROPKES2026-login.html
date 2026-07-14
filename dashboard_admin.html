@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
+    <!-- PUSTAKA NOTIFIKASI EMEL: EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
     <style>
         body { font-family: 'Inter', sans-serif; }
         .bg-pattern {
@@ -39,7 +42,6 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <!-- STREAMING_CHUNK: Membina Navigasi Urus Setia Bersih... -->
     <!-- TOP NAVBAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 shadow-2xl no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
@@ -71,7 +73,6 @@
     <!-- MAIN BODY -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
         
-        <!-- STREAMING_CHUNK: Menyediakan Teks Aluan Baharu Puan Ainol... -->
         <!-- BANNER ALUALAN -->
         <div class="bg-gradient-to-r from-rose-900/40 to-slate-900 border border-rose-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-rose-500/10 blur-3xl rounded-full pointer-events-none"></div>
@@ -81,7 +82,6 @@
             </div>
         </div>
 
-        <!-- STREAMING_CHUNK: Menyediakan statistik metrik secara berasingan... -->
         <!-- METRIKS (Diasingkan Mentor 1 & Mentor 2 berasaskan data dinamik peserta) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg flex justify-between items-center">
@@ -102,7 +102,6 @@
             </div>
         </div>
 
-        <!-- STREAMING_CHUNK: Menyediakan Carta i-PROPKES dan Cawangan IAB... -->
         <!-- CARTA SECTION -->
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
             <div class="xl:col-span-2 space-y-6">
@@ -117,12 +116,12 @@
                     </div>
                 </div>
 
-                <!-- STREAMING_CHUNK: Menyediakan jadual pengguna dengan butang Buka (Expand)... -->
                 <!-- JADUAL PENGGUNA BERSEPADU -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
                     <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center">
                         <h3 class="font-bold text-white text-sm">Pangkalan Pengguna Sistem</h3>
                         <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                            <!-- Dropdown Filter Kunci Peranan (Tidak perlu tunjuk nama secara pukal) -->
                             <select id="roleFilter" onchange="window.filterTable()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none cursor-pointer">
                                 <option value="none" selected>-- Pilih Peranan Pengguna --</option>
                                 <option value="peserta">Peserta (Permata Citra)</option>
@@ -151,7 +150,6 @@
                 </div>
             </div>
 
-            <!-- STREAMING_CHUNK: Menyediakan Form Pendaftaran Pengguna dengan Cawangan IAB... -->
             <!-- SEKSYEN PENDAFTARAN -->
             <div class="xl:col-span-1 space-y-6">
                 <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-rose-500/30 rounded-2xl shadow-2xl p-6">
@@ -282,7 +280,6 @@
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
     <!-- FIREBASE MODULE & LOGICS -->
-    <!-- STREAMING_CHUNK: Integrating Firebase Realtime Database... -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, get, child, set, update, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -299,6 +296,25 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+
+        // INTEGRASI EMEL EMAILJS UNTUK PENGHANTARAN AUTOMATIK ADMIN
+        const EMAILJS_PUBLIC_KEY = "s1-CZxnlw_v-G1dap"; 
+        const EMAILJS_SERVICE_ID = "service_r8gyjit";
+        const EMAILJS_TEMPLATE_ID = "template_him70hd";
+
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+
+        window.hantarNotifikasiEmel = function(subjek, mesej, keEmel) {
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                to_email: keEmel,
+                subject: subjek,
+                message: mesej
+            }).then(() => {
+                console.log("Kredential akses berjaya dihantar ke: " + keEmel);
+            }, (err) => {
+                console.error("Gagal menghantar kredential otomatis: ", err);
+            });
+        };
 
         const currentUser = localStorage.getItem("propkes_user");
         if (!currentUser || currentUser !== "admin") window.location.replace("index.html");
@@ -331,7 +347,6 @@
             if(role === 'peserta') extra.classList.remove('hidden'); else extra.classList.add('hidden');
         };
 
-        /* STREAMING_CHUNK: Managing registration process with date stamps... */
         window.handleRegistration = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btnDaftar');
@@ -367,9 +382,12 @@
                 await set(ref(db, `propkes_accounts/${username}`), payload);
                 window.showToast("Pengguna berjaya didaftarkan di awan!");
                 
-                const subject = encodeURIComponent("Akses Sistem PROPKES 2026");
-                const body = encodeURIComponent(`Salam Sejahtera ${name},\n\nSistem PROPKES 2026 anda telah bersedia.\nID LOG MASUK: ${username}\nKATA LALUAN: ${password}\nPERANAN: ${role.toUpperCase()}\n\nSila layari portal log masuk: https://ainolhidayah.github.io/PROPKES2026/\n\nSekian, terima kasih.\nUrus Setia PROPKES 2026.`);
-                window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+                // HANTAR NOTIFIKASI KREDENTIAL SECARA AUTOMATIK DI LATAR BELAKANG
+                const subjectEmail = "Maklumat Akses Sistem PROPKES 2026";
+                const messageEmail = `Assalamualaikum dan Salam Sejahtera ${name},\n\nAkaun anda bagi Sistem PROPKES 2026 telah berjaya didaftarkan di dalam pangkalan data awan oleh pihak Urus Setia.\n\nSila gunakan kredential berikut untuk mengakses portal papan pemuka anda:\n\nID Pengguna (Username): ${username}\nKata Laluan (Password): ${password}\nPeranan Sistem: ${role.toUpperCase()}\n\nSila layari portal utama untuk log masuk: https://ainolhidayah.github.io/ainolhidayah.github.io-PROPKES2026-login.html/`;
+                
+                // Panggil fungsi hantar otomatis
+                window.hantarNotifikasiEmel(subjectEmail, messageEmail, email);
 
                 document.getElementById('registrationForm').reset();
                 document.getElementById("pesertaExtraFields").classList.add('hidden');
@@ -378,7 +396,6 @@
             finally { btn.textContent = "Daftar"; btn.disabled = false; }
         };
 
-        /* STREAMING_CHUNK: Loading database users with precise branch string mapping... */
         async function loadAccounts() {
             try {
                 const snap = await get(child(ref(db), 'propkes_accounts'));
@@ -445,7 +462,6 @@
             } catch(e) { console.error(e); }
         }
 
-        /* STREAMING_CHUNK: Filtering the table and implementing the toggle/expand row feature... */
         window.filterTable = () => {
             const term = document.getElementById("searchInput").value.toLowerCase();
             const roleFilter = document.getElementById("roleFilter").value;
@@ -585,7 +601,7 @@
                     labels: labels,
                     datasets: [
                         { label: 'Pra', data: praData, backgroundColor: '#3b82f6' },
-                        { label: 'Pasca', data: pascaData, backgroundColor: '#a855f7' }
+                        { label: 'Pasca', data: praData, backgroundColor: '#a855f7' }
                     ]
                 },
                 options: {
@@ -623,7 +639,6 @@
             });
         }
 
-        /* STREAMING_CHUNK: Managing data deletions and account editions... */
         window.openEdit = (username) => {
             const u = window.accountsData[username];
             document.getElementById('editUsername').value = username;
@@ -796,7 +811,6 @@
             setTimeout(()=> { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
         };
 
-        /* STREAMING_CHUNK: Designing printable report engines with high-res base64 charts... */
         window.printB = () => {
             const u = window.activeViewingUser;
             const nameUpper = u.name.toUpperCase();
@@ -991,6 +1005,7 @@
                     <tr><td style="width: 30%; font-weight: bold;">NAMA PESERTA</td><td>${nameUpper}</td></tr>
                     <tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr>
                     <tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold;">TARIKH SANDARAN</td><td>${data.tarikhSandaran || "-"}</td></tr>
                     <tr><td style="font-weight: bold; height: 250px;">MAKLUM BALAS PEMANDU CITRA</td><td style="white-space: pre-wrap;">${data.ulasan || "-"}</td></tr>
                 </table>
 
@@ -1003,8 +1018,6 @@
             window.print();
         };
 
-        // --- ENJIN GRAFIK RADAR & BAR DINAMIK DAN INTEGRITI KEPUTUSAN ---
-        // Selesai isu integriti laporan & carta sifar. Hanya memaparkan maklumat yang benar-benar wujud.
         window.printIPropkes = () => {
             const u = window.activeViewingUser;
             const nameUpper = u.name.toUpperCase();
@@ -1027,7 +1040,6 @@
             let praS = [], pascaS = [];
 
             // PENGESANAN DINAMIK AKTIF (image_6eb1df.png)
-            // Membaca sama ada data Pasca mempunyai skor sebenar (>0)
             const hasPasca = pasca && typeof pasca === 'object' && Object.values(pasca).some(val => Number(val) > 0);
 
             domains.forEach(d => {
@@ -1038,7 +1050,6 @@
 
                 const beza = parseFloat((scorePasca - scorePra).toFixed(2));
                 
-                // Bina lajur jadual mengikut integriti kehadiran Pasca
                 if (hasPasca) {
                     tableRows += `
                         <tr>
@@ -1058,11 +1069,10 @@
                 }
             });
 
-            // LOGIK PEMBINAAN KERAWANG (RADAR WEB) SECARA NATIVE SVG (SYNCHRONOUS & SHARP)
-            const angles = [0, 51.4, 102.8, 154.2, 205.6, 257.0, 308.4]; // 360 / 7 points
+            // LOGIK PEMBINAAN KERAWANG (RADAR WEB) SECARA NATIVE SVG
+            const angles = [0, 51.4, 102.8, 154.2, 205.6, 257.0, 308.4]; 
             const cx = 200, cy = 200, rMax = 120;
             
-            // Generate grid pentagonal rings
             let gridHTML = "";
             for (let ring = 1; ring <= 5; ring++) {
                 let rRing = (ring / 5) * rMax;
@@ -1073,13 +1083,11 @@
                 gridHTML += `<polygon points="${pts}" fill="none" stroke="#cbd5e1" stroke-width="0.5" />`;
             }
 
-            // Generate axis lines
             angles.forEach(a => {
                 let rad = (a - 90) * Math.PI / 180;
                 gridHTML += `<line x1="${cx}" y1="${cy}" x2="${cx + rMax * Math.cos(rad)}" y2="${cy + rMax * Math.sin(rad)}" stroke="#cbd5e1" stroke-width="0.5" />`;
             });
 
-            // Map data polygons
             let praPts = angles.map((a, idx) => {
                 let rad = (a - 90) * Math.PI / 180;
                 let val = (praS[idx] / 10) * rMax;
@@ -1092,14 +1100,12 @@
                 return `${cx + val * Math.cos(rad)},${cy + val * Math.sin(rad)}`;
             }).join(" ");
 
-            // Text labels for SVG
             let labelsHTML = domains.map((d, idx) => {
                 let a = angles[idx];
                 let rad = (a - 90) * Math.PI / 180;
                 let textX = cx + (rMax + 20) * Math.cos(rad);
                 let textY = cy + (rMax + 10) * Math.sin(rad);
                 
-                // Adjust text anchor based on position
                 let anchor = "middle";
                 if (Math.cos(rad) > 0.2) anchor = "start";
                 else if (Math.cos(rad) < -0.2) anchor = "end";
@@ -1107,7 +1113,6 @@
                 return `<text x="${textX}" y="${textY}" font-family="Arial" font-size="9" text-anchor="${anchor}" fill="black" font-weight="bold">${d.name}</text>`;
             }).join("");
 
-            // LOGIK PEMBINAAN BAR ITEM INDIVIDU SECARA NATIVE (100% SYNCHRONOUS PRINTING)
             let itemBarsHTML = "";
             const questionsText = {
                 1: "Saya memiliki pengetahuan mengenai bidang pengurusan dan kepimpinan organisasi.",
@@ -1169,7 +1174,6 @@
                                 </div>
                                 <span style="width: 30px; text-align: right; font-weight: bold; margin-left: 8px;">${itemPra}</span>
                             </div>
-                            <!-- Omit Pasca bars if they are not answered yet (Dynamic Integrity Check) -->
                             ${hasPasca && itemPasca > 0 ? `
                             <div style="display: flex; align-items: center;">
                                 <span style="width: 40px; font-weight: bold; color: #7c3aed;">Pasca:</span>
@@ -1186,11 +1190,9 @@
                 itemBarsHTML += `</div></div>`;
             });
 
-            // Musnahkan carta lama bagi penyediaan visual baharu
             if(printBarChartInstance) printBarChartInstance.destroy();
             if(printRadarChartInstance) printRadarChartInstance.destroy();
 
-            // Sediakan datasets dinamik untuk draf imej
             let barDatasets = [{ label: 'Ujian Pra', data: praS, backgroundColor: 'rgba(59, 130, 246, 0.85)' }];
             let radarDatasets = [{ label: 'Ujian Pra', data: praS, borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.15)', borderWidth: 2 }];
             
@@ -1199,7 +1201,6 @@
                 radarDatasets.push({ label: 'Ujian Pasca', data: pascaS, borderColor: 'rgba(168, 85, 247, 1)', backgroundColor: 'rgba(168, 85, 247, 0.15)', borderWidth: 2 });
             }
 
-            // Melakar canvas synchronous off-screen
             const ctxBar = document.getElementById('hiddenPrintBarChart').getContext('2d');
             printBarChartInstance = new Chart(ctxBar, {
                 type: 'bar',
