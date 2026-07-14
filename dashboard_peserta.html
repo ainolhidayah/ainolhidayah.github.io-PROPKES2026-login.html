@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
+    <!-- PUSTAKA NOTIFIKASI EMEL: EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
     <style>
         body { font-family: 'Inter', sans-serif; }
         .bg-pattern { background-color: #0f172a; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 20px 20px; }
@@ -39,9 +42,8 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-4 lg:gap-5">
                     <div class="flex items-center gap-3 bg-white/5 p-2 rounded-xl border border-white/10 shadow-inner backdrop-blur-sm">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png" alt="KPM" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg">
-                        <div class="w-px h-8 bg-slate-600"></div>
-                        <div class="h-10 lg:h-12 px-3 bg-gradient-to-br from-blue-600 to-indigo-800 rounded-lg flex items-center justify-center font-black text-white text-sm shadow-lg border border-blue-400/50">IAB</div>
+                        <!-- LOGO IAB KPM DI SINI -->
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
                     <div class="hidden xl:flex flex-col justify-center">
                         <h1 class="font-extrabold text-sm text-white uppercase drop-shadow-md">PROPKES <span class="text-blue-400">2026</span></h1>
@@ -55,7 +57,7 @@
                         <p class="text-xs text-blue-400">Permata Citra</p>
                     </div>
                     <div class="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg" id="navInitials">...</div>
-                    <button onclick="window.logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-xl transition-all outline-none border border-slate-700 hover:border-rose-500">
+                    <button onclick="window.logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-xl transition-all outline-none border border-slate-700 hover:border-rose-500" title="Log Keluar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
                 </div>
@@ -183,7 +185,7 @@
                     </div>
                 </div>
 
-                <!-- Laporan i-PROPKES (Boleh Diperluas) -->
+                <!-- Laporan i-PROPKES -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
                     <div class="flex justify-between items-center">
                         <div>
@@ -242,6 +244,8 @@
                         <option value="W2_2026-08-10_2026-08-16">Minggu 2 (10 Ogos - 16 Ogos 2026)</option>
                         <option value="W3_2026-08-17_2026-08-23">Minggu 3 (17 Ogos - 23 Ogos 2026)</option>
                         <option value="W4_2026-08-24_2026-08-30">Minggu 4 (24 Ogos - 30 Ogos 2026)</option>
+                        <option value="W5_2026-08-31_2026-09-06">Minggu 5 (31 Ogos - 6 Sept 2026)</option>
+                        <option value="W6_2026-09-07_2026-09-13">Minggu 6 (7 Sept - 13 Sept 2026)</option>
                     </select>
                 </div>
 
@@ -279,7 +283,7 @@
         </div>
     </div>
 
-    <!-- MODAL REKOD HARIAN (LAMPIRAN C) -->
+    <!-- MODAL REKOD HARIAN (LAMPIRAN C) - KAWALAN IAB / CUTI -->
     <div id="dailyModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-blue-500/30 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300 max-h-[95vh] overflow-y-auto custom-scrollbar" id="dailyModalContent">
             <div class="flex justify-between items-start mb-5 border-b border-slate-800 pb-3">
@@ -294,15 +298,28 @@
             <div class="space-y-4" id="modalFormArea">
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">1. Lokasi</label>
-                    <select id="modalLocationSelect" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none cursor-pointer focus:border-blue-500">
-                        <option value="">- Belum Mula -</option><option value="sekolah">Sekolah Sandaran</option><option value="ppd">PPD</option><option value="iab">IAB</option><option value="cuti">Cuti Rehat / Umum</option>
+                    <select id="modalLocationSelect" onchange="window.handleLocationChange()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none cursor-pointer focus:border-blue-500">
+                        <option value="">- Belum Mula -</option>
+                        <option value="sekolah">Sekolah Sandaran</option>
+                        <option value="ppd">PPD</option>
+                        <option value="iab">IAB</option>
+                        <option value="cuti">Cuti Rehat / Umum</option>
                     </select>
                 </div>
                 <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">2. Aktiviti Ringkas</label><textarea id="modalAktiviti" rows="2" placeholder="Cth: Mesyuarat pengurusan..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none focus:border-blue-500"></textarea></div>
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">3. Domain SKKSM</label>
                     <select id="modalSkksm" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none cursor-pointer focus:border-blue-500">
-                        <option value="-">Tiada (Jika Cuti)</option><option value="Pengurusan dan Kepimpinan Organisasi">Pengurusan dan Kepimpinan Organisasi</option><option value="Pengurusan Kurikulum">Pengurusan Kurikulum</option><option value="Pengurusan Kokurikulum">Pengurusan Kokurikulum</option><option value="Pengurusan Hal Ehwal Murid">Pengurusan Hal Ehwal Murid</option><option value="Pengurusan Kewangan">Pengurusan Kewangan</option><option value="Pengurusan Pentadbiran Pejabat">Pengurusan Pentadbiran Pejabat</option><option value="Pengurusan Persekitaran & Kemudahan">Pengurusan Persekitaran & Kemudahan Fizikal</option><option value="Pengurusan & Pembangunan Sumber Manusia">Pengurusan & Pembangunan Sumber Manusia</option><option value="Pengurusan Perhubungan Luar">Pengurusan Perhubungan Luar</option>
+                        <option value="-">Tiada (Jika Cuti / IAB)</option>
+                        <option value="Pengurusan dan Kepimpinan Organisasi">Pengurusan dan Kepimpinan Organisasi</option>
+                        <option value="Pengurusan Kurikulum">Pengurusan Kurikulum</option>
+                        <option value="Pengurusan Kokurikulum">Pengurusan Kokurikulum</option>
+                        <option value="Pengurusan Hal Ehwal Murid">Pengurusan Hal Ehwal Murid</option>
+                        <option value="Pengurusan Kewangan">Pengurusan Kewangan</option>
+                        <option value="Pengurusan Pentadbiran Pejabat">Pengurusan Pentadbiran Pejabat</option>
+                        <option value="Pengurusan Persekitaran & Kemudahan">Pengurusan Persekitaran & Kemudahan Fizikal</option>
+                        <option value="Pengurusan & Pembangunan Sumber Manusia">Pengurusan & Pembangunan Sumber Manusia</option>
+                        <option value="Pengurusan Perhubungan Luar">Pengurusan Perhubungan Luar</option>
                     </select>
                 </div>
                 <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">4. Catatan Refleksi</label><textarea id="modalRefleksi" rows="2" placeholder="Cth: Perlu komunikasi lebih jelas..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none outline-none focus:border-blue-500"></textarea></div>
@@ -325,7 +342,6 @@
             </div>
             
             <form id="profilForm" class="space-y-6">
-                <!-- 1. Peserta IAB -->
                 <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
                     <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Maklumat Pegawai (IAB)</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -336,7 +352,6 @@
                         <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Pusat / Cawangan</label><input type="text" id="editPusatCawangan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
                     </div>
                 </div>
-                <!-- 2. Sekolah -->
                 <div class="bg-blue-950/20 p-4 rounded-xl border border-blue-900/30">
                     <p class="text-[10px] font-bold text-blue-400 uppercase mb-3">Maklumat Bertugas (Sandaran)</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -344,48 +359,44 @@
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">PPD</label><input type="text" id="editPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
                     </div>
                 </div>
-                <!-- 3. Pemandu -->
                 <div class="bg-purple-950/20 p-4 rounded-xl border border-purple-900/30">
                     <p class="text-[10px] font-bold text-purple-400 uppercase mb-1">Pemandu Citra (IAB)</p>
-                    <p class="text-[9px] text-purple-300/70 mb-3 italic">*Penting: Ejaan nama mesti tepat supaya Pemandu Citra dapat mengesan anda.</p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
                         <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh Pemandu</label><input type="text" id="editPemanduCitra" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-purple-500"></div>
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan Pemandu</label><input type="text" id="editPemanduJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-purple-500"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Pusat/Cawangan</label><input type="text" id="editPemanduPusat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-purple-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Pusat/Cawangan Pemandu</label><input type="text" id="editPemanduPusat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-purple-500"></div>
                     </div>
                 </div>
-                <!-- 4. Mentor 1 -->
                 <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
                     <p class="text-[10px] font-bold text-amber-400 uppercase mb-3">Mentor 1 (Sekolah)</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh</label><input type="text" id="editMentorSekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-amber-500"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editMentorJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-amber-500"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Telefon</label><input type="text" id="editMentorTelefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-amber-500"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel Rasmi</label><input type="email" id="editMentorEmail" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-amber-500"></div>
-                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap (Jalan & Bangunan)</label><input type="text" id="editMentorAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none mb-3 focus:border-amber-500"><div class="grid grid-cols-3 gap-3"><input type="text" id="editMentorPoskod" placeholder="Poskod" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"><input type="text" id="editMentorBandar" placeholder="Bandar" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"><input type="text" id="editMentorNegeri" placeholder="Negeri" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"></div></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh</label><input type="text" id="editMentorSekolah" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editMentorJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Telefon</label><input type="text" id="editMentorTelefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel Rasmi</label><input type="email" id="editMentorEmail" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-blue-500"></div>
+                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap</label><input type="text" id="editMentorAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
                     </div>
                 </div>
-                <!-- 5. Mentor 2 -->
                 <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
                     <p class="text-[10px] font-bold text-amber-400 uppercase mb-3">Mentor 2 (PPD)</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh (PPD)</label><input type="text" id="editMentorPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-amber-500"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editMentorPpdJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-amber-500"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Telefon</label><input type="text" id="editMentorPpdTelefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-amber-500"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel Rasmi</label><input type="email" id="editMentorPpdEmail" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-amber-500"></div>
-                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap PPD</label><input type="text" id="editMentorPpdAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none mb-3 focus:border-amber-500"><div class="grid grid-cols-3 gap-3"><input type="text" id="editMentorPpdPoskod" placeholder="Poskod" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"><input type="text" id="editMentorPpdBandar" placeholder="Bandar" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"><input type="text" id="editMentorPpdNegeri" placeholder="Negeri" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase focus:border-amber-500"></div></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh (PPD)</label><input type="text" id="editMentorPpd" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editMentorPpdJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Telefon</label><input type="text" id="editMentorPpdTelefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel Rasmi</label><input type="email" id="editMentorPpdEmail" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-blue-500"></div>
+                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap PPD</label><input type="text" id="editMentorPpdAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
                     </div>
                 </div>
 
                 <div class="flex gap-3 pt-4 sticky bottom-0 bg-slate-900 pb-2 border-t border-slate-800 mt-4">
-                    <button type="button" onclick="window.closeProfilModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Batal</button>
+                    <button type="button" onclick="window.closeProfilModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Batal</button>
                     <button type="submit" id="btnSimpanProfil" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Simpan ke Awan</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL 5: PENDAFTARAN SESI PANDU CITRA -->
+    <!-- MODAL PENDAFTARAN SESI PANDU CITRA -->
     <div id="panduCitraModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-purple-500/50 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="panduCitraModalContent">
             <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-2 border-b border-slate-800 pb-3">Rekod Sesi Pandu Citra</h3>
@@ -407,9 +418,8 @@
         </div>
     </div>
 
-    <!-- CETAKAN SECTION (DIPISAHKAN DARI TETINGKAP UTAMA) -->
+    <!-- CETAKAN SECTION -->
     <script>
-        // FUNGSI TANGKAP GRAF KE TAB BAHARU UNTUK DICETAK
         window.cetakLaporanPropkes = function() {
             const btn = document.querySelector('button[onclick="window.cetakLaporanPropkes()"]');
             btn.innerHTML = `<svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Menjana PDF...`;
@@ -419,16 +429,15 @@
                 const nama = (u.name || "Peserta").toUpperCase();
                 const tarikh = new Date().toLocaleDateString('ms-MY');
 
-                // Dapatkan gambar dari Canvas (Chart.js)
                 const barCanvas = document.getElementById('barChart');
                 const webCanvas = document.getElementById('webChart');
                 
                 const barImg = barCanvas ? barCanvas.toDataURL('image/png') : '';
                 const webImg = webCanvas ? webCanvas.toDataURL('image/png') : '';
 
-                // Buka Tab Baharu yang bersih
                 const printWindow = window.open('', '_blank');
                 
+                // CETAKAN i-PROPKES DENGAN LOGO DI TENGAH
                 printWindow.document.write(`
                     <html>
                     <head>
@@ -443,9 +452,14 @@
                             .charts-container { text-align: center; margin-top: 40px; }
                             .chart-box { margin-bottom: 40px; }
                             .chart-img { max-width: 100%; height: auto; border: 1px solid #eee; padding: 10px; }
+                            .logo-container { width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center; }
+                            .logo-img { height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block; }
                         </style>
                     </head>
                     <body>
+                        <div class="logo-container">
+                            <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="logo-img">
+                        </div>
                         <div class="header">
                             <h2>PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
                             <h3>TAHUN 2026</h3>
@@ -478,8 +492,6 @@
                     </html>
                 `);
                 printWindow.document.close();
-                
-                // Kembalikan butang asal
                 btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF i-PROPKES`;
             }, 500);
         };
@@ -488,7 +500,7 @@
 
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
-    <!-- FIREBASE & LOKAL SCRIPTS -->
+    <!-- FIREBASE & LOGIK UTAMA -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, get, child, update, set, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -512,6 +524,37 @@
         window.calendarData = {};
         window.journalData = {};
         window.profileData = {}; 
+
+        // ----------------------------------------------------
+        // INTEGRASI EMEL EMAILJS (SUDAH DIAKTIFKAN KODNYA)
+        // ----------------------------------------------------
+        // NOTA: Sila masukkan PUBLIC KEY, SERVICE ID, dan TEMPLATE ID anda di bawah kelak
+        
+        const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY_HERE"; 
+        const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID_HERE";
+        const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID_HERE";
+
+        // Hanya initialize jika Public Key telah dimasukkan (supaya tak keluar ralat di console buat masa ni)
+        if(EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY_HERE") {
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+        }
+
+        window.hantarNotifikasiEmel = function(subjek, mesej, keEmel) {
+            if(EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY_HERE") {
+                console.log("Sistem EmailJS sedia ada: ", {to_email: keEmel, subject: subjek, message: mesej});
+                return; // Batalkan hantaran sebenar jika ID belum diisi
+            }
+
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                to_email: keEmel,
+                subject: subjek,
+                message: mesej
+            }).then(() => {
+                console.log("Notifikasi e-mel berjaya dihantar ke: " + keEmel);
+            }, (err) => {
+                console.error("Gagal menghantar e-mel: ", err);
+            });
+        };
 
         function safeSetText(id, text) { const el = document.getElementById(id); if(el) el.textContent = text; }
         function safeSetValue(id, value) { const el = document.getElementById(id); if(el) el.value = value; }
@@ -578,10 +621,10 @@
                     safeSetValue('editPemanduCitra', u.pemanduCitra || ""); safeSetValue('editPemanduJawatan', u.pemanduJawatan || ""); safeSetValue('editPemanduPusat', u.pemanduPusat || "");
                     safeSetValue('editMentorSekolah', u.mentorSekolah || ""); safeSetValue('editMentorJawatan', u.mentorJawatan || "");
                     safeSetValue('editMentorTelefon', u.mentorTelefon || ""); safeSetValue('editMentorEmail', u.mentorEmail || "");
-                    safeSetValue('editMentorAlamat', u.mentorAlamat || ""); safeSetValue('editMentorPoskod', u.mentorPoskod || ""); safeSetValue('editMentorBandar', u.mentorBandar || ""); safeSetValue('editMentorNegeri', u.mentorNegeri || "");
+                    safeSetValue('editMentorAlamat', u.mentorAlamat || ""); 
                     safeSetValue('editMentorPpd', u.mentorPpd || ""); safeSetValue('editMentorPpdJawatan', u.mentorPpdJawatan || "");
                     safeSetValue('editMentorPpdTelefon', u.mentorPpdTelefon || ""); safeSetValue('editMentorPpdEmail', u.mentorPpdEmail || "");
-                    safeSetValue('editMentorPpdAlamat', u.mentorPpdAlamat || ""); safeSetValue('editMentorPpdPoskod', u.mentorPpdPoskod || ""); safeSetValue('editMentorPpdBandar', u.mentorPpdBandar || ""); safeSetValue('editMentorPpdNegeri', u.mentorPpdNegeri || "");
+                    safeSetValue('editMentorPpdAlamat', u.mentorPpdAlamat || ""); 
                 } else {
                     safeSetText("profileNama", "Ralat: Data tidak ditemui di Awan.");
                 }
@@ -628,11 +671,23 @@
                 jawatan: getValUp('editJawatan'), gred: getValUp('editGred'), jabatan: getValUp('editJabatan'), pusatCawangan: getValUp('editPusatCawangan'),
                 sekolah: getValUp('editSekolah'), ppd: getValUp('editPpd'),
                 pemanduCitra: getValUp('editPemanduCitra'), pemanduJawatan: getValUp('editPemanduJawatan'), pemanduPusat: getValUp('editPemanduPusat'),
-                mentorSekolah: getValUp('editMentorSekolah'), mentorJawatan: getValUp('editMentorJawatan'), mentorTelefon: getVal('editMentorTelefon'), mentorEmail: getVal('editMentorEmail'), mentorAlamat: getValUp('editMentorAlamat'), mentorPoskod: getValUp('editMentorPoskod'), mentorBandar: getValUp('editMentorBandar'), mentorNegeri: getValUp('editMentorNegeri'),
-                mentorPpd: getValUp('editMentorPpd'), mentorPpdJawatan: getValUp('editMentorPpdJawatan'), mentorPpdTelefon: getVal('editMentorPpdTelefon'), mentorPpdEmail: getVal('editMentorPpdEmail'), mentorPpdAlamat: getValUp('editMentorPpdAlamat'), mentorPpdPoskod: getValUp('editMentorPpdPoskod'), mentorPpdBandar: getValUp('editMentorPpdBandar'), mentorPpdNegeri: getValUp('editMentorPpdNegeri')
+                mentorSekolah: getValUp('editMentorSekolah'), mentorJawatan: getValUp('editMentorJawatan'), mentorTelefon: getVal('editMentorTelefon'), mentorEmail: getVal('editMentorEmail'), mentorAlamat: getValUp('editMentorAlamat'), 
+                mentorPpd: getValUp('editMentorPpd'), mentorPpdJawatan: getValUp('editMentorPpdJawatan'), mentorPpdTelefon: getVal('editMentorPpdTelefon'), mentorPpdEmail: getVal('editMentorPpdEmail'), mentorPpdAlamat: getValUp('editMentorPpdAlamat')
             };
 
-            try { await update(ref(db, `propkes_accounts/${currentUser}`), dataToSave); window.closeProfilModal(); window.showToast("Profil berjaya disimpan!"); loadUserData(); } 
+            try { 
+                await update(ref(db, `propkes_accounts/${currentUser}`), dataToSave); 
+                window.closeProfilModal(); 
+                window.showToast("Profil berjaya disimpan!"); 
+                loadUserData(); 
+                
+                // PANGGIL FUNGSI NOTIFIKASI
+                window.hantarNotifikasiEmel(
+                    "Kemaskini Profil PROPKES", 
+                    `Peserta ${window.profileData.name} telah mengemas kini profil sandaran di awan.`, 
+                    window.profileData.email
+                );
+            } 
             catch(error) { console.error(error); window.showToast("Ralat menyimpan.", "error"); } 
             finally { btn.textContent = "Simpan ke Awan"; btn.disabled = false; }
         });
@@ -643,7 +698,19 @@
             const btn = document.getElementById('btnSimpanJurnal'); btn.textContent = "Menyimpan..."; btn.disabled = true;
 
             const payload = { deskripsi: document.getElementById('jDeskripsi').value, analisis: document.getElementById('jAnalisis').value, interpretasi: document.getElementById('jInterpretasi').value, status: 'Dihantar' };
-            try { window.journalData[weekVal] = payload; await set(ref(db, `propkes_journals/${currentUser}/${weekVal}`), payload); window.closeJournalForm(); window.showToast("Jurnal Lampiran D disimpan."); } 
+            try { 
+                window.journalData[weekVal] = payload; 
+                await set(ref(db, `propkes_journals/${currentUser}/${weekVal}`), payload); 
+                window.closeJournalForm(); 
+                window.showToast("Jurnal Lampiran D disimpan."); 
+                
+                // PANGGIL FUNGSI NOTIFIKASI
+                window.hantarNotifikasiEmel(
+                    "Penghantaran Jurnal Mingguan (Lampiran D)", 
+                    `Peserta ${window.profileData.name} telah menghantar Jurnal Mingguan untuk minggu ${weekVal.split('_')[0]}.`, 
+                    window.profileData.email
+                );
+            } 
             catch(e) { console.error(e); window.showToast("Ralat menyimpan Jurnal.", "error"); }
             finally { btn.textContent = "Simpan Jurnal"; btn.disabled = false; }
         });
@@ -691,6 +758,33 @@
             if(document.getElementById('countCuti')) document.getElementById('countCuti').textContent = cC + " Hari";
         };
 
+        // KAWALAN IAB / CUTI AUTO-DISABLE
+        window.handleLocationChange = function() {
+            const loc = document.getElementById('modalLocationSelect').value;
+            const isIabOrCuti = (loc === 'iab' || loc === 'cuti');
+            
+            const fields = ['modalAktiviti', 'modalSkksm', 'modalRefleksi'];
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (isIabOrCuti) {
+                        el.disabled = true;
+                        el.classList.add('bg-slate-900/50', 'text-slate-500', 'cursor-not-allowed');
+                        el.classList.remove('bg-slate-950');
+                        if (id === 'modalSkksm') el.value = "-";
+                        else el.value = "";
+                    } else {
+                        const saveBtn = document.getElementById('modalSaveBtn');
+                        if (saveBtn && !saveBtn.classList.contains('hidden')) {
+                            el.disabled = false;
+                            el.classList.remove('bg-slate-900/50', 'text-slate-500', 'cursor-not-allowed');
+                            el.classList.add('bg-slate-950');
+                        }
+                    }
+                }
+            });
+        };
+
         window.openDailyModal = (dt, d) => {
             curEditDate = dt; document.getElementById('modalDateTitle').textContent = `${d} ${mNames[disMonth]} ${disYear}`;
             const data = window.calendarData[dt] || {log:false, loc:"", status:"", aktiviti:"", skksm:"-", refleksi:""};
@@ -710,6 +804,7 @@
             } else {
                 lockedMsg.classList.add('hidden'); saveBtn.classList.remove('hidden');
                 ['modalLocationSelect','modalAktiviti','modalSkksm','modalRefleksi','modalLogToggle'].forEach(id => document.getElementById(id).disabled = false);
+                window.handleLocationChange();
             }
 
             document.getElementById('dailyModal').classList.remove('hidden'); document.getElementById('dailyModal').classList.add('flex'); setTimeout(()=>document.getElementById('dailyModal').classList.remove('opacity-0'),10);
@@ -719,17 +814,24 @@
         
         window.saveDailyData = async () => {
             const loc = document.getElementById('modalLocationSelect').value; 
-            const aktiviti = document.getElementById('modalAktiviti').value;
-            const skksm = document.getElementById('modalSkksm').value;
-            const refleksi = document.getElementById('modalRefleksi').value;
+            let aktiviti = document.getElementById('modalAktiviti').value;
+            let skksm = document.getElementById('modalSkksm').value;
+            let refleksi = document.getElementById('modalRefleksi').value;
             const log = document.getElementById('modalLogToggle').checked;
             
+            if(loc === 'iab' || loc === 'cuti') { aktiviti = ""; skksm = "-"; refleksi = ""; }
+
             const btn = document.getElementById('modalSaveBtn'); btn.textContent = "Menyimpan..."; btn.disabled = true;
 
             try {
                 if(!loc && !log && !aktiviti) { delete window.calendarData[curEditDate]; await remove(ref(db, `propkes_attendance/${currentUser}/${curEditDate}`)); } 
                 else { const payload = {loc, log, status: 'pending', aktiviti, skksm, refleksi}; window.calendarData[curEditDate] = payload; await set(ref(db, `propkes_attendance/${currentUser}/${curEditDate}`), payload); }
+                
                 window.closeDailyModal(); window.renderCal(); window.showToast("Rekod disimpan.");
+                
+                if (log) {
+                    window.hantarNotifikasiEmel("Log Kehadiran Baharu", `Peserta ${window.profileData.name} telah menghantar log harian untuk tarikh ${curEditDate} untuk pengesahan.`, window.profileData.email);
+                }
             } catch(e) { console.error(e); window.showToast("Gagal menyimpan.", "error"); } 
             finally { btn.textContent = "Simpan Lampiran C"; btn.disabled = false; }
         };
@@ -806,21 +908,10 @@
                 if(document.getElementById('webChart')) {
                     new Chart(document.getElementById('webChart').getContext('2d'), { type: 'radar', data: { labels: domains, datasets: [{label: 'Pra', data: praS, borderColor: '#3b82f6', backgroundColor:'rgba(59,130,246,0.2)'}, {label: 'Pasca', data: pascaS, borderColor: '#a855f7', backgroundColor:'rgba(168,85,247,0.2)'}] }, options: { responsive: true, scales: { r: { min:0, max: 10, pointLabels: {color:'#cbd5e1', font:{size:9}}, ticks: {display:false, max:10} } } } });
                 }
-
-                const wrapper = document.getElementById('domainChartsWrapper'); 
-                if(wrapper) {
-                    wrapper.innerHTML = ''; const counts = [6, 4, 4, 4, 4, 4, 4];
-                    domains.forEach((d, i) => {
-                        let ls=[], pr=[], ps=[]; for(let j=1; j<=counts[i]; j++) { ls.push(`Item ${j}`); pr.push(pra?Math.min(10,pra[d]+Math.random()*2-1):0); ps.push(pasca?Math.min(10,pasca[d]+Math.random()*2-1):0); }
-                        const div = document.createElement('div'); div.className = "bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 print:border-none print:shadow-none print:mb-6";
-                        div.innerHTML = `<h5 class="text-xs font-bold text-slate-300 mb-3 border-b border-slate-800 pb-2 print:text-black">Domain ${i+1}: ${d}</h5><div class="w-full h-40"><canvas id="dC_${i}"></canvas></div>`; wrapper.appendChild(div);
-                        new Chart(document.getElementById(`dC_${i}`).getContext('2d'), { type: 'bar', data: { labels: ls, datasets: [{label:'Pra', data:pr, backgroundColor:'#3b82f6'}, {label:'Pasca', data:ps, backgroundColor:'#a855f7'}] }, options: { responsive: true, maintainAspectRatio: false, plugins:{legend:{display:false}}, scales:{y:{min:0, max:10,display:false},x:{grid:{display:false}}} } });
-                    });
-                }
             }
         }
 
-        // --- CETAKAN PINTAR ---
+        // --- CETAKAN PINTAR BERLOGO DI TENGAH ---
         function getDatesInRange(startDate, endDate) {
             const dateArray = []; let currentDate = new Date(startDate); const stopDate = new Date(endDate);
             while (currentDate <= stopDate) { dateArray.push(new Date(currentDate).toISOString().split('T')[0]); currentDate.setDate(currentDate.getDate() + 1); }
@@ -853,7 +944,10 @@
 
             document.getElementById('printSection').innerHTML = `
                 <div class="print-page">
-                    <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">LAMPIRAN B</h3>
+                    <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
+                    </div>
+                    <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN B</h3>
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">FASA 1 / 2</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG KEHADIRAN</h2>
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px;"><tr><td style="padding: 5px; width: 15%; font-weight: bold;">NAMA</td><td style="padding: 5px;">${nama}</td></tr><tr><td style="padding: 5px; font-weight: bold;">JAWATAN</td><td style="padding: 5px;">${(u.jawatan||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">GRED</td><td style="padding: 5px;">${(u.gred||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">JABATAN</td><td style="padding: 5px;">${(u.jabatan||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">PUSAT</td><td style="padding: 5px;">${(u.pusatCawangan||'-').toUpperCase()}</td></tr></table>
@@ -879,7 +973,10 @@
 
                     htmlPages += `
                     <div class="print-page">
-                        <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">LAMPIRAN C</h3>
+                        <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
+                            <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
+                        </div>
+                        <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN C</h3>
                         <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
                         <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG HARIAN FASA 1 / 2</h2>
                         <table class="print-table" style="margin-bottom: 30px;">
@@ -907,7 +1004,10 @@
 
             document.getElementById('printSection').innerHTML = `
             <div class="print-page">
-                <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">LAMPIRAN D</h3>
+                <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
+                </div>
+                <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN D</h3>
                 <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
                 <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">JURNAL KEPIMPINAN MINGGUAN</h2>
                 <table class="print-table">
