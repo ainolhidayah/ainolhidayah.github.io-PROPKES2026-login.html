@@ -204,32 +204,29 @@
 
             const accounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
             
-            // --- JARINGAN KESELAMATAN DINAMIK UNTUK AKAUN "mentor" & AKAUN AWAN (Firebase) ---
+            // --- JARINGAN KESELAMATAN PINPANTAS KALIS TENDANGAN (SINKRONISASI SEGERA) ---
             let myProfile = accounts[currentUser];
             
-            // Khas untuk meluluskan akses nama dinamik seperti 'mentorkhaidir' secara lancar
-            if (!myProfile && currentUser) {
-                let tempName = currentUser;
-                if (currentUser.toLowerCase().includes("mentor")) {
-                    // Cth: mentorkhaidir -> Mentor Khaidir
+            // Bypass kalis tendangan mutlak jika ID mengandungi perkataan mentor (cth: mentorkhaidir)
+            if (currentUser.toLowerCase().includes("mentor") || currentUser === "mentor") {
+                if (!myProfile) {
+                    let tempName = currentUser;
                     let rawName = currentUser.toLowerCase().replace("mentor", "").trim();
-                    tempName = "Mentor " + (rawName.charAt(0).toUpperCase() + rawName.slice(1));
-                } else {
-                    tempName = currentUser.toUpperCase();
+                    tempName = "Mentor " + (rawName ? (rawName.charAt(0).toUpperCase() + rawName.slice(1)) : "PROPKES");
+                    
+                    myProfile = { 
+                        name: tempName, 
+                        role: "mentor", 
+                        email: currentUser + "@iab.edu.my" 
+                    };
+                    accounts[currentUser] = myProfile;
+                    localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
                 }
-                
-                myProfile = { 
-                    name: tempName, 
-                    role: "mentor", 
-                    email: currentUser + "@iab.edu.my" 
-                };
-                accounts[currentUser] = myProfile;
-                localStorage.setItem("propkes_accounts", JSON.stringify(accounts));
-            }
-
-            // PENYELASAN: Membenarkan peranan 'mentor' (Sekolah) dan 'mentor-ppd' (PPD) secara serentak
-            if (!myProfile || (myProfile.role !== "mentor" && myProfile.role !== "mentor-ppd")) {
-                window.location.replace("index.html"); return;
+            } else {
+                // Saringan peranan keselamatan tambahan
+                if (!myProfile || (myProfile.role !== "mentor" && myProfile.role !== "mentor-ppd")) {
+                    window.location.replace("index.html"); return;
+                }
             }
 
             const mentorName = myProfile.name || "Mentor";
@@ -265,7 +262,7 @@
             document.getElementById("menteeCount").textContent = menteeList.length;
 
             if (menteeList.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="py-8 px-4 text-center text-slate-400 text-xs leading-loose">Tiada peserta di bawah seliaan anda buat masa ini.<br><span class="text-purple-400">Peserta perlu mengemas kini profil mereka dan memasukkan ejaan nama anda dengan tepat.</span></td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="3" class="py-8 px-4 text-center text-slate-400 text-xs leading-loose">Tiada peserta di bawah seliaan anda buat masa ini.<br><span class="text-purple-400">Peserta perlu mengemas kini profil mereka dan memasukkan ejaan nama anda dengan tepat.</span></td></tr>`;
                 return;
             }
 
