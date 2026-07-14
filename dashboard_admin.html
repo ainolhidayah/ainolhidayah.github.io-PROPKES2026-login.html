@@ -20,7 +20,7 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
         
-        /* Menyembunyikan bahagian cetakan daripada skrin komputer bagi mengelakkan limpahan visual (image_6d4a5b.png) */
+        /* Memastikan seksyen cetakan disembunyikan sepenuhnya semasa navigasi biasa (image_6d4a5b.png) */
         @media screen {
             #printSection { display: none !important; }
         }
@@ -39,8 +39,8 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <!-- STREAMING_CHUNK: Building Urus Setia responsive navigation... -->
-    <!-- NAV BAR -->
+    /* STREAMING_CHUNK: Membina Navigasi Urus Setia Bersih... */
+    <!-- TOP NAVBAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 shadow-2xl no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex justify-between items-center">
@@ -68,10 +68,11 @@
         </div>
     </nav>
 
-    <!-- MAIN PANEL -->
+    <!-- MAIN BODY -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
         
-        <!-- BANNER ALUALAN BARU -->
+        /* STREAMING_CHUNK: Menyediakan Teks Aluan Baharu Puan Ainol... */
+        <!-- BANNER ALUALAN -->
         <div class="bg-gradient-to-r from-rose-900/40 to-slate-900 border border-rose-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-rose-500/10 blur-3xl rounded-full pointer-events-none"></div>
             <div class="relative z-10">
@@ -80,8 +81,8 @@
             </div>
         </div>
 
-        <!-- STREAMING_CHUNK: Building metric stats for Peserta, Pemandu, Mentor 1, and Mentor 2... -->
-        <!-- PANEL METRIK DIASINGKAN MENTOR 1 & MENTOR 2 (image_6d5c2c.png) -->
+        /* STREAMING_CHUNK: Membina Metrik Empat Kategori... */
+        <!-- METRIKS (Peserta Berdaftar, Pemandu Citra, Mentor 1, Mentor 2) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg flex justify-between items-center">
                 <div><p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Peserta Berdaftar</p><p class="text-2xl font-black text-white mt-1" id="statPeserta">0</p></div>
@@ -101,8 +102,8 @@
             </div>
         </div>
 
-        <!-- STREAMING_CHUNK: Building i-PROPKES overall bar chart and branch pie chart... -->
-        <!-- PANEL CARTA -->
+        /* STREAMING_CHUNK: Menyediakan Carta i-PROPKES dan Cawangan IAB... */
+        <!-- CARTA SECTION -->
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
             <div class="xl:col-span-2 space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -116,14 +117,15 @@
                     </div>
                 </div>
 
-                <!-- STREAMING_CHUNK: Building the main dynamic accounts table with dropdown filters... -->
-                <!-- JADUAL PENGGUNA DENGAN PENAPISAN DINAMIK -->
+                /* STREAMING_CHUNK: Menyediakan jadual pengguna dengan butang Buka (Expand)... */
+                <!-- JADUAL PENGGUNA BERSEPADU -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
                     <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center">
                         <h3 class="font-bold text-white text-sm">Pangkalan Pengguna Sistem</h3>
                         <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                            <!-- Dropdown Filter Kunci Peranan (Tidak perlu tunjuk nama secara pukal) -->
                             <select id="roleFilter" onchange="window.filterTable()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none cursor-pointer">
-                                <option value="all">Semua Peranan</option>
+                                <option value="none" selected>-- Pilih Peranan Pengguna --</option>
                                 <option value="peserta">Peserta (Permata Citra)</option>
                                 <option value="pemandu">Pemandu Citra</option>
                                 <option value="mentor">Mentor 1 (Sekolah)</option>
@@ -132,6 +134,7 @@
                             <input type="text" id="searchInput" onkeyup="window.filterTable()" placeholder="Cari nama..." class="bg-slate-950 border border-slate-700 rounded-xl px-4 py-1.5 text-xs text-white focus:border-rose-500 outline-none sm:w-48">
                         </div>
                     </div>
+                    
                     <div class="overflow-x-auto custom-scrollbar">
                         <table class="w-full text-left text-sm border-collapse whitespace-nowrap">
                             <thead>
@@ -142,15 +145,15 @@
                                 </tr>
                             </thead>
                             <tbody id="userTableBody" class="divide-y divide-slate-800/50 text-slate-300">
-                                <tr><td colspan="3" class="py-8 text-center text-slate-500 italic">Memuat turun data dari awan...</td></tr>
+                                <tr><td colspan="3" class="py-12 text-center text-slate-400 text-xs italic">Sila pilih Peranan Pengguna di atas untuk melihat senarai nama.</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- STREAMING_CHUNK: Building the full registration form with branch dropdown... -->
-            <!-- BORANG PENDAFTARAN -->
+            /* STREAMING_CHUNK: Menyediakan Form Pendaftaran Pengguna dengan Cawangan IAB... */
+            <!-- SEKSYEN PENDAFTARAN -->
             <div class="xl:col-span-1 space-y-6">
                 <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-rose-500/30 rounded-2xl shadow-2xl p-6">
                     <h3 class="font-bold text-white text-sm mb-4 border-b border-slate-800 pb-3 flex items-center gap-2"><svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z"></path></svg>Daftar Pengguna Baru</h3>
@@ -203,13 +206,13 @@
 
     </main>
 
-    <!-- STREAMING_CHUNK: Building the hidden canvases for printable i-PROPKES charts... -->
-    <!-- ELEMEN TERSEMBUNYI UNTUK MENJANA CARTA CETAKAN HIGH-RES (KERAWANG & BAR) -->
+    <!-- KANVAS TERSEMBUNYI UNTUK MENJANA PNG HIGH-RES CARTA i-PROPKES PADA CETAKAN -->
     <div class="hidden">
-        <canvas id="hiddenPrintBarChart" width="600" height="300"></canvas>
+        <canvas id="hiddenPrintBarChart" width="800" height="400"></canvas>
         <canvas id="hiddenPrintRadarChart" width="450" height="450"></canvas>
     </div>
 
+    /* STREAMING_CHUNK: Menyediakan paparan Modals (Edit, Padam & Penilaian)... */
     <!-- MODAL EDIT PENGGUNA -->
     <div id="editModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-amber-500/50 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300" id="editModalContent">
@@ -272,18 +275,15 @@
                 <button onclick="window.closeReportsModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="reportsBody">
-                <!-- Data pencerapan dari Firebase dimuatkan di sini -->
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="reportsBody"></div>
         </div>
     </div>
 
-    <!-- ELEMENT UTAMA TEMPAT CETAKAN DIJANA -->
-    <div id="printSection"></div>
+    <div id="printSection" class="print-container"></div>
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
     <!-- FIREBASE MODULE & LOGICS -->
-    <!-- STREAMING_CHUNK: Integrating Firebase SDK and initializing parameters... -->
+    /* STREAMING_CHUNK: Integrating Firebase Realtime Database... */
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, get, child, set, update, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -332,6 +332,7 @@
             if(role === 'peserta') extra.classList.remove('hidden'); else extra.classList.add('hidden');
         };
 
+        /* STREAMING_CHUNK: Managing new registrations with dates and branches... */
         window.handleRegistration = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btnDaftar');
@@ -343,8 +344,9 @@
             const email = document.getElementById('regEmail').value.trim();
             const username = document.getElementById('regUsername').value.trim().toLowerCase();
             const password = document.getElementById('regPassword').value.trim();
+            const todayDate = new Date().toLocaleDateString('ms-MY'); // Tarikh Daftar
 
-            let payload = { role, name, ic, email, password };
+            let payload = { role, name, ic, email, password, tarikhDaftar: todayDate };
 
             if(role === 'peserta') {
                 payload.pusatCawangan = document.getElementById('regPusatCawangan').value;
@@ -377,30 +379,27 @@
             finally { btn.textContent = "Daftar"; btn.disabled = false; }
         };
 
-        // --- STREAMING_CHUNK: Creating charts rendering functions and branch parsing logic... ---
+        /* STREAMING_CHUNK: Loading all users and rendering the expandable list... */
         async function loadAccounts() {
             try {
                 const snap = await get(child(ref(db), 'propkes_accounts'));
-                const tbody = document.getElementById('userTableBody');
-                tbody.innerHTML = "";
-
+                
                 if (snap.exists()) {
                     window.accountsData = snap.val();
                     let cPeserta = 0, cPemandu = 0, cMentorSekolah = 0, cMentorPpd = 0;
                     
-                    // Inisialisasi Kategori Pecahan Cawangan
                     let branchCount = { "IAB INDUK": 0, "IAB UTARA": 0, "IAB GENTING": 0, "IAB SABAH": 0, "IAB SARAWAK": 0 };
 
-                    Object.keys(window.accountsData).sort().forEach(username => {
+                    Object.keys(window.accountsData).forEach(username => {
                         const u = window.accountsData[username];
                         
                         if(u.role === 'peserta') {
                             cPeserta++;
                             
-                            // Parse cawangan pesertakan dengan lebih pintar (Pencegahan kesilapan string)
+                            // Pembetulan parsing Cawangan IAB (Sarawak, Sabah dsb tidak akan lari ke Induk)
                             let pCaw = (u.pusatCawangan || "IAB INDUK").trim().toUpperCase();
                             if(pCaw.includes("UTARA")) branchCount["IAB UTARA"]++;
-                            else if(pCaw.includes("GENTING") || pCaw.includes("HIGHLANDS")) branchCount["IAB GENTING"]++;
+                            else if(pCaw.includes("GENTING") || pCaw.includes("HIGHLAND")) branchCount["IAB GENTING"]++;
                             else if(pCaw.includes("SABAH")) branchCount["IAB SABAH"]++;
                             else if(pCaw.includes("SARAWAK")) branchCount["IAB SARAWAK"]++;
                             else branchCount["IAB INDUK"]++;
@@ -408,38 +407,8 @@
                         else if(u.role === 'pemandu') cPemandu++;
                         else if(u.role === 'mentor') cMentorSekolah++;
                         else if(u.role === 'mentor-ppd') cMentorPpd++;
-
-                        let roleBadge = "";
-                        let pencerapanBtn = "";
-
-                        if(u.role === 'peserta') {
-                            roleBadge = `<span class="bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-blue-500/20">Peserta</span>`;
-                            pencerapanBtn = `<button onclick="window.viewParticipantReports('${username}', '${u.name.replace(/'/g, "\\'")}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none">Lihat & Cetak</button>`;
-                        } else if(u.role === 'pemandu') {
-                            roleBadge = `<span class="bg-teal-500/10 text-teal-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-teal-500/20">Pemandu</span>`;
-                        } else if(u.role === 'mentor') {
-                            roleBadge = `<span class="bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-amber-500/20">Mentor 1 (Sekolah)</span>`;
-                        } else if(u.role === 'mentor-ppd') {
-                            roleBadge = `<span class="bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-indigo-500/20">Mentor 2 (PPD)</span>`;
-                        }
-
-                        tbody.innerHTML += `
-                            <tr class="hover:bg-slate-800/30 transition-colors border-b border-slate-800/50" data-role="${u.role}">
-                                <td class="py-4 px-6">
-                                    <p class="font-bold text-white text-xs">${u.name}</p>
-                                    <p class="text-[10px] text-slate-500">${u.email} | ID: ${username}</p>
-                                </td>
-                                <td class="py-4 px-6 text-center">${roleBadge}</td>
-                                <td class="py-4 px-6 text-center space-x-2">
-                                    ${pencerapanBtn}
-                                    <button onclick="window.openEdit('${username}')" class="bg-amber-600/20 text-amber-400 hover:bg-amber-600 hover:text-white border border-amber-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none">Edit</button>
-                                    <button onclick="window.openDelete('${username}', '${u.name.replace(/'/g, "\\'")}')" class="bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white border border-rose-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none">Padam</button>
-                                </td>
-                            </tr>
-                        `;
                     });
 
-                    // Update Metrik Panel (Asingkan Mentor 1 & 2 mengikut Imej image_6d5c2c.png)
                     document.getElementById('statPeserta').textContent = cPeserta;
                     document.getElementById('statPemandu').textContent = cPemandu;
                     document.getElementById('statMentorSekolah').textContent = cMentorSekolah;
@@ -447,9 +416,112 @@
 
                     renderBranchPieChart(branchCount);
                     loadOverallIPropkesData();
-                } else { tbody.innerHTML = `<tr><td colspan="3" class="py-8 text-center text-slate-500 text-xs italic">Tiada akaun didaftarkan.</td></tr>`; }
+                    window.filterTable(); // Populate table mengikut tapisan semasa
+                }
             } catch(e) { console.error(e); }
         }
+
+        /* STREAMING_CHUNK: Filtering the table and implementing the toggle/expand row feature... */
+        window.filterTable = () => {
+            const term = document.getElementById("searchInput").value.toLowerCase();
+            const roleFilter = document.getElementById("roleFilter").value;
+            const tbody = document.getElementById('userTableBody');
+            
+            // Mengelakkan nama dipaparkan secara bersepah sebelum pilihan peranan dibuat
+            if(roleFilter === "none") {
+                tbody.innerHTML = `<tr><td colspan="3" class="py-12 text-center text-slate-400 text-xs italic">Sila pilih Peranan Pengguna di atas untuk melihat senarai nama.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = "";
+            let matchFound = false;
+
+            Object.keys(window.accountsData).sort().forEach(username => {
+                const u = window.accountsData[username];
+                
+                let matchesSearch = u.name.toLowerCase().includes(term) || username.includes(term);
+                let matchesRole = (roleFilter === "all") || (u.role === roleFilter);
+
+                if (matchesSearch && matchesRole) {
+                    matchFound = true;
+                    let roleBadge = "";
+                    let pencerapanBtn = "";
+
+                    if(u.role === 'peserta') {
+                        roleBadge = `<span class="bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-blue-500/20">Peserta</span>`;
+                        pencerapanBtn = `<button onclick="window.viewParticipantReports('${username}', '${u.name.replace(/'/g, "\\'")}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none">Lihat & Cetak</button>`;
+                    } else if(u.role === 'pemandu') {
+                        roleBadge = `<span class="bg-teal-500/10 text-teal-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-teal-500/20">Pemandu</span>`;
+                    } else if(u.role === 'mentor') {
+                        roleBadge = `<span class="bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-amber-500/20">Mentor 1 (Sekolah)</span>`;
+                    } else if(u.role === 'mentor-ppd') {
+                        roleBadge = `<span class="bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-indigo-500/20">Mentor 2 (PPD)</span>`;
+                    }
+
+                    // Struktur baris utama berserta baris huraian (Expand Row)
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-800/10 transition-colors border-b border-slate-800/50 cursor-pointer" onclick="window.toggleRowDetails('${username}')">
+                            <td class="py-4 px-6 flex items-center gap-2">
+                                <svg id="icon-${username}" class="w-4 h-4 text-slate-500 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
+                                <div>
+                                    <p class="font-bold text-white text-xs">${u.name}</p>
+                                    <p class="text-[10px] text-slate-500">${u.email} | ID: ${username}</p>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-center">${roleBadge}</td>
+                            <td class="py-4 px-6 text-center space-x-2" onclick="event.stopPropagation();">
+                                ${pencerapanBtn}
+                                <button onclick="window.openEdit('${username}')" class="bg-amber-600/20 text-amber-400 hover:bg-amber-600 hover:text-white border border-amber-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none">Edit</button>
+                                <button onclick="window.openDelete('${username}', '${u.name.replace(/'/g, "\\'")}')" class="bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white border border-rose-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none">Padam</button>
+                            </td>
+                        </tr>
+                        <!-- Baris Huraian (Accordion Peribadi) -->
+                        <tr id="details-${username}" class="hidden bg-slate-950/40 border-b border-slate-800/50">
+                            <td colspan="3" class="px-8 py-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs text-slate-300">
+                                    <div>
+                                        <p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Butiran Peribadi</p>
+                                        <p>No. KP: <strong class="text-white">${u.ic || "-"}</strong></p>
+                                        <p>E-mel: <strong class="text-white">${u.email || "-"}</strong></p>
+                                        <p>Tarikh Daftar: <strong class="text-rose-400">${u.tarikhDaftar || "Tiada Maklumat"}</strong></p>
+                                    </div>
+                                    ${u.role === 'peserta' ? `
+                                    <div>
+                                        <p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Sandaran & Cawangan</p>
+                                        <p>Cawangan IAB: <strong class="text-teal-400">${u.pusatCawangan || "IAB INDUK"}</strong></p>
+                                        <p>Sekolah Sandaran: <strong class="text-white">${u.sekolah || "-"}</strong></p>
+                                        <p>PPD: <strong class="text-white">${u.ppd || "-"}</strong></p>
+                                    </div>
+                                    <div>
+                                        <p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Penyelia & Mentor</p>
+                                        <p>Pemandu Citra: <strong class="text-white">${u.pemanduCitra || "-"}</strong></p>
+                                        <p>Mentor 1 (Sekolah): <strong class="text-amber-400">${u.mentorSekolah || "-"}</strong></p>
+                                        <p>Mentor 2 (PPD): <strong class="text-indigo-400">${u.mentorPpd || "-"}</strong></p>
+                                    </div>
+                                    ` : `<div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Jawatan Hakiki</p><p class="text-white font-semibold">${u.jawatan || "Penyelia / Mentor"}</p></div>`}
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+
+            if(!matchFound) {
+                tbody.innerHTML = `<tr><td colspan="3" class="py-12 text-center text-slate-500 text-xs italic">Tiada padanan data ditemui.</td></tr>`;
+            }
+        };
+
+        window.toggleRowDetails = (username) => {
+            const detailsRow = document.getElementById(`details-${username}`);
+            const icon = document.getElementById(`icon-${username}`);
+            if(detailsRow.classList.contains('hidden')) {
+                detailsRow.classList.remove('hidden');
+                icon.classList.add('rotate-90');
+            } else {
+                detailsRow.classList.add('hidden');
+                icon.classList.remove('rotate-90');
+            }
+        };
 
         async function loadOverallIPropkesData() {
             try {
@@ -527,26 +599,7 @@
             });
         }
 
-        window.filterTable = () => {
-            const term = document.getElementById("searchInput").value.toLowerCase();
-            const roleFilter = document.getElementById("roleFilter").value;
-            const rows = document.getElementById("userTableBody").getElementsByTagName("tr");
-
-            for (let i = 0; i < rows.length; i++) {
-                const text = rows[i].textContent.toLowerCase();
-                const role = rows[i].getAttribute("data-role");
-
-                let matchesSearch = text.includes(term);
-                let matchesRole = (roleFilter === "all") || (role === roleFilter);
-
-                if (matchesSearch && matchesRole) {
-                    rows[i].style.display = "";
-                } else {
-                    rows[i].style.display = "none";
-                }
-            }
-        };
-
+        /* STREAMING_CHUNK: Managing data deletions and account editions... */
         window.openEdit = (username) => {
             const u = window.accountsData[username];
             document.getElementById('editUsername').value = username;
@@ -719,7 +772,7 @@
             setTimeout(()=> { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
         };
 
-        // --- STREAMING_CHUNK: Designing printable report engines with high-res base64 charts... ---
+        /* STREAMING_CHUNK: Setting up the dynamic KPM PDF print engine with centered logo... */
         window.printB = () => {
             const u = window.activeViewingUser;
             const nameUpper = u.name.toUpperCase();
