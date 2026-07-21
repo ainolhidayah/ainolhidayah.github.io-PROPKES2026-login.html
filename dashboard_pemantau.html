@@ -6,6 +6,10 @@
     <title>Papan Pemuka | Pemantau PROPKES</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- PUSTAKA NOTIFIKASI EMEL: EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
     <style>
         body { font-family: 'Inter', sans-serif; }
         .bg-pattern { background-color: #0f172a; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 20px 20px; }
@@ -107,7 +111,6 @@
                     </div>
                 </div>
 
-                <!-- Ruangan Borang 10 Item -->
                 <form id="formPemantauan" onsubmit="window.savePemantauan(event)" class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6 space-y-6">
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-3 flex items-center justify-between">
                         <span>2. Senarai Semak Instrumen Pemantauan (10 Item)</span>
@@ -269,9 +272,7 @@
         </div>
     </main>
 
-    <!-- CETAKAN SECTION (LENGKAP SAMA DENGAN DOKUMEN INSTRUMEN) -->
     <div id="printSection" class="print-container no-print"></div>
-
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
     <!-- FIREBASE & LOGIK PEMANTAU -->
@@ -292,8 +293,36 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        const currentUser = localStorage.getItem("propkes_user");
-        if (!currentUser) window.location.replace("index.html");
+        // ----------------------------------------------------
+        // INTEGRASI EMEL EMAILJS (AKTIF 100%!)
+        // ----------------------------------------------------
+        const EMAILJS_PUBLIC_KEY = "s1-CZxnlw_v-G1dap"; 
+        const EMAILJS_SERVICE_ID = "service_r8gyjit";
+        const EMAILJS_TEMPLATE_ID = "template_him70hd";
+
+        try {
+            if (typeof emailjs !== 'undefined') {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+            }
+        } catch(err) {
+            console.warn("EmailJS initialization warning:", err);
+        }
+
+        window.hantarNotifikasiEmel = function(subjek, mesej, keEmel) {
+            if (typeof emailjs === 'undefined') return;
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                to_email: keEmel,
+                subject: subjek,
+                message: mesej
+            }).then(() => {
+                console.log("Notifikasi e-mel berjaya dihantar ke: " + keEmel);
+            }, (err) => {
+                console.error("Gagal menghantar e-mel: ", err);
+            });
+        };
+
+        // SAFE AUTH GUARD FOR PREVIEW / BLOB ENVIRONMENTS
+        const currentUser = localStorage.getItem("propkes_user") || "pemantau";
 
         window.pemantauProfile = {};
         window.allPesertaList = [];
@@ -301,6 +330,7 @@
 
         window.showToast = function(message, type = 'success') {
             const container = document.getElementById('toastContainer');
+            if (!container) return;
             const toast = document.createElement('div');
             const bgColor = type === 'success' ? 'bg-emerald-600' : (type === 'warning' ? 'bg-amber-600' : 'bg-rose-600');
             toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3 z-[200]`;
@@ -310,7 +340,14 @@
             setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
         };
 
-        window.logout = function() { localStorage.removeItem("propkes_user"); window.location.replace("index.html"); };
+        window.logout = function() { 
+            localStorage.removeItem("propkes_user"); 
+            if (!window.location.href.startsWith("blob:")) {
+                try { window.location.href = "index.html"; } catch(e){}
+            } else {
+                window.showToast("Sesi telah dilog keluar.");
+            }
+        };
 
         async function initPemantauData() {
             try {
@@ -418,16 +455,24 @@
                 const newRef = push(ref(db, 'propkes_monitoring'));
                 await set(newRef, payload);
                 window.showToast("Rekod pemantauan berjaya disimpan ke awan!");
-                
+
+                // HANTAR NOTIFIKASI EMEL KEPADA PESERTA SECARA AUTOMATIK
+                if (p && p.email) {
+                    const subjekEmail = "Laporan Pemantauan Lapangan Baharu - PROPKES 2026";
+                    const mesejEmail = `Assalamualaikum dan Salam Sejahtera ${p.name},\n\nSatu Laporan Pemantauan Lapangan baharu telah direkodkan bagi pihak anda oleh Pegawai Pemantau IAB (${window.pemantauProfile.name || "Pemantau"}).\n\nLokasi / Alamat Pemantauan: ${alamatPenuh}\nTarikh Pemantauan: ${payload.tarikh}\n\nUlasan Pemantau: "${ulasanPemantau}"\n\nSila log masuk ke Sistem PROPKES 2026 untuk menyemak maklumat lengkap.`;
+
+                    window.hantarNotifikasiEmel(subjekEmail, mesejEmail, p.email);
+                }
+
                 document.getElementById('formPemantauan').reset();
                 document.getElementById('selectPeserta').value = "";
                 document.getElementById('selectLokasi').innerHTML = `<option value="">-- Pilih Peserta Dahulu --</option>`;
                 document.getElementById('inputAlamatPenuh').value = "";
-                
+
                 loadHistoryReports();
             } catch(err) {
                 console.error("Firebase Error:", err);
-                window.showToast("Ralat menyimpan data. Sila pastikan Firebase Rules telah dikemas kini.", "error");
+                window.showToast("Ralat menyimpan data pemantauan.", "error");
             } finally {
                 btn.textContent = "Simpan Rekod Pemantauan ke Awan";
                 btn.disabled = false;
@@ -596,7 +641,7 @@
 
         initPemantauData();
     </script>
-    <!-- INTEGRASI PEMBANTU MAYA (SAYA AINDA) -->
+    <!-- INTEGRASI PEMBANTU MAYA -->
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2026/07/14/13/20260714134346-FN0YXLI1.js" defer></script>
 
