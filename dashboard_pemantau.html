@@ -377,7 +377,8 @@
 
         window.savePemantauan = async function(e) {
             e.preventDefault();
-            const pesertaUsername = document.getElementById('selectPeserta').value;
+            const pesertaSelect = document.getElementById('selectPeserta');
+            const pesertaUsername = pesertaSelect.value;
             const lokasi = document.getElementById('selectLokasi').value;
             const alamatPenuh = document.getElementById('inputAlamatPenuh').value.trim();
             const ulasanPemantau = document.getElementById('inputUlasanPemantau').value.trim();
@@ -386,6 +387,8 @@
             if (!alamatPenuh) { window.showToast("Sila isi lokasi & alamat penuh.", "warning"); return; }
 
             const p = window.allPesertaList.find(x => x.username === pesertaUsername);
+            const pesertaNameText = p ? p.name : (pesertaSelect.options[pesertaSelect.selectedIndex]?.text || pesertaUsername);
+
             const btn = document.getElementById('btnSimpanPemantauan');
             btn.textContent = "Menyimpan..."; btn.disabled = true;
 
@@ -402,7 +405,7 @@
                 pemantauName: window.pemantauProfile.name || "Pemantau",
                 pemantauJawatan: window.pemantauProfile.jawatan || "Pegawai Pemantau IAB",
                 pesertaUsername: pesertaUsername,
-                pesertaName: p.name,
+                pesertaName: pesertaNameText,
                 lokasiType: lokasi,
                 alamatPenuh: alamatPenuh,
                 items: itemsData,
@@ -423,8 +426,8 @@
                 
                 loadHistoryReports();
             } catch(err) {
-                console.error(err);
-                window.showToast("Ralat menyimpan data pemantauan.", "error");
+                console.error("Firebase Error:", err);
+                window.showToast("Ralat menyimpan data. Sila pastikan Firebase Rules telah dikemas kini.", "error");
             } finally {
                 btn.textContent = "Simpan Rekod Pemantauan ke Awan";
                 btn.disabled = false;
@@ -444,15 +447,14 @@
                     
                     Object.keys(reportsObj).reverse().forEach(key => {
                         const r = reportsObj[key];
-                        // Tunjukkan pemantauan yang dibuat oleh pemantau ini (atau semua jika mahu)
-                        if (r.pemantauUsername === currentUser) {
+                        if (r.pemantauUsername === currentUser || currentUser === 'admin') {
                             count++;
                             window.historyReports.push({ id: key, ...r });
 
                             container.innerHTML += `
                                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 hover:border-indigo-500/50 transition-colors">
                                     <div class="flex justify-between items-start">
-                                        <p class="font-bold text-white text-xs">${r.pesertaName.toUpperCase()}</p>
+                                        <p class="font-bold text-white text-xs">${(r.pesertaName || "").toUpperCase()}</p>
                                         <span class="text-[9px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded border border-indigo-500/20">${r.tarikh}</span>
                                     </div>
                                     <p class="text-[10px] text-slate-400 truncate">${r.alamatPenuh}</p>
@@ -556,8 +558,7 @@
                     <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
                 </div>
 
-                <h2 style="font-weight: bold; font-size: 15px; text-align: center; margin-bottom: 2px;">Instrumen Pemantauan Peserta PROPKES</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">di Lapangan oleh Pemantau</h2>
+                <h2 style="font-weight: bold; font-size: 16px; text-align: center; margin-bottom: 20px;">Laporan Pemantauan Peserta PROPKES Tahun 2026</h2>
 
                 <div style="font-size: 12px; margin-bottom: 20px; line-height: 1.8;">
                     <p><strong>Nama Peserta:</strong> ${r.pesertaName.toUpperCase()}</p>
@@ -587,7 +588,7 @@
             </div>`;
 
             const oldTitle = document.title;
-            document.title = `${r.pesertaName.toUpperCase()} - Instrumen Pemantauan`;
+            document.title = `${r.pesertaName.toUpperCase()} - Laporan Pemantauan 2026`;
             document.getElementById('printSection').innerHTML = printHTML;
             window.print();
             setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
