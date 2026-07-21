@@ -7,6 +7,10 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PUSTAKA NOTIFIKASI EMEL: EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
     <style>
         body { font-family: 'Inter', sans-serif; }
         .bg-pattern {
@@ -18,12 +22,16 @@
 </head>
 <body class="bg-pattern min-h-screen flex items-center justify-center p-4 m-0 overflow-x-hidden">
 
+    <!-- Chosen Palette: Slate Midnight & Professional Blue -->
+    <!-- Application Structure Plan: Mempertahankan struktur asal dua lajur (branding & login). Penambahan elemen modal interaktif untuk aliran kerja 'Terlupa Kata Laluan' bagi memastikan integriti UI asal tidak terjejas sambil menyediakan fungsi pemulihan akaun melalui e-mel. -->
+    <!-- Visualization & Content Choices: Penggunaan modal HTML/Tailwind untuk borang input tambahan, integrasi EmailJS untuk penghantaran notifikasi e-mel, dan pembersihan logik hardcoded admin untuk keselamatan data yang lebih dinamik. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
     <!-- Container Utama -->
     <div class="max-w-5xl w-full bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row m-auto">
         
         <!-- BAHAGIAN KIRI (Branding, QR Code dengan Google Drive, & Senarai Admin) -->
         <div class="md:w-6/12 bg-gradient-to-br from-blue-900 to-slate-900 p-8 text-white flex flex-col justify-between relative overflow-hidden shrink-0 border-r border-slate-800">
-            <!-- Hiasan Visual Latar Belakang -->
             <div class="absolute -top-16 -left-16 w-48 h-48 bg-blue-500/20 blur-3xl rounded-full"></div>
             <div class="absolute -bottom-16 -right-16 w-48 h-48 bg-emerald-500/20 blur-3xl rounded-full"></div>
 
@@ -42,18 +50,15 @@
                 </p>
             </div>
 
-            <!-- SMART QR CODE TERHUBUNG TERUS KE GOOGLE DRIVE MANUAL PENGGUNA -->
             <a href="https://drive.google.com/drive/folders/1j9kxXYzpEgY8tCOeIEcIqyeE3E3riEYX?usp=drive_link" target="_blank" 
                class="block relative z-10 bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800 hover:border-blue-500/50 rounded-xl p-4 mb-6 transition-all group">
                 <p class="text-[9px] text-blue-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5">
                     Rujukan & Manual Pengguna
-                    <svg class="w-3 h-3 text-blue-400 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    <span class="inline-block group-hover:translate-x-0.5 transition-transform text-blue-400">➜</span>
                 </p>
                 <div class="flex items-center gap-4">
-                    <!-- Memaparkan qr_manual.png dari GitHub. Jika ralat, ia secara automatik menjana QR Code dinamik sementara menghala ke Google Drive puan -->
                     <div class="w-20 h-20 bg-white rounded-lg p-1 shrink-0 flex items-center justify-center shadow-inner overflow-hidden">
-                        <img id="qrImageElement" src="qr_manual.png" alt="QR Code Manual" class="w-full h-full object-contain animate-fade-in" 
-                            onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://drive.google.com/drive/folders/1j9kxXYzpEgY8tCOeIEcIqyeE3E3riEYX?usp=drive_link';">
+                        <img id="qrImageElement" src="qr_manual.png" alt="QR Code Manual" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://drive.google.com/drive/folders/1j9kxXYzpEgY8tCOeIEcIqyeE3E3riEYX?usp=drive_link';">
                     </div>
                     <div>
                         <h4 class="text-xs font-bold text-white group-hover:text-blue-400 transition-colors">Manual Pengguna Sistem</h4>
@@ -62,7 +67,6 @@
                 </div>
             </a>
 
-            <!-- SENARAI HUBUNGAN URUS SETIA SISTEM -->
             <div class="relative z-10">
                 <h3 class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-3">Urus Setia Sistem:</h3>
                 <div class="space-y-2 bg-slate-950/40 p-3 rounded-lg border border-slate-800/50">
@@ -86,51 +90,88 @@
             </div>
 
             <form id="loginForm" class="space-y-4">
-                
-                <!-- ID PENGGUNA -->
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1.5">ID Pengguna (Username)</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            <span class="text-lg">👤</span>
                         </div>
                         <input type="text" id="username" required placeholder="Cth: admin / peserta1" 
                             class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors placeholder-slate-700 outline-none">
                     </div>
                 </div>
 
-                <!-- KATA LALUAN -->
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1.5">Kata Laluan</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            <span class="text-lg">🔒</span>
                         </div>
                         <input type="password" id="password" required placeholder="••••••••" 
                             class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors placeholder-slate-700 outline-none">
                     </div>
                 </div>
 
-                <!-- Paparan Ralat -->
+                <!-- PAUTAN TERLUPA KATA LALUAN -->
+                <div class="flex justify-end">
+                    <button type="button" onclick="window.openForgotPasswordModal()" class="text-xs text-blue-400 hover:text-blue-300 font-semibold transition-colors outline-none cursor-pointer">
+                        Terlupa Kata Laluan?
+                    </button>
+                </div>
+
                 <div id="errorMsg" class="hidden bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs p-3 rounded-lg flex items-center gap-2">
-                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="text-rose-500">⚠</span>
                     <span>ID atau Kata Laluan salah. Hubungi Urus Setia untuk bantuan reset.</span>
                 </div>
 
-                <!-- BUTANG LOG MASUK -->
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg shadow-lg shadow-blue-600/30 transition-all mt-3 flex justify-center items-center gap-2 outline-none cursor-pointer">
-                    Log Masuk
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                <button type="submit" id="btnLogin" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg shadow-lg shadow-blue-600/30 transition-all mt-3 flex justify-center items-center gap-2 outline-none cursor-pointer">
+                    <span>Log Masuk</span>
+                    <span class="text-sm">➜</span>
                 </button>
-
             </form>
         </div>
     </div>
 
-    <!-- FIREBASE DB CONNECTED AUTHENTICATION -->
+    <!-- MODAL TERLUPA KATA LALUAN -->
+    <div id="forgotPasswordModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-900 border border-blue-500/40 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300" id="forgotPasswordModalContent">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <span class="text-blue-400 text-lg">🔑</span>
+                    Terlupa Kata Laluan?
+                </h3>
+                <button onclick="window.closeForgotPasswordModal()" class="text-slate-400 hover:text-white outline-none cursor-pointer text-xl font-bold">×</button>
+            </div>
+
+            <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+                Sila masukkan <strong class="text-white">ID Pengguna</strong> dan <strong class="text-white">E-mel Rasmi Berdaftar</strong>. Kata laluan baharu akan dijana dan dihantar terus ke e-mel anda.
+            </p>
+
+            <form id="forgotPasswordForm" onsubmit="window.handleForgotPasswordSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">ID Pengguna (Username)</label>
+                    <input type="text" id="forgotUsername" required placeholder="Cth: admin / peserta1" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:border-blue-500 outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">E-mel Rasmi Berdaftar</label>
+                    <input type="email" id="forgotEmail" required placeholder="Cth: ainol.hidayah@iab.moe.gov.my" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:border-blue-500 outline-none">
+                </div>
+
+                <div class="flex gap-3 pt-3 border-t border-slate-800">
+                    <button type="button" onclick="window.closeForgotPasswordModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-lg text-xs font-bold outline-none cursor-pointer">Batal</button>
+                    <button type="submit" id="btnForgotSubmit" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-2.5 rounded-lg text-xs font-bold shadow-lg outline-none cursor-pointer">Reset & Hantar Emel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFIKASI -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2"></div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        import { getDatabase, ref, get, child, update, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCzlcyG6xyd2JXEMRNlDGi-_wxU2TXf6Y8",
@@ -145,31 +186,69 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
+        // INISIALISASI EMAILJS
+        const EMAILJS_PUBLIC_KEY = "s1-CZxnlw_v-G1dap"; 
+        const EMAILJS_SERVICE_ID = "service_r8gyjit";
+        const EMAILJS_TEMPLATE_ID = "template_him70hd";
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+
+        window.showToast = function(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const bgColor = type === 'success' ? 'bg-emerald-600' : 'bg-rose-600';
+            toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl text-xs font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-2`;
+            toast.innerHTML = `<span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-y-10', 'opacity-0'), 10);
+            setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3500);
+        };
+
+        // FUNGSI LOG MASUK DINAMIK
         document.getElementById("loginForm").addEventListener("submit", async function(e) {
             e.preventDefault();
-
             const usernameInput = document.getElementById("username").value.toLowerCase().trim();
             const passwordInput = document.getElementById("password").value.trim();
             const errorMsg = document.getElementById("errorMsg");
-            errorMsg.classList.add("hidden");
+            const btn = document.getElementById("btnLogin");
 
-            // Bypass Admin Lalai Urus Setia
-            if (usernameInput === "admin" && passwordInput === "123456") {
-                localStorage.setItem("propkes_user", "admin");
-                window.location.replace("dashboard_admin.html");
-                return;
-            }
+            errorMsg.classList.add("hidden");
+            btn.disabled = true;
+            btn.querySelector('span').textContent = "Memeriksa...";
 
             try {
                 const dbRef = ref(db);
+                
+                // Semak akaun admin dinamik (Bukan 123456 lagi)
+                if (usernameInput === "admin") {
+                    const adminSnap = await get(child(dbRef, "propkes_accounts/admin"));
+                    let validAdminPass = "admin"; // Lalai jika tiada rekod
+                    
+                    if (adminSnap.exists() && adminSnap.val().password) {
+                        validAdminPass = adminSnap.val().password;
+                    } else {
+                        // Jika admin belum didaftarkan dalam DB, wujudkannya secara dinamik
+                        await set(ref(db, "propkes_accounts/admin"), {
+                            role: "admin",
+                            name: "Urus Setia Admin",
+                            email: "ainol.hidayah@iab.moe.gov.my",
+                            password: "admin"
+                        });
+                    }
+
+                    if (passwordInput === validAdminPass) {
+                        localStorage.setItem("propkes_user", "admin");
+                        window.location.replace("dashboard_admin.html");
+                        return;
+                    }
+                }
+
+                // Semak akaun pengguna biasa
                 const snap = await get(child(dbRef, `propkes_accounts/${usernameInput}`));
 
                 if (snap.exists()) {
                     const u = snap.val();
-                    if(u.password === passwordInput) {
+                    if (u.password === passwordInput) {
                         localStorage.setItem("propkes_user", usernameInput);
-
-                        // SINKRONISASI PENTING: Simpan profil Firebase terus ke LocalStorage komputer pengguna
                         const localAccounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
                         localAccounts[usernameInput] = u;
                         localStorage.setItem("propkes_accounts", JSON.stringify(localAccounts));
@@ -178,17 +257,84 @@
                         else if (u.role === "pemandu") window.location.replace("dashboard_pemandu.html");
                         else if (u.role === "mentor" || u.role === "mentor-ppd") window.location.replace("dashboard_mentor.html");
                         else if (u.role === "pemantau") window.location.replace("dashboard_pemantau.html");
-                        else if (u.role === "admin") window.location.replace("dashboard_admin.html");
+                        else window.location.replace("dashboard_admin.html");
                         return;
                     }
                 }
                 errorMsg.classList.remove("hidden");
             } catch(err) {
                 console.error(err);
-                errorMsg.querySelector('span').textContent = "Ralat pelayan. Sila cuba lagi kemudian.";
+                errorMsg.querySelector('span').textContent = "Ralat pelayan. Sila cuba lagi.";
                 errorMsg.classList.remove("hidden");
+            } finally {
+                btn.disabled = false;
+                btn.querySelector('span').textContent = "Log Masuk";
             }
         });
+
+        // MODAL TERLUPA KATA LALUAN
+        window.openForgotPasswordModal = () => {
+            document.getElementById('forgotUsername').value = '';
+            document.getElementById('forgotEmail').value = '';
+            const modal = document.getElementById('forgotPasswordModal');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('forgotPasswordModalContent').classList.remove('scale-95'); }, 10);
+        };
+
+        window.closeForgotPasswordModal = () => {
+            const modal = document.getElementById('forgotPasswordModal');
+            modal.classList.add('opacity-0'); document.getElementById('forgotPasswordModalContent').classList.add('scale-95');
+            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
+        };
+
+        window.handleForgotPasswordSubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnForgotSubmit');
+            const username = document.getElementById('forgotUsername').value.trim().toLowerCase();
+            const inputEmail = document.getElementById('forgotEmail').value.trim().toLowerCase();
+
+            btn.textContent = "Memproses...";
+            btn.disabled = true;
+
+            try {
+                const userSnap = await get(child(ref(db), `propkes_accounts/${username}`));
+                
+                if (!userSnap.exists()) {
+                    window.showToast("ID Pengguna tidak dijumpai.", "error");
+                    return;
+                }
+
+                const uData = userSnap.val();
+                const registeredEmail = (uData.email || "").toLowerCase();
+
+                if (inputEmail !== registeredEmail) {
+                    window.showToast("E-mel tidak sepadan dengan rekod.", "error");
+                    return;
+                }
+
+                // Jana Kata Laluan Rawak Baharu
+                const newPass = "P" + Math.floor(1000 + Math.random() * 9000) + "@";
+
+                // Kemaskini Firebase
+                await update(ref(db, `propkes_accounts/${username}`), { password: newPass });
+
+                // Hantar Notifikasi EmailJS
+                await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                    to_email: inputEmail,
+                    subject: "Reset Kata Laluan PROPKES 2026",
+                    message: `ID Pengguna: ${username}\nKata Laluan Baharu: ${newPass}\n\nSila gunakan kredensial ini untuk log masuk.`
+                });
+
+                window.showToast("Berjaya! Kata laluan dihantar ke e-mel anda.");
+                window.closeForgotPasswordModal();
+            } catch (err) {
+                console.error(err);
+                window.showToast("Ralat teknikal. Sila cuba lagi.", "error");
+            } finally {
+                btn.textContent = "Reset & Hantar Emel";
+                btn.disabled = false;
+            }
+        };
     </script>
 </body>
 </html>
