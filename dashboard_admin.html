@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urus Setia | SISTEM BERSEPADU PROPKES (ORBIX-P)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <!-- PUSTAKA NOTIFIKASI EMEL: EmailJS SDK -->
@@ -123,6 +123,7 @@
                     <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center">
                         <h3 class="font-bold text-white text-sm">Pangkalan Pengguna Sistem</h3>
                         <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                            <!-- DROPDOWN TAPISAN PERANAN (INCLUDES URUS SETIA) -->
                             <select id="roleFilter" onchange="window.filterTable()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none cursor-pointer">
                                 <option value="none" selected>-- Pilih Peranan Pengguna --</option>
                                 <option value="peserta">Peserta (Permata Citra)</option>
@@ -155,11 +156,15 @@
 
             <div class="xl:col-span-1 space-y-6">
                 <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-rose-500/30 rounded-2xl shadow-2xl p-6">
-                    <h3 class="font-bold text-white text-sm mb-4 border-b border-slate-800 pb-3 flex items-center gap-2"><svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z"></path></svg>Daftar Pengguna Baru</h3>
+                    <h3 class="font-bold text-white text-sm mb-4 border-b border-slate-800 pb-3 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z"></path></svg>
+                        Daftar Pengguna Baru
+                    </h3>
                     
                     <form id="registrationForm" onsubmit="window.handleRegistration(event)" class="space-y-4">
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pilih Peranan</label>
+                            <!-- DROPDOWN PENDAFTARAN PERANAN (INCLUDES URUS SETIA) -->
                             <select id="regRole" required onchange="window.togglePesertaFields()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-rose-500 outline-none cursor-pointer">
                                 <option value="" disabled selected>-- Sila Pilih --</option>
                                 <option value="peserta">Peserta (Permata Citra)</option>
@@ -306,8 +311,6 @@
     <div id="printSection" class="print-container"></div>
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     <!-- FIREBASE MODULE & LOGICS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -440,9 +443,7 @@
            FUNGSI RESET / TERLUPA KATA LALUAN PENGGUNA
            ========================================== */
         window.resetUserPassword = async (username, email, name) => {
-            if(!confirm(`Adakah anda pasti mahu menjana semula kata laluan baharu untuk ${name} (${username}) dan menghantar emel notifikasi?`)) return;
-
-            // Jana kata laluan laluan sementara baharu secara rawak
+            // Jana kata laluan sementara baharu secara rawak
             const newTempPassword = "P" + Math.random().toString(36).substring(2, 7) + "!";
 
             try {
@@ -901,7 +902,7 @@
                                         <p class="text-xs font-bold text-white">${mRep.alamatPenuh || "Lokasi Sandaran"}</p>
                                         <p class="text-[10px] text-slate-400">Pemantau: ${mRep.pemantauName || "-"} | Tarikh: ${mRep.tarikh}</p>
                                     </div>
-                                    <button onclick="window.printAdminPemantauanReport('${mRep.id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 px-3 rounded-lg text-xs cursor-pointer">Cetak Instrumen</button>
+                                    <button onclick="window.printAdminPemantauanReport('${mRep.id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 px-3 rounded-lg text-xs cursor-pointer">Cetak Laporan Pemantauan</button>
                                 </div>
                             `;
                         });
