@@ -169,9 +169,15 @@
                     if(u.password === passwordInput) {
                         localStorage.setItem("propkes_user", usernameInput);
 
+                        // SINKRONISASI PENTING: Simpan profil Firebase terus ke LocalStorage komputer pengguna
+                        const localAccounts = JSON.parse(localStorage.getItem("propkes_accounts") || "{}");
+                        localAccounts[usernameInput] = u;
+                        localStorage.setItem("propkes_accounts", JSON.stringify(localAccounts));
+
                         if (u.role === "peserta") window.location.replace("dashboard_peserta.html");
                         else if (u.role === "pemandu") window.location.replace("dashboard_pemandu.html");
                         else if (u.role === "mentor" || u.role === "mentor-ppd") window.location.replace("dashboard_mentor.html");
+                        else if (u.role === "pemantau") window.location.replace("dashboard_pemantau.html");
                         else if (u.role === "admin") window.location.replace("dashboard_admin.html");
                         return;
                     }
