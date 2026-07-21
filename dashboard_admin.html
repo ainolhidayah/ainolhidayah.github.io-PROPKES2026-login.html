@@ -121,13 +121,14 @@
                     <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center">
                         <h3 class="font-bold text-white text-sm">Pangkalan Pengguna Sistem</h3>
                         <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                            <!-- Dropdown Filter Kunci Peranan (Tidak perlu tunjuk nama secara pukal) -->
+                            <!-- Dropdown Filter Kunci Peranan -->
                             <select id="roleFilter" onchange="window.filterTable()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none cursor-pointer">
                                 <option value="none" selected>-- Pilih Peranan Pengguna --</option>
                                 <option value="peserta">Peserta (Permata Citra)</option>
                                 <option value="pemandu">Pemandu Citra</option>
                                 <option value="mentor">Mentor 1 (Sekolah)</option>
                                 <option value="mentor-ppd">Mentor 2 (PPD)</option>
+                                <option value="pemantau">Pemantau</option>
                             </select>
                             <input type="text" id="searchInput" onkeyup="window.filterTable()" placeholder="Cari nama..." class="bg-slate-950 border border-slate-700 rounded-xl px-4 py-1.5 text-xs text-white focus:border-rose-500 outline-none sm:w-48">
                         </div>
@@ -164,6 +165,7 @@
                                 <option value="pemandu">Pemandu Citra</option>
                                 <option value="mentor">Mentor 1 (Sekolah)</option>
                                 <option value="mentor-ppd">Mentor 2 (PPD)</option>
+                                <option value="pemantau">Pemantau</option>
                             </select>
                         </div>
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Penuh</label><input type="text" id="regName" required placeholder="Cth: Ali bin Abu" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-rose-500 outline-none"></div>
@@ -497,6 +499,8 @@
                         roleBadge = `<span class="bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-amber-500/20">Mentor 1 (Sekolah)</span>`;
                     } else if(actualRole === 'mentor-ppd') {
                         roleBadge = `<span class="bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-indigo-500/20">Mentor 2 (PPD)</span>`;
+                    } else if(actualRole === 'pemantau') {
+                        roleBadge = `<span class="bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-purple-500/20">Pemantau</span>`;
                     }
 
                     tbody.innerHTML += `
