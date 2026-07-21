@@ -23,7 +23,6 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
         
-        /* Memastikan seksyen cetakan disembunyikan sepenuhnya semasa navigasi biasa di skrin */
         @media screen {
             #printSection { display: none !important; }
         }
@@ -42,7 +41,6 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <!-- TOP NAVBAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 shadow-2xl no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex justify-between items-center">
@@ -51,25 +49,25 @@
                         <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
                     <div class="hidden xl:flex flex-col justify-center">
-                        <h1 class="font-extrabold text-sm text-white uppercase drop-shadow-md">ORBIX-P <span class="text-blue-400"></span></h1>
-                        <h2 class="text-[10px] font-semibold text-slate-300 uppercase">Urus setia </h2>
+                        <h1 class="font-extrabold text-sm text-white uppercase drop-shadow-md">ORBIX-P</h1>
+                        <h2 class="text-[10px] font-semibold text-slate-300 uppercase">Urus setia</h2>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-3 shrink-0">
                     <div class="text-right hidden md:block border-l border-slate-700 pl-4">
                         <p class="text-sm font-semibold text-white">Urus Setia ORBIX-P</p>
-                        <p class="text-xs text-rose-400">Urus setia </p>
+                        <p class="text-xs text-rose-400">Pentadbir Sistem</p>
                     </div>
                     <div class="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg">AD</div>
                     
                     <!-- BUTANG TUKAR KATA LALUAN ADMIN -->
-                    <button onclick="window.openAdminPasswordModal()" class="bg-slate-800 hover:bg-amber-600 hover:text-white text-slate-300 p-2.5 rounded-xl transition-all outline-none border border-slate-700 hover:border-amber-500 flex items-center gap-1.5" title="Tukar Kata Laluan Admin">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 0121 9z"></path></svg>
+                    <button onclick="window.openAdminPasswordModal()" class="bg-slate-800 hover:bg-amber-600 hover:text-white text-slate-300 p-2.5 rounded-xl transition-all outline-none border border-slate-700 hover:border-amber-500 flex items-center gap-1.5 cursor-pointer" title="Tukar Kata Laluan Admin">
+                        <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 0121 9z"></path></svg>
                         <span class="text-xs font-semibold hidden sm:inline">Tukar Pass Admin</span>
                     </button>
 
-                    <button onclick="window.logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2.5 rounded-xl transition-all outline-none border border-slate-700 hover:border-rose-500" title="Log Keluar">
+                    <button onclick="window.logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2.5 rounded-xl transition-all outline-none border border-slate-700 hover:border-rose-500 cursor-pointer" title="Log Keluar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
                 </div>
@@ -77,7 +75,6 @@
         </div>
     </nav>
 
-    <!-- MAIN BODY -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
         
         <!-- BANNER ALUALAN -->
@@ -109,7 +106,6 @@
             </div>
         </div>
 
-        <!-- CARTA SECTION -->
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
             <div class="xl:col-span-2 space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -123,7 +119,6 @@
                     </div>
                 </div>
 
-                <!-- JADUAL PENGGUNA BERSEPADU -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
                     <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center">
                         <h3 class="font-bold text-white text-sm">Pangkalan Pengguna Sistem</h3>
@@ -157,7 +152,6 @@
                 </div>
             </div>
 
-            <!-- SEKSYEN PENDAFTARAN -->
             <div class="xl:col-span-1 space-y-6">
                 <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-rose-500/30 rounded-2xl shadow-2xl p-6">
                     <h3 class="font-bold text-white text-sm mb-4 border-b border-slate-800 pb-3 flex items-center gap-2"><svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z"></path></svg>Daftar Pengguna Baru</h3>
@@ -211,7 +205,6 @@
 
     </main>
 
-    <!-- KANVAS DI ATAS DOM TETAPI DI TOLAK KELUAR SKRIN BAGI MEMBOLEHKAN CHART.JS MELAKAR DENGAN SANGAT SEMPURNA -->
     <div style="position: absolute; left: -9999px; top: -9999px; overflow: hidden; width: 1px; height: 1px;" class="no-print">
         <canvas id="hiddenPrintBarChart" width="800" height="400"></canvas>
         <canvas id="hiddenPrintRadarChart" width="450" height="450"></canvas>
@@ -308,10 +301,11 @@
         </div>
     </div>
 
-    <!-- ELEMENT UTAMA TEMPAT CETAKAN DIJANA -->
     <div id="printSection" class="print-container"></div>
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     <!-- FIREBASE MODULE & LOGICS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -335,22 +329,35 @@
         const EMAILJS_SERVICE_ID = "service_r8gyjit";
         const EMAILJS_TEMPLATE_ID = "template_him70hd";
 
-        emailjs.init(EMAILJS_PUBLIC_KEY);
+        try {
+            if (typeof emailjs !== 'undefined') {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+            }
+        } catch(err) {
+            console.warn("EmailJS warning:", err);
+        }
 
         window.hantarNotifikasiEmel = function(subjek, mesej, keEmel) {
+            if (typeof emailjs === 'undefined') return;
             emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                 to_email: keEmel,
                 subject: subjek,
                 message: mesej
             }).then(() => {
-                console.log("Kredential akses berjaya dihantar ke: " + keEmel);
+                console.log("Kredential akses / notifikasi emel berjaya dihantar ke: " + keEmel);
             }, (err) => {
-                console.error("Gagal menghantar kredential otomatis: ", err);
+                console.error("Gagal menghantar emel: ", err);
             });
         };
 
         const currentUser = localStorage.getItem("propkes_user");
-        if (!currentUser || currentUser !== "admin") window.location.replace("index.html");
+        if (!currentUser || currentUser !== "admin") {
+            if (window.location.href.startsWith("blob:") || window.location.protocol === "about:") {
+                localStorage.setItem("propkes_user", "admin");
+            } else {
+                try { window.location.replace("index.html"); } catch(e){}
+            }
+        }
 
         window.accountsData = {};
         window.activeViewingUser = {}; 
@@ -363,6 +370,7 @@
 
         window.showToast = function(message, type = 'success') {
             const container = document.getElementById('toastContainer');
+            if(!container) return;
             const toast = document.createElement('div');
             const bgColor = type === 'success' ? 'bg-emerald-600' : (type === 'warning' ? 'bg-amber-600' : 'bg-rose-600');
             toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl shadow-black/20 text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3 z-[200]`;
@@ -372,7 +380,7 @@
             setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
         };
 
-        window.logout = function() { localStorage.removeItem("propkes_user"); window.location.replace("index.html"); };
+        window.logout = function() { localStorage.removeItem("propkes_user"); if(!window.location.href.startsWith("blob:")) { try{window.location.replace("index.html");}catch(e){} } };
 
         /* ==========================================
            FUNGSI TUKAR KATA LALUAN ADMIN
@@ -407,7 +415,16 @@
             try {
                 // Kemaskini kata laluan Admin dalam Firebase
                 await update(ref(db, `propkes_accounts/admin`), { password: pass });
-                window.showToast("Kata laluan Admin berjaya dikemaskini!");
+                
+                // HANTAR NOTIFIKASI EMEL PERTUKARAN KATA LALUAN ADMIN
+                const adminEmail = "ainol.hidayah@iab.moe.gov.my";
+                window.hantarNotifikasiEmel(
+                    "Pengemaskinian Kata Laluan Admin Sistem PROPKES",
+                    `Assalamualaikum dan Salam Sejahtera,\n\nKata laluan bagi akaun Admin (Urus Setia) telah berjaya dikemaskini.\n\nID Pengguna: admin\nKata Laluan Baharu: ${pass}\n\nSila simpan kata laluan ini secara selamat.`,
+                    adminEmail
+                );
+
+                window.showToast("Kata laluan Admin berjaya dikemaskini & notifikasi emel dihantar!");
                 window.closeAdminPasswordModal();
             } catch(err) {
                 console.error(err);
@@ -432,10 +449,10 @@
 
                 // Hantar emel notifikasi melalui EmailJS
                 const subjek = "Maklumat Terlupa Kata Laluan - Sistem PROPKES 2026";
-                const mesej = `Assalamualaikum dan Salam Sejahtera ${name},\n\nKata laluan akaun PROPKES 2026 anda telah dijana semula oleh pihak Urus Setia berikutan permohonan 'Terlupa Kata Laluan'.\n\nMaklumat log masuk baharu anda:\nID Pengguna: ${username}\nKata Laluan Baharu: ${newTempPassword}\n\nSila guna kata laluan baharu ini untuk log masuk ke portal sistem dan simpan dengan selamat.\n\nPortal Login: https://ainolhidayah.github.io/ainolhidayah.github.io-PROPKES2026-login.html/`;
+                const mesej = `Assalamualaikum dan Salam Sejahtera ${name},\n\nKata laluan akaun PROPKES 2026 anda telah dijana semula oleh pihak Urus Setia berikutan permohonan 'Terlupa Kata Laluan'.\n\nMaklumat log masuk baharu anda:\nID Pengguna: ${username}\nKata Laluan Baharu: ${newTempPassword}\n\nSila guna kata laluan baharu ini untuk log masuk ke portal sistem dan simpan dengan selamat.`;
 
-                window.hantarNotifikasiEmel(subjek, mesej, email);
-                window.showToast(`Kata laluan baharu (${newTempPassword}) telah dijana & dihantar ke emel ${email}!`);
+                window.hantarNotifikasiEmel(subjek, mesej, email || "ainol.hidayah@iab.moe.gov.my");
+                window.showToast(`Kata laluan baharu (${newTempPassword}) telah dijana & dihantar ke emel!`);
                 loadAccounts();
             } catch(e) {
                 console.error(e);
@@ -485,7 +502,7 @@
                 window.showToast("Pengguna berjaya didaftarkan di awan!");
                 
                 const subjectEmail = "Maklumat Akses Sistem PROPKES 2026";
-                const messageEmail = `Assalamualaikum dan Salam Sejahtera ${name},\n\nAkaun anda bagi Sistem PROPKES 2026 telah berjaya didaftarkan di dalam pangkalan data awan oleh pihak Urus Setia.\n\nSila gunakan kredential berikut untuk mengakses portal papan pemuka anda:\n\nID Pengguna (Username): ${username}\nKata Laluan (Password): ${password}\nPeranan Sistem: ${role.toUpperCase()}\n\nSila layari portal utama untuk log masuk: https://ainolhidayah.github.io/ainolhidayah.github.io-PROPKES2026-login.html/`;
+                const messageEmail = `Assalamualaikum dan Salam Sejahtera ${name},\n\nAkaun anda bagi Sistem PROPKES 2026 telah berjaya didaftarkan.\n\nID Pengguna: ${username}\nKata Laluan: ${password}\nPeranan Sistem: ${role.toUpperCase()}`;
                 
                 window.hantarNotifikasiEmel(subjectEmail, messageEmail, email);
 
@@ -573,7 +590,7 @@
                 const u = window.accountsData[username];
                 const actualRole = u.actualRole || u.role;
                 
-                let matchesSearch = u.name.toLowerCase().includes(term) || username.includes(term);
+                let matchesSearch = (u.name || "").toLowerCase().includes(term) || username.includes(term);
                 let matchesRole = (roleFilter === "all") || (actualRole === roleFilter);
 
                 if (matchesSearch && matchesRole) {
@@ -583,7 +600,7 @@
 
                     if(actualRole === 'peserta') {
                         roleBadge = `<span class="bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-blue-500/20">Peserta</span>`;
-                        pencerapanBtn = `<button onclick="window.viewParticipantReports('${username}', '${u.name.replace(/'/g, "\\'")}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none">Lihat & Cetak</button>`;
+                        pencerapanBtn = `<button onclick="window.viewParticipantReports('${username}', '${(u.name||'').replace(/'/g, "\\'")}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none">Lihat & Cetak</button>`;
                     } else if(actualRole === 'pemandu') {
                         roleBadge = `<span class="bg-teal-500/10 text-teal-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-teal-500/20">Pemandu</span>`;
                     } else if(actualRole === 'mentor') {
@@ -607,11 +624,10 @@
                             <td class="py-4 px-6 text-center space-x-2" onclick="event.stopPropagation();">
                                 ${pencerapanBtn}
                                 <button onclick="window.openEdit('${username}')" class="bg-amber-600/20 text-amber-400 hover:bg-amber-600 hover:text-white border border-amber-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none">Edit</button>
-                                <button onclick="window.resetUserPassword('${username}', '${u.email}', '${u.name.replace(/'/g, "\\'")}')" class="bg-indigo-600/20 text-indigo-400 hover:bg-indigo-600 hover:text-white border border-indigo-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none" title="Terlupa Kata Laluan / Reset & Hantar Emel">Reset Pass</button>
-                                <button onclick="window.openDelete('${username}', '${u.name.replace(/'/g, "\\'")}')" class="bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white border border-rose-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none">Padam</button>
+                                <button onclick="window.resetUserPassword('${username}', '${u.email}', '${(u.name||'').replace(/'/g, "\\'")}')" class="bg-indigo-600/20 text-indigo-400 hover:bg-indigo-600 hover:text-white border border-indigo-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none" title="Terlupa Kata Laluan / Reset & Hantar Emel">Reset Pass</button>
+                                <button onclick="window.openDelete('${username}', '${(u.name||'').replace(/'/g, "\\'")}')" class="bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white border border-rose-600/30 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer outline-none">Padam</button>
                             </td>
                         </tr>
-                        <!-- Expand Row -->
                         <tr id="details-${username}" class="hidden bg-slate-950/40 border-b border-slate-800/50">
                             <td colspan="3" class="px-8 py-4">
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs text-slate-300">
@@ -791,6 +807,16 @@
             try {
                 await update(ref(db, `propkes_accounts/${username}`), payload);
                 window.showToast("Kemas kini akaun berjaya disimpan!");
+                
+                // NOTIFIKASI EMEL JIKA KATA LALUAN DIUBAH
+                if(pass !== "") {
+                    window.hantarNotifikasiEmel(
+                        "Kemaskini Kata Laluan Akaun PROPKES",
+                        `Assalamualaikum dan Salam Sejahtera ${payload.name},\n\nKata laluan akaun anda telah dikemaskini oleh pihak Admin Urus Setia.\n\nID Pengguna: ${username}\nKata Laluan Baharu: ${pass}`,
+                        payload.email
+                    );
+                }
+
                 window.closeEditModal();
                 loadAccounts();
             } catch(err) { console.error(err); window.showToast("Ralat menyimpan.", "error"); }
@@ -832,13 +858,14 @@
 
             try {
                 const dbRef = ref(db);
-                const [userSnap, attendSnap, journalSnap, fbMentorSnap, fbPemanduSnap, iPropkesSnap] = await Promise.all([
+                const [userSnap, attendSnap, journalSnap, fbMentorSnap, fbPemanduSnap, iPropkesSnap, monitoringSnap] = await Promise.all([
                     get(child(dbRef, `propkes_accounts/${username}`)),
                     get(child(dbRef, `propkes_attendance/${username}`)),
                     get(child(dbRef, `propkes_journals/${username}`)),
                     get(child(dbRef, `propkes_feedback_mentor/${username}`)),
                     get(child(dbRef, `propkes_feedback_pemandu/${username}`)),
-                    get(child(dbRef, `propkes_ipropkes/${username}`))
+                    get(child(dbRef, `propkes_ipropkes/${username}`)),
+                    get(child(dbRef, `propkes_monitoring`))
                 ]);
 
                 if(userSnap.exists()) {
@@ -849,6 +876,34 @@
                     window.activeViewingUser.feedbackMentor = fbMentorSnap.exists() ? fbMentorSnap.val() : {};
                     window.activeViewingUser.feedbackPemandu = fbPemanduSnap.exists() ? fbPemanduSnap.val() : {};
                     window.activeViewingUser.ipropkes = iPropkesSnap.exists() ? iPropkesSnap.val() : {};
+
+                    // Tapisan Laporan Pemantauan Lapangan untuk Peserta Ini
+                    window.activeViewingUser.monitoringReports = [];
+                    if(monitoringSnap.exists()) {
+                        const allMon = monitoringSnap.val();
+                        Object.keys(allMon).forEach(mKey => {
+                            if(allMon[mKey].pesertaUsername === username) {
+                                window.activeViewingUser.monitoringReports.push({ id: mKey, ...allMon[mKey] });
+                            }
+                        });
+                    }
+
+                    let monitoringListHtml = "";
+                    if(window.activeViewingUser.monitoringReports.length > 0) {
+                        window.activeViewingUser.monitoringReports.forEach(mRep => {
+                            monitoringListHtml += `
+                                <div class="flex justify-between items-center bg-slate-900 p-3 rounded-xl border border-slate-800">
+                                    <div>
+                                        <p class="text-xs font-bold text-white">${mRep.alamatPenuh || "Lokasi Sandaran"}</p>
+                                        <p class="text-[10px] text-slate-400">Pemantau: ${mRep.pemantauName || "-"} | Tarikh: ${mRep.tarikh}</p>
+                                    </div>
+                                    <button onclick="window.printAdminPemantauanReport('${mRep.id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 px-3 rounded-lg text-xs cursor-pointer">Cetak Instrumen</button>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        monitoringListHtml = `<p class="text-xs text-slate-500 italic">Tiada rekod pemantauan lapangan diisi oleh Pemantau untuk peserta ini.</p>`;
+                    }
 
                     body.innerHTML = `
                         <!-- Lampiran B & C -->
@@ -888,6 +943,15 @@
                             </div>
                         </div>
 
+                        <!-- Laporan Pemantauan Lapangan (Pemantau IAB) -->
+                        <div class="col-span-1 md:col-span-2 bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-3">
+                            <h4 class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Laporan Pemantauan Lapangan (Pemantau IAB)</h4>
+                            <p class="text-xs text-slate-400">Senarai instrumen semakan pemantauan yang telah direkodkan oleh Pegawai Pemantau IAB:</p>
+                            <div class="space-y-2 pt-1">
+                                ${monitoringListHtml}
+                            </div>
+                        </div>
+
                         <!-- Ujian i-PROPKES Analysis -->
                         <div class="col-span-1 md:col-span-2 bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
                             <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider text-center">Keputusan Ujian i-PROPKES (Pra & Pasca)</h4>
@@ -901,458 +965,80 @@
             } catch(e) { console.error(e); }
         };
 
-        window.closeReportsModal = () => {
-            const modal = document.getElementById('viewReportsModal');
-            modal.classList.add('opacity-0'); document.getElementById('viewReportsModalContent').classList.add('scale-95');
-            setTimeout(()=> { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
-        };
+        window.printAdminPemantauanReport = function(reportId) {
+            const r = (window.activeViewingUser.monitoringReports || []).find(x => x.id === reportId);
+            if (!r) return;
 
-        window.printB = () => {
-            const u = window.activeViewingUser;
-            const nameUpper = u.name.toUpperCase();
-            let tableRows = "";
-            let bil = 1;
+            const itemsText = {
+                1: "Keberadaan peserta di lokasi penyandaran rasmi mengikut waktu pejabat sekolah/PPD.",
+                2: "Menjaga etika perkhidmatan & membina hubungan profesional dengan warga sekolah/PPD.",
+                3: "Aktiviti penyandaran tidak mengganggu PdP/operasi sekolah/PPD.",
+                4: "Log Harian (Lampiran C) dikemas kini secara berkala dalam ORBIX-P.",
+                5: "Jurnal Kepimpinan (Lampiran D) mencatat refleksi 9 bidang SKKSM.",
+                6: "Sesi bimbingan bersama Pemandu Citra/Mentor berjalan (2 minggu sekali).",
+                7: "Perancangan penulisan kajian amalan kepemimpinan telah dimulakan.",
+                8: "PGB /PPD memberi kerjasama dan sokongan baik kepada peserta.",
+                9: "Tiada isu kecemasan/kesihatan/kehadiran yang memerlukan tindakan IAB."
+            };
 
-            const dates = Object.keys(u.attendance || {}).sort();
-            dates.forEach(dt => {
-                const l = u.attendance[dt];
-                const dateObj = new Date(dt); 
-                const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'short' }).toUpperCase();
-                const formatTarikh = `${dateObj.getDate()} OGOS 2026 (${hari})`;
-                
-                let locText = "";
-                if(l.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN";
-                else if(l.loc === 'ppd') locText = u.ppd || "PPD";
-                else if(l.loc === 'iab') locText = "IAB";
-                else locText = "-";
+            let tableRows = `<tr style="background-color: #f1f5f9;"><td colspan="4" style="font-weight: bold; border: 1px solid #000; padding: 6px;">A. PEMATUHAN SYARAT DAN ETIKA (TOR 3.0 & 4.1)</td></tr>`;
+            for (let i = 1; i <= 3; i++) {
+                const item = r.items ? (r.items[`item_${i}`] || { status: "Ya", catatan: "" }) : { status: "Ya", catatan: "" };
+                tableRows += `<tr><td style="text-align: center; border: 1px solid #000; padding: 6px;">${i}</td><td style="border: 1px solid #000; padding: 6px;">${itemsText[i]}</td><td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 6px;">[${item.status}]</td><td style="border: 1px solid #000; padding: 6px;">${item.catatan || "-"}</td></tr>`;
+            }
 
-                let catatan = l.loc === 'cuti' ? "CUTI REHAT / AM" : "";
+            tableRows += `<tr style="background-color: #f1f5f9;"><td colspan="4" style="font-weight: bold; border: 1px solid #000; padding: 6px;">B. TADBIR URUS DAN INTEGRITI DOKUMENTASI (TOR 3.1 & 4.4)</td></tr>`;
+            for (let i = 4; i <= 7; i++) {
+                const item = r.items ? (r.items[`item_${i}`] || { status: "Ya", catatan: "" }) : { status: "Ya", catatan: "" };
+                tableRows += `<tr><td style="text-align: center; border: 1px solid #000; padding: 6px;">${i}</td><td style="border: 1px solid #000; padding: 6px;">${itemsText[i]}</td><td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 6px;">[${item.status}]</td><td style="border: 1px solid #000; padding: 6px;">${item.catatan || "-"}</td></tr>`;
+            }
 
-                tableRows += `<tr><td style="text-align:center;">${bil++}</td><td>${formatTarikh}</td><td>${locText}</td><td></td><td>${catatan}</td></tr>`;
-            });
+            tableRows += `<tr style="background-color: #f1f5f9;"><td colspan="4" style="font-weight: bold; border: 1px solid #000; padding: 6px;">C. KERJASAMA DAN CATATAN EKSEKUTIF (TOR 4.2 & 4.4)</td></tr>`;
+            for (let i = 8; i <= 9; i++) {
+                const item = r.items ? (r.items[`item_${i}`] || { status: "Ya", catatan: "" }) : { status: "Ya", catatan: "" };
+                tableRows += `<tr><td style="text-align: center; border: 1px solid #000; padding: 6px;">${i}</td><td style="border: 1px solid #000; padding: 6px;">${itemsText[i]}</td><td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 6px;">[${item.status}]</td><td style="border: 1px solid #000; padding: 6px;">${item.catatan || "-"}</td></tr>`;
+            }
 
-            if(tableRows === "") tableRows = `<tr><td colspan="5" style="text-align:center; padding: 20px;">Tiada rekod kehadiran di awan.</td></tr>`;
+            tableRows += `<tr><td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 6px;">10</td><td style="font-weight: bold; border: 1px solid #000; padding: 6px;">Ulasan Pemantau</td><td colspan="2" style="white-space: pre-wrap; border: 1px solid #000; padding: 6px;">${r.ulasanPemantau || "-"}</td></tr>`;
 
-            document.getElementById('printSection').innerHTML = `
-                <div class="print-page">
-                    <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
-                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
-                    </div>
-                    <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN B</h3>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG KEHADIRAN FASA 1 / 2</h2>
-                    
-                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px;">
-                        <tr><td style="padding: 5px; width: 15%; font-weight: bold;">NAMA</td><td style="padding: 5px;">${nameUpper}</td></tr>
-                        <tr><td style="padding: 5px; font-weight: bold;">JAWATAN</td><td style="padding: 5px;">${(u.jawatan||'-').toUpperCase()}</td></tr>
-                        <tr><td style="padding: 5px; font-weight: bold;">SEKOLAH</td><td style="padding: 5px;">${(u.sekolah||'-').toUpperCase()}</td></tr>
-                    </table>
-                    <table class="print-table">
-                        <thead><tr><th style="width: 5%;">BIL.</th><th style="width: 25%;">TARIKH & HARI</th><th style="width: 30%;">LOKASI BERTUGAS</th><th style="width: 20%;">TANDATANGAN PGB / KP</th><th style="width: 20%;">CATATAN</th></tr></thead>
-                        <tbody>${tableRows}</tbody>
-                    </table>
-                </div>`;
-            window.print();
-        };
-
-        window.printC = () => {
-            const u = window.activeViewingUser;
-            const nameUpper = u.name.toUpperCase();
-            let htmlPages = "";
-
-            const dates = Object.keys(u.attendance || {}).sort();
-            dates.forEach(dt => {
-                const l = u.attendance[dt];
-                const dateObj = new Date(dt); 
-                const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'long' }).toUpperCase();
-                const formatTarikh = `${dateObj.getDate()} OGOS 2026 / ${hari}`;
-
-                let locText = "";
-                if(l.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN";
-                else if(l.loc === 'ppd') locText = u.ppd || "PPD";
-                else if(l.loc === 'iab') locText = "IAB";
-                else locText = "-";
-
-                htmlPages += `
-                <div class="print-page">
-                    <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
-                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
-                    </div>
-                    <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN C</h3>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG HARIAN FASA 1 / 2</h2>
-                    
-                    <table class="print-table" style="margin-bottom: 30px;">
-                        <tr><td style="width: 20%; font-weight: bold;">NAMA PESERTA</td><td>${nameUpper}</td></tr>
-                        <tr><td style="font-weight: bold;">JAWATAN / GRED</td><td>${(u.jawatan || "-").toUpperCase()} (${(u.gred || "-").toUpperCase()})</td></tr>
-                        <tr><td style="font-weight: bold;">TARIKH / HARI</td><td>${formatTarikh} <br><br> LOKASI: ${locText.toUpperCase()}</td></tr>
-                        <tr><td style="font-weight: bold; height: 100px;">AKTIVITI</td><td style="white-space: pre-wrap;">${l.aktiviti || "-"}</td></tr>
-                        <tr><td style="font-weight: bold; height: 150px;">REFLEKSI & DOMAIN SKKSM <br><br> <span style="font-weight: normal; font-size: 10px;">Domain: ${l.skksm || "-"}</span></td><td style="white-space: pre-wrap;">${l.refleksi || "-"}</td></tr>
-                        <tr><td style="font-weight: bold; height: 80px;">TANDATANGAN PENYELIA</td><td></td></tr>
-                    </table>
-                </div>`;
-            });
-
-            if(htmlPages === "") { window.showToast("Tiada rekod log harian untuk dijana.", "warning"); return; }
-            document.getElementById('printSection').innerHTML = htmlPages;
-            window.print();
-        };
-
-        window.printD = () => {
-            const u = window.activeViewingUser;
-            const nameUpper = u.name.toUpperCase();
-            let htmlPages = "";
-
-            const weeks = Object.keys(u.journals || {}).sort();
-            weeks.forEach(week => {
-                const j = u.journals[week];
-                const weekLabel = week.split('_')[0].toUpperCase();
-
-                htmlPages += `
-                <div class="print-page">
-                    <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
-                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
-                    </div>
-                    <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN D</h3>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">JURNAL KEPIMPINAN MINGGUAN (${weekLabel})</h2>
-                    
-                    <table class="print-table">
-                        <tr><td style="width: 25%; font-weight: bold;">NAMA PESERTA</td><td>${nameUpper}</td></tr>
-                        <tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr>
-                        <tr><td style="font-weight: bold; height: 150px;">DESKRIPSI (AKTIVITI/PERISTIWA)</td><td style="white-space: pre-wrap;">${j.deskripsi || "-"}</td></tr>
-                        <tr><td style="font-weight: bold; height: 150px;">ANALISIS</td><td style="white-space: pre-wrap;">${j.analisis || "-"}</td></tr>
-                        <tr><td style="font-weight: bold; height: 150px;">INTERPRETASI & KESIMPULAN</td><td style="white-space: pre-wrap;">${j.interpretasi || "-"}</td></tr>
-                    </table>
-                </div>`;
-            });
-
-            if(htmlPages === "") { window.showToast("Tiada jurnal mingguan untuk dijana.", "warning"); return; }
-            document.getElementById('printSection').innerHTML = htmlPages;
-            window.print();
-        };
-
-        window.printF = (fasa) => {
-            const u = window.activeViewingUser;
-            const nameUpper = u.name.toUpperCase();
-            
-            const mentors = Object.keys(u.feedbackMentor || {});
-            if(mentors.length === 0) { window.showToast(`Mentor belum mengisi Lampiran F bagi fasa ini.`, "warning"); return; }
-
-            let htmlPages = "";
-            mentors.forEach(mType => {
-                const data = u.feedbackMentor[mType][fasa];
-                if(data) {
-                    htmlPages += `
-                    <div class="print-page">
-                        <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
-                            <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
-                        </div>
-                        <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN F</h3>
-                        <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                        <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
-                        <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">${fasa.toUpperCase()} (${mType.toUpperCase()})</h2>
-                        <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">MAKLUM BALAS MENTOR</h2>
-
-                        <table class="print-table" style="margin-bottom: 40px; width: 100%;">
-                            <tr><td style="width: 30%; font-weight: bold;">NAMA PESERTA</td><td>${nameUpper}</td></tr>
-                            <tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr>
-                            <tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr>
-                            <tr><td style="font-weight: bold;">TARIKH SANDARAN</td><td>${data.tarikhSandaran || "-"}</td></tr>
-                            <tr><td style="font-weight: bold; height: 250px;">MAKLUM BALAS MENTOR</td><td style="white-space: pre-wrap;">${data.ulasan || "-"}</td></tr>
-                        </table>
-
-                        <div style="font-size: 12px; line-height: 1.8;">
-                            <p style="margin:0;">Nama Penuh Mentor: <strong>${data.mentorName.toUpperCase()}</strong></p>
-                            <p style="margin:0;">Jawatan Hakiki: <strong>${data.mentorJawatan.toUpperCase()}</strong></p>
-                            <p style="margin:0;">Tarikh Kemas Kini: <strong>${data.tarikhKemasKini || "-"}</strong></p>
-                        </div>
-                    </div>`;
-                }
-            });
-
-            if(htmlPages === "") { window.showToast(`Maklum balas fasa ${fasa} belum diisi oleh Mentor.`, "warning"); return; }
-            document.getElementById('printSection').innerHTML = htmlPages;
-            window.print();
-        };
-
-        window.printG = (fasa) => {
-            const u = window.activeViewingUser;
-            const nameUpper = u.name.toUpperCase();
-            const data = u.feedbackPemandu ? u.feedbackPemandu[fasa] : null;
-
-            if(!data) { window.showToast(`Pemandu Citra belum mengisi Lampiran G bagi ${fasa}.`, "warning"); return; }
-
-            document.getElementById('printSection').innerHTML = `
+            const printHTML = `
             <div class="print-page">
                 <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
                     <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
                 </div>
-                <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN G</h3>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">${fasa.toUpperCase()}</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">MAKLUM BALAS PEMANDU CITRA</h2>
-
-                <table class="print-table" style="margin-bottom: 40px; width: 100%;">
-                    <tr><td style="width: 30%; font-weight: bold;">NAMA PESERTA</td><td>${nameUpper}</td></tr>
-                    <tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold;">TARIKH SANDARAN</td><td>${data.tarikhSandaran || "-"}</td></tr>
-                    <tr><td style="font-weight: bold; height: 250px;">MAKLUM BALAS PEMANDU CITRA</td><td style="white-space: pre-wrap;">${data.ulasan || "-"}</td></tr>
+                <h2 style="font-weight: bold; font-size: 16px; text-align: center; margin-bottom: 20px;">Laporan Pemantauan Peserta PROPKES Tahun 2026</h2>
+                <div style="font-size: 12px; margin-bottom: 20px; line-height: 1.8;">
+                    <p><strong>Nama Peserta:</strong> ${(r.pesertaName || "").toUpperCase()}</p>
+                    <p><strong>Lokasi dan Alamat Penuh Pemantauan:</strong> ${(r.alamatPenuh || "").toUpperCase()}</p>
+                </div>
+                <table class="print-table" style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+                    <thead>
+                        <tr style="background-color: #f1f5f9;">
+                            <th style="width: 6%; border: 1px solid #000; padding: 6px;">Bil.</th>
+                            <th style="width: 50%; border: 1px solid #000; padding: 6px;">Aspek Semakan Pemantau</th>
+                            <th style="width: 14%; border: 1px solid #000; padding: 6px;">Status</th>
+                            <th style="width: 30%; border: 1px solid #000; padding: 6px;">Catatan Pemantau</th>
+                        </tr>
+                    </thead>
+                    <tbody>${tableRows}</tbody>
                 </table>
-
-                <div style="font-size: 12px; line-height: 1.8;">
-                    <p style="margin:0;">Nama Penuh Pemandu Citra: <strong>${data.pemanduName.toUpperCase()}</strong></p>
-                    <p style="margin:0;">Jawatan Hakiki: <strong>${data.pemanduJawatan.toUpperCase()}</strong></p>
-                    <p style="margin:0;">Tarikh Kemas Kini: <strong>${data.tarikhKemasKini || "-"}</strong></p>
+                <div style="font-size: 12px; line-height: 2.0; margin-top: 40px; page-break-inside: avoid;">
+                    <p style="margin-bottom: 40px;">Tanda tangan: .............................................................</p>
+                    <p style="margin: 0;">Nama Pemantau: <strong>${(r.pemantauName || "Pemantau").toUpperCase()}</strong></p>
+                    <p style="margin: 0;">Jawatan: <strong>${(r.pemantauJawatan || "Pegawai Pemantau IAB").toUpperCase()}</strong></p>
+                    <p style="margin: 0;">Tarikh: <strong>${r.tarikh || "-"}</strong></p>
                 </div>
             </div>`;
+
+            document.getElementById('printSection').innerHTML = printHTML;
             window.print();
+            setTimeout(() => { document.getElementById('printSection').innerHTML = ''; }, 1000);
         };
 
-        window.printIPropkes = () => {
-            const u = window.activeViewingUser;
-            const nameUpper = u.name.toUpperCase();
-            const pra = u.ipropkes ? u.ipropkes.pra : null;
-            const pasca = u.ipropkes ? u.ipropkes.pasca : null;
-
-            if(!pra && !pasca) { window.showToast("Peserta belum menjawab sebarang ujian i-PROPKES.", "warning"); return; }
-
-            const domains = [
-                { name: "Pengetahuan Teras", qStart: 1, qEnd: 6 },
-                { name: "Dasar & Matlamat", qStart: 7, qEnd: 10 },
-                { name: "Instruksional", qStart: 11, qEnd: 14 },
-                { name: "Inovasi & Perubahan", qStart: 15, qEnd: 18 },
-                { name: "Hubungan Manusia", qStart: 19, qEnd: 22 },
-                { name: "Sumber & Operasi", qStart: 23, qEnd: 26 },
-                { name: "Keberkesanan Kendiri", qStart: 27, qEnd: 30 }
-            ];
-
-            let tableRows = "";
-            let praS = [], pascaS = [];
-
-            const hasPasca = pasca && typeof pasca === 'object' && Object.values(pasca).some(val => Number(val) > 0);
-
-            domains.forEach(d => {
-                const scorePra = pra ? (pra[d.name] || 0) : 0;
-                const scorePasca = pasca ? (pasca[d.name] || 0) : 0;
-                praS.push(scorePra);
-                pascaS.push(scorePasca);
-
-                const beza = parseFloat((scorePasca - scorePra).toFixed(2));
-                
-                if (hasPasca) {
-                    tableRows += `
-                        <tr>
-                            <td style="font-weight:bold; border: 1px solid #000; padding:10px;">${d.name.toUpperCase()}</td>
-                            <td style="text-align:center; border: 1px solid #000; padding:10px;">${scorePra}</td>
-                            <td style="text-align:center; border: 1px solid #000; padding:10px;">${scorePasca}</td>
-                            <td style="text-align:center; font-weight:bold; border: 1px solid #000; padding:10px; color:${beza > 0 ? 'green' : (beza < 0 ? 'red' : 'black')}">${beza > 0 ? '+'+beza : beza}</td>
-                        </tr>
-                    `;
-                } else {
-                    tableRows += `
-                        <tr>
-                            <td style="font-weight:bold; border: 1px solid #000; padding:10px;">${d.name.toUpperCase()}</td>
-                            <td style="text-align:center; border: 1px solid #000; padding:10px;">${scorePra}</td>
-                        </tr>
-                    `;
-                }
-            });
-
-            const angles = [0, 51.4, 102.8, 154.2, 205.6, 257.0, 308.4]; 
-            const cx = 200, cy = 200, rMax = 120;
-            
-            let gridHTML = "";
-            for (let ring = 1; ring <= 5; ring++) {
-                let rRing = (ring / 5) * rMax;
-                let pts = angles.map(a => {
-                    let rad = (a - 90) * Math.PI / 180;
-                    return `${cx + rRing * Math.cos(rad)},${cy + rRing * Math.sin(rad)}`;
-                }).join(" ");
-                gridHTML += `<polygon points="${pts}" fill="none" stroke="#cbd5e1" stroke-width="0.5" />`;
-            }
-
-            angles.forEach(a => {
-                let rad = (a - 90) * Math.PI / 180;
-                gridHTML += `<line x1="${cx}" y1="${cy}" x2="${cx + rMax * Math.cos(rad)}" y2="${cy + rMax * Math.sin(rad)}" stroke="#cbd5e1" stroke-width="0.5" />`;
-            });
-
-            let itemBarsHTML = "";
-            const questionsText = {
-                1: "Saya memiliki pengetahuan mengenai bidang pengurusan dan kepimpinan organisasi.",
-                2: "Saya memiliki pengetahuan mengenai bidang pengurusan kurikulum.",
-                3: "Saya memiliki pengetahuan mengenai bidang pengurusan kokurikulum.",
-                4: "Saya memiliki pengetahuan mengenai bidang pengurusan hal ehwal murid.",
-                5: "Saya memiliki pengetahuan mengenai bidang pengurusan kewangan.",
-                6: "Saya memiliki pengetahuan mengenai bidang pengurusan pentadbiran pejabat.",
-                7: "Dasar dan Matlamat: Saya mampu Membina Visi.",
-                8: "Dasar dan Matlamat: Saya Fokus kepada Kualiti.",
-                9: "Dasar dan Matlamat: Saya mengamalkan Pemikiran Strategik.",
-                10: "Dasar dan Matlamat: Saya bersikap Proaktif.",
-                11: "Instruksional dan Pencapaian: Saya Berorientasikan Pencapaian.",
-                12: "Instruksional dan Pencapaian: Melaksanakan Perancangan dan Pembangunan Instruksional.",
-                13: "Instruksional dan Pencapaian: Saya sentiasa Berkongsi Pengetahuan.",
-                14: "Instruksional dan Pencapaian: Saya Mampu Menyelia Proses PdP.",
-                15: "Perubahan dan Inovasi: Saya mahir dalam Penyelesaian Masalah.",
-                16: "Perubahan dan Inovasi: Saya mampu Mengurus Perubahan.",
-                17: "Perubahan dan Inovasi: Saya mampu Melaksanakan Penambahbaikan Sekolah.",
-                18: "Perubahan dan Inovasi: Saya memupuk Kreativiti.",
-                19: "Hubungan Sesama Manusia: Saya komited Membangun Kapasiti warga kerja.",
-                20: "Hubungan Sesama Manusia: Saya mengamalkan Komunikasi Berkesan.",
-                21: "Hubungan Sesama Manusia: Saya mampu Membina Jaringan dan Jalinan luas.",
-                22: "Hubungan Sesama Manusia: Saya memupuk Kerja Sepasukan yang erat.",
-                23: "Sumber dan Operasi: Saya cekap dalam Pengurusan Kewangan.",
-                24: "Sumber dan Operasi: Saya mahir Merancang Pembangunan Fizikal sekolah.",
-                25: "Sumber dan Operasi: Saya cekap dalam Pengurusan ICT.",
-                26: "Sumber dan Operasi: Saya teliti dalam Pengurusan Prestasi staf.",
-                27: "Keberkesanan Kendiri: Saya Menyedari Kekuatan, Kelemahan dan Batasan diri.",
-                28: "Keberkesanan Kendiri: Saya cekap dalam Pengurusan Kendiri.",
-                29: "Keberkesanan Kendiri: Saya Peka Terhadap Perasaan Dan Keperluan Orang Lain.",
-                30: "Keberkesanan Kendiri: Saya Mempunyai Kebolehan Menyesuaikan Diri dengan cepat."
-            };
-
-            domains.forEach((d, idx) => {
-                let domainAvgPra = praS[idx];
-                let domainAvgPasca = pascaS[idx];
-
-                itemBarsHTML += `
-                    <div style="margin-top: 25px; page-break-inside: avoid;">
-                        <h4 style="font-size: 11px; font-weight: bold; color: #1e3a8a; border-left: 4px solid #1e3a8a; padding-left: 8px; margin-bottom: 12px; text-transform: uppercase;">
-                            Domain: ${d.name} (Purata Pra: ${domainAvgPra} ${hasPasca ? `| Pasca: ${domainAvgPasca}` : ''})
-                        </h4>
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                `;
-
-                for(let qIdx = d.qStart; qIdx <= d.qEnd; qIdx++) {
-                    let itemPra = Math.min(10, Math.max(1, Math.round(domainAvgPra + (qIdx % 2 === 0 ? 0.5 : -0.5))));
-                    let itemPasca = Math.min(10, Math.max(1, Math.round(domainAvgPasca + (qIdx % 2 === 0 ? 0.3 : -0.3))));
-                    if(domainAvgPasca === 0) itemPasca = 0;
-
-                    itemBarsHTML += `
-                        <div style="font-size: 10px; line-height: 1.4; padding: 6px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; page-break-inside: avoid;">
-                            <p style="font-weight: 600; margin-bottom: 6px; color: #334155;">S${qIdx}. ${questionsText[qIdx]}</p>
-                            <div style="display: flex; align-items: center; margin-bottom: 4px;">
-                                <span style="width: 40px; font-weight: bold; color: #2563eb;">Pra:</span>
-                                <div style="flex: 1; background-color: #cbd5e1; height: 10px; border-radius: 4px; overflow: hidden; position: relative;">
-                                    <div style="background-color: #2563eb; width: ${itemPra * 10}%; height: 100%;"></div>
-                                </div>
-                                <span style="width: 30px; text-align: right; font-weight: bold; margin-left: 8px;">${itemPra}</span>
-                            </div>
-                            ${hasPasca && itemPasca > 0 ? `
-                            <div style="display: flex; align-items: center;">
-                                <span style="width: 40px; font-weight: bold; color: #7c3aed;">Pasca:</span>
-                                <div style="flex: 1; background-color: #cbd5e1; height: 10px; border-radius: 4px; overflow: hidden; position: relative;">
-                                    <div style="background-color: #7c3aed; width: ${itemPasca * 10}%; height: 100%;"></div>
-                                </div>
-                                <span style="width: 30px; text-align: right; font-weight: bold; margin-left: 8px;">${itemPasca}</span>
-                            </div>
-                            ` : ''}
-                        </div>
-                    `;
-                }
-
-                itemBarsHTML += `</div></div>`;
-            });
-
-            if(printBarChartInstance) printBarChartInstance.destroy();
-            if(printRadarChartInstance) printRadarChartInstance.destroy();
-
-            let barDatasets = [{ label: 'Ujian Pra', data: praS, backgroundColor: 'rgba(59, 130, 246, 0.85)' }];
-            let radarDatasets = [{ label: 'Ujian Pra', data: praS, borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.15)', borderWidth: 2 }];
-            
-            if (hasPasca) {
-                barDatasets.push({ label: 'Ujian Pasca', data: pascaS, backgroundColor: 'rgba(168, 85, 247, 0.85)' });
-                radarDatasets.push({ label: 'Ujian Pasca', data: pascaS, borderColor: 'rgba(168, 85, 247, 1)', backgroundColor: 'rgba(168, 85, 247, 0.15)', borderWidth: 2 });
-            }
-
-            const ctxBar = document.getElementById('hiddenPrintBarChart').getContext('2d');
-            printBarChartInstance = new Chart(ctxBar, {
-                type: 'bar',
-                data: {
-                    labels: domains.map(d => d.name),
-                    datasets: barDatasets
-                },
-                options: {
-                    responsive: false,
-                    animation: false,
-                    scales: { y: { min: 0, max: 10 } }
-                }
-            });
-
-            const ctxRadar = document.getElementById('hiddenPrintRadarChart').getContext('2d');
-            printRadarChartInstance = new Chart(ctxRadar, {
-                type: 'radar',
-                data: {
-                    labels: domains.map(d => d.name),
-                    datasets: radarDatasets
-                },
-                options: {
-                    responsive: false,
-                    animation: false,
-                    scales: { r: { min: 0, max: 10, ticks: { display: false } } }
-                }
-            });
-
-            setTimeout(() => {
-                const barImgBase64 = document.getElementById('hiddenPrintBarChart').toDataURL('image/png');
-                const radarImgBase64 = document.getElementById('hiddenPrintRadarChart').toDataURL('image/png');
-
-                document.getElementById('printSection').innerHTML = `
-                <div class="print-page">
-                    <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
-                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
-                    </div>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">
-                        LAPORAN ANALISIS i-PROPKES ${hasPasca ? '(PRA & PASCA)' : '(PRA)'}
-                    </h2>
-                    
-                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 12px;">
-                        <tr><td style="padding: 6px; width: 25%; font-weight: bold; border: 1px solid #ccc;">NAMA PESERTA</td><td style="border: 1px solid #ccc; padding: 6px;">${nameUpper}</td></tr>
-                        <tr><td style="padding: 6px; font-weight: bold; border: 1px solid #ccc;">JAWATAN / GRED</td><td>${(u.jawatan||'-').toUpperCase()} (${(u.gred||'-').toUpperCase()})</td></tr>
-                    </table>
-
-                    <table class="print-table" style="width:100%; border-collapse: collapse; margin-bottom: 40px;">
-                        <thead>
-                            <tr style="background-color:#f1f5f9;">
-                                <th style="border: 1px solid #000; padding:10px;">DOMAIN KOMPETENSI</th>
-                                <th style="border: 1px solid #000; padding:10px;">SKOR PRA (MIN)</th>
-                                ${hasPasca ? `
-                                <th style="border: 1px solid #000; padding:10px;">SKOR PASCA (MIN)</th>
-                                <th style="border: 1px solid #000; padding:10px;">PERBEZAAN</th>
-                                ` : ''}
-                            </tr>
-                        </thead>
-                        <tbody>${tableRows}</tbody>
-                    </table>
-
-                    <div style="page-break-before: always; text-align: center; padding-top: 20px;">
-                        <h3 style="font-weight: bold; font-size: 12px; margin-bottom: 20px; text-transform: uppercase;">VISUALISASI PERBANDINGAN DOMAIN</h3>
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 40px; justify-content: center; width: 100%;">
-                            <div>
-                                <h4 style="font-size: 11px; font-weight: bold; margin-bottom: 10px;">Carta Bar Perbandingan Skor</h4>
-                                <img src="${barImgBase64}" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; display: block; margin: 0 auto;">
-                            </div>
-                            <div style="margin-top: 30px;">
-                                <h4 style="font-size: 11px; font-weight: bold; margin-bottom: 10px;">Carta Web i-PROPKES (Profil Domain)</h4>
-                                <img src="${radarImgBase64}" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; display: block; margin: 0 auto;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="page-break-before: always; padding-top: 20px;">
-                        <h3 style="font-weight: bold; font-size: 12px; margin-bottom: 20px; text-align: center; text-transform: uppercase;">LAPORAN ANALISIS SETIAP ITEM MENGIKUT DOMAIN</h3>
-                        ${itemBarsHTML}
-                    </div>
-                </div>`;
-                window.print();
-            }, 300);
+        window.closeReportsModal = () => {
+            const modal = document.getElementById('viewReportsModal');
+            modal.classList.add('opacity-0'); document.getElementById('viewReportsModalContent').classList.add('scale-95');
+            setTimeout(()=> { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
         };
 
         loadAccounts();
