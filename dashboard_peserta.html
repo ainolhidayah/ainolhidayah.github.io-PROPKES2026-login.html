@@ -169,10 +169,10 @@
             </div>
         </div>
 
-        <!-- UTAMA 12-KOLUM GRID (SEIMBANG & OPTIMUM) -->
+        <!-- UTAMA 12-KOLUM GRID (DISUSUN DENGAN SANGAT SEIMBANG) -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
-            <!-- KIRI (4 KOLUM): PROFIL & STATISTIK -->
+            <!-- KIRI (4 KOLUM): PROFIL, SANDARAN, KEBERADAAN & CARTA KEPUTUSAN I-PROPKES (MENURUNG SEBELAH KIRI) -->
             <div class="lg:col-span-4 space-y-6">
                 <!-- MAKLUMAT DIDAFTARKAN -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
@@ -243,9 +243,42 @@
                         <div class="flex justify-between items-center"><span class="flex items-center gap-2 text-slate-300"><div class="w-2.5 h-2.5 rounded bg-slate-600"></div> Cuti / Lain</span><span class="font-bold text-white" id="countCuti">0 Hari</span></div>
                     </div>
                 </div>
+
+                <!-- KEPUTUSAN I-PROPKES (CARTA DISUSUN MENURUN DI SEBELAH KIRI UNTUK MENGISI RUANG KOSONG) -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
+                                Keputusan i-PROPKES
+                            </h3>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Selesai Ujian Pra & Pasca.</p>
+                        </div>
+                        <button onclick="document.getElementById('analisisBox').classList.toggle('hidden')" class="bg-slate-800 text-slate-300 text-[11px] px-2.5 py-1 rounded-lg border border-slate-700 outline-none cursor-pointer hover:bg-slate-700">Lihat Carta</button>
+                    </div>
+                    <div id="analisisBox" class="hidden mt-3 pt-3 border-t border-slate-800">
+                        <div class="flex justify-end mb-3">
+                            <button onclick="window.cetakLaporanPropkes()" class="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs py-2 rounded-lg font-bold outline-none flex justify-center items-center gap-1.5 cursor-pointer shadow-lg shadow-purple-600/30">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF i-PROPKES
+                            </button>
+                        </div>
+                        <!-- CARTA DISUSUN SECARA MENURUN (VERTIKAL 1 KOLUM) -->
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                                <p class="text-[10px] text-slate-400 font-bold uppercase mb-2 text-center">Carta Bar (Keseluruhan Domain)</p>
+                                <canvas id="barChart" class="w-full h-48"></canvas>
+                            </div>
+                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                                <p class="text-[10px] text-slate-400 font-bold uppercase mb-2 text-center">Carta Web (Profil Domain)</p>
+                                <canvas id="webChart" class="w-full h-48"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- KANAN (8 KOLUM): KALENDAR, JADUAL MINGGUAN, TUGASAN & CARTA -->
+            <!-- KANAN (8 KOLUM): KALENDAR, JADUAL MINGGUAN & TUGASAN -->
             <div class="lg:col-span-8 space-y-6">
                 
                 <!-- KALENDAR LOG HARIAN -->
@@ -285,7 +318,7 @@
                     </div>
                 </div>
 
-                <!-- JADUAL PERINCIAN MINGGUAN & PENYERAHAN MODUL (OPTIMUM, COMPACT & STICKY HEADER) -->
+                <!-- JADUAL PERINCIAN MINGGUAN & PENYERAHAN MODUL -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 pb-2.5 border-b border-slate-800 gap-2">
                         <div>
@@ -298,7 +331,6 @@
                         <span class="text-[9px] bg-slate-950 text-slate-400 border border-slate-800 px-2 py-1 rounded-lg">12 Minggu Sasaran</span>
                     </div>
                     
-                    <!-- Scrollable Container untuk mengelakkan layout memanjang -->
                     <div class="overflow-x-auto max-h-[320px] overflow-y-auto custom-scrollbar border border-slate-800 rounded-xl bg-slate-950/40">
                         <table class="w-full text-left text-xs text-slate-300 border-collapse">
                             <thead class="sticky top-0 z-10 bg-slate-950/95 backdrop-blur-sm border-b border-slate-800 shadow-md">
@@ -332,29 +364,6 @@
                         </div>
                     </div>
                     <div class="p-4 max-h-[350px] overflow-y-auto custom-scrollbar" id="taskListContainer"></div>
-                </div>
-
-                <!-- KEPUTUSAN i-PROPKES -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
-                                <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
-                                Keputusan i-PROPKES
-                            </h3>
-                            <p class="text-[10px] text-slate-400 mt-0.5">Selesai Ujian Pra dan Pasca.</p>
-                        </div>
-                        <button onclick="document.getElementById('analisisBox').classList.toggle('hidden')" class="bg-slate-800 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-700 outline-none cursor-pointer hover:bg-slate-700">Lihat Carta</button>
-                    </div>
-                    <div id="analisisBox" class="hidden mt-4 pt-4 border-t border-slate-800">
-                        <div class="flex justify-end mb-3">
-                            <button onclick="window.cetakLaporanPropkes()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs px-3.5 py-1.5 rounded-lg font-bold outline-none flex gap-1.5 cursor-pointer"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF i-PROPKES</button>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800"><canvas id="barChart" class="w-full h-44"></canvas></div>
-                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800"><canvas id="webChart" class="w-full h-44"></canvas></div>
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -1646,7 +1655,7 @@
                     barChartInstance = new Chart(barEl.getContext('2d'), { 
                         type: 'bar', 
                         data: { labels: domains, datasets: [{label: 'Pra', data: praS, backgroundColor: '#3b82f6'}, {label: 'Pasca', data: pascaS, backgroundColor: '#a855f7'}] }, 
-                        options: { responsive: true, maintainAspectRatio: false, scales: { y: { min:0, max: 10, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:9}}, grid:{display:false}} } } 
+                        options: { responsive: true, maintainAspectRatio: false, scales: { y: { min:0, max: 10, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:8}}, grid:{display:false}} } } 
                     });
                 }
                 
@@ -1656,7 +1665,7 @@
                     webChartInstance = new Chart(webEl.getContext('2d'), { 
                         type: 'radar', 
                         data: { labels: domains, datasets: [{label: 'Pra', data: praS, borderColor: '#3b82f6', backgroundColor:'rgba(59,130,246,0.2)'}, {label: 'Pasca', data: pascaS, borderColor: '#a855f7', backgroundColor:'rgba(168,85,247,0.2)'}] }, 
-                        options: { responsive: true, scales: { r: { min:0, max: 10, pointLabels: {color:'#cbd5e1', font:{size:9}}, ticks: {display:false, max:10} } } } 
+                        options: { responsive: true, maintainAspectRatio: false, scales: { r: { min:0, max: 10, pointLabels: {color:'#cbd5e1', font:{size:8}}, ticks: {display:false, max:10} } } } 
                     });
                 }
             }
