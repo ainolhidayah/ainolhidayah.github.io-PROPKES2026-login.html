@@ -103,7 +103,7 @@
 
                 <!-- MAKLUMAT PENYELIA -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
-                    <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm">Maklumat Sandaran & Penyelia</h3>
+                    <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm">Maklumat Sandaran & Pembimbing</h3>
                     <div class="space-y-4">
                         <div class="bg-blue-950/20 p-3 rounded-lg border border-blue-900/30">
                             <p class="text-[10px] text-blue-400 font-bold uppercase mb-1">Sekolah Sandaran & PPD</p>
@@ -596,8 +596,8 @@
                     safeSetText("profileSekolah", u.sekolah || "Belum Diisi");
                     safeSetText("profilePPD", u.ppd ? `PPD: ${u.ppd}` : "PPD: Belum Diisi");
                     
-                    safeSetText("infoPemanduNama", u.pemanduCitra || "Belum Diisi");
-                    safeSetText("infoPemanduJawatan", (u.pemanduJawatan || "") + " " + (u.pemanduPusat ? `(${u.pemanduPusat})` : ""));
+                    safeSetText("infoPemanduNama", u.pemanducitra || "Belum Diisi");
+                    safeSetText("infoPemanduJawatan", (u.pemanducitraJawatan || "") + " " + (u.pemanducitraPusat ? `(${u.pemanducitraPusat})` : ""));
                     safeSetText("infoMentorNama", u.mentorSekolah || "Belum Diisi");
                     safeSetText("infoMentorJawatan", u.mentorJawatan || "-");
                     safeSetText("infoMentorPpdNama", u.mentorPpd || "Belum Diisi");
@@ -607,7 +607,7 @@
                     safeSetValue('editJawatan', u.jawatan || ""); safeSetValue('editGred', u.gred || "");
                     safeSetValue('editJabatan', u.jawatan || ""); safeSetValue('editPusatCawangan', u.pusatCawangan || "");
                     safeSetValue('editSekolah', u.sekolah || ""); safeSetValue('editPpd', u.ppd || "");
-                    safeSetValue('editPemanduCitra', u.pemanduCitra || ""); safeSetValue('editPemanduJawatan', u.pemanduJawatan || ""); safeSetValue('editPemanduPusat', u.pemanduPusat || "");
+                    safeSetValue('editPemanduCitra', u.pemanducitra || ""); safeSetValue('editPemanduCitraJawatan', u.pemanducitraJawatan || ""); safeSetValue('editPemanduPusat', u.pemanduPusat || "");
                     safeSetValue('editMentorSekolah', u.mentorSekolah || ""); safeSetValue('editMentorJawatan', u.mentorJawatan || "");
                     safeSetValue('editMentorTelefon', u.mentorTelefon || ""); safeSetValue('editMentorEmail', u.mentorEmail || "");
                     safeSetValue('editMentorAlamat', u.mentorAlamat || ""); 
