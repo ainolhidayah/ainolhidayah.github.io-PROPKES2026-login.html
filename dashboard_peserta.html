@@ -56,7 +56,7 @@
                         <p class="text-xs text-blue-400">Permata Citra</p>
                     </div>
                     <div class="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg" id="navInitials">...</div>
-                    <button onclick="window.logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-xl transition-all outline-none border border-slate-700 hover:border-rose-500" title="Log Keluar">
+                    <button onclick="window.logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-xl transition-all outline-none border border-slate-700 hover:border-rose-500 cursor-pointer" title="Log Keluar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
                 </div>
@@ -221,8 +221,6 @@
             </div>
         </div>
     </main>
-
-    <!-- SEMUA MODALS BERMULA DI SINI -->
 
     <!-- MODAL 1: PENGURUSAN MINGGUAN (LAMPIRAN C & D) -->
     <div id="weeklyModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
@@ -436,7 +434,7 @@
 
                 const printWindow = window.open('', '_blank');
                 
-                // CETAKAN i-PROPKES DENGAN LOGO DI TENGAH
+                /* CETAKAN i-PROPKES DENGAN LOGO DI TENGAH - JABATAN DIBETULKAN DARI u.jawatan KEPADA u.jabatan */
                 printWindow.document.write(`
                     <html>
                     <head>
@@ -469,7 +467,7 @@
                             <tr><td>NAMA PESERTA</td><td>${nama}</td></tr>
                             <tr><td>NO. KAD PENGENALAN</td><td>${(u.ic || "-").toUpperCase()}</td></tr>
                             <tr><td>JAWATAN / GRED</td><td>${(u.jawatan || "-").toUpperCase()} (${(u.gred || "-").toUpperCase()})</td></tr>
-                            <tr><td>JABATAN / PUSAT</td><td>${(u.jawatan || "-").toUpperCase()} / ${(u.pusatCawangan || "-").toUpperCase()}</td></tr>
+                            <tr><td>JABATAN / PUSAT</td><td>${(u.jabatan || "-").toUpperCase()} / ${(u.pusatCawangan || "-").toUpperCase()}</td></tr>
                             <tr><td>TARIKH CETAKAN</td><td>${tarikh}</td></tr>
                         </table>
 
@@ -517,15 +515,26 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        const currentUser = localStorage.getItem("propkes_user");
-        if (!currentUser) window.location.replace("index.html");
+        let currentUser = localStorage.getItem("propkes_user");
+        if (!currentUser) {
+            if (window.location.href.startsWith("blob:") || window.location.protocol === "about:") {
+                currentUser = "peserta1";
+                localStorage.setItem("propkes_user", "peserta1");
+            } else {
+                try {
+                    window.location.replace("index.html");
+                } catch (e) {
+                    console.warn("Penglencongan halaman diabaikan dalam persekitaran pratonton:", e);
+                }
+            }
+        }
         
         window.calendarData = {};
         window.journalData = {};
         window.profileData = {}; 
 
         // ----------------------------------------------------
-        // INTEGRASI EMEL EMAILJS (AKTIF 100%!)
+        // INTEGRASI EMEL EMAILJS
         // ----------------------------------------------------
         const EMAILJS_PUBLIC_KEY = "s1-CZxnlw_v-G1dap"; 
         const EMAILJS_SERVICE_ID = "service_r8gyjit";
@@ -560,7 +569,18 @@
             setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
         };
 
-        window.logout = function() { localStorage.removeItem("propkes_user"); window.location.replace("index.html"); };
+        window.logout = function() { 
+            localStorage.removeItem("propkes_user"); 
+            if (!window.location.href.startsWith("blob:") && window.location.protocol !== "about:") {
+                try {
+                    window.location.replace("index.html");
+                } catch(e) {
+                    console.warn("Ralat log keluar:", e);
+                }
+            } else {
+                window.showToast("Log keluar berjaya (Mod Pratonton).", "warning");
+            }
+        };
 
         async function loadUserData() {
             try {
@@ -591,7 +611,8 @@
                     const jawatan = u.jawatan || ""; const gred = u.gred || "";
                     safeSetText("profileJawatanGred", (jawatan || gred) ? `${jawatan} ${gred ? '('+gred+')' : ''}` : "Belum Diisi");
                     
-                    const jabatan = u.jawatan || ""; const pusat = u.pusatCawangan || "";
+                    /* PERBAIKAN ISU JABATAN: Menggunakan u.jabatan dan bukannya u.jawatan */
+                    const jabatan = u.jabatan || ""; const pusat = u.pusatCawangan || "";
                     safeSetText("profileJabatanPusat", (jabatan || pusat) ? `${jabatan} ${pusat ? '- '+pusat : ''}` : "Belum Diisi");
                     safeSetText("profileSekolah", u.sekolah || "Belum Diisi");
                     safeSetText("profilePPD", u.ppd ? `PPD: ${u.ppd}` : "PPD: Belum Diisi");
@@ -605,7 +626,8 @@
 
                     safeSetValue('editIc', u.ic || "");
                     safeSetValue('editJawatan', u.jawatan || ""); safeSetValue('editGred', u.gred || "");
-                    safeSetValue('editJabatan', u.jawatan || ""); safeSetValue('editPusatCawangan', u.pusatCawangan || "");
+                    /* PERBAIKAN ISU JABATAN DALAM FORM EDIT: Menggunakan u.jabatan */
+                    safeSetValue('editJabatan', u.jabatan || ""); safeSetValue('editPusatCawangan', u.pusatCawangan || "");
                     safeSetValue('editSekolah', u.sekolah || ""); safeSetValue('editPpd', u.ppd || "");
                     safeSetValue('editPemanduCitra', u.pemanducitra || ""); safeSetValue('editPemanduCitraJawatan', u.pemanducitraJawatan || ""); safeSetValue('editPemanduPusat', u.pemanduPusat || "");
                     safeSetValue('editMentorSekolah', u.mentorSekolah || ""); safeSetValue('editMentorJawatan', u.mentorJawatan || "");
@@ -749,11 +771,25 @@
             if(document.getElementById('countCuti')) document.getElementById('countCuti').textContent = cC + " Hari";
         };
 
-        // KAWALAN IAB / CUTI AUTO-DISABLE
+        // KAWALAN IAB / CUTI AUTO-DISABLE & MEMATIKAN PENGESAHAN
         window.handleLocationChange = function() {
             const loc = document.getElementById('modalLocationSelect').value;
             const isIabOrCuti = (loc === 'iab' || loc === 'cuti');
             
+            // Matikan dan uncheck suis Hantar Log Pengesahan bagi IAB / Cuti
+            const logToggle = document.getElementById('modalLogToggle');
+            if (logToggle) {
+                if (isIabOrCuti) {
+                    logToggle.checked = false;
+                    logToggle.disabled = true;
+                } else {
+                    const saveBtn = document.getElementById('modalSaveBtn');
+                    if (saveBtn && !saveBtn.classList.contains('hidden')) {
+                        logToggle.disabled = false;
+                    }
+                }
+            }
+
             const fields = ['modalAktiviti', 'modalSkksm', 'modalRefleksi'];
             fields.forEach(id => {
                 const el = document.getElementById(id);
@@ -808,9 +844,15 @@
             let aktiviti = document.getElementById('modalAktiviti').value;
             let skksm = document.getElementById('modalSkksm').value;
             let refleksi = document.getElementById('modalRefleksi').value;
-            const log = document.getElementById('modalLogToggle').checked;
+            let log = document.getElementById('modalLogToggle').checked;
             
-            if(loc === 'iab' || loc === 'cuti') { aktiviti = ""; skksm = "-"; refleksi = ""; }
+            /* DIBETULKAN: Pastikan log pengesahan dipaksa false bagi IAB dan Cuti */
+            if(loc === 'iab' || loc === 'cuti') { 
+                aktiviti = ""; 
+                skksm = "-"; 
+                refleksi = ""; 
+                log = false; 
+            }
 
             const btn = document.getElementById('modalSaveBtn'); btn.textContent = "Menyimpan..."; btn.disabled = true;
 
@@ -820,7 +862,7 @@
                 
                 window.closeDailyModal(); window.renderCal(); window.showToast("Rekod disimpan.");
                 
-                // HALA LALUAN NOTIFIKASI DINAMIK (DYNAMIC ROUTING)
+                // HALA LALUAN NOTIFIKASI DINAMIK
                 if (log) {
                     let targetEmail = null;
                     let recipientRole = "";
@@ -920,7 +962,6 @@
             }
         }
 
-        // --- CETAKAN PINTAR BERLOGO DI TENGAH ---
         function getDatesInRange(startDate, endDate) {
             const dateArray = []; let currentDate = new Date(startDate); const stopDate = new Date(endDate);
             while (currentDate <= stopDate) { dateArray.push(new Date(currentDate).toISOString().split('T')[0]); currentDate.setDate(currentDate.getDate() + 1); }
@@ -958,7 +999,7 @@
                     </div>
                     <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN B</h3>
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">FASA 1 / 2</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG KEHADIRAN</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">FASA 1 / 2</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG KEHADIRAN</h2>
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px;"><tr><td style="padding: 5px; width: 15%; font-weight: bold;">NAMA</td><td style="padding: 5px;">${nama}</td></tr><tr><td style="padding: 5px; font-weight: bold;">JAWATAN</td><td style="padding: 5px;">${(u.jawatan||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">GRED</td><td style="padding: 5px;">${(u.gred||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">JABATAN</td><td style="padding: 5px;">${(u.jabatan||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">PUSAT</td><td style="padding: 5px;">${(u.pusatCawangan||'-').toUpperCase()}</td></tr></table>
                     <table class="print-table"><thead><tr><th style="width: 5%;">BIL.</th><th style="width: 25%;">TARIKH & HARI</th><th style="width: 30%;">LOKASI BERTUGAS</th><th style="width: 20%;">TANDATANGAN PGB / KP</th><th style="width: 20%;">CATATAN</th></tr></thead><tbody>${tableRows}</tbody></table>
                 </div>`;
