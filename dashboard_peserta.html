@@ -264,10 +264,6 @@
                         </div>
                         <div class="grid grid-cols-1 gap-4">
                             <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 relative h-72">
-                                <p class="text-[10px] text-slate-400 font-bold uppercase mb-1 text-center">Carta Bar (9 Domain SKKSM)</p>
-                                <div class="w-full h-60 relative"><canvas id="barChart"></canvas></div>
-                            </div>
-                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 relative h-72">
                                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-1 text-center">Carta Radar Web (9 Domain SKKSM)</p>
                                 <div class="w-full h-60 relative"><canvas id="webChart"></canvas></div>
                             </div>
@@ -1278,32 +1274,6 @@
                 const praDomainScores = window.process38ItemsTo9Domains(pra);
                 const pascaDomainScores = window.process38ItemsTo9Domains(pasca);
 
-                const barEl = document.getElementById('barChart');
-                if (barEl) {
-                    if (barChartInstance) barChartInstance.destroy();
-                    barChartInstance = new Chart(barEl.getContext('2d'), { 
-                        type: 'bar', 
-                        data: { 
-                            labels: window.skksm9Domains, 
-                            datasets: [
-                                { label: 'Pra', data: praDomainScores, backgroundColor: '#3b82f6' }, 
-                                { label: 'Pasca', data: pascaDomainScores, backgroundColor: '#a855f7' }
-                            ] 
-                        }, 
-                        options: { 
-                            responsive: true, 
-                            maintainAspectRatio: false, 
-                            scales: { 
-                                y: { min: 0, max: 10, ticks: { color: '#94a3b8', font: { size: 9 } } }, 
-                                x: { ticks: { color: '#94a3b8', font: { size: 7 } }, grid: { display: false } } 
-                            },
-                            plugins: {
-                                legend: { labels: { color: '#cbd5e1', font: { size: 9 } } }
-                            }
-                        } 
-                    });
-                }
-                
                 const webEl = document.getElementById('webChart');
                 if (webEl) {
                     if (webChartInstance) webChartInstance.destroy();
@@ -1311,6 +1281,32 @@
                         type: 'radar', 
                         data: { 
                             labels: window.skksm9Domains, 
+                            datasets: [
+                                { label: 'Pra', data: praDomainScores, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.2)' }, 
+                                { label: 'Pasca', data: pascaDomainScores, borderColor: '#a855f7', backgroundColor: 'rgba(168,85,247,0.2)' }
+                            ] 
+                        }, 
+                        options: { 
+                            responsive: true, 
+                            maintainAspectRatio: false, 
+                            scales: { 
+                                r: { 
+                                    min: 0, 
+                                    max: 10, 
+                                    pointLabels: { color: '#cbd5e1', font: { size: 7.5 } }, 
+                                    ticks: { display: false } 
+                                } 
+                            },
+                            plugins: {
+                                legend: { labels: { color: '#cbd5e1', font: { size: 9 } } }
+                            }
+                        } 
+                    });
+                }
+            }
+        }
+
+        let disMonth = 7, disYear = 2026, curEditDate = "";
                             datasets: [
                                 { label: 'Pra', data: praDomainScores, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.2)' }, 
                                 { label: 'Pasca', data: pascaDomainScores, borderColor: '#a855f7', backgroundColor: 'rgba(168,85,247,0.2)' }
@@ -1773,10 +1769,5 @@
 
         loadUserData();
     </script>
-
-    <!-- INTEGRASI PEMBANTU MAYA (SAYA AINDA) -->
-    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
-    <script src="https://files.bpcontent.cloud/2026/07/14/13/20260714134346-FN0YXLI1.js" defer></script>
-
 </body>
 </html>
