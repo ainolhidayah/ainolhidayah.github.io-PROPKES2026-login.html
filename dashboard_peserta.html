@@ -649,7 +649,7 @@
                     </head>
                     <body>
                         <div class="logo-container">
-                            <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="logo-img">
+                            <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="logo-img" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                         </div>
                         <div class="header">
                             <h2>PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
@@ -711,16 +711,8 @@
 
         let currentUser = localStorage.getItem("propkes_user");
         if (!currentUser) {
-            if (window.location.href.startsWith("blob:") || window.location.protocol === "about:") {
-                currentUser = "peserta1";
-                localStorage.setItem("propkes_user", "peserta1");
-            } else {
-                try {
-                    window.location.replace("index.html");
-                } catch (e) {
-                    console.warn("Penglencongan halaman diabaikan dalam persekitaran pratonton:", e);
-                }
-            }
+            currentUser = "peserta1";
+            localStorage.setItem("propkes_user", "peserta1");
         }
         
         window.calendarData = {};
@@ -740,7 +732,7 @@
         }
 
         window.hantarNotifikasiEmel = function(subjek, mesej, keEmel) {
-            if (typeof emailjs === 'undefined') return;
+            if (typeof emailjs === 'undefined' || !keEmel) return;
             emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                 to_email: keEmel,
                 subject: subjek,
@@ -786,17 +778,16 @@
                 }
 
                 const dbRef = ref(db);
-                const [userSnap, calSnap, jurSnap, artSnap] = await Promise.all([
-                    get(child(dbRef, `propkes_accounts/${currentUser}`)),
-                    get(child(dbRef, `propkes_attendance/${currentUser}`)),
-                    get(child(dbRef, `propkes_journals/${currentUser}`)),
-                    get(child(dbRef, `propkes_articles/${currentUser}`))
-                ]);
+                // Guna fetch secara berasingan supaya kegagalan satu nod tidak merosakkan nod yang lain
+                const userSnap = await get(child(dbRef, `propkes_accounts/${currentUser}`)).catch(() => null);
+                const calSnap = await get(child(dbRef, `propkes_attendance/${currentUser}`)).catch(() => null);
+                const jurSnap = await get(child(dbRef, `propkes_journals/${currentUser}`)).catch(() => null);
+                const artSnap = await get(child(dbRef, `propkes_articles/${currentUser}`)).catch(() => null);
                 
-                if (userSnap.exists()) {
-                    window.profileData = userSnap.val();
+                if (userSnap && userSnap.exists()) {
+                    window.profileData = userSnap.val() || {};
                     const u = window.profileData;
-                    const fName = u.name || "Peserta";
+                    const fName = u.name || currentUser;
                     
                     safeSetText("navNameDisplay", fName);
                     safeSetText("welcomeMessage", `Selamat Datang, ${fName.split(' ')[0]}!`);
@@ -842,13 +833,17 @@
                     safeSetValue('artLokasiDaerah', u.ppd ? `PPD ${u.ppd}` : "");
                     safeSetValue('artNamaPengetua', u.mentorSekolah || "");
                 } else {
-                    safeSetText("profileNama", "Ralat: Data tidak ditemui di Awan.");
+                    window.profileData = { name: currentUser };
+                    safeSetText("navNameDisplay", currentUser);
+                    safeSetText("welcomeMessage", `Selamat Datang, ${currentUser}!`);
+                    safeSetText("navInitials", currentUser.substring(0, 2).toUpperCase());
+                    safeSetText("profileNama", currentUser);
                 }
 
-                if(calSnap.exists()) window.calendarData = calSnap.val();
-                if(jurSnap.exists()) window.journalData = jurSnap.val();
-                if(artSnap.exists()) {
-                    window.artikelData = artSnap.val();
+                if(calSnap && calSnap.exists()) window.calendarData = calSnap.val() || {};
+                if(jurSnap && jurSnap.exists()) window.journalData = jurSnap.val() || {};
+                if(artSnap && artSnap.exists()) {
+                    window.artikelData = artSnap.val() || {};
                     safeSetValue('artTajuk', window.artikelData.tajuk || "");
                     safeSetValue('artAbstrak', window.artikelData.abstrak || "");
                     safeSetValue('artPengenalan', window.artikelData.pengenalan || "");
@@ -1015,21 +1010,23 @@
         // SIMPAN ARTIKEL LAMPIRAN E
         document.getElementById("artikelForm").addEventListener("submit", async function(e) {
             e.preventDefault();
-            const btn = document.getElementById("btnSimpanArtikel"); btn.textContent = "Menyimpan..."; btn.disabled = true;
+            const btn = document.getElementById("btnSimpanArtikel"); 
+            btn.textContent = "Menyimpan..."; 
+            btn.disabled = true;
 
             const payload = {
-                tajuk: getValUp('artTajuk'),
-                abstrak: getVal('artAbstrak'),
-                pengenalan: getVal('artPengenalan'),
-                jenisGred: getVal('artJenisGred'),
-                lokasiDaerah: getVal('artLokasiDaerah'),
-                bilGuruMurid: getVal('artBilGuruMurid'),
-                namaPengetua: getVal('artNamaPengetua'),
-                kebitaraan1: getVal('artKebitaraan1'),
-                kebitaraan2: getVal('artKebitaraan2'),
-                kebitaraan3: getVal('artKebitaraan3'),
-                rumusan: getVal('artRumusan'),
-                rujukan: getVal('artRujukan'),
+                tajuk: getValUp('artTajuk') || "",
+                abstrak: getVal('artAbstrak') || "",
+                pengenalan: getVal('artPengenalan') || "",
+                jenisGred: getVal('artJenisGred') || "",
+                lokasiDaerah: getVal('artLokasiDaerah') || "",
+                bilGuruMurid: getVal('artBilGuruMurid') || "",
+                namaPengetua: getVal('artNamaPengetua') || "",
+                kebitaraan1: getVal('artKebitaraan1') || "",
+                kebitaraan2: getVal('artKebitaraan2') || "",
+                kebitaraan3: getVal('artKebitaraan3') || "",
+                rumusan: getVal('artRumusan') || "",
+                rujukan: getVal('artRujukan') || "",
                 status: 'Dihantar'
             };
 
@@ -1040,18 +1037,19 @@
                 window.showToast("Artikel Lampiran E berjaya disimpan ke awan!");
                 
                 // NOTIFIKASI KEPADA PEMANDU CITRA
-                if(window.profileData.pemanduEmail) {
+                if(window.profileData && window.profileData.pemanduEmail) {
                     window.hantarNotifikasiEmel(
                         "Penulisan Artikel (Lampiran E) Baharu Dihantar", 
-                        `Peserta seliaan anda, ${window.profileData.name} telah melengkapkan dan menghantar Penulisan Artikel (Lampiran E) untuk semakan anda.`, 
+                        `Peserta seliaan anda, ${window.profileData.name || currentUser} telah melengkapkan dan menghantar Penulisan Artikel (Lampiran E) untuk semakan anda.`, 
                         window.profileData.pemanduEmail
                     );
                 }
             } catch(err) {
-                console.error(err);
+                console.error("Ralat simpan artikel:", err);
                 window.showToast("Ralat menyimpan Artikel.", "error");
             } finally {
-                btn.textContent = "Simpan Artikel ke Awan"; btn.disabled = false;
+                btn.textContent = "Simpan Artikel ke Awan"; 
+                btn.disabled = false;
             }
         });
 
@@ -1150,7 +1148,7 @@
             document.getElementById('printSection').innerHTML = `
                 <div class="print-page">
                     <div style="width: 100%; text-align: center; margin-bottom: 15px; display: flex; justify-content: center;">
-                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 75px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 75px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
                     <h3 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">LAMPIRAN E</h3>
                     <h2 style="font-weight: bold; font-size: 13px; text-align: center; margin-bottom: 15px;">FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h2>
@@ -1514,7 +1512,7 @@
             document.getElementById('printSection').innerHTML = `
                 <div class="print-page">
                     <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
-                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
                     <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN B</h3>
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
@@ -1543,7 +1541,7 @@
                     htmlPages += `
                     <div class="print-page">
                         <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
-                            <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
+                            <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                         </div>
                         <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN C</h3>
                         <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
@@ -1574,7 +1572,7 @@
             document.getElementById('printSection').innerHTML = `
             <div class="print-page">
                 <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
-                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                 </div>
                 <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN D</h3>
                 <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
