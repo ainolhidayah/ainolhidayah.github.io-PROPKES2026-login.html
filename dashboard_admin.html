@@ -81,28 +81,33 @@
         <div class="bg-gradient-to-r from-rose-900/40 to-slate-900 border border-rose-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-rose-500/10 blur-3xl rounded-full pointer-events-none"></div>
             <div class="relative z-10">
-                <h1 class="text-xl md:text-2xl font-bold text-white mb-1">Selamat Datang ke Paparan Dashboard Urus Setia ORBIX-P.</h1>
+                <h1 class="text-xl md:text-2xl font-bold text-white mb-1">Selamat Datang ke Paparan Dashboard Urus Setia ORBIX-P</h1>
                 <p class="text-slate-400 text-xs">Sistem Pengurusan Berpusat untuk Pendaftaran, Pemantauan Log, Jurnal, dan Keputusan i-PROPKES.</p>
             </div>
         </div>
 
-        <!-- METRIKS -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg flex justify-between items-center">
+        <!-- METRIKS (KINI DENGAN 5 KAD TERMASUK PEMANTAU) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex justify-between items-center">
                 <div><p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Peserta Berdaftar</p><p class="text-2xl font-black text-white mt-1" id="statPeserta">0</p></div>
                 <div class="w-10 h-10 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></div>
             </div>
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg flex justify-between items-center">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex justify-between items-center">
                 <div><p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Pemandu Citra</p><p class="text-2xl font-black text-white mt-1" id="statPemandu">0</p></div>
                 <div class="w-10 h-10 bg-teal-500/10 border border-teal-500/20 text-teal-400 rounded-xl flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
             </div>
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg flex justify-between items-center">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex justify-between items-center">
                 <div><p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Mentor 1 (Sekolah)</p><p class="text-2xl font-black text-white mt-1" id="statMentorSekolah">0</p></div>
                 <div class="w-10 h-10 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-xl flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg></div>
             </div>
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg flex justify-between items-center">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex justify-between items-center">
                 <div><p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Mentor 2 (PPD)</p><p class="text-2xl font-black text-white mt-1" id="statMentorPpd">0</p></div>
                 <div class="w-10 h-10 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
+            </div>
+            <!-- KAD PEMANTAU DITAMBAH DI SINI -->
+            <div class="bg-slate-900 border border-purple-500/30 rounded-2xl p-5 shadow-lg flex justify-between items-center">
+                <div><p class="text-[10px] text-purple-400 font-bold uppercase tracking-wider">Pemantau</p><p class="text-2xl font-black text-white mt-1" id="statPemantau">0</p></div>
+                <div class="w-10 h-10 bg-purple-500/10 border border-purple-500/20 text-purple-400 rounded-xl flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></div>
             </div>
         </div>
 
@@ -123,7 +128,7 @@
                     <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center">
                         <h3 class="font-bold text-white text-sm">Pangkalan Pengguna Sistem</h3>
                         <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                            <!-- DROPDOWN TAPISAN PERANAN (INCLUDES URUS SETIA) -->
+                            <!-- DROPDOWN TAPISAN PERANAN -->
                             <select id="roleFilter" onchange="window.filterTable()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none cursor-pointer">
                                 <option value="none" selected>-- Pilih Peranan Pengguna --</option>
                                 <option value="peserta">Peserta (Permata Citra)</option>
@@ -164,7 +169,6 @@
                     <form id="registrationForm" onsubmit="window.handleRegistration(event)" class="space-y-4">
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Pilih Peranan</label>
-                            <!-- DROPDOWN PENDAFTARAN PERANAN (INCLUDES URUS SETIA) -->
                             <select id="regRole" required onchange="window.togglePesertaFields()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-rose-500 outline-none cursor-pointer">
                                 <option value="" disabled selected>-- Sila Pilih --</option>
                                 <option value="peserta">Peserta (Permata Citra)</option>
@@ -418,10 +422,8 @@
             btn.textContent = "Menyimpan..."; btn.disabled = true;
 
             try {
-                // Kemaskini kata laluan Admin dalam Firebase
                 await update(ref(db, `propkes_accounts/admin`), { password: pass });
                 
-                // HANTAR NOTIFIKASI EMEL PERTUKARAN KATA LALUAN ADMIN
                 const adminEmail = "ainol.hidayah@iab.moe.gov.my";
                 window.hantarNotifikasiEmel(
                     "Pengemaskinian Kata Laluan Admin Sistem PROPKES",
@@ -443,14 +445,11 @@
            FUNGSI RESET / TERLUPA KATA LALUAN PENGGUNA
            ========================================== */
         window.resetUserPassword = async (username, email, name) => {
-            // Jana kata laluan sementara baharu secara rawak
             const newTempPassword = "P" + Math.random().toString(36).substring(2, 7) + "!";
 
             try {
-                // Kemaskini di Firebase Realtime Database
                 await update(ref(db, `propkes_accounts/${username}`), { password: newTempPassword });
 
-                // Hantar emel notifikasi melalui EmailJS
                 const subjek = "Maklumat Terlupa Kata Laluan - Sistem PROPKES 2026";
                 const mesej = `Assalamualaikum dan Salam Sejahtera ${name},\n\nKata laluan akaun PROPKES 2026 anda telah dijana semula oleh pihak Urus Setia berikutan permohonan 'Terlupa Kata Laluan'.\n\nMaklumat log masuk baharu anda:\nID Pengguna: ${username}\nKata Laluan Baharu: ${newTempPassword}\n\nSila guna kata laluan baharu ini untuk log masuk ke portal sistem dan simpan dengan selamat.`;
 
@@ -522,7 +521,7 @@
                 
                 if (snap.exists()) {
                     window.accountsData = snap.val();
-                    let cPeserta = 0, cPemandu = 0, cMentorSekolah = 0, cMentorPpd = 0;
+                    let cPeserta = 0, cPemandu = 0, cMentorSekolah = 0, cMentorPpd = 0, cPemantau = 0;
                     
                     let branchCount = { 
                         "IAB Induk": 0, 
@@ -552,6 +551,7 @@
                             else branchCount["IAB Induk"]++;
                         }
                         else if(u.role === 'pemandu') cPemandu++;
+                        else if(u.role === 'pemantau') cPemantau++; // PENGIRAAN PEMANTAU DITAMBAH DI SINI
                         else if(u.role === 'mentor') {
                             const nameLower = (u.name || "").trim().toLowerCase();
                             if(listedAsMentor2.has(nameLower)) {
@@ -568,6 +568,7 @@
                     document.getElementById('statPemandu').textContent = cPemandu;
                     document.getElementById('statMentorSekolah').textContent = cMentorSekolah;
                     document.getElementById('statMentorPpd').textContent = cMentorPpd;
+                    document.getElementById('statPemantau').textContent = cPemantau; // PAPARKAN JUMLAH PEMANTAU
 
                     renderBranchPieChart(branchCount);
                     loadOverallIPropkesData();
@@ -655,7 +656,7 @@
                                         <p>Mentor 1 (Sekolah): <strong class="text-amber-400">${u.mentorSekolah || "-"}</strong></p>
                                         <p>Mentor 2 (PPD): <strong class="text-indigo-400">${u.mentorPpd || "-"}</strong></p>
                                     </div>
-                                    ` : `<div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Jawatan Hakiki</p><p class="text-white font-semibold">${u.jawatan || "Penyelia / Mentor"}</p></div>`}
+                                    ` : `<div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Jawatan Hakiki</p><p class="text-white font-semibold">${u.jawatan || "Penyelia / Mentor / Pemantau"}</p></div>`}
                                 </div>
                             </td>
                         </tr>
@@ -718,7 +719,8 @@
                     labels: labels,
                     datasets: [
                         { label: 'Pra', data: praData, backgroundColor: '#3b82f6' },
-                        { label: 'Pasca', data: praData, backgroundColor: '#a855f7' }
+                        /* RALAT PASCA TERSALAH GUNA praData DIBETULKAN KEPADA pascaData DI SINI */
+                        { label: 'Pasca', data: pascaData, backgroundColor: '#a855f7' }
                     ]
                 },
                 options: {
@@ -813,7 +815,6 @@
                 await update(ref(db, `propkes_accounts/${username}`), payload);
                 window.showToast("Kemas kini akaun berjaya disimpan!");
                 
-                // NOTIFIKASI EMEL JIKA KATA LALUAN DIUBAH
                 if(pass !== "") {
                     window.hantarNotifikasiEmel(
                         "Kemaskini Kata Laluan Akaun PROPKES",
