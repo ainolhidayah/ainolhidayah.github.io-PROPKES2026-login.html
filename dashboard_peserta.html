@@ -25,7 +25,7 @@
             body * { visibility: hidden; }
             #printSection, #printSection * { visibility: visible; }
             #printSection { position: absolute; left: 0; top: 0; width: 100%; }
-            body { background: white !important; }
+            body { background: white !important; color: black !important; }
             .print-page { width: 100%; color: black; font-family: 'Arial', sans-serif; padding: 25px; page-break-after: always; }
             .print-page:last-child { page-break-after: auto; }
             table.print-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 11px; }
@@ -36,6 +36,7 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
+    <!-- STREAMING_CHUNK:Rendering navigation bar... -->
     <!-- TOP NAVBAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 no-print shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
@@ -64,6 +65,7 @@
         </div>
     </nav>
 
+    <!-- STREAMING_CHUNK:Building dashboard main layout structure... -->
     <!-- MAIN BODY -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 no-print">
         
@@ -172,7 +174,7 @@
         <!-- UTAMA 12-KOLUM GRID -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
-            <!-- KIRI (4 KOLUM): PROFIL, SANDARAN, KEBERADAAN & CARTA KEPUTUSAN I-PROPKES (LENGKAP 38 ITEM / 9 DOMAIN SKKSM) -->
+            <!-- KIRI (4 KOLUM): PROFIL, SANDARAN, KEBERADAAN & CARTA KEPUTUSAN I-PROPKES (9 DOMAIN SKKSM) -->
             <div class="lg:col-span-4 space-y-6">
                 <!-- MAKLUMAT DIDAFTARKAN -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
@@ -244,7 +246,7 @@
                     </div>
                 </div>
 
-                <!-- KEPUTUSAN I-PROPKES (ANALISIS LENGKAP 38 ITEM MENGIKUT 9 DOMAIN SKKSM) -->
+                <!-- KEPUTUSAN I-PROPKES (9 DOMAIN SKKSM) -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
                     <div class="flex justify-between items-center mb-2">
                         <div>
@@ -369,6 +371,7 @@
         </div>
     </main>
 
+    <!-- STREAMING_CHUNK:Rendering modal dialogs... -->
     <!-- MODAL MODUL MINGGUAN -->
     <div id="weeklyModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-emerald-500/50 rounded-2xl shadow-2xl max-w-lg w-full p-6 transform scale-95 transition-transform duration-300" id="weeklyModalContent">
@@ -647,7 +650,8 @@
     <div id="printSection" class="print-container no-print"></div>
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
-    <!-- LOGIK SKRIP FIREBASE & PEMEROSESAN LENGKAP 38 ITEM MENGIKUT 9 DOMAIN SKKSM -->
+    <!-- STREAMING_CHUNK:Loading Firebase module & print engines... -->
+    <!-- LOGIK SKRIP FIREBASE & PEMEROSESAN 38 ITEM MENGIKUT 9 DOMAIN SKKSM -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, get, child, update, set, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -739,50 +743,6 @@
         };
 
         /* =========================================================
-           SENARAI LENGKAP 38 ITEM SOALAN DARI PDF GOOGLE FORMS
-           ========================================================= */
-        window.propkes38QuestionsText = {
-            1: "Saya memiliki [Pengetahuan mengenai bidang pengurusan dan kepimpinan organisasi].",
-            2: "Saya memiliki [Pengetahuan mengenai bidang pengurusan kurikulum].",
-            3: "Saya memiliki [Pengetahuan mengenai bidang pengurusan kokurikulum].",
-            4: "Saya memiliki [Pengetahuan mengenai bidang pengurusan hal ehwal murid].",
-            5: "Saya memiliki [Pengetahuan mengenai bidang pengurusan kewangan].",
-            6: "Saya memiliki [Pengetahuan mengenai bidang pengurusan pentadbiran pejabat].",
-            7: "Saya memiliki [Pengetahuan mengenai bidang pengurusan persekitaran dan kemudahan fizikal].",
-            8: "Saya memiliki [Pengetahuan mengenai bidang pengurusan dan pembangunan sumber manusia].",
-            9: "Saya memiliki [Pengetahuan mengenai bidang pengurusan perhubungan luar].",
-            10: "Saya memiliki [Pengalaman dalam sembilan bidang pengurusan dan kepimpinan sekolah].",
-            11: "Saya boleh [menggabung jalin antara teori pengurusan dan kepimpinan dengan amalan terbaik di sekolah bagi menghasilkan sesi latihan yang mantap dan berkesan].",
-            12: "Program PROPKES [akan meningkatkan pengetahuan dan kemahiran saya dalam bidang pengurusan dan kepimpinan pendidikan].",
-            13: "Ketua Jabatan/Mentor [memberi bimbingan dalam melaksanakan tugas di IAB].",
-            14: "Dasar dan Matlamat [Membina Visi].",
-            15: "Dasar dan Matlamat [Fokus kepada Kualiti].",
-            16: "Dasar dan Matlamat [Pemikiran Strategik].",
-            17: "Dasar dan Matlamat [Proaktif].",
-            18: "Instruksional dan Pencapaian [Berorientasikan Pencapaian].",
-            19: "Instruksional dan Pencapaian [Perancangan dan Pembangunan Instruksional].",
-            20: "Instruksional dan Pencapaian [Perkongsian Pengetahuan].",
-            21: "Instruksional dan Pencapaian [Menyelia Proses Pengajaran dan Pembelajaran].",
-            22: "Perubahan dan Inovasi [Penyelesaian Masalah].",
-            23: "Perubahan dan Inovasi [Mengurus Perubahan].",
-            24: "Perubahan dan Inovasi [Melaksanakan Penambahbaikan Sekolah].",
-            25: "Perubahan dan Inovasi [Kreativiti].",
-            26: "Hubungan Sesama Manusia [Membangun Kapasiti].",
-            27: "Hubungan Sesama Manusia [Komunikasi Berkesan].",
-            28: "Hubungan Sesama Manusia [Membina Jaringan dan Jalinan].",
-            29: "Hubungan Sesama Manusia [Membina Jaringan dan Jalinan].",
-            30: "Hubungan Sesama Manusia [Kerja Sepasukan].",
-            31: "Sumber dan Operasi [Pengurusan Kewangan].",
-            32: "Sumber dan Operasi [Merancang Pembangunan Fizikal dan Persekitaran Sekolah].",
-            33: "Sumber dan Operasi [Pengurusan ICT].",
-            34: "Sumber dan Operasi [Pengurusan Prestasi].",
-            35: "Keberkesanan Kendiri [Menyedari Kekuatan, Kelemahan dan Batasan Kendiri].",
-            36: "Keberkesanan Kendiri [Pengurusan Kendiri].",
-            37: "Keberkesanan Kendiri [Peka Terhadap Perasaan Dan Keperluan Orang Lain].",
-            38: "Keberkesanan Kendiri [Mempunyai Kebolehan Menyesuaikan Diri]."
-        };
-
-        /* =========================================================
            PETA PEMETAAN 38 ITEM i-PROPKES KEPADA 9 DOMAIN SKKSM
            ========================================================= */
         window.skksm9Domains = [
@@ -800,13 +760,11 @@
         window.process38ItemsTo9Domains = function(resultObj) {
             if (!resultObj) return [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-            // Jika jawapan telah dihitung mengikut nama domain
             const isAlreadyDomains = window.skksm9Domains.every(d => resultObj[d] !== undefined);
             if (isAlreadyDomains) {
                 return window.skksm9Domains.map(d => Number(resultObj[d]) || 0);
             }
 
-            // Kumpulan Soalan Masing-masing untuk 9 Domain SKKSM
             const domainItemMapping = [
                 [1, 10, 11, 12, 13, 14, 15, 16, 17],            // 1. Pengurusan & Kepimpinan Organisasi
                 [2, 18, 19, 20, 21],                            // 2. Pengurusan Kurikulum
@@ -833,6 +791,322 @@
             });
         };
 
+        // STREAMING_CHUNK:Defining print report functions...
+        /* =========================================================
+           FUNGSI CETAKAN LAPORAN PDF I-PROPKES (PRA & PASCA 38 ITEM)
+           ========================================================= */
+        window.cetakLaporanPropkes = function() {
+            let pra = null, pasca = null;
+            try {
+                pra = JSON.parse(localStorage.getItem(`propkes_pra_result_${currentUser}`));
+                pasca = JSON.parse(localStorage.getItem(`propkes_pasca_result_${currentUser}`));
+            } catch(e){}
+
+            const u = window.profileData || {};
+            const nama = (u.name || "Peserta").toUpperCase();
+
+            const praScores = window.process38ItemsTo9Domains(pra);
+            const pascaScores = window.process38ItemsTo9Domains(pasca);
+
+            let tableRows = "";
+            window.skksm9Domains.forEach((dName, idx) => {
+                const sPra = praScores[idx] || 0;
+                const sPasca = pascaScores[idx] || 0;
+                const beza = (sPasca - sPra).toFixed(2);
+                const bezaText = beza > 0 ? `+${beza}` : beza;
+
+                tableRows += `
+                    <tr>
+                        <td style="text-align: center; border: 1px solid #000; padding: 6px;">${idx + 1}</td>
+                        <td style="border: 1px solid #000; padding: 6px; font-weight: bold;">${dName}</td>
+                        <td style="text-align: center; border: 1px solid #000; padding: 6px;">${sPra}</td>
+                        <td style="text-align: center; border: 1px solid #000; padding: 6px;">${sPasca}</td>
+                        <td style="text-align: center; border: 1px solid #000; padding: 6px; font-weight: bold;">${bezaText}</td>
+                    </tr>
+                `;
+            });
+
+            const printHTML = `
+            <div class="print-page">
+                <div style="width: 100%; text-align: center; margin-bottom: 15px; display: flex; justify-content: center;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 75px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                </div>
+                <h3 style="font-weight: bold; font-size: 15px; margin-bottom: 3px; text-align: center;">LAPORAN PENILAIAN KOMPETENSI i-PROPKES (38 ITEM / 9 DOMAIN)</h3>
+                <h2 style="font-weight: bold; font-size: 13px; text-align: center; margin-bottom: 15px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES) 2026</h2>
+                
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 11px;">
+                    <tr><td style="padding: 4px; width: 15%; font-weight: bold;">NAMA PESERTA</td><td style="padding: 4px;">: ${nama}</td></tr>
+                    <tr><td style="padding: 4px; font-weight: bold;">JAWATAN / GRED</td><td style="padding: 4px;">: ${(u.jawatan||'-').toUpperCase()} (${(u.gred||'-').toUpperCase()})</td></tr>
+                    <tr><td style="padding: 4px; font-weight: bold;">PUSAT / JABATAN</td><td style="padding: 4px;">: ${(u.pusatCawangan||u.jabatan||'-').toUpperCase()}</td></tr>
+                    <tr><td style="padding: 4px; font-weight: bold;">SEKOLAH / PPD</td><td style="padding: 4px;">: ${(u.sekolah||'-').toUpperCase()} / ${(u.ppd||'-').toUpperCase()}</td></tr>
+                </table>
+
+                <h4 style="font-weight: bold; font-size: 12px; margin-bottom: 8px;">Rumusan Skor Ujian Pra & Pasca Mengikut 9 Domain SKKSM:</h4>
+                <table class="print-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr style="background-color: #f1f5f9;">
+                            <th style="width: 8%; border: 1px solid #000; padding: 6px;">Bil.</th>
+                            <th style="width: 48%; border: 1px solid #000; padding: 6px;">Domain Kompetensi SKKSM</th>
+                            <th style="width: 14%; border: 1px solid #000; padding: 6px;">Skor Pra</th>
+                            <th style="width: 14%; border: 1px solid #000; padding: 6px;">Skor Pasca</th>
+                            <th style="width: 16%; border: 1px solid #000; padding: 6px;">Perubahan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                    </tbody>
+                </table>
+            </div>`;
+
+            const printEl = document.getElementById('printSection');
+            if (printEl) {
+                printEl.innerHTML = printHTML;
+                const oldTitle = document.title;
+                document.title = `${nama} - Laporan Ujian i-PROPKES`;
+                window.print();
+                setTimeout(() => { document.title = oldTitle; printEl.innerHTML = ''; }, 1000);
+            }
+        };
+
+        window.cetakArtikelPDF = function() {
+            const u = window.profileData || {};
+            const a = window.artikelData || {};
+            const nama = (u.name || "Peserta").toUpperCase();
+            const tajuk = (window.getValUp('artTajuk') || a.tajuk || "TAJUK ARTIKEL PROPKES").toUpperCase();
+
+            const printEl = document.getElementById('printSection');
+            if (!printEl) return;
+
+            printEl.innerHTML = `
+                <div class="print-page">
+                    <div style="width: 100%; text-align: center; margin-bottom: 15px; display: flex; justify-content: center;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 75px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                    </div>
+                    <h3 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">LAMPIRAN E</h3>
+                    <h2 style="font-weight: bold; font-size: 13px; text-align: center; margin-bottom: 15px;">FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h2>
+                    
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; text-transform: uppercase; margin-bottom: 10px;">${tajuk}</h2>
+                    <p style="text-align: center; font-weight: bold; font-size: 11px; margin-bottom: 20px;">${nama}<br>${(u.jabatan || u.pusatCawangan || "INSTITUT AMINUDDIN BAKI").toUpperCase()}</p>
+
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; padding-bottom: 3px; border-bottom: none;">ABSTRAK</h4>
+                    <div style="margin-bottom: 15px; font-size: 10px; font-style: italic; text-align: justify; line-height: 1.5; border: none; background: transparent; padding: 0;">
+                        ${window.getVal('artAbstrak') || a.abstrak || "Tiada abstrak diisi."}
+                    </div>
+
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; padding-bottom: 3px; border-bottom: none;">PENGENALAN</h4>
+                    <p style="font-size: 10px; white-space: pre-wrap; text-align: justify; line-height: 1.5;">${window.getVal('artPengenalan') || a.pengenalan || "Tiada pengenalan diisi."}</p>
+
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; padding-bottom: 3px; border-bottom: none;">LATAR BELAKANG SEKOLAH SANDARAN</h4>
+                    <p style="font-size: 10px; margin-bottom: 5px;"><b>Jadual 1: Profil Sekolah Sandaran</b></p>
+                    <table class="print-table" style="margin-bottom: 15px;">
+                        <tr><td style="width: 35%; font-weight: bold;">Nama Sekolah</td><td>${(u.sekolah || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">PPD / Daerah</td><td>${(window.getVal('artLokasiDaerah') || a.lokasiDaerah || u.ppd || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">Jenis & Status Gred</td><td>${(window.getVal('artJenisGred') || a.jenisGred || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">Bilangan Guru & Murid</td><td>${window.getVal('artBilGuruMurid') || a.bilGuruMurid || "-"}</td></tr>
+                        <tr><td style="font-weight: bold;">Nama Pengetua / Guru Besar</td><td>${(window.getVal('artNamaPengetua') || a.namaPengetua || u.mentorSekolah || "-").toUpperCase()}</td></tr>
+                    </table>
+
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; padding-bottom: 3px; border-bottom: none;">PERKONGSIAN BIDANG KEBITARAAN / AMALAN TERBAIK</h4>
+                    <p style="font-size: 10px; font-weight: bold;">1. Bidang Kebitaraan / Amalan Terbaik Pertama</p>
+                    <p style="font-size: 10px; white-space: pre-wrap; margin-bottom: 10px; text-align: justify; line-height: 1.5;">${window.getVal('artKebitaraan1') || a.kebitaraan1 || "-"}</p>
+
+                    <p style="font-size: 10px; font-weight: bold;">2. Bidang Kebitaraan / Amalan Terbaik Kedua</p>
+                    <p style="font-size: 10px; white-space: pre-wrap; margin-bottom: 10px; text-align: justify; line-height: 1.5;">${window.getVal('artKebitaraan2') || a.kebitaraan2 || "-"}</p>
+
+                    <p style="font-size: 10px; font-weight: bold;">3. Bidang Kebitaraan / Amalan Terbaik Ketiga</p>
+                    <p style="font-size: 10px; white-space: pre-wrap; margin-bottom: 15px; text-align: justify; line-height: 1.5;">${window.getVal('artKebitaraan3') || a.kebitaraan3 || "-"}</p>
+
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; padding-bottom: 3px; border-bottom: none;">RUMUSAN</h4>
+                    <p style="font-size: 10px; white-space: pre-wrap; text-align: justify; line-height: 1.5;">${window.getVal('artRumusan') || a.rumusan || "-"}</p>
+
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; padding-bottom: 3px; border-bottom: none;">RUJUKAN</h4>
+                    <p style="font-size: 10px; white-space: pre-wrap; line-height: 1.5;">${window.getVal('artRujukan') || a.rujukan || "-"}</p>
+                </div>
+            `;
+            
+            const oldTitle = document.title;
+            document.title = `${nama} - Artikel Lampiran E - PROPKES`;
+            window.print();
+            setTimeout(() => { document.title = oldTitle; printEl.innerHTML = ''; }, 1000);
+        };
+
+        window.downloadArtikelWord = function() {
+            const u = window.profileData || {};
+            const a = window.artikelData || {};
+            const nama = (u.name || "Peserta").toUpperCase();
+            const tajuk = (window.getValUp('artTajuk') || a.tajuk || "TAJUK ARTIKEL PROPKES").toUpperCase();
+
+            const wordContent = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head><meta charset='utf-8'><title>${tajuk}</title>
+                <style>
+                    body { font-family: 'Arial', sans-serif; font-size: 11pt; line-height: 1.5; color: #000; }
+                    h2 { font-size: 14pt; text-align: center; text-transform: uppercase; font-weight: bold; margin-bottom: 5px; }
+                    h3 { font-size: 12pt; text-align: center; font-weight: bold; margin-bottom: 2px; }
+                    h4 { font-size: 11pt; font-weight: bold; margin-top: 15px; margin-bottom: 5px; text-transform: uppercase; border: none; }
+                    p { text-align: justify; margin-bottom: 10px; }
+                    table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+                    td { border: 1px solid #000; padding: 6px; font-size: 10pt; vertical-align: top; }
+                </style>
+                </head>
+                <body>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png" width="90" alt="Logo KPM IAB">
+                    </div>
+                    <h3>LAMPIRAN E</h3>
+                    <h3>FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h3>
+                    <br>
+                    <h2>${tajuk}</h2>
+                    <p style="text-align: center; font-weight: bold;">${nama}<br>${(u.jabatan || u.pusatCawangan || "INSTITUT AMINUDDIN BAKI").toUpperCase()}</p>
+                    <br>
+                    <h4>ABSTRAK</h4>
+                    <p style="font-style: italic;">${window.getVal('artAbstrak') || a.abstrak || "Tiada abstrak diisi."}</p>
+
+                    <h4>PENGENALAN</h4>
+                    <p>${window.getVal('artPengenalan') || a.pengenalan || "Tiada pengenalan diisi."}</p>
+
+                    <h4>LATAR BELAKANG SEKOLAH SANDARAN</h4>
+                    <p><b>Jadual 1: Profil Sekolah Sandaran</b></p>
+                    <table>
+                        <tr><td style="width: 35%; font-weight: bold;">Nama Sekolah</td><td>${(u.sekolah || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">PPD / Daerah</td><td>${(window.getVal('artLokasiDaerah') || a.lokasiDaerah || u.ppd || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">Jenis & Status Gred</td><td>${(window.getVal('artJenisGred') || a.jenisGred || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">Bilangan Guru & Murid</td><td>${window.getVal('artBilGuruMurid') || a.bilGuruMurid || "-"}</td></tr>
+                        <tr><td style="font-weight: bold;">Nama Pengetua / Guru Besar</td><td>${(window.getVal('artNamaPengetua') || a.namaPengetua || u.mentorSekolah || "-").toUpperCase()}</td></tr>
+                    </table>
+
+                    <h4>PERKONGSIAN BIDANG KEBITARAAN / AMALAN TERBAIK</h4>
+                    <p><b>1. Bidang Kebitaraan / Amalan Terbaik Pertama</b></p>
+                    <p>${window.getVal('artKebitaraan1') || a.kebitaraan1 || "-"}</p>
+
+                    <p><b>2. Bidang Kebitaraan / Amalan Terbaik Kedua</b></p>
+                    <p>${window.getVal('artKebitaraan2') || a.kebitaraan2 || "-"}</p>
+
+                    <p><b>3. Bidang Kebitaraan / Amalan Terbaik Ketiga</b></p>
+                    <p>${window.getVal('artKebitaraan3') || a.kebitaraan3 || "-"}</p>
+
+                    <h4>RUMUSAN</h4>
+                    <p>${window.getVal('artRumusan') || a.rumusan || "-"}</p>
+
+                    <h4>RUJUKAN</h4>
+                    <p>${window.getVal('artRujukan') || a.rujukan || "-"}</p>
+                </body>
+                </html>
+            `;
+
+            const blob = new Blob(['\ufeff', wordContent], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            const aEl = document.createElement('a');
+            aEl.href = url;
+            aEl.download = `Artikel_Lampiran_E_${nama.replace(/\s+/g, '_')}.doc`;
+            document.body.appendChild(aEl);
+            aEl.click();
+            document.body.removeChild(aEl);
+            URL.revokeObjectURL(url);
+        };
+
+        window.cetakLampiranB = function() {
+            const oldTitle = document.title;
+            const u = window.profileData || {};
+            const nama = (u.name || "Peserta").toUpperCase();
+            document.title = `${nama} - Laporan Log Kehadiran - ${new Date().toLocaleDateString('ms-MY').replace(/\//g, '-')}`;
+            
+            const daysInMonth = new Date(disYear, disMonth + 1, 0).getDate();
+            let tableRows = ''; let bil = 1;
+            
+            for(let d=1; d<=daysInMonth; d++) {
+                const dt = `${disYear}-${String(disMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+                const data = window.calendarData[dt];
+                if(data && data.loc) {
+                    const dateObj = new Date(disYear, disMonth, d); const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'short' });
+                    const formatTarikh = `${d} ${mNames[disMonth].toUpperCase()} ${disYear} (${hari.toUpperCase()})`;
+                    let locText = "";
+                    if(data.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN"; else if(data.loc === 'ppd') locText = u.ppd || "PPD"; else if(data.loc === 'iab') locText = "IAB"; else if(data.loc === 'cuti') locText = "-";
+                    let catatan = data.loc === 'cuti' ? "CUTI REHAT" : "";
+
+                    tableRows += `<tr><td style="text-align:center;">${bil++}</td><td>${formatTarikh}</td><td>${locText.toUpperCase()}</td><td></td><td>${catatan}</td></tr>`;
+                }
+            }
+            if(tableRows === '') tableRows = `<tr><td colspan="5" style="text-align:center; padding: 20px;">Tiada rekod kehadiran untuk bulan ini.</td></tr>`;
+
+            document.getElementById('printSection').innerHTML = `
+                <div class="print-page">
+                    <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                    </div>
+                    <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN B</h3>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">FASA 1 / 2</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG KEHADIRAN</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px;"><tr><td style="padding: 5px; width: 15%; font-weight: bold;">NAMA</td><td style="padding: 5px;">${nama}</td></tr><tr><td style="padding: 5px; font-weight: bold;">JAWATAN</td><td style="padding: 5px;">${(u.jawatan||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">GRED</td><td style="padding: 5px;">${(u.gred||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">JABATAN</td><td style="padding: 5px;">${(u.jabatan||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">PUSAT</td><td style="padding: 5px;">${(u.pusatCawangan||'-').toUpperCase()}</td></tr></table>
+                    <table class="print-table"><thead><tr><th style="width: 5%;">BIL.</th><th style="width: 25%;">TARIKH & HARI</th><th style="width: 30%;">LOKASI BERTUGAS</th><th style="width: 20%;">TANDATANGAN MENTOR</th><th style="width: 20%;">CATATAN</th></tr></thead><tbody>${tableRows}</tbody></table>
+                </div>`;
+            window.print(); setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
+        };
+
+        window.cetakLampiranC = function() {
+            const weekVal = document.getElementById('weekSelector').value;
+            const [wId, startStr, endStr] = weekVal.split('_');
+            const dates = getDatesInRange(startStr, endStr);
+            const u = window.profileData || {}; const nama = (u.name || "Peserta").toUpperCase();
+            let htmlPages = ""; let adaRekod = false;
+
+            dates.forEach(dt => {
+                const data = window.calendarData[dt];
+                if(data && data.loc) {
+                    adaRekod = true; const dateObj = new Date(dt); const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'long' });
+                    const formatTarikh = `${dateObj.getDate()} ${mNames[dateObj.getMonth()].toUpperCase()} ${dateObj.getFullYear()} / ${hari.toUpperCase()}`;
+                    let locText = "";
+                    if(data.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN"; else if(data.loc === 'ppd') locText = u.ppd || "PPD"; else if(data.loc === 'iab') locText = "IAB"; else locText = "-";
+
+                    htmlPages += `
+                    <div class="print-page">
+                        <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
+                            <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                        </div>
+                        <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN C</h3>
+                        <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                        <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG HARIAN FASA 1 / 2</h2>
+                        <table class="print-table" style="margin-bottom: 30px;">
+                            <tr><td style="width: 20%; font-weight: bold;">NAMA</td><td>${nama}</td></tr><tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">JABATAN</td><td>${(u.jabatan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">PUSAT</td><td>${(u.pusatCawangan || "-").toUpperCase()}</td></tr>
+                            <tr><td style="font-weight: bold;">TARIKH/ HARI</td><td>${formatTarikh} <br><br> Lokasi: ${locText.toUpperCase()}</td></tr>
+                            <tr><td style="font-weight: bold; height: 100px;">AKTIVITI</td><td style="white-space: pre-wrap;">${data.aktiviti || "-"}</td></tr>
+                            <tr><td style="font-weight: bold;">REFLEKSI<br><br><span style="font-weight:normal; font-size:10px;">(Satu SKKSM)</span><br><br><span style="font-size:10px;">${data.skksm || "-"}</span></td><td style="white-space: pre-wrap; height: 150px;">${data.refleksi || "-"}</td></tr>
+                            <tr><td style="font-weight: bold; height: 80px;">TANDATANGAN MENTOR</td><td></td></tr>
+                        </table>
+                    </div>`;
+                }
+            });
+
+            if(!adaRekod) { window.showToast("Tiada log dijumpai untuk minggu ini.", "warning"); return; }
+            document.getElementById('printSection').innerHTML = htmlPages; const oldTitle = document.title; document.title = `${nama} - Lampiran C - ${wId}`;
+            window.print(); setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
+        };
+
+        window.cetakLampiranD = function() {
+            const weekVal = document.getElementById('weekSelector').value;
+            const weekLabel = document.getElementById('weekSelector').options[document.getElementById('weekSelector').selectedIndex].text;
+            const data = window.journalData[weekVal];
+            if(!data) { window.showToast("Jurnal belum diisi untuk minggu ini.", "warning"); return; }
+            const u = window.profileData || {}; const nama = (u.name || "Peserta").toUpperCase();
+
+            document.getElementById('printSection').innerHTML = `
+            <div class="print-page">
+                <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                </div>
+                <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN D</h3>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">JURNAL KEPIMPINAN MINGGUAN</h2>
+                <table class="print-table">
+                    <tr><td style="width: 20%; font-weight: bold;">NAMA</td><td>${nama}</td></tr><tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">JABATAN</td><td>${(u.jabatan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">PUSAT</td><td>${(u.pusatCawangan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">MINGGU</td><td>${weekLabel.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold; height: 150px;">DISKRIPSI</td><td style="white-space: pre-wrap;">${data.deskripsi || "-"}</td></tr><tr><td style="font-weight: bold; height: 150px;">ANALISIS</td><td style="white-space: pre-wrap;">${data.analisis || "-"}</td></tr><tr><td style="font-weight: bold; height: 150px;">INTERPRETASI</td><td style="white-space: pre-wrap;">${data.interpretasi || "-"}</td></tr>
+                </table>
+            </div>`;
+            const oldTitle = document.title; document.title = `${nama} - Lampiran D - ${weekVal.split('_')[0]}`;
+            window.print(); setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
+        };
+
+        // STREAMING_CHUNK:Rendering Chart.js components...
         let barChartInstance = null;
         let webChartInstance = null;
 
@@ -1167,5 +1441,10 @@
 
         loadUserData();
     </script>
+
+    <!-- INTEGRASI PEMBANTU MAYA (SAYA AINDA) -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/07/14/13/20260714134346-FN0YXLI1.js" defer></script>
+
 </body>
 </html>
