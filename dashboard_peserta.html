@@ -617,8 +617,12 @@
                     safeSetText("profileSekolah", u.sekolah || "Belum Diisi");
                     safeSetText("profilePPD", u.ppd ? `PPD: ${u.ppd}` : "PPD: Belum Diisi");
                     
-                    safeSetText("infoPemanduNama", u.pemanducitra || "Belum Diisi");
-                    safeSetText("infoPemanduJawatan", (u.pemanducitraJawatan || "") + " " + (u.pemanducitraPusat ? `(${u.pemanducitraPusat})` : ""));
+                    /* PERBAIKAN PEMANDU CITRA: Menyepadukan kekunci pemanduCitra dan pemanducitra */
+                    const namaPemandu = u.pemanduCitra || u.pemanducitra || "Belum Diisi";
+                    const jawatanPemandu = u.pemanduJawatan || u.pemanducitraJawatan || "";
+                    const pusatPemandu = u.pemanduPusat || u.pemanducitraPusat || "";
+                    safeSetText("infoPemanduNama", namaPemandu);
+                    safeSetText("infoPemanduJawatan", (jawatanPemandu || pusatPemandu) ? `${jawatanPemandu} ${pusatPemandu ? '('+pusatPemandu+')' : ''}` : "-");
                     safeSetText("infoMentorNama", u.mentorSekolah || "Belum Diisi");
                     safeSetText("infoMentorJawatan", u.mentorJawatan || "-");
                     safeSetText("infoMentorPpdNama", u.mentorPpd || "Belum Diisi");
@@ -626,10 +630,11 @@
 
                     safeSetValue('editIc', u.ic || "");
                     safeSetValue('editJawatan', u.jawatan || ""); safeSetValue('editGred', u.gred || "");
-                    /* PERBAIKAN ISU JABATAN DALAM FORM EDIT: Menggunakan u.jabatan */
                     safeSetValue('editJabatan', u.jabatan || ""); safeSetValue('editPusatCawangan', u.pusatCawangan || "");
                     safeSetValue('editSekolah', u.sekolah || ""); safeSetValue('editPpd', u.ppd || "");
-                    safeSetValue('editPemanduCitra', u.pemanducitra || ""); safeSetValue('editPemanduCitraJawatan', u.pemanducitraJawatan || ""); safeSetValue('editPemanduPusat', u.pemanduPusat || "");
+                    safeSetValue('editPemanduCitra', u.pemanduCitra || u.pemanducitra || ""); 
+                    safeSetValue('editPemanduJawatan', jawatanPemandu); 
+                    safeSetValue('editPemanduPusat', pusatPemandu);
                     safeSetValue('editMentorSekolah', u.mentorSekolah || ""); safeSetValue('editMentorJawatan', u.mentorJawatan || "");
                     safeSetValue('editMentorTelefon', u.mentorTelefon || ""); safeSetValue('editMentorEmail', u.mentorEmail || "");
                     safeSetValue('editMentorAlamat', u.mentorAlamat || ""); 
@@ -677,11 +682,16 @@
             e.preventDefault();
             const btn = document.getElementById("btnSimpanProfil"); btn.textContent = "Menyimpan..."; btn.disabled = true;
             
+            const pemanduNama = getValUp('editPemanduCitra');
+            const pemanduJawatanVal = getValUp('editPemanduJawatan');
+            const pemanduPusatVal = getValUp('editPemanduPusat');
+
             const dataToSave = {
                 ic: getValUp('editIc'),
                 jawatan: getValUp('editJawatan'), gred: getValUp('editGred'), jabatan: getValUp('editJabatan'), pusatCawangan: getValUp('editPusatCawangan'),
                 sekolah: getValUp('editSekolah'), ppd: getValUp('editPpd'),
-                pemanduCitra: getValUp('editPemanduCitra'), pemanduJawatan: getValUp('editPemanduJawatan'), pemanduPusat: getValUp('editPemanduPusat'),
+                pemanduCitra: pemanduNama, pemanduJawatan: pemanduJawatanVal, pemanduPusat: pemanduPusatVal,
+                pemanducitra: pemanduNama, pemanducitraJawatan: pemanduJawatanVal, pemanducitraPusat: pemanduPusatVal,
                 mentorSekolah: getValUp('editMentorSekolah'), mentorJawatan: getValUp('editMentorJawatan'), mentorTelefon: getVal('editMentorTelefon'), mentorEmail: getVal('editMentorEmail'), mentorAlamat: getValUp('editMentorAlamat'), 
                 mentorPpd: getValUp('editMentorPpd'), mentorPpdJawatan: getValUp('editMentorPpdJawatan'), mentorPpdTelefon: getVal('editMentorPpdTelefon'), mentorPpdEmail: getVal('editMentorPpdEmail'), mentorPpdAlamat: getValUp('editMentorPpdAlamat')
             };
