@@ -633,10 +633,16 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // PENYAHPENCEMARAN KUNCI PENGGUNA UNTUK FIREBASE (Menghapus aksara larangan)
-        const cleanKey = (str) => (str || "peserta1").replace(/[^a-zA-Z0-9_-]/g, "_");
-        let rawUser = localStorage.getItem("propkes_user") || "peserta1";
-        let currentUser = cleanKey(rawUser);
+        // PEMBAIKAN KUNCI PENGGUNA DAFTAR REALTIME
+        let rawUser = localStorage.getItem("propkes_user") || "";
+        
+        // PEMBAIKAN 1: Semakan kebenaran / Pengendalian Log Masuk
+        if (!rawUser) {
+            window.location.replace("index.html");
+        }
+
+        // Sanitasi kunci sahaja jika mengandungi e-mel/aksara terlarang dalam RTDB Firebase
+        let currentUser = rawUser.replace(/[^a-zA-Z0-9_-]/g, "_");
 
         window.calendarData = {};
         window.journalData = {};
@@ -676,9 +682,10 @@
             setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
         };
 
+        // PEMBAIKAN 2: Fungsi Log Keluar yang betul (Kembali ke index.html)
         window.logout = function() { 
             localStorage.removeItem("propkes_user"); 
-            window.location.reload();
+            window.location.replace("index.html");
         };
 
         window.cetakArtikelPDF = function() {
@@ -943,7 +950,6 @@
             const f1HadirTot = Math.min(f1Sekolah, 15) + Math.min(f1Ppd, 5);
             const f1HadirPct = Math.round((f1HadirTot / 20) * 100);
             
-            // PEMBAIKAN BUG: Semak kekunci Jurnal D mingguan (W1_ - W6_)
             let f1JurCount = 0;
             for(let i=1; i<=6; i++) { 
                 const hasJur = Object.keys(window.journalData).some(k => k.startsWith(`W${i}_`));
@@ -975,7 +981,6 @@
             const f2HadirTot = Math.min(f2Sekolah, 15) + Math.min(f2Ppd, 5);
             const f2HadirPct = Math.round((f2HadirTot / 20) * 100);
 
-            // PEMBAIKAN BUG: Semak kekunci Jurnal D mingguan (W7_ - W12_)
             let f2JurCount = 0;
             for(let i=7; i<=12; i++) { 
                 const hasJur = Object.keys(window.journalData).some(k => k.startsWith(`W${i}_`));
@@ -1090,11 +1095,9 @@
             if(!container) return; container.innerHTML = ""; 
             const progress = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
             
-            // AUTO CHECK RULE 1: Profil Sekolah & PPD
             if(window.profileData && window.profileData.sekolah && window.profileData.ppd) {
                 progress['t1'] = true;
             }
-            // AUTO CHECK RULE 2: Ujian Pra & Pasca
             if(localStorage.getItem(`propkes_pra_result_${currentUser}`)) progress['t4'] = true;
             if(localStorage.getItem(`propkes_pasca_result_${currentUser}`)) progress['t11'] = true;
 
@@ -1136,6 +1139,7 @@
             if(val) window.showToast("Tugasan direkodkan.");
         };
 
+        // PEMBAIKAN 3: Borang Artikel Lampiran E Dibaiki untuk Menyimpan ke Firebase RTDB
         document.getElementById("artikelForm").addEventListener("submit", async function(e) {
             e.preventDefault();
             const btn = document.getElementById("btnSimpanArtikel"); 
@@ -1158,22 +1162,23 @@
                 updatedAt: new Date().toISOString()
             };
 
-            // Local storage backup
+            // Simpanan tempatan sebagai sandaran
             localStorage.setItem(`propkes_article_${currentUser}`, JSON.stringify(payload));
             window.artikelData = payload;
 
             let savedToCloud = false;
             try {
+                // Simpan terus ke nod propkes_articles/{currentUser}
                 await set(ref(db, `propkes_articles/${currentUser}`), payload);
                 savedToCloud = true;
             } catch(err) {
-                console.warn("Ralat simpan ke awan, disimpan secara tempatan:", err);
+                console.error("Ralat simpan ke awan Firebase:", err);
             }
 
             if (savedToCloud) {
                 window.showToast("Artikel Lampiran E berjaya disimpan ke awan!");
             } else {
-                window.showToast("Artikel disimpan secara tempatan.", "warning");
+                window.showToast("Artikel disimpan secara tempatan sahaja.", "warning");
             }
 
             window.closeArtikelModal();
@@ -1181,11 +1186,12 @@
             window.renderTasks();
 
             try {
-                if(window.profileData && window.profileData.pemanduEmail) {
+                if(window.profileData && (window.profileData.pemanduEmail || window.profileData.mentorEmail)) {
+                    const targetEmel = window.profileData.pemanduEmail || window.profileData.mentorEmail;
                     window.hantarNotifikasiEmel(
                         "Penulisan Artikel (Lampiran E) Baharu Dihantar", 
                         `Peserta seliaan anda, ${window.profileData.name || currentUser} telah melengkapkan dan menghantar Penulisan Artikel (Lampiran E) untuk semakan anda.`, 
-                        window.profileData.pemanduEmail
+                        targetEmel
                     );
                 }
             } catch(eEmail) {
