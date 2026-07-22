@@ -244,7 +244,7 @@
                     </div>
                 </div>
 
-                <!-- KEPUTUSAN I-PROPKES (DIBANDINGKAN MENGIKUT 9 DOMAIN SKKSM) -->
+                <!-- KEPUTUSAN I-PROPKES (9 DOMAIN SKKSM) -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
                     <div class="flex justify-between items-center mb-2">
                         <div>
@@ -262,7 +262,6 @@
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF i-PROPKES
                             </button>
                         </div>
-                        <!-- CARTA BAR & WEB DISUSUN MENURUN MENGIKUT 9 DOMAIN SKKSM -->
                         <div class="grid grid-cols-1 gap-4">
                             <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 relative h-72">
                                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-1 text-center">Carta Bar (9 Domain SKKSM)</p>
@@ -673,7 +672,6 @@
 
         let rawUser = localStorage.getItem("propkes_user") || "";
         
-        // PEMBAIKAN UNTUK BLOB PREVIEW & ENVIRONMENT RANGKAIAN
         if (!rawUser) {
             if (window.location.href.startsWith("blob:") || window.location.protocol === "about:") {
                 rawUser = "peserta1";
@@ -758,13 +756,11 @@
         window.process38ItemsTo9Domains = function(resultObj) {
             if (!resultObj) return [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-            // Semak jika data sudah pun berbentuk purata 9 Domain
             const isAlreadyDomains = window.skksm9Domains.every(d => resultObj[d] !== undefined);
             if (isAlreadyDomains) {
                 return window.skksm9Domains.map(d => Number(resultObj[d]) || 0);
             }
 
-            // Pemetaan item 1 hingga 38 ke 9 Domain SKKSM
             const domainItemMapping = [
                 [1, 10, 11, 12, 13, 14, 15, 16, 17],            // 1. Pengurusan & Kepimpinan Organisasi
                 [2, 18, 19, 20, 21],                            // 2. Pengurusan Kurikulum
@@ -810,7 +806,6 @@
                 const praDomainScores = window.process38ItemsTo9Domains(pra);
                 const pascaDomainScores = window.process38ItemsTo9Domains(pasca);
 
-                // CARTA BAR (9 DOMAIN SKKSM)
                 const barEl = document.getElementById('barChart');
                 if (barEl) {
                     if (barChartInstance) barChartInstance.destroy();
@@ -837,7 +832,6 @@
                     });
                 }
                 
-                // CARTA RADAR WEB (9 DOMAIN SKKSM)
                 const webEl = document.getElementById('webChart');
                 if (webEl) {
                     if (webChartInstance) webChartInstance.destroy();
@@ -870,6 +864,196 @@
             }
         }
 
+        let disMonth = 7, disYear = 2026, curEditDate = "";
+        const mNames = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
+
+        window.changeMonth = function(dir) {
+            disMonth += dir; if(disMonth > 11) { disMonth = 0; disYear++; } if(disMonth < 0) { disMonth = 11; disYear--; }
+            window.renderCal();
+        };
+
+        window.renderCal = function() {
+            safeSetText("calendarMonthYear", `${mNames[disMonth]} ${disYear}`);
+            safeSetText("statMonthLabel", mNames[disMonth]);
+            
+            const grid = document.getElementById("calendarGrid"); 
+            if(!grid) return; grid.innerHTML = "";
+
+            const first = new Date(disYear, disMonth, 1).getDay(); 
+            const days = new Date(disYear, disMonth + 1, 0).getDate();
+            let cS = 0, cP = 0, cI = 0, cC = 0;
+
+            for(let i=0; i<first; i++) grid.appendChild(document.createElement("div"));
+            
+            for(let d=1; d<=days; d++) {
+                const dt = `${disYear}-${String(disMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+                const data = window.calendarData[dt] || {log:false, loc:"", status:""};
+                if(data && typeof data === 'object') { 
+                    if(data.loc === 'sekolah') cS++; 
+                    else if(data.loc === 'ppd') cP++; 
+                    else if(data.loc === 'iab') cI++; 
+                    else if(data.loc === 'cuti') cC++; 
+                }
+
+                const btn = document.createElement("button");
+                btn.className = "relative w-full aspect-square max-w-[3rem] mx-auto rounded-xl flex items-center justify-center text-xs font-semibold outline-none transition-all cursor-pointer border";
+                let bC = "bg-slate-800/40 border-slate-700/50 text-slate-300 hover:bg-slate-700";
+                if(data.loc === 'sekolah') bC = "bg-blue-600/90 border-blue-500 text-white"; 
+                else if(data.loc === 'ppd') bC = "bg-indigo-600/90 border-indigo-500 text-white"; 
+                else if(data.loc === 'iab') bC = "bg-purple-600/90 border-purple-500 text-white"; 
+                else if(data.loc === 'cuti') bC = "bg-slate-700/90 border-slate-500 text-white";
+                btn.className += " " + bC;
+                
+                let iconHtml = "";
+                if(data.log) iconHtml = data.status === 'approved' ? `<div class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-slate-900 flex items-center justify-center shadow-sm"><svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg></div>` : `<div class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-amber-500 rounded-full border-2 border-slate-900 flex items-center justify-center shadow-sm"></div>`;
+
+                btn.innerHTML = `<span>${d}</span>` + iconHtml;
+                btn.onclick = () => window.openDailyModal(dt, d); 
+                grid.appendChild(btn);
+            }
+            safeSetText('countSekolah', cS + " Hari");
+            safeSetText('countPpd', cP + " Hari");
+            safeSetText('countIab', cI + " Hari");
+            safeSetText('countCuti', cC + " Hari");
+        };
+
+        const propkesTasks = [
+            {
+                phase: "Pra-Program (Julai 2026)",
+                tasks: [
+                    { id: "t1", title: "Mengenal pasti sekolah/PPD sandaran.", date: "Jul 2026", link: "#", btnText: "Profil", isAutoSchool: true },
+                    { id: "t4", title: "Instrumen i-PROPKES (Pra)", date: "27 Jul 2026", link: "instrumen_pra.html", btnText: "Jawab Ujian Pra", isAssessment: true, testKey: `propkes_pra_result_${currentUser}` }
+                ]
+            },
+            {
+                phase: "Fasa 1 & 2 (Ogos - Okt 2026)",
+                tasks: [
+                    { id: "t5", title: "Mengikuti Fasa 1 & Jurnal Kepimpinan 1-6 (Lampiran D)", date: "Ogos - Sept", link: "#", isStatic: true },
+                    { id: "t6", title: "Log Kehadiran & Aktiviti Fasa 1 (Lampiran C)", date: "Setiap Hari", link: "#", isStatic: true },
+                    { id: "t7", title: "Mengikuti Fasa 2 & Jurnal Kepimpinan 7-12 (Lampiran D)", date: "Sept - Okt", link: "#", isStatic: true },
+                    { id: "t8", title: "Log Kehadiran & Aktiviti Fasa 2 (Lampiran C)", date: "Setiap Hari", link: "#", isStatic: true }
+                ]
+            },
+            {
+                phase: "Pasca-Program (November 2026)",
+                tasks: [
+                    { id: "t11", title: "Instrumen i-PROPKES (Pasca)", date: "2 Nov 2026", link: "instrumen_pasca.html", btnText: "Jawab Ujian Pasca", isAssessment: true, testKey: `propkes_pasca_result_${currentUser}` },
+                    { id: "t15", title: "Penyerahan Dokumen D, E, F, G", date: "Nov 2026", link: "https://drive.google.com/drive/folders/1PfzBbH5CftPJJqoZGpPMD8n8O3UdpnXp?usp=sharing", btnText: "Drive" }
+                ]
+            }
+        ];
+
+        window.renderTasks = function() {
+            const container = document.getElementById("taskListContainer"); 
+            if(!container) return; container.innerHTML = ""; 
+            const progress = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
+            
+            if(window.profileData && window.profileData.sekolah && window.profileData.ppd) {
+                progress['t1'] = true;
+            }
+            if(localStorage.getItem(`propkes_pra_result_${currentUser}`)) progress['t4'] = true;
+            if(localStorage.getItem(`propkes_pasca_result_${currentUser}`)) progress['t11'] = true;
+
+            localStorage.setItem(`propkes_progress_${currentUser}`, JSON.stringify(progress));
+
+            let total = 0, completed = 0;
+
+            propkesTasks.forEach(phase => {
+                let html = `<div class="mb-3 border-b border-slate-800/50 pb-1.5"><h4 class="text-[11px] font-bold text-blue-400 uppercase">${phase.phase}</h4></div><div class="space-y-2.5 mb-4">`;
+                phase.tasks.forEach(task => {
+                    total++; const isDone = progress[task.id] === true; if(isDone) completed++;
+                    const bg = isDone ? "bg-emerald-950/20 border-emerald-900/50" : "bg-slate-800/40 border-slate-700/50";
+                    const iconBg = isDone ? "bg-emerald-500 text-white" : "bg-slate-700 text-slate-400";
+                    
+                    let actBtn = task.isStatic ? 
+                        `<span class="text-[10px] text-slate-500 italic">Sistem Auto</span>` : 
+                        (isDone ? 
+                            `<button onclick="window.toggleTask('${task.id}', false)" class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded border border-emerald-500/30 outline-none cursor-pointer font-bold">✓ Selesai</button>` : 
+                            `<button onclick="window.toggleTask('${task.id}', true)" class="text-[10px] bg-slate-700 hover:bg-emerald-600 text-white px-2.5 py-1 rounded transition-colors outline-none cursor-pointer">Tanda Selesai</button>`
+                        );
+
+                    let linkHtml = task.isStatic ? '' : `<a href="${task.link}" target="${task.isAssessment ? '_self' : '_blank'}" class="text-[10px] bg-blue-600/10 text-blue-400 hover:bg-blue-600 hover:text-white px-2.5 py-1 rounded border border-blue-600/30 outline-none cursor-pointer font-bold transition-all">${task.btnText}</a>`;
+
+                    html += `<div class="flex flex-col sm:flex-row justify-between p-3 rounded-xl border ${bg} gap-3"><div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${iconBg}"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div><div><h4 class="text-xs font-semibold text-white">${task.title}</h4><div class="flex items-center gap-2 mt-1"><span class="text-[10px] text-slate-400">${task.date}</span> ${linkHtml}</div></div></div><div class="shrink-0 flex justify-end items-center">${actBtn}</div></div>`;
+                });
+                html += `</div>`; container.innerHTML += html;
+            });
+
+            const pct = total === 0 ? 0 : Math.round((completed/total)*100);
+            safeSetText("progressText", pct + "%");
+            if(document.getElementById("progressCircle")) document.getElementById("progressCircle").className = `w-9 h-9 rounded-full border-4 flex items-center justify-center shrink-0 ${pct === 100 ? 'border-emerald-500 bg-emerald-500/10' : (pct > 0 ? 'border-blue-500' : 'border-slate-700')}`;
+        };
+
+        window.toggleTask = function(id, val) {
+            let prog = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
+            prog[id] = val; localStorage.setItem(`propkes_progress_${currentUser}`, JSON.stringify(prog));
+            window.renderTasks(); 
+            window.calculatePhaseStats();
+            if(val) window.showToast("Tugasan direkodkan.");
+        };
+
+        function getDatesInRange(startDate, endDate) {
+            const dateArray = []; let currentDate = new Date(startDate); const stopDate = new Date(endDate);
+            while (currentDate <= stopDate) { dateArray.push(new Date(currentDate).toISOString().split('T')[0]); currentDate.setDate(currentDate.getDate() + 1); }
+            return dateArray;
+        }
+
+        window.renderWeeklyScheduleTable = function() {
+            const table = document.getElementById('weeklyScheduleTable');
+            if (!table) return;
+
+            const weeks = [
+                { w: 1, fasa: "Fasa 1", range: "3 Ogos - 9 Ogos 2026", target: "Sekolah (3 Hari)", key: "W1_2026-08-03_2026-08-09" },
+                { w: 2, fasa: "Fasa 1", range: "10 Ogos - 16 Ogos 2026", target: "Sekolah (3 Hari)", key: "W2_2026-08-10_2026-08-16" },
+                { w: 3, fasa: "Fasa 1", range: "17 Ogos - 23 Ogos 2026", target: "Sekolah (3 Hari)", key: "W3_2026-08-17_2026-08-23" },
+                { w: 4, fasa: "Fasa 1", range: "24 Ogos - 30 Ogos 2026", target: "Sekolah (3 Hari)", key: "W4_2026-08-24_2026-08-30" },
+                { w: 5, fasa: "Fasa 1", range: "31 Ogos - 6 Sept 2026", target: "Sekolah (3 Hari)", key: "W5_2026-08-31_2026-09-06" },
+                { w: 6, fasa: "Fasa 1", range: "7 Sept - 13 Sept 2026", target: "PPD (5 Hari)", key: "W6_2026-09-07_2026-09-13" },
+                { w: 7, fasa: "Fasa 2", range: "14 Sept - 20 Sept 2026", target: "Sekolah (3 Hari)", key: "W7_2026-09-14_2026-09-20" },
+                { w: 8, fasa: "Fasa 2", range: "21 Sept - 27 Sept 2026", target: "Sekolah (3 Hari)", key: "W8_2026-09-21_2026-09-27" },
+                { w: 9, fasa: "Fasa 2", range: "28 Sept - 4 Okt 2026", target: "Sekolah (3 Hari)", key: "W9_2026-09-28_2026-10-04" },
+                { w: 10, fasa: "Fasa 2", range: "5 Okt - 11 Okt 2026", target: "Sekolah (3 Hari)", key: "W10_2026-10-05_2026-10-11" },
+                { w: 11, fasa: "Fasa 2", range: "12 Okt - 18 Okt 2026", target: "Sekolah (3 Hari)", key: "W11_2026-10-12_2026-10-18" },
+                { w: 12, fasa: "Fasa 2", range: "19 Okt - 25 Okt 2026", target: "PPD (5 Hari)", key: "W12_2026-10-19_2026-10-25" }
+            ];
+
+            let html = "";
+            weeks.forEach(item => {
+                const [wId, startStr, endStr] = item.key.split('_');
+                const dates = getDatesInRange(startStr, endStr);
+                let logCCount = 0;
+
+                dates.forEach(dt => {
+                    const log = window.calendarData[dt];
+                    if (log && log.loc && log.aktiviti) logCCount++;
+                });
+
+                const reqTarget = item.w === 6 || item.w === 12 ? 5 : 3;
+                const isLogCSelesai = logCCount >= reqTarget;
+                const isJurDSelesai = !!window.journalData[item.key];
+
+                const badgeLogC = isLogCSelesai ? 
+                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✓ Selesai (${logCCount}/${reqTarget})</span>` : 
+                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">Belum Selesai (${logCCount}/${reqTarget})</span>`;
+
+                const badgeJurD = isJurDSelesai ? 
+                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✓ Selesai</span>` : 
+                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400 border border-slate-700">Belum Diisi</span>`;
+
+                html += `
+                    <tr class="hover:bg-slate-800/30 transition-colors">
+                        <td class="p-2.5 font-semibold text-white border-r border-slate-800/50">M${item.w} <span class="text-[9px] text-slate-400 font-normal">(${item.fasa})</span></td>
+                        <td class="p-2.5 text-slate-300 text-[11px] border-r border-slate-800/50">${item.range}</td>
+                        <td class="p-2.5 font-medium border-r border-slate-800/50 ${item.w === 6 || item.w === 12 ? 'text-indigo-400' : 'text-blue-400'}">${item.target}</td>
+                        <td class="p-2.5 text-center border-r border-slate-800/50">${badgeLogC}</td>
+                        <td class="p-2.5 text-center">${badgeJurD}</td>
+                    </tr>
+                `;
+            });
+
+            table.innerHTML = html;
+        };
+
         async function loadUserData() {
             try {
                 const dbRef = ref(db);
@@ -890,11 +1074,33 @@
                     safeSetText("profileNama", fName);
                     safeSetText("profileEmail", u.email || "Tiada Maklumat");
                     safeSetText("profileIC", u.ic || "Belum Diisi");
+
+                    const jawatan = u.jawatan || ""; const gred = u.gred || "";
+                    safeSetText("profileJawatanGred", (jawatan || gred) ? `${jawatan} ${gred ? '('+gred+')' : ''}` : "Belum Diisi");
+                    
+                    const jabatan = u.jabatan || ""; const pusat = u.pusatCawangan || "";
+                    safeSetText("profileJabatanPusat", (jabatan || pusat) ? `${jabatan} ${pusat ? '- '+pusat : ''}` : "Belum Diisi");
+                    safeSetText("profileSekolah", u.sekolah || "Belum Diisi");
+                    safeSetText("profilePPD", u.ppd ? `PPD: ${u.ppd}` : "PPD: Belum Diisi");
+                    
+                    const namaPemandu = u.pemanduCitra || u.pemanducitra || "Belum Diisi";
+                    const jawatanPemandu = u.pemanduJawatan || u.pemanducitraJawatan || "";
+                    const pusatPemandu = u.pemanduPusat || u.pemanducitraPusat || "";
+                    safeSetText("infoPemanduNama", namaPemandu);
+                    safeSetText("infoPemanduJawatan", (jawatanPemandu || pusatPemandu) ? `${jawatanPemandu} ${pusatPemandu ? '('+pusatPemandu+')' : ''}` : "-");
+                    safeSetText("infoMentorNama", u.mentorSekolah || "Belum Diisi");
+                    safeSetText("infoMentorJawatan", u.mentorJawatan || "-");
+                    safeSetText("infoMentorPpdNama", u.mentorPpd || "Belum Diisi");
+                    safeSetText("infoMentorPpdJawatan", u.mentorPpdJawatan || "-");
                 }
 
                 if(calSnap && calSnap.exists()) window.calendarData = calSnap.val();
                 if(jurSnap && jurSnap.exists()) window.journalData = jurSnap.val();
+                if(artSnap && artSnap.exists()) window.artikelData = artSnap.val();
                 
+                window.renderCal();
+                window.renderWeeklyScheduleTable();
+                window.renderTasks();
                 loadCharts();
             } catch(e) {
                 console.error("Ralat memuat data:", e);
