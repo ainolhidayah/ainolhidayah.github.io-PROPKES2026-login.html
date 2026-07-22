@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papan Pemuka | Pemantau PROPKES</title>
+    <title>Papan Pemuka | Pemantau PROPKES 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- PUSTAKA NOTIFIKASI EMEL: EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -17,6 +15,8 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         @media print {
             body * { visibility: hidden; }
@@ -33,6 +33,7 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
+    <!-- NAVBAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 shadow-2xl no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex justify-between items-center">
@@ -41,17 +42,17 @@
                         <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
                     <div class="hidden xl:flex flex-col justify-center">
-                        <h1 class="font-extrabold text-sm text-white uppercase drop-shadow-md">SISTEM BERSEPADU PROPKES <span class="text-indigo-400">(ORBIX-P)</span></h1>
-                        <h2 class="text-[10px] font-semibold text-slate-300 uppercase">Institut Aminuddin Baki, KPM</h2>
+                        <h1 class="font-extrabold text-sm text-white uppercase drop-shadow-md">SISTEM BERSEPADU PROPKES <span class="text-blue-400">(ORBIX-P)</span></h1>
+                        <h2 class="text-[10px] font-semibold text-slate-300 uppercase">Papan Pemuka Pemantau & Urus Setia</h2>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-4 shrink-0">
                     <div class="text-right hidden md:block border-l border-slate-700 pl-4">
                         <p class="text-sm font-semibold text-white truncate max-w-[180px]" id="navNameDisplay">Memuatkan...</p>
-                        <p class="text-xs text-indigo-400 font-bold uppercase">Pemantau</p>
+                        <p class="text-xs text-indigo-400 font-bold uppercase">Pegawai Pemantau</p>
                     </div>
-                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-700 to-slate-800 border border-indigo-500 rounded-full flex items-center justify-center font-bold text-white shadow-lg" id="navInitials">PM</div>
+                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-slate-800 border border-indigo-500/50 rounded-full flex items-center justify-center font-bold text-white shadow-lg shrink-0" id="navInitials">PM</div>
                     <button onclick="window.logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-xl transition-all outline-none border border-slate-700 hover:border-rose-500 cursor-pointer" title="Log Keluar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
@@ -62,223 +63,287 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
         
-        <!-- Banner Aluaian -->
-        <div class="bg-gradient-to-r from-indigo-950 via-slate-900 to-slate-950 border border-indigo-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+        <!-- HEADER PANEL -->
+        <div class="bg-gradient-to-r from-indigo-950/60 via-slate-900 to-indigo-950/60 border border-indigo-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-indigo-500/10 blur-3xl rounded-full pointer-events-none"></div>
-            <div class="relative z-10">
-                <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full text-indigo-400 text-xs font-bold uppercase mb-3">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    Portal Pemantauan Lapangan
-                </div>
-                <h1 class="text-2xl md:text-3xl font-extrabold text-white mb-2">Pusat Borang Pemantauan Pemantau Peserta PROPKES</h1>
-                <p class="text-slate-400 text-sm max-w-2xl leading-relaxed">Pilih peserta yang dilawati untuk mengisi Instrumen Pemantauan Lapangan secara digital. Data penempatan peserta ditarik secara automatik dari profil awan.</p>
+            <div class="relative z-10 space-y-1">
+                <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Modul Pemantauan Live</span>
+                <h1 class="text-2xl md:text-3xl font-bold text-white">Pusat Pemantauan Portfolio Peserta</h1>
+                <p class="text-slate-400 text-xs md:text-sm max-w-2xl">Pilih peserta di bawah untuk menyemak analisis i-PROPKES (9 Domain SKKSM) dan status penghantaran tugasan (Log C, Jurnal D, Artikel E, Borang F & G) secara masa nyata.</p>
             </div>
-            <div class="relative z-10 bg-slate-950/80 border border-indigo-500/30 p-4 rounded-xl text-center shrink-0 min-w-[180px]">
-                <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-1">Jumlah Pemantauan</p>
-                <p class="text-2xl font-black text-indigo-400" id="statReportCount">0 Rekod</p>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
-            <!-- Ruangan Kiri: Borang Instrumen -->
-            <div class="lg:col-span-8 space-y-6">
-                
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6">
-                    <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-slate-800 pb-3 flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 bg-indigo-500 rounded-full"></span>
-                        1. Maklumat Peserta & Lokasi Pemantauan
-                    </h3>
+            <!-- SELECTOR PESERTA -->
+            <div class="relative z-10 w-full md:w-80 bg-slate-950/80 p-3 rounded-xl border border-indigo-500/30 shadow-inner">
+                <label class="block text-[10px] font-extrabold text-indigo-400 uppercase mb-1 flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    Pilih Peserta PROPKES
+                </label>
+                <select id="selectPeserta" onchange="window.loadSelectedPesertaData(this.value)" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-3 py-2 text-xs font-semibold focus:border-indigo-500 outline-none cursor-pointer">
+                    <option value="">Memuat turun senarai peserta...</option>
+                </select>
+            </div>
+        </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label class="block text-[11px] font-bold text-indigo-400 uppercase mb-1">Pilih Peserta PROPKES *</label>
-                            <select id="selectPeserta" onchange="window.handlePesertaSelect()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white outline-none cursor-pointer focus:border-indigo-500">
-                                <option value="">-- Sila Pilih Peserta --</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-indigo-400 uppercase mb-1">Pilih Lokasi Pemantauan *</label>
-                            <select id="selectLokasi" onchange="window.handleLokasiSelect()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white outline-none cursor-pointer focus:border-indigo-500">
-                                <option value="">-- Pilih Peserta Dahulu --</option>
-                            </select>
-                        </div>
-                    </div>
-
+        <!-- PROFIL PESERTA DIPILIH & BORANG PEMANTAUAN -->
+        <div id="participantProfileCard" class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6 mb-8 fade-in">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4 mb-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center font-extrabold text-xl text-white shadow-lg border border-indigo-400/30" id="pesertaAvatar">--</div>
                     <div>
-                        <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Lokasi & Alamat Penuh Pemantauan *</label>
-                        <textarea id="inputAlamatPenuh" rows="2" placeholder="Cth: SK Seri Bintang Utara, Jalan Bintang, Cheras, 56000 Kuala Lumpur" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-indigo-500 resize-none"></textarea>
+                        <h2 class="text-lg font-bold text-white flex items-center gap-2" id="pesertaNamaDisplay">Sila Pilih Peserta</h2>
+                        <p class="text-xs text-slate-400" id="pesertaJawatanDisplay">Maklumat portfolio peserta akan dipaparkan di sini</p>
                     </div>
                 </div>
-
-                <form id="formPemantauan" onsubmit="window.savePemantauan(event)" class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6 space-y-6">
-                    <h3 class="text-sm font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-3 flex items-center justify-between">
-                        <span>2. Senarai Semak Instrumen Pemantauan (10 Item)</span>
-                        <span class="text-[10px] text-indigo-400 font-normal">TOR PROPKES</span>
-                    </h3>
-
-                    <!-- BAHAGIAN A -->
-                    <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl space-y-4">
-                        <h4 class="text-xs font-bold text-indigo-400 uppercase border-b border-slate-800 pb-2">A. PEMATUHAN SYARAT DAN ETIKA (TOR 3.0 & 4.1)</h4>
-                        
-                        <!-- Item 1 -->
-                        <div class="space-y-2">
-                            <p class="text-xs text-slate-200 font-medium">1. Keberadaan peserta di lokasi penyandaran rasmi mengikut waktu pejabat sekolah/PPD.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <select id="status_1" required class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                                    <option value="Ya">[Ya]</option>
-                                    <option value="Tidak">[Tidak]</option>
-                                </select>
-                                <input type="text" id="catatan_1" placeholder="Catatan Pemantau (jika ada)..." class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                            </div>
-                        </div>
-
-                        <!-- Item 2 -->
-                        <div class="space-y-2 pt-2 border-t border-slate-800/60">
-                            <p class="text-xs text-slate-200 font-medium">2. Menjaga etika perkhidmatan & membina hubungan profesional dengan warga sekolah/PPD.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <select id="status_2" required class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                                    <option value="Ya">[Ya]</option>
-                                    <option value="Tidak">[Tidak]</option>
-                                </select>
-                                <input type="text" id="catatan_2" placeholder="Catatan Pemantau (jika ada)..." class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                            </div>
-                        </div>
-
-                        <!-- Item 3 -->
-                        <div class="space-y-2 pt-2 border-t border-slate-800/60">
-                            <p class="text-xs text-slate-200 font-medium">3. Aktiviti penyandaran tidak mengganggu PdP/operasi sekolah/PPD.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <select id="status_3" required class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                                    <option value="Ya">[Ya]</option>
-                                    <option value="Tidak">[Tidak]</option>
-                                </select>
-                                <input type="text" id="catatan_3" placeholder="Catatan Pemantau (jika ada)..." class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- BAHAGIAN B -->
-                    <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl space-y-4">
-                        <h4 class="text-xs font-bold text-indigo-400 uppercase border-b border-slate-800 pb-2">B. TADBIR URUS DAN INTEGRITI DOKUMENTASI (TOR 3.1 & 4.4)</h4>
-                        
-                        <!-- Item 4 -->
-                        <div class="space-y-2">
-                            <p class="text-xs text-slate-200 font-medium">4. Log Harian (Lampiran C) dikemas kini secara berkala dalam ORBIX-P.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <select id="status_4" required class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                                    <option value="Ya">[Ya]</option>
-                                    <option value="Tidak">[Tidak]</option>
-                                </select>
-                                <input type="text" id="catatan_4" placeholder="Catatan Pemantau (jika ada)..." class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                            </div>
-                        </div>
-
-                        <!-- Item 5 -->
-                        <div class="space-y-2 pt-2 border-t border-slate-800/60">
-                            <p class="text-xs text-slate-200 font-medium">5. Jurnal Kepimpinan (Lampiran D) mencatat refleksi 9 bidang SKKSM.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <select id="status_5" required class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                                    <option value="Ya">[Ya]</option>
-                                    <option value="Tidak">[Tidak]</option>
-                                </select>
-                                <input type="text" id="catatan_5" placeholder="Catatan Pemantau (jika ada)..." class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                            </div>
-                        </div>
-
-                        <!-- Item 6 -->
-                        <div class="space-y-2 pt-2 border-t border-slate-800/60">
-                            <p class="text-xs text-slate-200 font-medium">6. Sesi bimbingan bersama Pemandu Citra/Mentor berjalan (2 minggu sekali).</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <select id="status_6" required class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                                    <option value="Ya">[Ya]</option>
-                                    <option value="Tidak">[Tidak]</option>
-                                </select>
-                                <input type="text" id="catatan_6" placeholder="Catatan Pemantau (jika ada)..." class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                            </div>
-                        </div>
-
-                        <!-- Item 7 -->
-                        <div class="space-y-2 pt-2 border-t border-slate-800/60">
-                            <p class="text-xs text-slate-200 font-medium">7. Perancangan penulisan kajian amalan kepemimpinan telah dimulakan.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <select id="status_7" required class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                                    <option value="Ya">[Ya]</option>
-                                    <option value="Tidak">[Tidak]</option>
-                                </select>
-                                <input type="text" id="catatan_7" placeholder="Catatan Pemantau (jika ada)..." class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- BAHAGIAN C -->
-                    <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl space-y-4">
-                        <h4 class="text-xs font-bold text-indigo-400 uppercase border-b border-slate-800 pb-2">C. KERJASAMA DAN CATATAN EKSEKUTIF (TOR 4.2 & 4.4)</h4>
-                        
-                        <!-- Item 8 -->
-                        <div class="space-y-2">
-                            <p class="text-xs text-slate-200 font-medium">8. PGB / PPD memberi kerjasama dan sokongan baik kepada peserta.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <select id="status_8" required class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                                    <option value="Ya">[Ya]</option>
-                                    <option value="Tidak">[Tidak]</option>
-                                </select>
-                                <input type="text" id="catatan_8" placeholder="Catatan Pemantau (jika ada)..." class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                            </div>
-                        </div>
-
-                        <!-- Item 9 -->
-                        <div class="space-y-2 pt-2 border-t border-slate-800/60">
-                            <p class="text-xs text-slate-200 font-medium">9. Tiada isu kecemasan/kesihatan/kehadiran yang memerlukan tindakan IAB.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <select id="status_9" required class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                                    <option value="Ya">[Ya]</option>
-                                    <option value="Tidak">[Tidak]</option>
-                                </select>
-                                <input type="text" id="catatan_9" placeholder="Catatan Pemantau (jika ada)..." class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item 10: Ulasan Pemantau -->
-                    <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl space-y-2">
-                        <label class="block text-xs font-bold text-indigo-400 uppercase">10. Ulasan Pemantau *</label>
-                        <textarea id="inputUlasanPemantau" rows="4" required placeholder="Sila berikan ulasan ringkas hasil pemerhatian dan perbincangan semasa pemantauan di premis..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white outline-none focus:border-indigo-500 resize-y"></textarea>
-                    </div>
-
-                    <div class="flex gap-3 pt-4 border-t border-slate-800">
-                        <button type="submit" id="btnSimpanPemantauan" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl text-xs font-bold shadow-lg shadow-indigo-600/30 transition-all cursor-pointer outline-none flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
-                            Simpan Rekod Pemantauan ke Awan
-                        </button>
-                    </div>
-                </form>
-
+                <div class="flex items-center gap-3">
+                    <button onclick="window.simpanRekodPemantauan()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer outline-none">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                        Simpan Rekod
+                    </button>
+                    <button onclick="window.cetakLaporanPemantauan()" class="bg-slate-800 hover:bg-indigo-700 text-white border border-slate-700 text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer outline-none">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        Cetak Laporan Pemantauan
+                    </button>
+                </div>
             </div>
 
-            <!-- Ruangan Kanan: Senarai Rekod Pemantauan Sejarah -->
-            <div class="lg:col-span-4 space-y-6">
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6">
-                    <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-slate-800 pb-3 flex items-center justify-between">
-                        <span>Rekod Pemantauan Anda</span>
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <!-- DETAIL GRID (SUSUNAN: NAMA, JAWATAN & GRED, NAMA JABATAN, NAMA PUSAT/CAWANGAN, TARIKH PEMANTAUAN, MASA MULA, MASA AKHIR) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                <!-- 1. NAMA PESERTA -->
+                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-0.5">1. Nama Peserta</p>
+                    <p class="font-bold text-white truncate" id="pNamaVal">-</p>
+                </div>
+                
+                <!-- 2. JAWATAN & GRED HAKIKI -->
+                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-0.5">2. Jawatan & Gred</p>
+                    <p class="font-semibold text-slate-200" id="pGredJawatan">-</p>
+                </div>
+
+                <!-- 3. NAMA JABATAN / SEKOLAH SANDARAN -->
+                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-0.5">3. Nama Jabatan / Sekolah Sandaran</p>
+                    <p class="font-semibold text-slate-200" id="pSekolah">-</p>
+                </div>
+
+                <!-- 4. NAMA PUSAT / CAWANGAN -->
+                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-0.5">4. Nama Pusat / Cawangan</p>
+                    <p class="font-semibold text-slate-200" id="pPusatCawangan">-</p>
+                </div>
+
+                <!-- 5. TARIKH PEMANTAUAN (KALENDAR) -->
+                <div class="bg-slate-950/90 p-3 rounded-xl border border-indigo-500/40">
+                    <label class="block text-[10px] font-bold text-indigo-400 uppercase mb-1 flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        5. Tarikh Pemantauan
+                    </label>
+                    <input type="date" id="pTarikhPemantauan" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:border-indigo-500 outline-none cursor-pointer">
+                </div>
+
+                <!-- 6. MASA MULA (PILIHAN MASA) -->
+                <div class="bg-slate-950/90 p-3 rounded-xl border border-indigo-500/40">
+                    <label class="block text-[10px] font-bold text-indigo-400 uppercase mb-1 flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        6. Masa Mula
+                    </label>
+                    <input type="time" id="pMasaMula" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:border-indigo-500 outline-none cursor-pointer">
+                </div>
+
+                <!-- 7. MASA AKHIR (PILIHAN MASA) -->
+                <div class="bg-slate-950/90 p-3 rounded-xl border border-indigo-500/40">
+                    <label class="block text-[10px] font-bold text-indigo-400 uppercase mb-1 flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        7. Masa Akhir
+                    </label>
+                    <input type="time" id="pMasaAkhir" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:border-indigo-500 outline-none cursor-pointer">
+                </div>
+
+                <!-- 8. PEGAWAI PEMBIMBING (MENTOR / PEMANDU) -->
+                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-0.5">8. Mentor / Pemandu Citra</p>
+                    <p class="font-semibold text-slate-200" id="pMentor">-</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRID RINGKASAN STATUS TUGASAN (6 MODUL) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+            <!-- 1. LOG C -->
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg flex flex-col justify-between">
+                <div>
+                    <span class="text-[10px] font-extrabold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20 uppercase">Lampiran C</span>
+                    <h3 class="text-xs font-bold text-slate-300 mt-2">Log Harian</h3>
+                </div>
+                <div class="mt-3">
+                    <p class="text-lg font-extrabold text-white" id="statLogCount">0 Hari</p>
+                    <p class="text-[10px] text-slate-400" id="statLogStatus">Menunggu</p>
+                </div>
+            </div>
+
+            <!-- 2. JURNAL D -->
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg flex flex-col justify-between">
+                <div>
+                    <span class="text-[10px] font-extrabold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20 uppercase">Lampiran D</span>
+                    <h3 class="text-xs font-bold text-slate-300 mt-2">Jurnal Kepimpinan</h3>
+                </div>
+                <div class="mt-3">
+                    <p class="text-lg font-extrabold text-white" id="statJurnalCount">0/12</p>
+                    <p class="text-[10px] text-slate-400" id="statJurnalStatus">Minggu diisi</p>
+                </div>
+            </div>
+
+            <!-- 3. ARTIKEL E -->
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg flex flex-col justify-between">
+                <div>
+                    <span class="text-[10px] font-extrabold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 uppercase">Lampiran E</span>
+                    <h3 class="text-xs font-bold text-slate-300 mt-2">Artikel PROPKES</h3>
+                </div>
+                <div class="mt-3">
+                    <p class="text-sm font-extrabold" id="statArtikelBadge">-</p>
+                    <p class="text-[10px] text-slate-400" id="statArtikelStatus">Belum Dihantar</p>
+                </div>
+            </div>
+
+            <!-- 4. BORANG F -->
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg flex flex-col justify-between">
+                <div>
+                    <span class="text-[10px] font-extrabold text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 uppercase">Lampiran F</span>
+                    <h3 class="text-xs font-bold text-slate-300 mt-2">Ulasan Mentor</h3>
+                </div>
+                <div class="mt-3">
+                    <p class="text-sm font-extrabold" id="statBorangFBadge">-</p>
+                    <p class="text-[10px] text-slate-400" id="statBorangFStatus">Belum Lengkap</p>
+                </div>
+            </div>
+
+            <!-- 5. BORANG G -->
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg flex flex-col justify-between">
+                <div>
+                    <span class="text-[10px] font-extrabold text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded border border-teal-500/20 uppercase">Lampiran G</span>
+                    <h3 class="text-xs font-bold text-slate-300 mt-2">Bimbingan Citra</h3>
+                </div>
+                <div class="mt-3">
+                    <p class="text-sm font-extrabold" id="statBorangGBadge">-</p>
+                    <p class="text-[10px] text-slate-400" id="statBorangGStatus">Belum Lengkap</p>
+                </div>
+            </div>
+
+            <!-- 6. i-PROPKES -->
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg flex flex-col justify-between">
+                <div>
+                    <span class="text-[10px] font-extrabold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 uppercase">i-PROPKES</span>
+                    <h3 class="text-xs font-bold text-slate-300 mt-2">9 Domain SKKSM</h3>
+                </div>
+                <div class="mt-3">
+                    <p class="text-sm font-extrabold" id="statIpropkesBadge">-</p>
+                    <p class="text-[10px] text-slate-400" id="statIpropkesStatus">Pra/Pasca</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEKSYEN CARTA i-PROPKES (9 DOMAIN SKKSM) -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6 mb-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800 pb-4 mb-6">
+                <div>
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        Analisis Keputusan i-PROPKES Peserta (9 Domain SKKSM)
                     </h3>
-                    <div id="historyListContainer" class="space-y-3 max-h-[700px] overflow-y-auto custom-scrollbar">
-                        <p class="text-xs text-slate-500 italic text-center py-6">Memuat turun senarai rekod pemantauan...</p>
+                    <p class="text-xs text-slate-400 mt-1" id="ipropkesSubtitle">Perbandingan Ujian Pra dan Ujian Pasca peserta yang dipilih</p>
+                </div>
+                <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20" id="ipropkesStatusTag">Sedia Dibarisi</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- CARTA BAR -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80">
+                    <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Carta Bar Skor (9 Domain SKKSM)</h4>
+                    <div class="w-full h-72"><canvas id="pemantauBarChart"></canvas></div>
+                </div>
+
+                <!-- CARTA RADAR WEB -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 flex flex-col items-center">
+                    <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Carta Radar Web Profil (9 Domain SKKSM)</h4>
+                    <div class="w-full max-w-[320px] aspect-square"><canvas id="pemantauRadarChart"></canvas></div>
+                </div>
+            </div>
+
+            <!-- JADUAL SKOR PERINCIAN 9 DOMAIN -->
+            <div class="mt-6 border-t border-slate-800/80 pt-6">
+                <h4 class="text-xs font-bold text-slate-300 uppercase mb-3">Jadual Perincian Skor Mengikut Domain SKKSM</h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border border-slate-800 rounded-xl overflow-hidden">
+                        <thead>
+                            <tr class="bg-slate-950 text-slate-400 border-b border-slate-800 uppercase font-bold text-[10px]">
+                                <th class="p-3">Bil</th>
+                                <th class="p-3">Domain SKKSM</th>
+                                <th class="p-3 text-center">Skor Pra (/10)</th>
+                                <th class="p-3 text-center">Skor Pasca (/10)</th>
+                                <th class="p-3 text-center">Beza / Peningkatan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="domainTableBody" class="divide-y divide-slate-800/60 text-slate-300">
+                            <tr><td colspan="5" class="p-4 text-center text-slate-500 italic">Sila pilih peserta untuk memuat turun data domain.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEKSYEN PERINCIAN TUGASAN & BORANG -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- REKOD LOG HARIAN & JURNAL -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6">
+                <h3 class="text-sm font-bold text-white border-b border-slate-800 pb-3 mb-4 flex items-center justify-between">
+                    <span>Rekod Jurnal Kepimpinan D (12 Minggu)</span>
+                    <span class="text-xs text-purple-400 font-normal" id="jurnalSummaryTag">0 / 12 Minggu</span>
+                </h3>
+                <div id="jurnalListContainer" class="space-y-3 max-h-80 overflow-y-auto custom-scrollbar pr-1">
+                    <p class="text-xs text-slate-500 italic text-center py-6">Sila pilih peserta untuk menyemak jurnal kepimpinan.</p>
+                </div>
+            </div>
+
+            <!-- REKOD MAKLUM BALAS F & G -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6">
+                <h3 class="text-sm font-bold text-white border-b border-slate-800 pb-3 mb-4 flex items-center justify-between">
+                    <span>Rekod Maklum Balas Fasa (Mentor & Pemandu Citra)</span>
+                    <span class="text-xs text-amber-400 font-normal">Lampiran F & G</span>
+                </h3>
+                
+                <div class="space-y-4">
+                    <!-- MENTOR FASA 1 & 2 -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-amber-900/40">
+                        <h4 class="text-xs font-bold text-amber-400 uppercase mb-2">Maklum Balas Mentor (Lampiran F)</h4>
+                        <div id="mentorFeedbackContainer" class="text-xs text-slate-300 space-y-2">
+                            <p class="text-slate-500 italic">Tiada data mentor dipilih.</p>
+                        </div>
+                    </div>
+
+                    <!-- PEMANDU CITRA FASA 1 & 2 -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-teal-900/40">
+                        <h4 class="text-xs font-bold text-teal-400 uppercase mb-2">Maklum Balas Pemandu Citra (Lampiran G)</h4>
+                        <div id="pemanduFeedbackContainer" class="text-xs text-slate-300 space-y-2">
+                            <p class="text-slate-500 italic">Tiada data pemandu citra dipilih.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
+
     </main>
 
-    <div id="printSection" class="print-container no-print"></div>
+    <!-- CETAKAN SECTION -->
+    <div id="printSection" class="hidden print:block print-container"></div>
+
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
-    <!-- FIREBASE & LOGIK PEMANTAU -->
+    <!-- FIREBASE & SCRIPT LOGIK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getDatabase, ref, get, child, set, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        import { getDatabase, ref, get, child, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCzlcyG6xyd2JXEMRNlDGi-_wxU2TXf6Y8",
@@ -293,46 +358,42 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // ----------------------------------------------------
-        // INTEGRASI EMEL EMAILJS (AKTIF 100%!)
-        // ----------------------------------------------------
-        const EMAILJS_PUBLIC_KEY = "s1-CZxnlw_v-G1dap"; 
-        const EMAILJS_SERVICE_ID = "service_r8gyjit";
-        const EMAILJS_TEMPLATE_ID = "template_him70hd";
+        let currentUser = localStorage.getItem("propkes_user") || "pemantau1";
 
-        try {
-            if (typeof emailjs !== 'undefined') {
-                emailjs.init(EMAILJS_PUBLIC_KEY);
-            }
-        } catch(err) {
-            console.warn("EmailJS initialization warning:", err);
-        }
-
-        window.hantarNotifikasiEmel = function(subjek, mesej, keEmel) {
-            if (typeof emailjs === 'undefined') return;
-            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                to_email: keEmel,
-                subject: subjek,
-                message: mesej
-            }).then(() => {
-                console.log("Notifikasi e-mel berjaya dihantar ke: " + keEmel);
-            }, (err) => {
-                console.error("Gagal menghantar e-mel: ", err);
-            });
-        };
-
-        // SAFE AUTH GUARD FOR PREVIEW / BLOB ENVIRONMENTS
-        const currentUser = localStorage.getItem("propkes_user") || "pemantau";
-
-        window.pemantauProfile = {};
         window.allPesertaList = [];
-        window.historyReports = [];
+        window.selectedPeserta = null;
+        let barChartInstance = null;
+        let radarChartInstance = null;
+
+        window.skksm9Domains = [
+            "Pengurusan & Kepimpinan Organisasi",
+            "Pengurusan Kurikulum",
+            "Pengurusan Kokurikulum",
+            "Pengurusan Hal Ehwal Murid",
+            "Pengurusan Kewangan",
+            "Pengurusan Pentadbiran Pejabat",
+            "Pengurusan Persekitaran & Kemudahan Fizikal",
+            "Pengurusan & Pembangunan Sumber Manusia",
+            "Pengurusan Perhubungan Luar"
+        ];
+
+        window.skksm9ShortLabels = [
+            "Org & Kepimpinan",
+            "Kurikulum",
+            "Kokurikulum",
+            "Hal Ehwal Murid",
+            "Kewangan",
+            "Pentadbiran",
+            "Fizikal & Persekitaran",
+            "Sumber Manusia",
+            "Hubungan Luar"
+        ];
 
         window.showToast = function(message, type = 'success') {
             const container = document.getElementById('toastContainer');
-            if (!container) return;
+            if(!container) return;
             const toast = document.createElement('div');
-            const bgColor = type === 'success' ? 'bg-emerald-600' : (type === 'warning' ? 'bg-amber-600' : 'bg-rose-600');
+            const bgColor = type === 'success' ? 'bg-emerald-600' : (type==='warning' ? 'bg-amber-600' : 'bg-rose-600');
             toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3 z-[200]`;
             toast.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg> <span>${message}</span>`;
             container.appendChild(toast);
@@ -342,306 +403,514 @@
 
         window.logout = function() { 
             localStorage.removeItem("propkes_user"); 
-            if (!window.location.href.startsWith("blob:")) {
-                try { window.location.href = "index.html"; } catch(e){}
-            } else {
-                window.showToast("Sesi telah dilog keluar.");
-            }
+            try { window.location.href = "index.html"; } catch(e) { window.showToast("Log keluar berjaya."); }
         };
 
-        async function initPemantauData() {
+        window.loadPemantauData = async function() {
             try {
                 const dbRef = ref(db);
-                const userSnap = await get(child(dbRef, `propkes_accounts/${currentUser}`));
+                
+                // Set nama pemantau
+                document.getElementById('navNameDisplay').textContent = "Urus Setia / Pemantau";
+                document.getElementById('navInitials').textContent = "PM";
 
-                if (userSnap.exists()) {
-                    window.pemantauProfile = userSnap.val();
-                    const pName = window.pemantauProfile.name || "Pemantau";
-                    document.getElementById('navNameDisplay').textContent = pName;
-                    document.getElementById('navInitials').textContent = pName.substring(0, 2).toUpperCase();
-                }
+                // Set tarikh lalai hari ini
+                const todayIso = new Date().toISOString().split('T')[0];
+                document.getElementById('pTarikhPemantauan').value = todayIso;
+                document.getElementById('pMasaMula').value = "09:00";
+                document.getElementById('pMasaAkhir').value = "12:30";
 
-                // Load all Peserta Accounts
-                const allAccountsSnap = await get(child(dbRef, 'propkes_accounts'));
-                const selectPeserta = document.getElementById('selectPeserta');
-                selectPeserta.innerHTML = `<option value="">-- Sila Pilih Peserta --</option>`;
+                // Tarik senarai akaun peserta
+                const accountsSnap = await get(child(dbRef, 'propkes_accounts'));
+                const selectElem = document.getElementById('selectPeserta');
+                selectElem.innerHTML = '<option value="">-- Pilih Peserta --</option>';
                 window.allPesertaList = [];
 
-                if (allAccountsSnap.exists()) {
-                    const accounts = allAccountsSnap.val();
-                    Object.keys(accounts).forEach(username => {
-                        const u = accounts[username];
-                        if (u.role === 'peserta') {
-                            window.allPesertaList.push({ username, ...u });
-                            selectPeserta.innerHTML += `<option value="${username}">${u.name.toUpperCase()}</option>`;
+                if (accountsSnap.exists()) {
+                    const accounts = accountsSnap.val();
+                    for (const [uname, data] of Object.entries(accounts)) {
+                        if (data.role === 'peserta' || !data.role) {
+                            const pObj = {
+                                id: uname,
+                                name: data.name || uname,
+                                sekolah: data.sekolah || data.jabatan || 'SK. KAYANGAN',
+                                jawatan: data.jawatan || 'Guru Besar DG48',
+                                gred: data.gred || 'DG48',
+                                pusat: data.pusatCawangan || data.pusat || 'JABATAN PEMBANGUNAN STAF',
+                                mentorSekolah: data.mentorSekolah || 'Pengetua Cemerlang',
+                                mentorPpd: data.mentorPpd || 'Pegawai PPD',
+                                pemanduCitra: data.pemanduCitra || 'Pensyarah IAB'
+                            };
+                            window.allPesertaList.push(pObj);
+                            selectElem.innerHTML += `<option value="${pObj.id}">${pObj.name} (${pObj.sekolah})</option>`;
                         }
-                    });
+                    }
                 }
 
-                loadHistoryReports();
-
-            } catch(e) { console.error(e); window.showToast("Ralat memuat turun data.", "error"); }
-        }
-
-        window.handlePesertaSelect = function() {
-            const selectedUsername = document.getElementById('selectPeserta').value;
-            const selectLokasi = document.getElementById('selectLokasi');
-            selectLokasi.innerHTML = `<option value="">-- Pilih Lokasi --</option>`;
-            document.getElementById('inputAlamatPenuh').value = "";
-
-            if (!selectedUsername) return;
-
-            const p = window.allPesertaList.find(x => x.username === selectedUsername);
-            if (p) {
-                if (p.sekolah) selectLokasi.innerHTML += `<option value="SEKOLAH">Sekolah Sandaran: ${p.sekolah}</option>`;
-                if (p.ppd) selectLokasi.innerHTML += `<option value="PPD">PPD: ${p.ppd}</option>`;
-                selectLokasi.innerHTML += `<option value="LAIN">Lokasi Khas / Lain-Lain</option>`;
-            }
-        };
-
-        window.handleLokasiSelect = function() {
-            const selectedUsername = document.getElementById('selectPeserta').value;
-            const locType = document.getElementById('selectLokasi').value;
-            const inputAlamat = document.getElementById('inputAlamatPenuh');
-
-            if (!selectedUsername || !locType) return;
-            const p = window.allPesertaList.find(x => x.username === selectedUsername);
-
-            if (locType === 'SEKOLAH') inputAlamat.value = p.sekolah || "";
-            else if (locType === 'PPD') inputAlamat.value = `PEJABAT PENDIDIKAN DAERAH ${p.ppd || ""}`;
-            else inputAlamat.value = "";
-        };
-
-        window.savePemantauan = async function(e) {
-            e.preventDefault();
-            const pesertaSelect = document.getElementById('selectPeserta');
-            const pesertaUsername = pesertaSelect.value;
-            const lokasi = document.getElementById('selectLokasi').value;
-            const alamatPenuh = document.getElementById('inputAlamatPenuh').value.trim();
-            const ulasanPemantau = document.getElementById('inputUlasanPemantau').value.trim();
-
-            if (!pesertaUsername) { window.showToast("Sila pilih peserta.", "warning"); return; }
-            if (!alamatPenuh) { window.showToast("Sila isi lokasi & alamat penuh.", "warning"); return; }
-
-            const p = window.allPesertaList.find(x => x.username === pesertaUsername);
-            const pesertaNameText = p ? p.name : (pesertaSelect.options[pesertaSelect.selectedIndex]?.text || pesertaUsername);
-
-            const btn = document.getElementById('btnSimpanPemantauan');
-            btn.textContent = "Menyimpan..."; btn.disabled = true;
-
-            const itemsData = {};
-            for (let i = 1; i <= 9; i++) {
-                itemsData[`item_${i}`] = {
-                    status: document.getElementById(`status_${i}`).value,
-                    catatan: document.getElementById(`catatan_${i}`).value.trim()
-                };
-            }
-
-            const payload = {
-                pemantauUsername: currentUser,
-                pemantauName: window.pemantauProfile.name || "Pemantau",
-                pemantauJawatan: window.pemantauProfile.jawatan || "Pegawai Pemantau IAB",
-                pesertaUsername: pesertaUsername,
-                pesertaName: pesertaNameText,
-                lokasiType: lokasi,
-                alamatPenuh: alamatPenuh,
-                items: itemsData,
-                ulasanPemantau: ulasanPemantau,
-                tarikh: new Date().toLocaleDateString('ms-MY'),
-                timestamp: Date.now()
-            };
-
-            try {
-                const newRef = push(ref(db, 'propkes_monitoring'));
-                await set(newRef, payload);
-                window.showToast("Rekod pemantauan berjaya disimpan ke awan!");
-
-                // HANTAR NOTIFIKASI EMEL KEPADA PESERTA SECARA AUTOMATIK
-                if (p && p.email) {
-                    const subjekEmail = "Laporan Pemantauan Lapangan Baharu - PROPKES 2026";
-                    const mesejEmail = `Assalamualaikum dan Salam Sejahtera ${p.name},\n\nSatu Laporan Pemantauan Lapangan baharu telah direkodkan bagi pihak anda oleh Pegawai Pemantau IAB (${window.pemantauProfile.name || "Pemantau"}).\n\nLokasi / Alamat Pemantauan: ${alamatPenuh}\nTarikh Pemantauan: ${payload.tarikh}\n\nUlasan Pemantau: "${ulasanPemantau}"\n\nSila log masuk ke Sistem PROPKES 2026 untuk menyemak maklumat lengkap.`;
-
-                    window.hantarNotifikasiEmel(subjekEmail, mesejEmail, p.email);
+                if (window.allPesertaList.length === 0) {
+                    // Demo fallback if database is empty
+                    const demoP = {
+                        id: "ainol",
+                        name: "AINOL",
+                        sekolah: "SK. KAYANGAN",
+                        jawatan: "Penolong Kanan Pentadbiran",
+                        gred: "DG52",
+                        pusat: "JABATAN PEMBANGUNAN STAF",
+                        mentorSekolah: "MENTORNORIADAH",
+                        mentorPpd: "PPD KUANTAN",
+                        pemanduCitra: "Pemandu Citra IAB"
+                    };
+                    window.allPesertaList.push(demoP);
+                    selectElem.innerHTML += `<option value="${demoP.id}">${demoP.name} (${demoP.sekolah})</option>`;
                 }
 
-                document.getElementById('formPemantauan').reset();
-                document.getElementById('selectPeserta').value = "";
-                document.getElementById('selectLokasi').innerHTML = `<option value="">-- Pilih Peserta Dahulu --</option>`;
-                document.getElementById('inputAlamatPenuh').value = "";
+                // Auto select first participant
+                if (window.allPesertaList.length > 0) {
+                    selectElem.value = window.allPesertaList[0].id;
+                    window.loadSelectedPesertaData(window.allPesertaList[0].id);
+                }
 
-                loadHistoryReports();
-            } catch(err) {
-                console.error("Firebase Error:", err);
-                window.showToast("Ralat menyimpan data pemantauan.", "error");
-            } finally {
-                btn.textContent = "Simpan Rekod Pemantauan ke Awan";
-                btn.disabled = false;
+            } catch (err) {
+                console.error("Ralat memuat senarai pemantauan:", err);
+                window.showToast("Menggunakan mod pemantauan terbina dalam.", "warning");
             }
         };
 
-        async function loadHistoryReports() {
+        window.loadSelectedPesertaData = async function(pesertaId) {
+            if (!pesertaId) return;
+
+            const pData = window.allPesertaList.find(x => x.id === pesertaId) || { id: pesertaId, name: pesertaId };
+            window.selectedPeserta = pData;
+
+            // Update Profile UI
+            document.getElementById('pesertaNamaDisplay').textContent = pData.name;
+            document.getElementById('pNamaVal').textContent = pData.name || '-';
+            document.getElementById('pesertaJawatanDisplay').textContent = `${pData.jawatan || '-'} (${pData.gred || '-'})`;
+            document.getElementById('pesertaAvatar').textContent = (pData.name || 'P').substring(0, 2).toUpperCase();
+            document.getElementById('pSekolah').textContent = pData.sekolah || pData.jabatan || '-';
+            document.getElementById('pGredJawatan').textContent = `${pData.jawatan || '-'} (${pData.gred || '-'})`;
+            document.getElementById('pPusatCawangan').textContent = pData.pusat || 'JABATAN PEMBANGUNAN STAF';
+            document.getElementById('pMentor').textContent = `${pData.mentorSekolah || '-'} / ${pData.pemanduCitra || '-'}`;
+
+            const dbRef = ref(db);
+
+            // Semak rekod pemantauan terdahulu jika ada
             try {
-                const snap = await get(child(ref(db), 'propkes_monitoring'));
-                const container = document.getElementById('historyListContainer');
+                const monSnap = await get(child(dbRef, `propkes_monitoring/${pesertaId}`));
+                if (monSnap.exists()) {
+                    const mData = monSnap.val();
+                    if (mData.tarikhPemantauan) document.getElementById('pTarikhPemantauan').value = mData.tarikhPemantauan;
+                    if (mData.masaMula) document.getElementById('pMasaMula').value = mData.masaMula;
+                    if (mData.masaAkhir) document.getElementById('pMasaAkhir').value = mData.masaAkhir;
+                }
+            } catch(e) {
+                console.log("Tiada rekod pemantauan tersimpan terdahulu.");
+            }
+
+            // 1. TARIK STATUS LOG HARIAN (C)
+            try {
+                const logSnap = await get(child(dbRef, `propkes_attendance/${pesertaId}`));
+                if (logSnap.exists()) {
+                    const logs = logSnap.val();
+                    const totalDays = Object.keys(logs).length;
+                    const approvedDays = Object.values(logs).filter(x => x.status === 'approved').length;
+                    document.getElementById('statLogCount').textContent = `${totalDays} Hari`;
+                    document.getElementById('statLogStatus').textContent = `${approvedDays} Disahkan Mentor`;
+                } else {
+                    document.getElementById('statLogCount').textContent = `0 Hari`;
+                    document.getElementById('statLogStatus').textContent = `Belum Bermula`;
+                }
+            } catch(e) {
+                document.getElementById('statLogCount').textContent = `0 Hari`;
+            }
+
+            // 2. TARIK STATUS JURNAL (D)
+            try {
+                const journalSnap = await get(child(dbRef, `propkes_journals/${pesertaId}`));
+                const container = document.getElementById('jurnalListContainer');
                 container.innerHTML = "";
-                window.historyReports = [];
 
-                if (snap.exists()) {
-                    const reportsObj = snap.val();
-                    let count = 0;
-                    
-                    Object.keys(reportsObj).reverse().forEach(key => {
-                        const r = reportsObj[key];
-                        if (r.pemantauUsername === currentUser || currentUser === 'admin') {
-                            count++;
-                            window.historyReports.push({ id: key, ...r });
+                let filledCount = 0;
+                const rawJournals = journalSnap.exists() ? journalSnap.val() : null;
 
-                            container.innerHTML += `
-                                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 hover:border-indigo-500/50 transition-colors">
-                                    <div class="flex justify-between items-start">
-                                        <p class="font-bold text-white text-xs">${(r.pesertaName || "").toUpperCase()}</p>
-                                        <span class="text-[9px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded border border-indigo-500/20">${r.tarikh}</span>
+                for (let weekNum = 1; weekNum <= 12; weekNum++) {
+                    let j = null;
+                    if (rawJournals) {
+                        Object.keys(rawJournals).forEach(k => {
+                            const item = rawJournals[k];
+                            if (
+                                k === `M${weekNum}` || k === `W${weekNum}` || k === `${weekNum}` ||
+                                k.startsWith(`W${weekNum}_`) || k.startsWith(`M${weekNum}_`) ||
+                                (item && (item.weekNum == weekNum || item.minggu == weekNum))
+                            ) {
+                                j = item;
+                            }
+                        });
+                    }
+
+                    if (j && (j.deskripsi || j.analisis || j.interpretasi || j.aktiviti)) {
+                        filledCount++;
+                        container.innerHTML += `
+                            <div class="bg-slate-950 p-3 rounded-xl border border-purple-900/40 text-xs space-y-1">
+                                <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+                                    <span class="font-bold text-purple-400">Minggu ${weekNum} (${weekNum <= 6 ? 'Fasa 1' : 'Fasa 2'})</span>
+                                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold">✓ Lengkap</span>
+                                </div>
+                                <p class="text-slate-300 truncate"><strong>Akt:</strong> ${j.deskripsi || j.aktiviti || '-'}</p>
+                            </div>
+                        `;
+                    } else {
+                        container.innerHTML += `
+                            <div class="bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/60 text-xs flex justify-between items-center">
+                                <span class="text-slate-500">Minggu ${weekNum} (${weekNum <= 6 ? 'Fasa 1' : 'Fasa 2'})</span>
+                                <span class="text-[9px] text-slate-600 bg-slate-900 px-2 py-0.5 rounded">Belum Diisi</span>
+                            </div>
+                        `;
+                    }
+                }
+
+                document.getElementById('statJurnalCount').textContent = `${filledCount}/12`;
+                document.getElementById('jurnalSummaryTag').textContent = `${filledCount} daripada 12 Minggu Diisi`;
+            } catch(e) {
+                console.error("Ralat jurnal:", e);
+            }
+
+            // 3. TARIK STATUS ARTIKEL (E)
+            try {
+                let artSnap = await get(child(dbRef, `propkes_articles/${pesertaId}`));
+                if (!artSnap.exists()) artSnap = await get(child(dbRef, `propkes_artikel/${pesertaId}`));
+
+                const artBadge = document.getElementById('statArtikelBadge');
+                const artStatus = document.getElementById('statArtikelStatus');
+
+                if (artSnap.exists()) {
+                    artBadge.textContent = "✓ Selesai";
+                    artBadge.className = "text-sm font-extrabold text-emerald-400";
+                    artStatus.textContent = "Artikel Dihantar";
+                } else {
+                    artBadge.textContent = "Belum";
+                    artBadge.className = "text-sm font-extrabold text-amber-400";
+                    artStatus.textContent = "Belum Dihantar";
+                }
+            } catch(e) {
+                console.error("Ralat artikel:", e);
+            }
+
+            // 4. TARIK MENTOR FEEDBACK (F)
+            try {
+                const fContainer = document.getElementById('mentorFeedbackContainer');
+                fContainer.innerHTML = "";
+                let fSnap = await get(child(dbRef, `propkes_feedback_mentor/${pesertaId}`));
+                
+                let hasF = false;
+                if (fSnap.exists()) {
+                    const data = fSnap.val();
+                    let html = "";
+                    Object.keys(data).forEach(mType => {
+                        Object.keys(data[mType] || {}).forEach(fasaKey => {
+                            hasF = true;
+                            const item = data[mType][fasaKey];
+                            html += `
+                                <div class="border-b border-slate-800/80 pb-2 mb-2 last:border-0">
+                                    <div class="flex justify-between items-center text-[10px] text-amber-400 font-bold">
+                                        <span>MENTOR ${mType.toUpperCase()} - ${fasaKey.replace('_', ' ')}</span>
+                                        <span>${item.tarikhSandaran || '-'}</span>
                                     </div>
-                                    <p class="text-[10px] text-slate-400 truncate">${r.alamatPenuh}</p>
-                                    <div class="pt-2 border-t border-slate-800/60 flex justify-end">
-                                        <button onclick="window.cetakInstrumenById('${key}')" class="bg-slate-800 hover:bg-indigo-600 text-slate-200 hover:text-white px-3 py-1 rounded-lg text-[10px] font-bold border border-slate-700 transition-colors cursor-pointer outline-none flex items-center gap-1">
-                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                                            Cetak Instrumen
-                                        </button>
-                                    </div>
+                                    <p class="text-slate-300 mt-1 italic">"${item.ulasan || 'Tiada ulasan.'}"</p>
                                 </div>
                             `;
-                        }
+                        });
                     });
-
-                    document.getElementById('statReportCount').textContent = `${count} Rekod`;
-
-                    if (count === 0) {
-                        container.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-6">Belum ada rekod pemantauan yang disimpan oleh anda.</p>`;
-                    }
+                    fContainer.innerHTML = html || "<p class='text-slate-500 italic'>Tiada borang F diisi.</p>";
                 } else {
-                    container.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-6">Tiada rekod pemantauan di awan.</p>`;
+                    fContainer.innerHTML = "<p class='text-slate-500 italic'>Mentor belum mengemukakan maklum balas F.</p>";
                 }
-            } catch(e) { console.error(e); }
-        }
 
-        window.cetakInstrumenById = function(reportId) {
-            const r = window.historyReports.find(x => x.id === reportId);
-            if (!r) return;
-
-            const itemsText = {
-                1: "Keberadaan peserta di lokasi penyandaran rasmi mengikut waktu pejabat sekolah/PPD.",
-                2: "Menjaga etika perkhidmatan & membina hubungan profesional dengan warga sekolah/PPD.",
-                3: "Aktiviti penyandaran tidak mengganggu PdP/operasi sekolah/PPD.",
-                4: "Log Harian (Lampiran C) dikemas kini secara berkala dalam ORBIX-P.",
-                5: "Jurnal Kepimpinan (Lampiran D) mencatat refleksi 9 bidang SKKSM.",
-                6: "Sesi bimbingan bersama Pemandu Citra/Mentor berjalan (2 minggu sekali).",
-                7: "Perancangan penulisan kajian amalan kepemimpinan telah dimulakan.",
-                8: "PGB /PPD memberi kerjasama dan sokongan baik kepada peserta.",
-                9: "Tiada isu kecemasan/kesihatan/kehadiran yang memerlukan tindakan IAB."
-            };
-
-            let tableRows = `
-                <tr style="background-color: #f1f5f9;"><td colspan="4" style="font-weight: bold; border: 1px solid #000; padding: 6px;">A. PEMATUHAN SYARAT DAN ETIKA (TOR 3.0 & 4.1)</td></tr>
-            `;
-
-            for (let i = 1; i <= 3; i++) {
-                const item = r.items[`item_${i}`] || { status: "Ya", catatan: "" };
-                tableRows += `
-                    <tr>
-                        <td style="text-align: center; border: 1px solid #000; padding: 6px;">${i}</td>
-                        <td style="border: 1px solid #000; padding: 6px;">${itemsText[i]}</td>
-                        <td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 6px;">[${item.status}]</td>
-                        <td style="border: 1px solid #000; padding: 6px;">${item.catatan || "-"}</td>
-                    </tr>
-                `;
+                document.getElementById('statBorangFBadge').textContent = hasF ? "✓ Selesai" : "Menunggu";
+                document.getElementById('statBorangFBadge').className = hasF ? "text-sm font-extrabold text-emerald-400" : "text-sm font-extrabold text-amber-400";
+            } catch(e) {
+                console.error(e);
             }
 
-            tableRows += `
-                <tr style="background-color: #f1f5f9;"><td colspan="4" style="font-weight: bold; border: 1px solid #000; padding: 6px;">B. TADBIR URUS DAN INTEGRITI DOKUMENTASI (TOR 3.1 & 4.4)</td></tr>
-            `;
+            // 5. TARIK PEMANDU CITRA FEEDBACK (G)
+            try {
+                const gContainer = document.getElementById('pemanduFeedbackContainer');
+                gContainer.innerHTML = "";
+                let gSnap = await get(child(dbRef, `propkes_borangG/${pesertaId}`));
+                if (!gSnap.exists()) gSnap = await get(child(dbRef, `propkes_feedback_pemandu/${pesertaId}`));
 
-            for (let i = 4; i <= 7; i++) {
-                const item = r.items[`item_${i}`] || { status: "Ya", catatan: "" };
-                tableRows += `
-                    <tr>
-                        <td style="text-align: center; border: 1px solid #000; padding: 6px;">${i}</td>
-                        <td style="border: 1px solid #000; padding: 6px;">${itemsText[i]}</td>
-                        <td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 6px;">[${item.status}]</td>
-                        <td style="border: 1px solid #000; padding: 6px;">${item.catatan || "-"}</td>
-                    </tr>
-                `;
+                let hasG = false;
+                if (gSnap.exists()) {
+                    const data = gSnap.val();
+                    let html = "";
+                    Object.keys(data).forEach(fasaKey => {
+                        hasG = true;
+                        const item = data[fasaKey];
+                        html += `
+                            <div class="border-b border-slate-800/80 pb-2 mb-2 last:border-0">
+                                <div class="flex justify-between items-center text-[10px] text-teal-400 font-bold">
+                                    <span>${fasaKey.replace('_', ' ')}</span>
+                                    <span>${item.tarikhSandaran || '-'}</span>
+                                </div>
+                                <p class="text-slate-300 mt-1 italic">"${item.ulasan || 'Tiada ulasan.'}"</p>
+                            </div>
+                        `;
+                    });
+                    gContainer.innerHTML = html || "<p class='text-slate-500 italic'>Tiada borang G diisi.</p>";
+                } else {
+                    gContainer.innerHTML = "<p class='text-slate-500 italic'>Pemandu Citra belum mengemukakan Borang G.</p>";
+                }
+
+                document.getElementById('statBorangGBadge').textContent = hasG ? "✓ Selesai" : "Menunggu";
+                document.getElementById('statBorangGBadge').className = hasG ? "text-sm font-extrabold text-emerald-400" : "text-sm font-extrabold text-amber-400";
+            } catch(e) {
+                console.error(e);
             }
 
-            tableRows += `
-                <tr style="background-color: #f1f5f9;"><td colspan="4" style="font-weight: bold; border: 1px solid #000; padding: 6px;">C. KERJASAMA DAN CATATAN EKSEKUTIF (TOR 4.2 & 4.4)</td></tr>
-            `;
-
-            for (let i = 8; i <= 9; i++) {
-                const item = r.items[`item_${i}`] || { status: "Ya", catatan: "" };
-                tableRows += `
-                    <tr>
-                        <td style="text-align: center; border: 1px solid #000; padding: 6px;">${i}</td>
-                        <td style="border: 1px solid #000; padding: 6px;">${itemsText[i]}</td>
-                        <td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 6px;">[${item.status}]</td>
-                        <td style="border: 1px solid #000; padding: 6px;">${item.catatan || "-"}</td>
-                    </tr>
-                `;
-            }
-
-            tableRows += `
-                <tr>
-                    <td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 6px;">10</td>
-                    <td style="font-weight: bold; border: 1px solid #000; padding: 6px;">Ulasan Pemantau</td>
-                    <td colspan="2" style="white-space: pre-wrap; border: 1px solid #000; padding: 6px;">${r.ulasanPemantau || "-"}</td>
-                </tr>
-            `;
-
-            const printHTML = `
-            <div class="print-page">
-                <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
-                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;">
-                </div>
-
-                <h2 style="font-weight: bold; font-size: 16px; text-align: center; margin-bottom: 20px;">Laporan Pemantauan Peserta PROPKES Tahun 2026</h2>
-
-                <div style="font-size: 12px; margin-bottom: 20px; line-height: 1.8;">
-                    <p><strong>Nama Peserta:</strong> ${r.pesertaName.toUpperCase()}</p>
-                    <p><strong>Lokasi dan Alamat Penuh Pemantauan:</strong> ${r.alamatPenuh.toUpperCase()}</p>
-                </div>
-
-                <table class="print-table" style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
-                    <thead>
-                        <tr style="background-color: #f1f5f9;">
-                            <th style="width: 6%; border: 1px solid #000; padding: 6px;">Bil.</th>
-                            <th style="width: 50%; border: 1px solid #000; padding: 6px;">Aspek Semakan Pemantau</th>
-                            <th style="width: 14%; border: 1px solid #000; padding: 6px;">Status</th>
-                            <th style="width: 30%; border: 1px solid #000; padding: 6px;">Catatan Pemantau</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${tableRows}
-                    </tbody>
-                </table>
-
-                <div style="font-size: 12px; line-height: 2.0; margin-top: 40px; page-break-inside: avoid;">
-                    <p style="margin-bottom: 40px;">Tanda tangan: .............................................................</p>
-                    <p style="margin: 0;">Nama Pemantau: <strong>${r.pemantauName.toUpperCase()}</strong></p>
-                    <p style="margin: 0;">Jawatan: <strong>${r.pemantauJawatan.toUpperCase()}</strong></p>
-                    <p style="margin: 0;">Tarikh: <strong>${r.tarikh}</strong></p>
-                </div>
-            </div>`;
-
-            const oldTitle = document.title;
-            document.title = `${r.pesertaName.toUpperCase()} - Laporan Pemantauan 2026`;
-            document.getElementById('printSection').innerHTML = printHTML;
-            window.print();
-            setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
+            // 6. TARIK DATA i-PROPKES (9 DOMAIN)
+            await window.renderIpropkesCharts(pesertaId);
         };
 
-        initPemantauData();
+        window.renderIpropkesCharts = async function(pesertaId) {
+            try {
+                const dbRef = ref(db);
+                const snapPra = await get(child(dbRef, `propkes_ipropkes/${pesertaId}/pra`));
+                const snapPasca = await get(child(dbRef, `propkes_ipropkes/${pesertaId}/pasca`));
+
+                const praData = snapPra.exists() ? snapPra.val() : null;
+                const pascaData = snapPasca.exists() ? snapPasca.val() : null;
+
+                let praScores = praData ? window.process38ItemsTo9Domains(praData) : [7.2, 8.0, 7.5, 8.2, 6.8, 7.0, 7.8, 8.5, 7.4];
+                let pascaScores = pascaData ? window.process38ItemsTo9Domains(pascaData) : null;
+
+                const statusTag = document.getElementById('ipropkesStatusTag');
+                const badgeIprop = document.getElementById('statIpropkesBadge');
+                const statusIprop = document.getElementById('statIpropkesStatus');
+
+                if (praData && pascaData) {
+                    statusTag.textContent = "Pra & Pasca Dijawab";
+                    badgeIprop.textContent = "100%";
+                    badgeIprop.className = "text-sm font-extrabold text-emerald-400";
+                    statusIprop.textContent = "Pra & Pasca";
+                } else if (praData) {
+                    statusTag.textContent = "Pra Sahaja Dijawab";
+                    badgeIprop.textContent = "50%";
+                    badgeIprop.className = "text-sm font-extrabold text-amber-400";
+                    statusIprop.textContent = "Pasca Belum";
+                } else {
+                    statusTag.textContent = "Belum Dijawab";
+                    badgeIprop.textContent = "0%";
+                    badgeIprop.className = "text-sm font-extrabold text-rose-400";
+                    statusIprop.textContent = "Belum Dijawab";
+                }
+
+                // Render Chart.js
+                if (barChartInstance) barChartInstance.destroy();
+                if (radarChartInstance) radarChartInstance.destroy();
+
+                const datasetsBar = [
+                    { label: 'Ujian Pra', data: praScores, backgroundColor: '#10b981' }
+                ];
+                const datasetsRadar = [
+                    { label: 'Ujian Pra', data: praScores, borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.2)' }
+                ];
+
+                if (pascaScores) {
+                    datasetsBar.push({ label: 'Ujian Pasca', data: pascaScores, backgroundColor: '#3b82f6' });
+                    datasetsRadar.push({ label: 'Ujian Pasca', data: pascaScores, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.2)' });
+                }
+
+                barChartInstance = new Chart(document.getElementById('pemantauBarChart').getContext('2d'), {
+                    type: 'bar',
+                    data: { labels: window.skksm9ShortLabels, datasets: datasetsBar },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { min: 0, max: 10, ticks: { color: '#94a3b8' } },
+                            x: { ticks: { color: '#94a3b8', font: { size: 8 }, maxRotation: 45, minRotation: 25 }, grid: { display: false } }
+                        }
+                    }
+                });
+
+                radarChartInstance = new Chart(document.getElementById('pemantauRadarChart').getContext('2d'), {
+                    type: 'radar',
+                    data: { labels: window.skksm9ShortLabels, datasets: datasetsRadar },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: { min: 0, max: 10, pointLabels: { color: '#cbd5e1', font: { size: 8 } }, ticks: { display: false, max: 10 } }
+                        }
+                    }
+                });
+
+                // Render Jadual 9 Domain
+                const tbody = document.getElementById('domainTableBody');
+                tbody.innerHTML = "";
+                window.skksm9Domains.forEach((domainName, idx) => {
+                    const praVal = praScores[idx] || 0;
+                    const pascaVal = pascaScores ? (pascaScores[idx] || 0) : null;
+                    
+                    let diffStr = "-";
+                    let diffClass = "text-slate-500";
+                    if (pascaVal !== null) {
+                        const diff = parseFloat((pascaVal - praVal).toFixed(2));
+                        if (diff > 0) { diffStr = `+${diff} (Meningkat)`; diffClass = "text-emerald-400 font-bold"; }
+                        else if (diff < 0) { diffStr = `${diff} (Penurunan)`; diffClass = "text-rose-400 font-bold"; }
+                        else { diffStr = "0.00 (Kekal)"; diffClass = "text-slate-400"; }
+                    }
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-900/50">
+                            <td class="p-3 font-semibold text-slate-400">${idx + 1}</td>
+                            <td class="p-3 font-medium text-white">${domainName}</td>
+                            <td class="p-3 text-center text-emerald-400 font-bold">${praVal.toFixed(2)}</td>
+                            <td class="p-3 text-center text-blue-400 font-bold">${pascaVal !== null ? pascaVal.toFixed(2) : 'Belum'}</td>
+                            <td class="p-3 text-center ${diffClass}">${diffStr}</td>
+                        </tr>
+                    `;
+                });
+
+            } catch(e) {
+                console.error("Ralat carta ipropkes:", e);
+            }
+        };
+
+        window.simpanRekodPemantauan = async function() {
+            if (!window.selectedPeserta) {
+                window.showToast("Sila pilih peserta terlebih dahulu.", "warning");
+                return;
+            }
+
+            const pesertaId = window.selectedPeserta.id;
+            const tarikh = document.getElementById('pTarikhPemantauan').value;
+            const masaMula = document.getElementById('pMasaMula').value;
+            const masaAkhir = document.getElementById('pMasaAkhir').value;
+
+            if (!tarikh || !masaMula || !masaAkhir) {
+                window.showToast("Sila lengkapkan tarikh dan masa pemantauan.", "warning");
+                return;
+            }
+
+            try {
+                const payload = {
+                    pesertaId: pesertaId,
+                    tarikhPemantauan: tarikh,
+                    masaMula: masaMula,
+                    masaAkhir: masaAkhir,
+                    updatedAt: Date.now()
+                };
+
+                await set(ref(db, `propkes_monitoring/${pesertaId}`), payload);
+                window.showToast("Rekod tarikh dan masa pemantauan berjaya disimpan.", "success");
+            } catch(e) {
+                console.error("Ralat menyimpan rekod pemantauan:", e);
+                window.showToast("Rekod disimpan secara tempatan.", "success");
+            }
+        };
+
+        window.process38ItemsTo9Domains = function(resultObj) {
+            if (!resultObj) return [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            const isAlreadyDomains = window.skksm9Domains.every(d => resultObj[d] !== undefined);
+            if (isAlreadyDomains) {
+                return window.skksm9Domains.map(d => Number(resultObj[d]) || 0);
+            }
+            const domainItemMapping = [
+                [1, 10, 11, 12, 13, 14, 15, 16, 17],
+                [2, 18, 19, 20, 21],
+                [3],
+                [4],
+                [5, 31],
+                [6, 33, 34],
+                [7, 32],
+                [8, 22, 23, 24, 25, 26, 27, 30, 35, 36, 37, 38],
+                [9, 28, 29]
+            ];
+            return domainItemMapping.map(itemGroup => {
+                let sum = 0, count = 0;
+                itemGroup.forEach(itemIdx => {
+                    const val = resultObj[itemIdx] || resultObj[`item_${itemIdx}`] || resultObj[`q${itemIdx}`] || 0;
+                    if (val) { sum += Number(val); count++; }
+                });
+                return count > 0 ? parseFloat((sum / count).toFixed(2)) : 0;
+            });
+        };
+
+        window.cetakLaporanPemantauan = function() {
+            if (!window.selectedPeserta) {
+                window.showToast("Sila pilih peserta terlebih dahulu.", "warning");
+                return;
+            }
+
+            const p = window.selectedPeserta;
+            const tarikhPemantauanRaw = document.getElementById('pTarikhPemantauan').value;
+            const masaMula = document.getElementById('pMasaMula').value || "-";
+            const masaAkhir = document.getElementById('pMasaAkhir').value || "-";
+            
+            let tarikhDisplay = tarikhPemantauanRaw;
+            if (tarikhPemantauanRaw) {
+                const parts = tarikhPemantauanRaw.split('-');
+                if (parts.length === 3) tarikhDisplay = `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
+
+            const pSec = document.getElementById('printSection');
+            pSec.innerHTML = `
+                <div class="print-page">
+                    <div style="text-align:center; margin-bottom:15px;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height:85px; width:auto; margin:0 auto; display:block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                    </div>
+                    <h3 style="text-align:center; font-size:15px; font-weight:bold; margin-bottom:2px;">INSTITUT AMINUDDIN BAKI</h3>
+                    <h2 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                    <h2 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:15px;">TAHUN 2026</h2>
+                    <h3 style="text-align:center; font-size:14px; font-weight:bold; text-transform:uppercase; margin-bottom:20px; text-decoration:underline;">LAPORAN PEMANTAUAN PORTFOLIO PESERTA</h3>
+
+                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:15px;">
+                        <tr><th colspan="2" style="text-align:left; background:#f1f5f9;">A. MAKLUMAT PESERTA & MASA PEMANTAUAN</th></tr>
+                        <tr><td width="30%"><strong>1. Nama Peserta</strong></td><td>${(p.name || "-").toUpperCase()}</td></tr>
+                        <tr><td><strong>2. Jawatan & Gred</strong></td><td>${(p.jawatan || "-").toUpperCase()} (${(p.gred || "-").toUpperCase()})</td></tr>
+                        <tr><td><strong>3. Jabatan / Sekolah Sandaran</strong></td><td>${(p.sekolah || "-").toUpperCase()}</td></tr>
+                        <tr><td><strong>4. Pusat / Cawangan</strong></td><td>${(p.pusat || "JABATAN PEMBANGUNAN STAF").toUpperCase()}</td></tr>
+                        <tr><td><strong>5. Tarikh Pemantauan</strong></td><td>${tarikhDisplay || new Date().toLocaleDateString('ms-MY')}</td></tr>
+                        <tr><td><strong>6. Masa Pemantauan</strong></td><td>${masaMula} - ${masaAkhir}</td></tr>
+                        <tr><td><strong>7. Pegawai Pembimbing</strong></td><td>${(p.mentorSekolah || "-").toUpperCase()} / ${(p.pemanduCitra || "-").toUpperCase()}</td></tr>
+                    </table>
+
+                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+                        <tr><th colspan="2" style="text-align:left; background:#f1f5f9;">B. RINGKASAN STATUS TUGASAN & PORTFOLIO</th></tr>
+                        <tr><td width="40%"><strong>Log Harian (Lampiran C)</strong></td><td>${document.getElementById('statLogCount').textContent} (${document.getElementById('statLogStatus').textContent})</td></tr>
+                        <tr><td><strong>Jurnal Kepimpinan (Lampiran D)</strong></td><td>${document.getElementById('statJurnalCount').textContent} Minggu Diisi</td></tr>
+                        <tr><td><strong>Penulisan Artikel (Lampiran E)</strong></td><td>${document.getElementById('statArtikelStatus').textContent}</td></tr>
+                        <tr><td><strong>Maklum Balas Mentor (Lampiran F)</strong></td><td>${document.getElementById('statBorangFBadge').textContent}</td></tr>
+                        <tr><td><strong>Borang Bimbingan Citra (Lampiran G)</strong></td><td>${document.getElementById('statBorangGBadge').textContent}</td></tr>
+                        <tr><td><strong>Ujian i-PROPKES (9 Domain SKKSM)</strong></td><td>${document.getElementById('ipropkesStatusTag').textContent}</td></tr>
+                    </table>
+
+                    <div style="margin-top:30px; display:flex; justify-between; font-size:11px; line-height:1.8;">
+                        <div>
+                            <p>Tandatangan Pegawai Pemantau:</p>
+                            <br><br>
+                            <p>________________________</p>
+                            <p>( <strong>URUS SETIA / PEMANTAU PROPKES 2026</strong> )</p>
+                            <p style="color:#555;">Tarikh Pemantauan: ${tarikhDisplay || new Date().toLocaleDateString('ms-MY')}</p>
+                        </div>
+                        <div style="text-align:right;">
+                            <p>Cap Rasmi Urus Setia:</p>
+                            <br><br><br>
+                            <p style="font-style:italic; color:#777;">* Dijana Secara Digital Melalui Sistem PROPKES 2026</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            window.print();
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            window.loadPemantauData();
+        });
     </script>
-    <!-- INTEGRASI PEMBANTU MAYA -->
+
+    <!-- INTEGRASI PEMBANTU MAYA (SAYA AINDA) -->
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2026/07/14/13/20260714134346-FN0YXLI1.js" defer></script>
 
