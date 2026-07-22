@@ -21,18 +21,19 @@
         @media print {
             body * { visibility: hidden; }
             #printSection, #printSection * { visibility: visible; }
-            #printSection { position: absolute; left: 0; top: 0; width: 100%; }
+            #printSection { position: absolute; left: 0; top: 0; width: 100%; display: block !important; }
             body { background: white !important; }
             .print-page { width: 100%; color: black; font-family: 'Arial', sans-serif; padding: 20px; page-break-after: always; }
             .print-page:last-child { page-break-after: auto; }
-            table.print-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
-            table.print-table th, table.print-table td { border: 1px solid #000; padding: 10px; color: black; vertical-align: top; }
+            table.print-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 11px; }
+            table.print-table th, table.print-table td { border: 1px solid #000; padding: 8px; color: black; vertical-align: top; }
             table.print-table th { background-color: #f1f5f9 !important; font-weight: bold; -webkit-print-color-adjust: exact; color: black; }
         }
     </style>
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
+    <!-- NAVBAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 shadow-2xl no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex justify-between items-center">
@@ -48,10 +49,10 @@
                 
                 <div class="flex items-center gap-4 shrink-0">
                     <div class="text-right hidden md:block border-l border-slate-700 pl-4">
-                        <p class="text-sm font-semibold text-white truncate max-w-[150px]" id="navNameDisplay">Memuatkan...</p>
+                        <p class="text-sm font-semibold text-white truncate max-w-[180px]" id="navNameDisplay">Memuatkan...</p>
                         <p class="text-xs text-teal-400">Pemandu Citra</p>
                     </div>
-                    <div class="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg" id="navInitials">...</div>
+                    <div class="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg shrink-0" id="navInitials">...</div>
                     <button onclick="window.logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-xl transition-all outline-none border border-slate-700 hover:border-rose-500 cursor-pointer" title="Log Keluar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
@@ -77,15 +78,15 @@
         </div>
 
         <!-- PROFILE SUMMARY CARD -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6 mb-8">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6 mb-8 overflow-hidden">
             <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm flex items-center gap-2">
                 Maklumat Anda (Ditarik Automatik dari Profil Peserta)
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Nama Penuh</p><p class="text-sm font-medium text-slate-200" id="profileNama">Memuat turun...</p></div>
-                <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">E-mel Rasmi</p><p class="text-sm font-medium text-slate-300" id="profileEmail">Ditarik Automatik...</p></div>
-                <div><p class="text-[10px] text-teal-500 font-bold uppercase mb-1">Jawatan Hakiki</p><p class="text-sm font-bold text-teal-400" id="profileJawatan">Ditarik Automatik...</p></div>
-                <div><p class="text-[10px] text-teal-500 font-bold uppercase mb-1">Pusat / Cawangan</p><p class="text-sm font-bold text-teal-400" id="profilePusat">Ditarik Automatik...</p></div>
+                <div class="overflow-hidden"><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Nama Penuh</p><p class="text-sm font-medium text-slate-200 break-words" id="profileNama">Memuat turun...</p></div>
+                <div class="overflow-hidden"><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">E-mel Rasmi</p><p class="text-sm font-medium text-slate-300 break-words" id="profileEmail">Ditarik Automatik...</p></div>
+                <div class="overflow-hidden"><p class="text-[10px] text-teal-500 font-bold uppercase mb-1">Jawatan Hakiki</p><p class="text-sm font-bold text-teal-400 break-words" id="profileJawatan">Ditarik Automatik...</p></div>
+                <div class="overflow-hidden"><p class="text-[10px] text-teal-500 font-bold uppercase mb-1">Pusat / Cawangan</p><p class="text-sm font-bold text-teal-400 break-words" id="profilePusat">Ditarik Automatik...</p></div>
             </div>
         </div>
 
@@ -183,11 +184,11 @@
             <div id="propkesModalBody" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
                     <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Carta Bar (9 Domain SKKSM)</h4>
-                    <div class="w-full h-64"><canvas id="pemanduBarChart"></canvas></div>
+                    <div class="w-full h-72"><canvas id="pemanduBarChart"></canvas></div>
                 </div>
                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col items-center">
                     <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Carta Radar Web (9 Domain SKKSM)</h4>
-                    <div class="w-full max-w-[280px] aspect-square"><canvas id="pemanduWebChart"></canvas></div>
+                    <div class="w-full max-w-[300px] aspect-square"><canvas id="pemanduWebChart"></canvas></div>
                 </div>
             </div>
 
@@ -256,8 +257,8 @@
         </div>
     </div>
 
-    <!-- CETAKAN SECTION -->
-    <div id="printSection" class="print-container no-print"></div>
+    <!-- CETAKAN SECTION (HIDDEN ON SCREEN VIEW) -->
+    <div id="printSection" class="hidden print:block print-container"></div>
 
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
@@ -278,7 +279,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        let currentUser = localStorage.getItem("propkes_user") || "demo_pemandu";
+        let currentUser = localStorage.getItem("propkes_user") || "coach2";
 
         window.menteesList = [];
         window.profileData = {}; 
@@ -298,6 +299,19 @@
             "Pengurusan Persekitaran & Kemudahan Fizikal",
             "Pengurusan & Pembangunan Sumber Manusia",
             "Pengurusan Perhubungan Luar"
+        ];
+
+        // Concise Labels for Chart JS Rendering
+        window.skksm9ShortLabels = [
+            "Org & Kepimpinan",
+            "Kurikulum",
+            "Kokurikulum",
+            "Hal Ehwal Murid",
+            "Kewangan",
+            "Pentadbiran",
+            "Fizikal & Persekitaran",
+            "Sumber Manusia",
+            "Hubungan Luar"
         ];
 
         window.showToast = function(message, type = 'success') {
@@ -332,13 +346,13 @@
                     myNameLower = pName.trim().toLowerCase();
                 } else {
                     window.profileData = {
-                        name: "Dr. Ahmad Pemandu Citra",
+                        name: "Pemandu Citra IAB",
                         jawatan: "Pensyarah Cemerlang DG54",
-                        email: "ahmad.pemandu@iab.edu.my",
-                        pusat: "IAB Cawangan Genting Highlands"
+                        email: "coach2@iab.edu.my",
+                        pusat: "Pusat Pengurusan Dasar & Inovasi"
                     };
                     document.getElementById('navNameDisplay').textContent = window.profileData.name;
-                    document.getElementById('navInitials').textContent = "AP";
+                    document.getElementById('navInitials').textContent = "PC";
                     document.getElementById('profileNama').textContent = window.profileData.name;
                     myNameLower = window.profileData.name.trim().toLowerCase();
                 }
@@ -359,16 +373,16 @@
                             const pCitra = (data.pemanduCitra || "").trim().toLowerCase();
                             if (pCitra !== "" && (pCitra.includes(myNameLower) || myNameLower.includes(pCitra))) {
                                 if(!jawatanHakikiDitarik) jawatanHakikiDitarik = data.pemanduJawatan || "Pensyarah Cemerlang IAB";
-                                if(!emailRasmiDitarik) emailRasmiDitarik = window.profileData.email || "ahmad@iab.edu.my";
+                                if(!emailRasmiDitarik) emailRasmiDitarik = window.profileData.email || "coach2@iab.edu.my";
                                 if(!pusatCawanganDitarik) pusatCawanganDitarik = data.pemanduPusat || "IAB Induk"; 
 
                                 window.menteesList.push({ 
                                     id: uname, 
                                     name: data.name || uname, 
-                                    sekolah: data.sekolah || data.jabatan || 'SK Taman Sri Murni',
+                                    sekolah: data.sekolah || data.jabatan || 'SK. KAYANGAN',
                                     jawatan: data.jawatan || 'Guru Besar DG48',
                                     gred: data.gred || 'DG48',
-                                    jabatan: data.jabatan || data.sekolah || 'SK Taman Sri Murni',
+                                    jabatan: data.jabatan || data.sekolah || 'SK. KAYANGAN',
                                     pusat: data.pusatCawangan || data.pusat || 'IAB Genting Highlands'
                                 });
                             }
@@ -379,29 +393,20 @@
                 if (window.menteesList.length === 0) {
                     window.menteesList = [
                         {
-                            id: "peserta_demo_1",
-                            name: "Encik Razali bin Mohamed",
-                            sekolah: "SMK Bandar Utama",
+                            id: "ainol",
+                            name: "AINOL",
+                            sekolah: "SK. KAYANGAN",
                             jawatan: "Penolong Kanan Pentadbiran",
                             gred: "DG52",
-                            jabatan: "SMK Bandar Utama",
-                            pusat: "IAB Genting Highlands"
-                        },
-                        {
-                            id: "peserta_demo_2",
-                            name: "Puan Noraini binti Hassan",
-                            sekolah: "SK Seri Indah",
-                            jawatan: "Guru Besar",
-                            gred: "DG48",
-                            jabatan: "SK Seri Indah",
-                            pusat: "IAB Genting Highlands"
+                            jabatan: "SK. KAYANGAN",
+                            pusat: "JABATAN PEMBANGUNAN STAF"
                         }
                     ];
                 }
 
                 window.profileData.jawatan = jawatanHakikiDitarik || window.profileData.jawatan || "Pensyarah Cemerlang IAB";
-                window.profileData.email = emailRasmiDitarik || window.profileData.email || "pemandu@iab.edu.my";
-                window.profileData.pusat = pusatCawanganDitarik || window.profileData.pusat || "IAB Genting Highlands"; 
+                window.profileData.email = emailRasmiDitarik || window.profileData.email || "coach2@iab.edu.my";
+                window.profileData.pusat = pusatCawanganDitarik || window.profileData.pusat || "IAB Induk"; 
 
                 document.getElementById('profileEmail').textContent = window.profileData.email;
                 document.getElementById('profileJawatan').textContent = window.profileData.jawatan;
@@ -602,8 +607,9 @@
             }
         };
 
+        // VIEW ARTIKEL LAMPIRAN E (SYNCHRONIZED WITH PARTICIPANT PDF LAYOUT)
         window.viewArticle = async (id) => {
-            const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta', sekolah: 'Sekolah Sandaran' };
+            const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta', sekolah: 'SK. KAYANGAN' };
             document.getElementById('viewModalTitle').textContent = "Penulisan Artikel PROPKES (Lampiran E)";
             document.getElementById('viewModalSubtitle').textContent = `Peserta: ${mentee.name}`;
             const body = document.getElementById('viewModalBody');
@@ -625,18 +631,25 @@
                     window.currentArticleData = snap.val();
                 } else {
                     window.currentArticleData = {
-                        tajuk: "PEMERKASAAN KEPIMPINAN INSTRUKSIONAL DAN TADBIR URUS SEKOLAH SANDARAN",
-                        abstrak: "Artikel ini membincangkan strategi penambahbaikan berterusan dalam pengurusan kurikulum dan fizikal sekolah sandaran.",
-                        pendahuluan: "Program PROPKES melatih pemimpin pendidikan berprestasi tinggi dalam menangani cabaran realiti sekolah.",
-                        fokus: "Cabaran utama melibatkan penyelarasan bajet kewangan serta motivasi staf.",
-                        cadangan: "Melaksanakan bimbingan berfokus dan pemantauan berkala berasaskan SKKSM.",
-                        kesimpulan: "Impak positif dapat dilihat menerusi peningkatan komitmen warga sekolah."
+                        tajuk: "HHBGFDS",
+                        abstrak: "gfvcdx",
+                        pengenalan: "bvex",
+                        namaSekolah: mentee.sekolah || "SK. KAYANGAN",
+                        ppd: "PPD KUANTAN",
+                        jenisGred: "SEKOLAH (GRED B)",
+                        bilGuruMurid: "60 GURU, 800 MURID",
+                        namaPengetua: "MENTORNORIADAH",
+                        kebitaraan1: "gfdsa",
+                        kebitaraan2: "jhgfdsa",
+                        kebitaraan3: "hgfvodsxa",
+                        rumusan: "kjhgfdsa",
+                        rujukan: "luytgrfedsa"
                     };
                 }
 
                 const a = window.currentArticleData;
                 window.currentArticleData.pesertaNama = mentee.name;
-                window.currentArticleData.pesertaSekolah = mentee.sekolah || mentee.jabatan || "-";
+                window.currentArticleData.pesertaSekolah = a.namaSekolah || mentee.sekolah || mentee.jabatan || "SK. KAYANGAN";
 
                 document.getElementById('viewModalFooter').innerHTML = `
                     <button type="button" onclick="window.downloadMenteeWordE()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg text-xs cursor-pointer">Muat Turun MS Word</button>
@@ -650,34 +663,59 @@
                             <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-14 w-auto object-contain" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                         </div>
 
-                        <div>
-                            <p class="text-[10px] text-rose-400 font-bold uppercase mb-1">Tajuk Artikel</p>
-                            <h3 class="text-sm font-bold text-white uppercase">${a.tajuk || a.title || "TIADA TAJUK"}</h3>
+                        <div class="text-center">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase">KEMENTERIAN PENDIDIKAN MALAYSIA</h4>
+                            <h4 class="text-xs font-bold text-slate-400 uppercase">INSTITUT AMINUDDIN BAKI</h4>
+                            <h3 class="text-sm font-bold text-teal-400 uppercase mt-1">LAMPIRAN E: FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h3>
+                        </div>
+
+                        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-1 text-xs">
+                            <p><strong class="text-slate-400">Tajuk Artikel:</strong> <span class="text-white font-bold uppercase">${a.tajuk || a.title || "HHBGFDS"}</span></p>
+                            <p><strong class="text-slate-400">Nama Peserta:</strong> <span class="text-white">${a.pesertaNama || mentee.name}</span></p>
+                            <p><strong class="text-slate-400">Jabatan / Pusat:</strong> <span class="text-white">${a.jabatanPusat || mentee.pusat || "JABATAN PEMBANGUNAN STAF"}</span></p>
                         </div>
 
                         <div>
-                            <p class="text-[10px] text-amber-400 font-bold uppercase mb-1">Abstrak</p>
-                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.abstrak || a.abstract || "-"}</p>
+                            <p class="text-[10px] text-amber-400 font-bold uppercase mb-1">ABSTRAK</p>
+                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.abstrak || "-"}</p>
                         </div>
 
                         <div>
-                            <p class="text-[10px] text-teal-400 font-bold uppercase mb-1">1.0 Pendahuluan & Latar Belakang</p>
-                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.pendahuluan || a.latarBelakang || "-"}</p>
+                            <p class="text-[10px] text-teal-400 font-bold uppercase mb-1">PENGENALAN</p>
+                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.pengenalan || a.pendahuluan || "-"}</p>
                         </div>
 
                         <div>
-                            <p class="text-[10px] text-blue-400 font-bold uppercase mb-1">2.0 Isu / Cabaran Utama Kepimpinan</p>
-                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.fokus || a.isu || a.cabaran || "-"}</p>
+                            <p class="text-[10px] text-blue-400 font-bold uppercase mb-1">LATAR BELAKANG SEKOLAH SANDARAN</p>
+                            <p class="text-[11px] font-bold text-slate-400 mb-1">Jadual 1: Profil Sekolah Sandaran</p>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs border border-slate-800 divide-y divide-slate-800">
+                                    <tr class="bg-slate-900"><td class="p-2 font-semibold text-slate-400 w-1/3">Nama Sekolah</td><td class="p-2 text-slate-200">${a.namaSekolah || mentee.sekolah}</td></tr>
+                                    <tr><td class="p-2 font-semibold text-slate-400">PPD / Daerah</td><td class="p-2 text-slate-200">${a.ppd || "PPD KUANTAN"}</td></tr>
+                                    <tr class="bg-slate-900"><td class="p-2 font-semibold text-slate-400">Jenis & Status Gred</td><td class="p-2 text-slate-200">${a.jenisGred || "SEKOLAH (GRED B)"}</td></tr>
+                                    <tr><td class="p-2 font-semibold text-slate-400">Bilangan Guru & Murid</td><td class="p-2 text-slate-200">${a.bilGuruMurid || "60 GURU, 800 MURID"}</td></tr>
+                                    <tr class="bg-slate-900"><td class="p-2 font-semibold text-slate-400">Nama Pengetua / Guru Besar</td><td class="p-2 text-slate-200">${a.namaPengetua || "MENTORNORIADAH"}</td></tr>
+                                </table>
+                            </div>
                         </div>
 
                         <div>
-                            <p class="text-[10px] text-indigo-400 font-bold uppercase mb-1">3.0 Strategi / Cadangan Penambahbaikan</p>
-                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.cadangan || a.strategi || "-"}</p>
+                            <p class="text-[10px] text-indigo-400 font-bold uppercase mb-1">PERKONGSIAN BIDANG KEBITARAAN / AMALAN TERBAIK</p>
+                            <div class="space-y-2 text-xs text-slate-300">
+                                <p><strong>1. Bidang Kebitaraan / Amalan Terbaik Pertama:</strong> ${a.kebitaraan1 || a.cadangan || "-"}</p>
+                                <p><strong>2. Bidang Kebitaraan / Amalan Terbaik Kedua:</strong> ${a.kebitaraan2 || "-"}</p>
+                                <p><strong>3. Bidang Kebitaraan / Amalan Terbaik Ketiga:</strong> ${a.kebitaraan3 || "-"}</p>
+                            </div>
                         </div>
 
                         <div>
-                            <p class="text-[10px] text-emerald-400 font-bold uppercase mb-1">4.0 Impak & Kesimpulan</p>
-                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.kesimpulan || a.impak || "-"}</p>
+                            <p class="text-[10px] text-emerald-400 font-bold uppercase mb-1">RUMUSAN</p>
+                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.rumusan || a.kesimpulan || "-"}</p>
+                        </div>
+
+                        <div>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase mb-1">RUJUKAN</p>
+                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.rujukan || "-"}</p>
                         </div>
                     </div>
                 `;
@@ -697,22 +735,34 @@
                     <div style="text-align:center; margin-bottom:15px;">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png" style="height:70px;">
                     </div>
-                    <h2 style="text-align:center; font-size:16px; font-weight:bold;">INSTITUT AMINUDDIN BAKI</h2>
-                    <h3 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:20px;">LAMPIRAN E: PENULISAN ARTIKEL PROPKES 2026</h3>
-                    <p><strong>Nama Peserta:</strong> ${a.pesertaNama || "-"}</p>
-                    <p><strong>Sekolah / Jabatan:</strong> ${a.pesertaSekolah || "-"}</p>
+                    <h2 style="text-align:center; font-size:14px; font-weight:bold;">KEMENTERIAN PENDIDIKAN MALAYSIA</h2>
+                    <h2 style="text-align:center; font-size:14px; font-weight:bold;">INSTITUT AMINUDDIN BAKI</h2>
+                    <h3 style="text-align:center; font-size:13px; font-weight:bold; margin-bottom:20px;">LAMPIRAN E: FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h3>
+                    <p style="text-transform:uppercase;"><strong>TAJUK ARTIKEL:</strong> ${a.tajuk || "HHBGFDS"}</p>
+                    <p><strong>NAMA PESERTA:</strong> ${a.pesertaNama || "-"}</p>
+                    <p><strong>JABATAN / PUSAT:</strong> ${a.jabatanPusat || "JABATAN PEMBANGUNAN STAF"}</p>
                     <hr>
-                    <h3 style="text-transform:uppercase;">${a.tajuk || "TIADA TAJUK"}</h3>
                     <h4>ABSTRAK</h4>
                     <p>${a.abstrak || "-"}</p>
-                    <h4>1.0 PENDAHULUAN & LATAR BELAKANG</h4>
-                    <p>${a.pendahuluan || "-"}</p>
-                    <h4>2.0 ISU / CABARAN UTAMA KEPIMPINAN</h4>
-                    <p>${a.fokus || a.isu || "-"}</p>
-                    <h4>3.0 STRATEGI / CADANGAN PENAMBAHBAIKAN</h4>
-                    <p>${a.cadangan || "-"}</p>
-                    <h4>4.0 IMPAK & KESIMPULAN</h4>
-                    <p>${a.kesimpulan || "-"}</p>
+                    <h4>PENGENALAN</h4>
+                    <p>${a.pengenalan || a.pendahuluan || "-"}</p>
+                    <h4>LATAR BELAKANG SEKOLAH SANDARAN</h4>
+                    <p><strong>Jadual 1: Profil Sekolah Sandaran</strong></p>
+                    <table border="1" cellpadding="5" cellspacing="0" style="width:100%; border-collapse:collapse;">
+                        <tr><td>Nama Sekolah</td><td>${a.namaSekolah || a.pesertaSekolah || "SK. KAYANGAN"}</td></tr>
+                        <tr><td>PPD / Daerah</td><td>${a.ppd || "PPD KUANTAN"}</td></tr>
+                        <tr><td>Jenis & Status Gred</td><td>${a.jenisGred || "SEKOLAH (GRED B)"}</td></tr>
+                        <tr><td>Bilangan Guru & Murid</td><td>${a.bilGuruMurid || "60 GURU, 800 MURID"}</td></tr>
+                        <tr><td>Nama Pengetua / Guru Besar</td><td>${a.namaPengetua || "MENTORNORIADAH"}</td></tr>
+                    </table>
+                    <h4>PERKONGSIAN BIDANG KEBITARAAN/AMALAN TERBAIK</h4>
+                    <p><strong>1. Bidang Kebitaraan / Amalan Terbaik Pertama:</strong> ${a.kebitaraan1 || "-"}</p>
+                    <p><strong>2. Bidang Kebitaraan / Amalan Terbaik Kedua:</strong> ${a.kebitaraan2 || "-"}</p>
+                    <p><strong>3. Bidang Kebitaraan / Amalan Terbaik Ketiga:</strong> ${a.kebitaraan3 || "-"}</p>
+                    <h4>RUMUSAN</h4>
+                    <p>${a.rumusan || a.kesimpulan || "-"}</p>
+                    <h4>RUJUKAN</h4>
+                    <p>${a.rujukan || "-"}</p>
                 </body>
                 </html>
             `;
@@ -720,7 +770,7 @@
             const url = URL.createObjectURL(blob);
             const aElem = document.createElement('a');
             aElem.href = url;
-            aElem.download = `Lampiran_E_${(a.pesertaNama || 'Peserta').replace(/\s+/g, '_')}.doc`;
+            aElem.download = `${(a.pesertaNama || 'Peserta').replace(/\s+/g, '_')}_Artikel_Lampiran_E.doc`;
             document.body.appendChild(aElem);
             aElem.click();
             document.body.removeChild(aElem);
@@ -732,47 +782,68 @@
             const pSec = document.getElementById('printSection');
             pSec.innerHTML = `
                 <div class="print-page">
-                    <div style="text-align:center; margin-bottom:15px;">
-                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height:80px; width:auto; margin:0 auto; display:block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                    <div style="text-align:center; margin-bottom:10px;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height:75px; width:auto; margin:0 auto; display:block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
-                    <h2 style="text-align:center; font-size:15px; font-weight:bold;">INSTITUT AMINUDDIN BAKI</h2>
-                    <h3 style="text-align:center; font-size:13px; font-weight:bold; margin-bottom:20px; text-transform:uppercase;">LAMPIRAN E: PENULISAN ARTIKEL PROPKES 2026</h3>
+                    <h3 style="text-align:center; font-size:12px; font-weight:bold; margin:0;">KEMENTERIAN PENDIDIKAN</h3>
+                    <h3 style="text-align:center; font-size:12px; font-weight:bold; margin:0;">INSTITUT AMINUDDIN BAKI</h3>
+                    <h3 style="text-align:center; font-size:12px; font-weight:bold; margin-top:4px; margin-bottom:15px; text-transform:uppercase;">LAMPIRAN E: FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h3>
                     
-                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:20px;">
-                        <tr><td width="25%" style="font-weight:bold; background:#f1f5f9;">Nama Peserta</td><td>${a.pesertaNama || "-"}</td></tr>
-                        <tr><td style="font-weight:bold; background:#f1f5f9;">Sekolah / Jabatan</td><td>${a.pesertaSekolah || "-"}</td></tr>
-                        <tr><td style="font-weight:bold; background:#f1f5f9;">Tajuk Artikel</td><td style="font-weight:bold; text-transform:uppercase;">${a.tajuk || "TIADA TAJUK"}</td></tr>
-                    </table>
-
-                    <div style="margin-bottom:15px;">
-                        <h4 style="font-size:12px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:3px; margin-bottom:6px;">ABSTRAK</h4>
-                        <p style="font-size:11px; text-align:justify; line-height:1.6; white-space:pre-wrap;">${a.abstrak || "-"}</p>
+                    <div style="text-align:center; margin-bottom:15px;">
+                        <h2 style="font-size:14px; font-weight:bold; text-transform:uppercase; margin-bottom:4px;">${a.tajuk || "HHBGFDS"}</h2>
+                        <p style="font-size:11px; margin:2px 0;"><strong>${a.pesertaNama || "AINOL"}</strong></p>
+                        <p style="font-size:11px; margin:2px 0; text-transform:uppercase;">${a.jabatanPusat || "JABATAN PEMBANGUNAN STAF"}</p>
                     </div>
 
-                    <div style="margin-bottom:15px;">
-                        <h4 style="font-size:12px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:3px; margin-bottom:6px;">1.0 PENDAHULUAN & LATAR BELAKANG</h4>
-                        <p style="font-size:11px; text-align:justify; line-height:1.6; white-space:pre-wrap;">${a.pendahuluan || "-"}</p>
+                    <div style="margin-bottom:12px;">
+                        <h4 style="font-size:11px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:2px; margin-bottom:4px;">ABSTRAK</h4>
+                        <p style="font-size:10.5px; text-align:justify; line-height:1.5; white-space:pre-wrap;">${a.abstrak || "gfvcdx"}</p>
                     </div>
 
-                    <div style="margin-bottom:15px;">
-                        <h4 style="font-size:12px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:3px; margin-bottom:6px;">2.0 ISU / CABARAN UTAMA KEPIMPINAN</h4>
-                        <p style="font-size:11px; text-align:justify; line-height:1.6; white-space:pre-wrap;">${a.fokus || a.isu || "-"}</p>
+                    <div style="margin-bottom:12px;">
+                        <h4 style="font-size:11px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:2px; margin-bottom:4px;">PENGENALAN</h4>
+                        <p style="font-size:10.5px; text-align:justify; line-height:1.5; white-space:pre-wrap;">${a.pengenalan || a.pendahuluan || "bvex"}</p>
                     </div>
 
-                    <div style="margin-bottom:15px;">
-                        <h4 style="font-size:12px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:3px; margin-bottom:6px;">3.0 STRATEGI / CADANGAN PENAMBAHBAIKAN</h4>
-                        <p style="font-size:11px; text-align:justify; line-height:1.6; white-space:pre-wrap;">${a.cadangan || "-"}</p>
+                    <div style="margin-bottom:12px;">
+                        <h4 style="font-size:11px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:2px; margin-bottom:4px;">LATAR BELAKANG SEKOLAH SANDARAN</h4>
+                        <p style="font-size:10px; font-weight:bold; margin-bottom:4px;">Jadual 1: Profil Sekolah Sandaran</p>
+                        <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:10px; font-size:10.5px;">
+                            <tr><td width="35%" style="font-weight:bold; background:#f1f5f9;">Nama Sekolah</td><td>${a.namaSekolah || a.pesertaSekolah || "SK. KAYANGAN"}</td></tr>
+                            <tr><td style="font-weight:bold; background:#f1f5f9;">PPD / Daerah</td><td>${a.ppd || "PPD KUANTAN"}</td></tr>
+                            <tr><td style="font-weight:bold; background:#f1f5f9;">Jenis & Status Gred</td><td>${a.jenisGred || "SEKOLAH (GRED B)"}</td></tr>
+                            <tr><td style="font-weight:bold; background:#f1f5f9;">Bilangan Guru & Murid</td><td>${a.bilGuruMurid || "60 GURU, 800 MURID"}</td></tr>
+                            <tr><td style="font-weight:bold; background:#f1f5f9;">Nama Pengetua / Guru Besar</td><td>${a.namaPengetua || "MENTORNORIADAH"}</td></tr>
+                        </table>
                     </div>
 
-                    <div style="margin-bottom:15px;">
-                        <h4 style="font-size:12px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:3px; margin-bottom:6px;">4.0 IMPAK & KESIMPULAN</h4>
-                        <p style="font-size:11px; text-align:justify; line-height:1.6; white-space:pre-wrap;">${a.kesimpulan || "-"}</p>
+                    <div style="margin-bottom:12px;">
+                        <h4 style="font-size:11px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:2px; margin-bottom:4px;">PERKONGSIAN BIDANG KEBITARAAN/AMALAN TERBAIK</h4>
+                        <p style="font-size:10.5px; margin-bottom:3px;"><strong>1. Bidang Kebitaraan / Amalan Terbaik Pertama:</strong></p>
+                        <p style="font-size:10.5px; text-align:justify; padding-left:10px; margin-bottom:5px;">${a.kebitaraan1 || "gfdsa"}</p>
+                        
+                        <p style="font-size:10.5px; margin-bottom:3px;"><strong>2. Bidang Kebitaraan / Amalan Terbaik Kedua:</strong></p>
+                        <p style="font-size:10.5px; text-align:justify; padding-left:10px; margin-bottom:5px;">${a.kebitaraan2 || "jhgfdsa"}</p>
+                        
+                        <p style="font-size:10.5px; margin-bottom:3px;"><strong>3. Bidang Kebitaraan / Amalan Terbaik Ketiga:</strong></p>
+                        <p style="font-size:10.5px; text-align:justify; padding-left:10px; margin-bottom:5px;">${a.kebitaraan3 || "hgfvodsxa"}</p>
+                    </div>
+
+                    <div style="margin-bottom:12px;">
+                        <h4 style="font-size:11px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:2px; margin-bottom:4px;">RUMUSAN</h4>
+                        <p style="font-size:10.5px; text-align:justify; line-height:1.5; white-space:pre-wrap;">${a.rumusan || a.kesimpulan || "kjhgfdsa"}</p>
+                    </div>
+
+                    <div style="margin-bottom:12px;">
+                        <h4 style="font-size:11px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:2px; margin-bottom:4px;">RUJUKAN</h4>
+                        <p style="font-size:10.5px; text-align:justify; line-height:1.5; white-space:pre-wrap;">${a.rujukan || "luytgrfedsa"}</p>
                     </div>
                 </div>
             `;
             window.print();
         };
 
+        // VIEW i-PROPKES (WITHOUT FAKE POST-TEST DATA & CONCISE LABELS)
         window.viewPropkes = async (id) => {
             const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta' };
             document.getElementById('propkesModalSubtitle').textContent = `Peserta: ${mentee.name}`;
@@ -792,33 +863,63 @@
                     const pasca = snapPasca.exists() ? snapPasca.val() : null;
 
                     let praScores = pra ? window.process38ItemsTo9Domains(pra) : [7.2, 8.0, 7.5, 8.2, 6.8, 7.0, 7.8, 8.5, 7.4];
-                    let pascaScores = pasca ? window.process38ItemsTo9Domains(pasca) : [8.8, 9.2, 8.9, 9.1, 8.4, 8.6, 9.0, 9.4, 8.8];
+                    
+                    // FIX: DO NOT FAKE PASCA TEST SCORES IF PARTICIPANT HAS NOT TAKEN PASCA TEST
+                    let pascaScores = pasca ? window.process38ItemsTo9Domains(pasca) : null;
 
                     if(chartBarInstance) chartBarInstance.destroy();
                     if(chartWebInstance) chartWebInstance.destroy();
 
+                    const datasetsBar = [
+                        { label: 'Ujian Pra', data: praScores, backgroundColor: '#10b981' }
+                    ];
+
+                    const datasetsRadar = [
+                        { label: 'Ujian Pra', data: praScores, borderColor: '#10b981', backgroundColor:'rgba(16,185,129,0.2)' }
+                    ];
+
+                    if (pascaScores) {
+                        datasetsBar.push({ label: 'Ujian Pasca', data: pascaScores, backgroundColor: '#3b82f6' });
+                        datasetsRadar.push({ label: 'Ujian Pasca', data: pascaScores, borderColor: '#3b82f6', backgroundColor:'rgba(59,130,246,0.2)' });
+                    } else {
+                        // Badge notification on chart header
+                        document.getElementById('propkesModalSubtitle').textContent = `Peserta: ${mentee.name} (Ujian Pasca: Belum Dijawab)`;
+                    }
+
                     chartBarInstance = new Chart(document.getElementById('pemanduBarChart').getContext('2d'), { 
                         type: 'bar', 
                         data: { 
-                            labels: window.skksm9Domains.map(d => d.replace('Pengurusan ', '')), 
-                            datasets: [
-                                { label: 'Ujian Pra', data: praScores, backgroundColor: '#10b981' }, 
-                                { label: 'Ujian Pasca', data: pascaScores, backgroundColor: '#3b82f6' }
-                            ] 
+                            labels: window.skksm9ShortLabels, 
+                            datasets: datasetsBar 
                         }, 
-                        options: { responsive: true, maintainAspectRatio: false, scales: { y: { min:0, max: 10, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:8}}, grid:{display:false}} } } 
+                        options: { 
+                            responsive: true, 
+                            maintainAspectRatio: false, 
+                            scales: { 
+                                y: { min:0, max: 10, ticks: {color:'#94a3b8'} }, 
+                                x: { ticks:{ color:'#94a3b8', font:{size:8}, maxRotation: 45, minRotation: 25 }, grid:{display:false} } 
+                            } 
+                        } 
                     });
 
                     chartWebInstance = new Chart(document.getElementById('pemanduWebChart').getContext('2d'), { 
                         type: 'radar', 
                         data: { 
-                            labels: window.skksm9Domains.map(d => d.replace('Pengurusan ', '')), 
-                            datasets: [
-                                { label: 'Pra', data: praScores, borderColor: '#10b981', backgroundColor:'rgba(16,185,129,0.2)' }, 
-                                { label: 'Pasca', data: pascaScores, borderColor: '#3b82f6', backgroundColor:'rgba(59,130,246,0.2)' }
-                            ] 
+                            labels: window.skksm9ShortLabels, 
+                            datasets: datasetsRadar 
                         }, 
-                        options: { responsive: true, scales: { r: { min:0, max: 10, pointLabels: {color:'#cbd5e1', font:{size:8}}, ticks: {display:false, max:10} } } } 
+                        options: { 
+                            responsive: true, 
+                            maintainAspectRatio: false,
+                            scales: { 
+                                r: { 
+                                    min:0, 
+                                    max: 10, 
+                                    pointLabels: { color:'#cbd5e1', font:{size:8} }, 
+                                    ticks: { display:false, max:10 } 
+                                } 
+                            } 
+                        } 
                     });
 
                 } catch (error) { 
@@ -858,11 +959,11 @@
         window.openMaklumBalas = async (id) => {
             const pData = window.menteesList.find(x => x.id === id) || {
                 id: id,
-                name: 'Peserta',
-                jawatan: 'Guru Besar',
-                gred: 'DG48',
-                sekolah: 'Sekolah Sandaran',
-                pusat: 'IAB Induk'
+                name: 'AINOL',
+                jawatan: 'Penolong Kanan Pentadbiran',
+                gred: 'DG52',
+                sekolah: 'SK. KAYANGAN',
+                pusat: 'JABATAN PEMBANGUNAN STAF'
             };
 
             try {
