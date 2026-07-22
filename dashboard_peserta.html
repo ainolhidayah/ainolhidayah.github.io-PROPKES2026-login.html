@@ -85,7 +85,6 @@
             </div>
         </div>
 
-        <!-- STATUS FASA 1 & FASA 2 KEMAJUAN -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <!-- KAD FASA 1 -->
             <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6 relative overflow-hidden">
@@ -460,7 +459,7 @@
                 <!-- ACTION BUTTONS -->
                 <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-800 sticky bottom-0 bg-slate-900 pb-2">
                     <button type="button" onclick="window.downloadWordArtikel()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center gap-1.5 outline-none cursor-pointer">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 01-2-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         📄 Muat Turun Word (.doc)
                     </button>
                     <button type="button" onclick="window.cetakArtikelPDF()" class="bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center gap-1.5 outline-none cursor-pointer">
@@ -778,7 +777,6 @@
                 }
 
                 const dbRef = ref(db);
-                // Guna fetch secara berasingan supaya kegagalan satu nod tidak merosakkan nod yang lain
                 const userSnap = await get(child(dbRef, `propkes_accounts/${currentUser}`)).catch(() => null);
                 const calSnap = await get(child(dbRef, `propkes_attendance/${currentUser}`)).catch(() => null);
                 const jurSnap = await get(child(dbRef, `propkes_journals/${currentUser}`)).catch(() => null);
@@ -829,9 +827,18 @@
                     safeSetValue('editMentorPpdAlamat', u.mentorPpdAlamat || ""); 
 
                     // Pre-fill artikel auto fields
-                    safeSetValue('artJenisGred', u.sekolah ? `SEKOLAH (Gred B)` : "");
-                    safeSetValue('artLokasiDaerah', u.ppd ? `PPD ${u.ppd}` : "");
-                    safeSetValue('artNamaPengetua', u.mentorSekolah || "");
+                    const artJenis = document.getElementById('artJenisGred');
+                    if (artJenis && (!artJenis.value || artJenis.value.trim() === '')) {
+                        safeSetValue('artJenisGred', u.sekolah ? `SEKOLAH (Gred B)` : "");
+                    }
+                    const artLok = document.getElementById('artLokasiDaerah');
+                    if (artLok && (!artLok.value || artLok.value.trim() === '')) {
+                        safeSetValue('artLokasiDaerah', u.ppd ? `PPD ${u.ppd}` : "");
+                    }
+                    const artPen = document.getElementById('artNamaPengetua');
+                    if (artPen && (!artPen.value || artPen.value.trim() === '')) {
+                        safeSetValue('artNamaPengetua', u.mentorSekolah || "");
+                    }
                 } else {
                     window.profileData = { name: currentUser };
                     safeSetText("navNameDisplay", currentUser);
@@ -856,11 +863,12 @@
                     safeSetValue('artKebitaraan3', window.artikelData.kebitaraan3 || "");
                     safeSetValue('artRumusan', window.artikelData.rumusan || "");
                     safeSetValue('artRujukan', window.artikelData.rujukan || "");
-                    window.updateWordCount();
+                    if (typeof window.updateWordCount === 'function') window.updateWordCount();
                 }
 
                 window.renderCal();
                 window.calculatePhaseStats();
+                window.renderTasks();
 
             } catch (error) { console.error(error); window.showToast("Gagal menyambung ke pangkalan data.", "error"); }
         }
@@ -873,8 +881,6 @@
             const jur = window.journalData || {};
             const progress = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
 
-            // FASA 1 DATES: 2026-08-03 hingga 2026-09-13
-            // FASA 2 DATES: 2026-09-14 hingga 2026-10-25
             let f1Sek = 0, f1Ppd = 0, f1Sah = 0, f1LogLengkap = 0;
             let f2Sek = 0, f2Ppd = 0, f2Sah = 0, f2LogLengkap = 0;
 
@@ -882,7 +888,6 @@
                 const item = cal[dt];
                 if(!item || typeof item !== 'object') return;
                 
-                // Check if in Fasa 1 or Fasa 2
                 if(dt >= "2026-08-03" && dt <= "2026-09-13") {
                     if(item.loc === 'sekolah') f1Sek++;
                     else if(item.loc === 'ppd') f1Ppd++;
@@ -896,7 +901,6 @@
                 }
             });
 
-            // Count Jurnal D (W1 to W6 -> Fasa 1, W7 to W12 -> Fasa 2)
             let f1Jurnal = 0, f2Jurnal = 0;
             for(let i=1; i<=6; i++) {
                 const key = Object.keys(jur).find(k => k.startsWith(`W${i}_`));
@@ -907,21 +911,17 @@
                 if(key && jur[key] && jur[key].deskripsi) f2Jurnal++;
             }
 
-            // Count Checklist A
-            let f1Checklist = (progress["t5"] ? 1 : 0) + (progress["t6"] ? 1 : 0);
-            let f2Checklist = (progress["t7"] ? 1 : 0) + (progress["t8"] ? 1 : 0);
+            let f1Checklist = (progress["t1"] ? 1 : 0) + (progress["t4"] ? 1 : 0);
+            let f2Checklist = (progress["t11"] ? 1 : 0) + (progress["t12"] ? 1 : 0);
 
-            // Cap values
             const capF1Sek = Math.min(f1Sek, 15);
             const capF1Ppd = Math.min(f1Ppd, 5);
             const capF2Sek = Math.min(f2Sek, 15);
             const capF2Ppd = Math.min(f2Ppd, 5);
 
-            // Kehadiran % (20 hari sasaran)
             const f1HadirPct = Math.round(((capF1Sek + capF1Ppd) / 20) * 100);
             const f2HadirPct = Math.round(((capF2Sek + capF2Ppd) / 20) * 100);
 
-            // Siap Tugasan % (40% Log C + 40% Jurnal D + 20% Checklist A)
             const f1LogPct = (Math.min(f1LogLengkap, 20) / 20) * 40;
             const f1JurPct = (Math.min(f1Jurnal, 6) / 6) * 40;
             const f1ChkPct = (f1Checklist / 2) * 20;
@@ -932,7 +932,6 @@
             const f2ChkPct = (f2Checklist / 2) * 20;
             const f2TugasanPct = Math.round(f2LogPct + f2JurPct + f2ChkPct);
 
-            // Update UI elements
             safeSetText("fasa1HadirPct", f1HadirPct + "%");
             if(document.getElementById("fasa1HadirBar")) document.getElementById("fasa1HadirBar").style.width = f1HadirPct + "%";
             safeSetText("fasa1SekolahCount", capF1Sek + "/15");
@@ -983,7 +982,6 @@
         };
         window.closeJournalForm = () => { document.getElementById('journalModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('journalModal').classList.remove('flex'); document.getElementById('journalModal').classList.add('hidden'); window.openWeeklyModal(); },300); };
 
-        // MODAL ARTIKEL (LAMPIRAN E)
         window.openArtikelModal = () => {
             document.getElementById('artikelModal').classList.remove('hidden'); 
             document.getElementById('artikelModal').classList.add('flex'); 
@@ -995,7 +993,9 @@
         };
 
         window.updateWordCount = () => {
-            const text = document.getElementById('artAbstrak').value.trim();
+            const el = document.getElementById('artAbstrak');
+            if(!el) return;
+            const text = el.value.trim();
             const words = text ? text.split(/\s+/).length : 0;
             const counterEl = document.getElementById('artAbstrakWordCount');
             if(counterEl) {
@@ -1035,8 +1035,9 @@
                 await set(ref(db, `propkes_articles/${currentUser}`), payload);
                 window.closeArtikelModal();
                 window.showToast("Artikel Lampiran E berjaya disimpan ke awan!");
+                window.calculatePhaseStats();
+                window.renderTasks();
                 
-                // NOTIFIKASI KEPADA PEMANDU CITRA
                 if(window.profileData && window.profileData.pemanduEmail) {
                     window.hantarNotifikasiEmel(
                         "Penulisan Artikel (Lampiran E) Baharu Dihantar", 
@@ -1053,9 +1054,7 @@
             }
         });
 
-        // ----------------------------------------------------
         // MUAT TURUN MICROSOFT WORD (.DOC) LAMPIRAN E
-        // ----------------------------------------------------
         window.downloadWordArtikel = function() {
             const u = window.profileData || {};
             const nama = (u.name || "Peserta").toUpperCase();
@@ -1102,7 +1101,7 @@
                     <p><b>Jadual 1: Profil Sekolah Sandaran</b></p>
                     <table>
                         <tr><th style="width:35%;">Nama Sekolah</th><td>${(u.sekolah || "-").toUpperCase()}</td></tr>
-                        <tr><th>PPD / daerah</th><td>${(getVal('artLokasiDaerah') || u.ppd || "-").toUpperCase()}</td></tr>
+                        <tr><th>PPD / Daerah</th><td>${(getVal('artLokasiDaerah') || u.ppd || "-").toUpperCase()}</td></tr>
                         <tr><th>Jenis & Status Gred</th><td>${(getVal('artJenisGred') || "-").toUpperCase()}</td></tr>
                         <tr><th>Bilangan Guru & Murid</th><td>${getVal('artBilGuruMurid') || "-"}</td></tr>
                         <tr><th>Nama Pengetua / Guru Besar</th><td>${(getVal('artNamaPengetua') || u.mentorSekolah || "-").toUpperCase()}</td></tr>
@@ -1197,6 +1196,7 @@
             window.print();
             setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
         };
+
         // ----------------------------------------------------
         // LOGIK UTAMA TUGASAN & AUTO-SELESAI (CHECKLIST A, C, D, E)
         // ----------------------------------------------------
@@ -1210,6 +1210,7 @@
                         date: "Jul 2026", 
                         link: "javascript:window.openProfilModal()", 
                         btnText: "Kemaskini Profil", 
+                        isAction: true,
                         isAuto: true,
                         checkAuto: () => {
                             const u = window.profileData || {};
@@ -1293,7 +1294,6 @@
                 let html = `<div class="mb-3 border-b border-slate-800 pb-2"><h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider">${phaseGroup.phase}</h4></div>`;
 
                 if (phaseGroup.isPhaseTable) {
-                    // JADUAL JURNAL & LOG BAGI FASA 1 & FASA 2
                     html += `
                         <div class="overflow-x-auto custom-scrollbar mb-6 border border-slate-800 rounded-xl bg-slate-950/60 p-2">
                             <table class="w-full text-left text-xs">
@@ -1310,7 +1310,6 @@
                     `;
 
                     phaseGroup.weeks.forEach(wk => {
-                        // Check Log C count for this week range
                         let logCount = 0;
                         Object.keys(cal).forEach(dt => {
                             if (dt >= wk.range[0] && dt <= wk.range[1]) {
@@ -1318,7 +1317,6 @@
                             }
                         });
 
-                        // Check Jurnal D for this week
                         const jurKey = Object.keys(jur).find(k => k.startsWith(`${wk.w}_`));
                         const hasJurnal = Boolean(jurKey && jur[jurKey] && jur[jurKey].deskripsi);
 
@@ -1356,12 +1354,10 @@
 
                     html += `</tbody></table></div>`;
                 } else {
-                    // SENARAI CHECKLIST UNTUK PRA & PASCA
                     html += `<div class="space-y-3 mb-6">`;
                     phaseGroup.tasks.forEach(task => {
                         let isDone = progress[task.id] === true;
                         
-                        // AUTO CHECK LOGIC
                         if (task.isAuto && typeof task.checkAuto === 'function') {
                             if (task.checkAuto()) {
                                 isDone = true;
@@ -1389,6 +1385,32 @@
             localStorage.setItem(`propkes_progress_${currentUser}`, JSON.stringify(progress));
         };
 
+        window.toggleTask = function(id, val) {
+            let prog = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
+            prog[id] = val; localStorage.setItem(`propkes_progress_${currentUser}`, JSON.stringify(prog));
+            window.renderTasks(); 
+            window.calculatePhaseStats();
+            if(val) window.showToast("Tugasan direkodkan.");
+        };
+
+        document.getElementById("profilForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById("btnSimpanProfil"); btn.textContent = "Menyimpan..."; btn.disabled = true;
+            
+            const pemanduNama = getValUp('editPemanduCitra');
+            const pemanduJawatanVal = getValUp('editPemanduJawatan');
+            const pemanduPusatVal = getValUp('editPemanduPusat');
+
+            const dataToSave = {
+                ic: getValUp('editIc'),
+                jawatan: getValUp('editJawatan'), gred: getValUp('editGred'), jabatan: getValUp('editJabatan'), pusatCawangan: getValUp('editPusatCawangan'),
+                sekolah: getValUp('editSekolah'), ppd: getValUp('editPpd'),
+                pemanduCitra: pemanduNama, pemanduJawatan: pemanduJawatanVal, pemanduPusat: pemanduPusatVal,
+                pemanducitra: pemanduNama, pemanducitraJawatan: pemanduJawatanVal, pemanducitraPusat: pemanduPusatVal,
+                mentorSekolah: getValUp('editMentorSekolah'), mentorJawatan: getValUp('editMentorJawatan'), mentorTelefon: getVal('editMentorTelefon'), mentorEmail: getVal('editMentorEmail'), mentorAlamat: getValUp('editMentorAlamat'), 
+                mentorPpd: getValUp('editMentorPpd'), mentorPpdJawatan: getValUp('editMentorPpdJawatan'), mentorPpdTelefon: getVal('editMentorPpdTelefon'), mentorPpdEmail: getVal('editMentorPpdEmail'), mentorPpdAlamat: getValUp('editMentorPpdAlamat')
+            };
+
             try { 
                 await update(ref(db, `propkes_accounts/${currentUser}`), dataToSave); 
                 window.closeProfilModal(); 
@@ -1411,6 +1433,7 @@
                 window.closeJournalForm(); 
                 window.showToast("Jurnal Lampiran D disimpan."); 
                 window.calculatePhaseStats();
+                window.renderTasks();
             } 
             catch(e) { console.error(e); window.showToast("Ralat menyimpan Jurnal.", "error"); }
             finally { btn.textContent = "Simpan Jurnal"; btn.disabled = false; }
@@ -1545,7 +1568,11 @@
                 if(!loc && !log && !aktiviti) { delete window.calendarData[curEditDate]; await remove(ref(db, `propkes_attendance/${currentUser}/${curEditDate}`)); } 
                 else { const payload = {loc, log, status: 'pending', aktiviti, skksm, refleksi}; window.calendarData[curEditDate] = payload; await set(ref(db, `propkes_attendance/${currentUser}/${curEditDate}`), payload); }
                 
-                window.closeDailyModal(); window.renderCal(); window.calculatePhaseStats(); window.showToast("Rekod disimpan.");
+                window.closeDailyModal(); 
+                window.renderCal(); 
+                window.calculatePhaseStats(); 
+                window.renderTasks();
+                window.showToast("Rekod disimpan.");
                 
                 if (log) {
                     let targetEmail = null;
@@ -1562,67 +1589,6 @@
                 }
             } catch(e) { console.error(e); window.showToast("Gagal menyimpan.", "error"); } 
             finally { btn.textContent = "Simpan Lampiran C"; btn.disabled = false; }
-        };
-
-        const propkesTasks = [
-            {
-                phase: "Pra-Program (Julai 2026)",
-                tasks: [
-                    { id: "t1", title: "Mengenal pasti sekolah/PPD sandaran.", date: "Jul 2026", link: "https://docs.google.com/spreadsheets/d/17RQGW4PMAgX_91iwePaY6m6dTZZ9IuWecQWfVkNFibg/edit?usp=sharing", btnText: "Arahan", isStatic: false },
-                    { id: "t4", title: "Instrumen i-PROPKES (Pra)", date: "27 Jul 2026", link: "instrumen_pra.html", btnText: "Jawab", isAssessment: true }
-                ]
-            },
-            {
-                phase: "Fasa 1 (Ogos - Sept 2026)",
-                tasks: [
-                    { id: "t5", title: "Mengikuti Fasa 1 & Jurnal Kepimpinan 1-6 (Lampiran D)", date: "Ogos - Sept", link: "#", btnText: "", isStatic: true },
-                    { id: "t6", title: "Log Kehadiran & Aktiviti Fasa 1 (Lampiran C)", date: "Setiap Hari", link: "#", btnText: "", isStatic: true }
-                ]
-            },
-            {
-                phase: "Fasa 2 (Sept - Okt 2026)",
-                tasks: [
-                    { id: "t7", title: "Mengikuti Fasa 2 & Jurnal Kepimpinan 7-12 (Lampiran D)", date: "Sept - Okt", link: "#", btnText: "", isStatic: true },
-                    { id: "t8", title: "Log Kehadiran & Aktiviti Fasa 2 (Lampiran C)", date: "Setiap Hari", link: "#", btnText: "", isStatic: true }
-                ]
-            },
-            {
-                phase: "Pasca-Program (November 2026)",
-                tasks: [
-                    { id: "t11", title: "Instrumen i-PROPKES (Pasca)", date: "2 Nov 2026", link: "instrumen_pasca.html", btnText: "Jawab", isAssessment: true },
-                    { id: "t12", title: "Penulisan Artikel PROPKES (Lampiran E)", date: "Nov 2026", link: "javascript:window.openArtikelModal()", btnText: "Buka Borang", isAction: true },
-                    { id: "t15", title: "Penyerahan Dokumen D, E, F, G ke Drive", date: "Nov 2026", link: "https://drive.google.com/drive/folders/1PfzBbH5CftPJJqoZGpPMD8n8O3UdpnXp?usp=sharing", btnText: "Drive" }
-                ]
-            }
-        ];
-
-        window.renderTasks = function() {
-            const container = document.getElementById("taskListContainer"); 
-            if(!container) return; container.innerHTML = ""; 
-            const progress = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
-
-            propkesTasks.forEach(phase => {
-                let html = `<div class="mb-4 border-b border-slate-800/50 pb-2"><h4 class="text-xs font-bold text-blue-400 uppercase">${phase.phase}</h4></div><div class="space-y-3 mb-6">`;
-                phase.tasks.forEach(task => {
-                    const isDone = progress[task.id] === true;
-                    const bg = isDone ? "bg-emerald-950/20 border-emerald-900/50" : "bg-slate-800/40 border-slate-700/50";
-                    const iconBg = isDone ? "bg-emerald-500 text-white" : "bg-slate-700 text-slate-400";
-                    const actBtn = isDone ? `<button onclick="window.toggleTask('${task.id}', false)" class="text-[10px] bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded border border-emerald-500/30 outline-none cursor-pointer">Selesai</button>` : `<button onclick="window.toggleTask('${task.id}', true)" class="text-[10px] bg-slate-700 hover:bg-emerald-600 text-white px-3 py-1.5 rounded transition-colors outline-none cursor-pointer">Tanda Selesai</button>`;
-                    
-                    let linkHtml = task.isStatic ? '' : (task.isAction ? `<button onclick="${task.link}" class="text-[10px] bg-purple-600/20 text-purple-400 px-2 py-1 rounded border border-purple-600/30 outline-none cursor-pointer">${task.btnText}</button>` : `<a href="${task.link}" target="${task.isAssessment ? '_self' : '_blank'}" class="text-[10px] bg-blue-600/10 text-blue-400 px-2 py-1 rounded border border-blue-600/20 outline-none cursor-pointer">${task.btnText}</a>`);
-
-                    html += `<div class="flex flex-col sm:flex-row justify-between p-4 rounded-xl border ${bg} gap-4"><div class="flex items-start gap-4"><div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${iconBg}"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div><div><h4 class="text-sm font-semibold text-white">${task.title}</h4><div class="flex items-center gap-3 mt-2"><span class="text-[10px] text-slate-400">${task.date}</span> ${linkHtml}</div></div></div><div class="shrink-0 flex justify-end items-center">${actBtn}</div></div>`;
-                });
-                html += `</div>`; container.innerHTML += html;
-            });
-        };
-
-        window.toggleTask = function(id, val) {
-            let prog = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
-            prog[id] = val; localStorage.setItem(`propkes_progress_${currentUser}`, JSON.stringify(prog));
-            window.renderTasks(); 
-            window.calculatePhaseStats();
-            if(val) window.showToast("Tugasan direkodkan.");
         };
 
         let barChartInstance = null;
@@ -1759,7 +1725,8 @@
             window.print(); setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
         };
         
-        window.renderTasks(); loadCharts(); loadUserData();
+        loadUserData();
+        loadCharts();
     </script>
 
     <!-- INTEGRASI PEMBANTU MAYA (SAYA AINDA) -->
