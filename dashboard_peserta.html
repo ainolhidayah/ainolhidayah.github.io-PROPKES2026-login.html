@@ -1011,7 +1011,7 @@
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">FASA 1 / 2</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG KEHADIRAN</h2>
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px;"><tr><td style="padding: 5px; width: 15%; font-weight: bold;">NAMA</td><td style="padding: 5px;">${nama}</td></tr><tr><td style="padding: 5px; font-weight: bold;">JAWATAN</td><td style="padding: 5px;">${(u.jawatan||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">GRED</td><td style="padding: 5px;">${(u.gred||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">JABATAN</td><td style="padding: 5px;">${(u.jabatan||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">PUSAT</td><td style="padding: 5px;">${(u.pusatCawangan||'-').toUpperCase()}</td></tr></table>
-                    <table class="print-table"><thead><tr><th style="width: 5%;">BIL.</th><th style="width: 25%;">TARIKH & HARI</th><th style="width: 30%;">LOKASI BERTUGAS</th><th style="width: 20%;">TANDATANGAN PGB / KP</th><th style="width: 20%;">CATATAN</th></tr></thead><tbody>${tableRows}</tbody></table>
+                    <table class="print-table"><thead><tr><th style="width: 5%;">BIL.</th><th style="width: 25%;">TARIKH & HARI</th><th style="width: 30%;">LOKASI BERTUGAS</th><th style="width: 20%;">TANDATANGAN MENTOR</th><th style="width: 20%;">CATATAN</th></tr></thead><tbody>${tableRows}</tbody></table>
                 </div>`;
             window.print(); setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
         };
@@ -1044,7 +1044,7 @@
                             <tr><td style="font-weight: bold;">TARIKH/ HARI</td><td>${formatTarikh} <br><br> Lokasi: ${locText.toUpperCase()}</td></tr>
                             <tr><td style="font-weight: bold; height: 100px;">AKTIVITI</td><td style="white-space: pre-wrap;">${data.aktiviti || "-"}</td></tr>
                             <tr><td style="font-weight: bold;">REFLEKSI<br><br><span style="font-weight:normal; font-size:10px;">(Satu SKKSM)</span><br><br><span style="font-size:10px;">${data.skksm || "-"}</span></td><td style="white-space: pre-wrap; height: 150px;">${data.refleksi || "-"}</td></tr>
-                            <tr><td style="font-weight: bold; height: 80px;">TANDATANGAN PGB/KP</td><td></td></tr>
+                            <tr><td style="font-weight: bold; height: 80px;">TANDATANGAN MENTOR</td><td></td></tr>
                         </table>
                     </div>`;
                 }
