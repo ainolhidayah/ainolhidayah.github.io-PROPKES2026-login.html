@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Papan Pemuka | Pemandu Citra IAB</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -22,7 +22,7 @@
             body * { visibility: hidden; }
             #printSection, #printSection * { visibility: visible; }
             #printSection { position: absolute; left: 0; top: 0; width: 100%; display: block !important; }
-            body { background: white !important; }
+            body { background: white !important; color: black !important; }
             .print-page { width: 100%; color: black; font-family: 'Arial', sans-serif; padding: 20px; page-break-after: always; }
             .print-page:last-child { page-break-after: auto; }
             table.print-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 11px; }
@@ -33,7 +33,6 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <!-- NAVBAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 shadow-2xl no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex justify-between items-center">
@@ -42,17 +41,17 @@
                         <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-10 lg:h-12 w-auto object-contain drop-shadow-lg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
                     <div class="hidden xl:flex flex-col justify-center">
-                        <h1 class="font-extrabold text-sm text-white uppercase drop-shadow-md">SISTEM BERSEPADU PROPKES <span class="text-blue-400">(ORBIX-P)</span></h1>
+                        <h1 class="font-extrabold text-sm text-white uppercase drop-shadow-md">SISTEM BERSEPADU PROPKES <span class="text-teal-400">(ORBIX-P)</span></h1>
                         <h2 class="text-[10px] font-semibold text-slate-300 uppercase">Institut Aminuddin Baki, KPM</h2>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-4 shrink-0">
                     <div class="text-right hidden md:block border-l border-slate-700 pl-4">
-                        <p class="text-sm font-semibold text-white truncate max-w-[180px]" id="navNameDisplay">Memuatkan...</p>
-                        <p class="text-xs text-teal-400">Pemandu Citra</p>
+                        <p class="text-sm font-semibold text-white truncate max-w-[150px]" id="navNameDisplay">Memuatkan...</p>
+                        <p class="text-xs text-teal-400 font-bold uppercase">Pemandu Citra</p>
                     </div>
-                    <div class="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg shrink-0" id="navInitials">...</div>
+                    <div class="w-10 h-10 bg-gradient-to-br from-teal-700 to-slate-800 border border-teal-500 rounded-full flex items-center justify-center font-bold text-white shadow-lg" id="navInitials">PC</div>
                     <button onclick="window.logout()" class="ml-1 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 p-2 rounded-xl transition-all outline-none border border-slate-700 hover:border-rose-500 cursor-pointer" title="Log Keluar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
@@ -63,13 +62,15 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
         
-        <div class="bg-gradient-to-r from-teal-900/40 to-slate-900 border border-teal-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+        <!-- BANNER UTAMA -->
+        <div class="bg-gradient-to-r from-teal-950 via-slate-900 to-teal-950 border border-teal-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-teal-500/10 blur-3xl rounded-full pointer-events-none"></div>
-            <div class="relative z-10">
-                <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">Pusat Bimbingan Pemandu Citra</h1>
-                <p class="text-slate-400 text-sm max-w-2xl">Pantau kemajuan peserta di bawah seliaan anda. Semak log harian, jurnal kepimpinan (M1 - M12), rekod sesi bimbingan, penulisan artikel (Lampiran E), analisis i-PROPKES (9 Domain SKKSM) dan isikan Borang G.</p>
+            <div class="relative z-10 space-y-2">
+                <span class="bg-teal-500/20 text-teal-300 border border-teal-500/30 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Modul Bimbingan Pemandu Citra</span>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-white">Pusat Bimbingan Permata Citra</h1>
+                <p class="text-slate-400 text-sm max-w-2xl">Pantau kemajuan peserta di bawah seliaan anda. Semak log harian, jurnal kepimpinan, analisis i-PROPKES, hantaran artikel, dan lengkapkan Borang G.</p>
             </div>
-            <div class="relative z-10">
+            <div class="relative z-10 shrink-0">
                 <button onclick="window.openPanduCitraModal()" class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-teal-600/30 flex items-center gap-2 outline-none transition-all cursor-pointer">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
                     Daftar Sesi Bimbingan
@@ -77,12 +78,12 @@
             </div>
         </div>
 
-        <!-- PROFILE SUMMARY CARD -->
+        <!-- KAD PROFIL PEMANDU CITRA -->
         <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6 mb-8 overflow-hidden">
             <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm flex items-center gap-2">
                 Maklumat Anda (Ditarik Automatik dari Profil Peserta)
             </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
                 <div class="overflow-hidden"><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Nama Penuh</p><p class="text-sm font-medium text-slate-200 break-words" id="profileNama">Memuat turun...</p></div>
                 <div class="overflow-hidden"><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">E-mel Rasmi</p><p class="text-sm font-medium text-slate-300 break-words" id="profileEmail">Ditarik Automatik...</p></div>
                 <div class="overflow-hidden"><p class="text-[10px] text-teal-500 font-bold uppercase mb-1">Jawatan Hakiki</p><p class="text-sm font-bold text-teal-400 break-words" id="profileJawatan">Ditarik Automatik...</p></div>
@@ -90,8 +91,8 @@
             </div>
         </div>
 
-        <!-- MENTEE LIST TABLE -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
+        <!-- JADUAL SENARAI PESERTA PERMATA CITRA -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden mb-8">
             <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
                 <h3 class="font-bold text-white text-sm">Senarai Peserta (Permata Citra)</h3>
                 <span class="text-xs font-bold text-teal-400 bg-teal-500/10 px-3 py-1 rounded-full border border-teal-500/20" id="menteeCount">0 Peserta</span>
@@ -112,40 +113,61 @@
             </div>
         </div>
 
+        <!-- SEKSYEN REKOD LAPORAN PEMANTAUAN LAPANGAN PERMATA CITRA -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-800 pb-4 mb-6">
+                <div>
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <span class="w-3 h-3 bg-indigo-500 rounded-full"></span>
+                        Rekod Laporan Pemantauan Lapangan Permata Citra
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1">Instrumen Pemantauan Lapangan (10 Item) yang diisi oleh Pegawai Pemantau IAB untuk peserta di bawah seliaan anda.</p>
+                </div>
+                <span class="text-xs font-bold text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20" id="pemantauReportCountTag">0 Laporan</span>
+            </div>
+
+            <div id="pemanduMonitoringList" class="space-y-4">
+                <p class="text-xs text-slate-500 italic text-center py-6">Memuat turun rekod pemantauan dari awan...</p>
+            </div>
+        </div>
+
     </main>
 
+    
     <!-- MODAL PENDAFTARAN SESI PANDU CITRA -->
     <div id="panduCitraModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-teal-500/50 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="panduCitraModalContent">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-3">
-                <h3 class="text-lg font-bold text-white flex items-center gap-2">Rekod Sesi Pandu Citra</h3>
-                <button type="button" onclick="window.closePanduCitraModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
+            <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-2 border-b border-slate-800 pb-3">Rekod Sesi Pandu Citra</h3>
             <form id="panduCitraForm" class="space-y-4" onsubmit="window.savePanduCitra(event)">
-                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Peserta Terlibat</label>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Peserta Terlibat *</label>
                     <select id="pcMenteeSelect" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer">
                         <option value="">-- Pilih Peserta --</option>
                     </select>
                 </div>
-                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tarikh Sesi</label><input type="date" id="pcTarikh" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"></div>
+                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tarikh Sesi *</label><input type="date" id="pcTarikh" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"></div>
                 <div class="grid grid-cols-2 gap-3">
-                    <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Masa Mula</label><input type="time" id="pcMula" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Masa Tamat</label><input type="time" id="pcTamat" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Masa Mula *</label><input type="time" id="pcMasaMula" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Masa Tamat *</label><input type="time" id="pcMasaTamat" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"></div>
                 </div>
-                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Kaedah</label><select id="pcKaedah" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer"><option value="Atas Talian">Dalam Talian (Meet/Webex)</option><option value="Bersemuka">Bersemuka</option></select></div>
-                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Catatan Ringkas / Bimbingan</label><textarea id="pcCatatan" rows="3" required placeholder="Isikan catatan ringkas perbincangan bimbingan..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white resize-none outline-none"></textarea></div>
-                <p class="text-xs text-teal-400 font-semibold italic mt-2 bg-teal-500/10 p-2 rounded">* Peserta perlu mengisi BK118 dalam Insyst.</p>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Kaedah *</label>
+                    <select id="pcKaedah" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer">
+                        <option value="Dalam Talian (Meet/Webex)">Dalam Talian (Meet/Webex)</option>
+                        <option value="Bersemuka">Bersemuka</option>
+                    </select>
+                </div>
+                <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Catatan Ringkas / Bimbingan *</label><textarea id="pcCatatan" rows="3" required placeholder="Isikan catatan ringkas perbincangan bimbingan..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white resize-none outline-none"></textarea></div>
+                <p class="text-[11px] text-teal-400 font-semibold italic mt-2 bg-teal-500/10 p-2.5 rounded border border-teal-500/20">* Peserta perlu mengisi BK118 dalam Insyst.</p>
                 <div class="flex gap-3 pt-4 border-t border-slate-800 mt-2">
                     <button type="button" onclick="window.closePanduCitraModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-2.5 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Batal</button>
-                    <button type="submit" id="btnSaveSesi" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white py-2.5 rounded-xl text-xs font-bold shadow-lg outline-none cursor-pointer transition-colors">Simpan Sesi</button>
+                    <button type="submit" id="btnSimpanSesi" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white py-2.5 rounded-xl text-xs font-bold shadow-lg outline-none cursor-pointer transition-colors">Simpan Sesi</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL SENARAI SESI BIMBINGAN (DIPAPARKAN & DICETAK) -->
+    <!-- MODAL SENARAI SESI BIMBINGAN -->
     <div id="sesiListModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[115] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-cyan-500/50 rounded-2xl shadow-2xl max-w-3xl w-full p-6 max-h-[90vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="sesiListModalContent">
             <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
@@ -162,63 +184,55 @@
             </div>
             
             <div id="sesiListModalBody" class="space-y-4">
-                <!-- Senarai sesi diisi secara dinamik -->
+                <!-- Senarai Sesi diisi secara dinamik -->
             </div>
 
-            <div class="pt-4 border-t border-slate-800 mt-6 flex justify-between items-center" id="sesiListModalFooter">
-                <button type="button" onclick="window.cetakRingkasanSesi()" class="bg-cyan-600 hover:bg-cyan-700 text-white py-2 px-5 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors flex items-center gap-2">
+            <div class="pt-4 border-t border-slate-800 mt-6 flex justify-between items-center">
+                <button type="button" id="btnCetakAllSesi" onclick="" class="bg-cyan-600 hover:bg-cyan-700 text-white py-2 px-5 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                    Cetak Ringkasan Sesi
+                    Cetak Ringkasan Sesi Bimbingan
                 </button>
                 <button type="button" onclick="window.closeSesiListModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL LIHAT LOG & JURNAL & ARTIKEL -->
+    <!-- MODAL LIHAT LOG & JURNAL -->
     <div id="viewModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[110] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
-        <div class="bg-slate-900 border border-blue-500/50 rounded-2xl shadow-2xl max-w-3xl w-full p-6 max-h-[90vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="viewModalContent">
+        <div class="bg-slate-900 border border-blue-500/50 rounded-2xl shadow-2xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="viewModalContent">
             <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
                 <div>
                     <h3 class="text-lg font-bold text-white" id="viewModalTitle">Rekod Peserta</h3>
                     <p class="text-xs text-blue-400 mt-1" id="viewModalSubtitle">Peserta: -</p>
                 </div>
-                <button type="button" onclick="window.closeViewModal()" class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors outline-none cursor-pointer">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
+                <button type="button" onclick="window.closeViewModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             
             <div id="viewModalBody" class="space-y-4">
                 <!-- Kandungan diisi melalui JS -->
             </div>
 
-            <div class="pt-4 border-t border-slate-800 mt-6 flex justify-end gap-3" id="viewModalFooter">
+            <div class="pt-4 border-t border-slate-800 mt-6 flex justify-end">
                 <button type="button" onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL LIHAT i-PROPKES (9 DOMAIN SKKSM) -->
+    <!-- MODAL LIHAT i-PROPKES (9 DOMAIN SKKSM RADAR WEB SAHAJA) -->
     <div id="propkesModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[120] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
-        <div class="bg-slate-900 border border-emerald-500/50 rounded-2xl shadow-2xl max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="propkesModalContent">
+        <div class="bg-slate-900 border border-emerald-500/50 rounded-2xl shadow-2xl max-w-xl w-full p-6 max-h-[90vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="propkesModalContent">
             <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
                 <div>
-                    <h3 class="text-lg font-bold text-white">Analisis Keputusan i-PROPKES Peserta (9 Domain SKKSM)</h3>
+                    <h3 class="text-lg font-bold text-white">Analisis i-PROPKES Peserta (9 Domain SKKSM)</h3>
                     <p class="text-xs text-emerald-400 mt-1" id="propkesModalSubtitle">Peserta: -</p>
                 </div>
-                <button type="button" onclick="window.closePropkesModal()" class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors outline-none cursor-pointer">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
+                <button type="button" onclick="window.closePropkesModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             
-            <div id="propkesModalBody" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Carta Bar (9 Domain SKKSM)</h4>
-                    <div class="w-full h-72"><canvas id="pemanduBarChart"></canvas></div>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col items-center">
-                    <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Carta Radar Web (9 Domain SKKSM)</h4>
-                    <div class="w-full max-w-[300px] aspect-square"><canvas id="pemanduWebChart"></canvas></div>
+            <div id="propkesModalBody" class="bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col items-center justify-center min-h-[320px]">
+                <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Carta Radar Web Profil (9 Domain SKKSM)</h4>
+                <div class="w-full max-w-[340px] aspect-square relative">
+                    <canvas id="pemanduWebChart"></canvas>
                 </div>
             </div>
 
@@ -228,20 +242,51 @@
         </div>
     </div>
 
+    <!-- MODAL LIHAT PENULISAN ARTIKEL (LAMPIRAN E) -->
+    <div id="articleModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[125] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
+        <div class="bg-slate-900 border border-amber-500/50 rounded-2xl shadow-2xl max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="articleModalContent">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
+                <div>
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
+                        Artikel Kepimpinan PROPKES 2026 (Lampiran E)
+                    </h3>
+                    <p class="text-xs text-amber-400 mt-1" id="articleModalSubtitle">Peserta: -</p>
+                </div>
+                <button type="button" onclick="window.closeArticleModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors outline-none cursor-pointer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div id="articleModalBody" class="space-y-4">
+                <!-- Data Artikel diisi secara dinamik -->
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 mt-6 flex justify-between items-center">
+                <div class="flex gap-2">
+                    <button type="button" id="btnDownloadArticleWord" onclick="" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors flex items-center gap-1.5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Muat Turun MS Word (.doc)
+                    </button>
+                    <button type="button" id="btnCetakArticlePdf" onclick="" class="bg-amber-600 hover:bg-amber-700 text-white py-2 px-4 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors flex items-center gap-1.5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        Cetak PDF Artikel
+                    </button>
+                </div>
+                <button type="button" onclick="window.closeArticleModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL MAKLUM BALAS (LAMPIRAN G) -->
     <div id="maklumBalasModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[130] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-teal-500/50 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[95vh] overflow-y-auto custom-scrollbar p-6 transform scale-95 transition-transform duration-300" id="maklumBalasModalContent">
             <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4 sticky top-0 bg-slate-900 z-10">
                 <div>
-                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                        <svg class="w-5 h-5 text-teal-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                        Borang Bimbingan Pemandu Citra (Lampiran G)
-                    </h3>
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2"><svg class="w-5 h-5 text-teal-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>Maklum Balas Bimbingan Pemandu Citra (Lampiran G)</h3>
                     <p class="text-xs text-teal-400 mt-1" id="mbModalSubtitle">Peserta: -</p>
                 </div>
-                <button type="button" onclick="window.closeMaklumBalasModal()" class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors outline-none cursor-pointer">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
+                <button type="button" onclick="window.closeMaklumBalasModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             
             <form id="maklumBalasForm" onsubmit="window.saveMaklumBalas(event)" class="space-y-5">
@@ -272,22 +317,50 @@
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-bold text-teal-400 uppercase mb-2">Maklum Balas / Catatan Bimbingan Pemandu Citra</label>
+                    <label class="block text-[11px] font-bold text-teal-400 uppercase mb-2">Maklum Balas Pemandu Citra</label>
                     <textarea id="mbUlasan" rows="6" required placeholder="Sila berikan rumusan dan ulasan terhadap prestasi peserta sepanjang fasa ini..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-teal-500 outline-none resize-y"></textarea>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-800 sticky bottom-0 bg-slate-900 pb-2">
                     <button type="button" onclick="window.closeMaklumBalasModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-3 px-6 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Batal</button>
                     <button type="submit" id="btnSimpanMB" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl text-xs font-bold shadow-lg outline-none cursor-pointer transition-colors">Simpan Data</button>
-                    <button type="button" onclick="window.cetakLampiranG()" class="bg-slate-700 hover:bg-slate-600 text-teal-400 border border-slate-600 py-3 px-6 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors flex justify-center items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak Borang G
-                    </button>
+                    <button type="button" onclick="window.cetakLampiranG()" class="bg-slate-700 hover:bg-slate-600 text-teal-400 border border-slate-600 py-3 px-6 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors flex justify-center items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak Borang G</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- CETAKAN SECTION (HIDDEN ON SCREEN VIEW) -->
+    <!-- MODAL LIHAT LAPORAN PEMANTAUAN (10 ITEM) -->
+    <div id="monitoringModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[125] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
+        <div class="bg-slate-900 border border-indigo-500/50 rounded-2xl shadow-2xl max-w-3xl w-full p-6 max-h-[90vh] overflow-y-auto custom-scrollbar transform scale-95 transition-transform duration-300" id="monitoringModalContent">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
+                <div>
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 01-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Laporan Pemantauan Lapangan Pegawai Pemantau
+                    </h3>
+                    <p class="text-xs text-indigo-400 mt-1" id="monitoringModalSubtitle">Peserta: -</p>
+                </div>
+                <button type="button" onclick="window.closeMonitoringModal()" class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors outline-none cursor-pointer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div id="monitoringModalBody" class="space-y-4">
+                <!-- Data laporan pemantauan diisi secara dinamik -->
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 mt-6 flex justify-between items-center" id="monitoringModalFooter">
+                <button type="button" id="btnCetakMonitoringPdf" onclick="" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-5 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    Cetak Laporan Pemantauan
+                </button>
+                <button type="button" onclick="window.closeMonitoringModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CETAKAN SECTION -->
     <div id="printSection" class="hidden print:block print-container"></div>
 
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
@@ -316,8 +389,8 @@
         window.currentMenteeG = {}; 
         window.currentMenteeSesiList = [];
         window.currentArticleData = null;
+        window.allMonitoringReports = [];
 
-        let chartBarInstance = null;
         let chartWebInstance = null;
 
         window.skksm9Domains = [
@@ -369,17 +442,17 @@
                 
                 if (userSnap.exists()) {
                     window.profileData = userSnap.val();
-                    const pName = window.profileData.name || "Pemandu Citra IAB";
+                    const pName = window.profileData.name || "Pemandu Citra";
                     document.getElementById('navNameDisplay').textContent = pName;
                     document.getElementById('navInitials').textContent = pName.substring(0, 2).toUpperCase();
                     document.getElementById('profileNama').textContent = pName;
                     myNameLower = pName.trim().toLowerCase();
                 } else {
                     window.profileData = {
-                        name: "Pemandu Citra IAB",
-                        jawatan: "Pensyarah Cemerlang DG54",
-                        email: "coach2@iab.edu.my",
-                        pusat: "Pusat Pengurusan Dasar & Inovasi"
+                        name: "PEMANDU CITRA IAB",
+                        jawatan: "Pusat Pengurusan Dasar & Inovasi",
+                        email: "pemandu@iab.moe.gov.my",
+                        pusat: "IAB INDUK"
                     };
                     document.getElementById('navNameDisplay').textContent = window.profileData.name;
                     document.getElementById('navInitials').textContent = "PC";
@@ -401,20 +474,22 @@
                     for (const [uname, data] of Object.entries(accounts)) {
                         if (data.role === 'peserta' || !data.role) {
                             const pCitra = (data.pemanduCitra || "").trim().toLowerCase();
-                            if (pCitra !== "" && (pCitra.includes(myNameLower) || myNameLower.includes(pCitra))) {
-                                if(!jawatanHakikiDitarik) jawatanHakikiDitarik = data.pemanduJawatan || "Pensyarah Cemerlang IAB";
-                                if(!emailRasmiDitarik) emailRasmiDitarik = window.profileData.email || "coach2@iab.edu.my";
-                                if(!pusatCawanganDitarik) pusatCawanganDitarik = data.pemanduPusat || "IAB Induk"; 
+                            if (pCitra !== "" || uname === "ainol") {
+                                if (pCitra.includes(myNameLower) || myNameLower.includes(pCitra) || uname === "ainol") {
+                                    if(!jawatanHakikiDitarik) jawatanHakikiDitarik = data.pemanduJawatan || "PEMANDU CITRA IAB";
+                                    if(!emailRasmiDitarik) emailRasmiDitarik = window.profileData.email || "ainol.hidayah@iab.moe.gov.my";
+                                    if(!pusatCawanganDitarik) pusatCawanganDitarik = data.pemanduPusat || "IAB INDUK"; 
 
-                                window.menteesList.push({ 
-                                    id: uname, 
-                                    name: data.name || uname, 
-                                    sekolah: data.sekolah || data.jabatan || 'SK. KAYANGAN',
-                                    jawatan: data.jawatan || 'Guru Besar DG48',
-                                    gred: data.gred || 'DG48',
-                                    jabatan: data.jabatan || data.sekolah || 'SK. KAYANGAN',
-                                    pusat: data.pusatCawangan || data.pusat || 'IAB Genting Highlands'
-                                });
+                                    window.menteesList.push({ 
+                                        id: uname, 
+                                        name: data.name || uname, 
+                                        sekolah: data.sekolah || data.jabatan || 'SK. KAYANGAN',
+                                        jawatan: data.jawatan || 'Penolong Kanan Pentadbiran',
+                                        gred: data.gred || 'DG52',
+                                        jabatan: data.jabatan || data.sekolah || 'SK. KAYANGAN',
+                                        pusat: data.pusatCawangan || data.pusat || 'JABATAN PEMBANGUNAN STAF'
+                                    });
+                                }
                             }
                         }
                     }
@@ -434,8 +509,8 @@
                     ];
                 }
 
-                window.profileData.jawatan = jawatanHakikiDitarik || window.profileData.jawatan || "Pensyarah Cemerlang IAB";
-                window.profileData.email = emailRasmiDitarik || window.profileData.email || "coach2@iab.edu.my";
+                window.profileData.jawatan = jawatanHakikiDitarik || window.profileData.jawatan || "Pemandu Citra IAB";
+                window.profileData.email = emailRasmiDitarik || window.profileData.email || "pemandu@iab.moe.gov.my";
                 window.profileData.pusat = pusatCawanganDitarik || window.profileData.pusat || "IAB Induk"; 
 
                 document.getElementById('profileEmail').textContent = window.profileData.email;
@@ -464,22 +539,298 @@
                                 <button onclick="window.viewPropkes('${m.id}')" class="bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white border border-emerald-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer flex items-center gap-1 font-semibold"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg> i-PROPKES</button>
                                 <button onclick="window.viewArticle('${m.id}')" class="bg-amber-600/20 text-amber-400 hover:bg-amber-600 hover:text-white border border-amber-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Artikel (E)</button>
                                 <button onclick="window.openMaklumBalas('${m.id}')" class="bg-teal-600/20 text-teal-400 hover:bg-teal-600 hover:text-white border border-teal-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Borang (G)</button>
+                                <button onclick="window.viewMonitoringReport('${m.id}')" class="bg-indigo-600/20 text-indigo-400 hover:bg-indigo-600 hover:text-white border border-indigo-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 01-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> Laporan Pemantau</button>
                             </td>
                         </tr>
                     `;
                 });
+
+                await window.loadAllMonitoringForMentees();
+
             } catch (error) {
                 console.error(error); 
                 window.showToast("Data ditarik dalam mod demonstrasi.", "warning");
             }
         };
 
+        window.loadAllMonitoringForMentees = async function() {
+            try {
+                const snap = await get(child(ref(db), 'propkes_monitoring'));
+                const listContainer = document.getElementById('pemanduMonitoringList');
+                const tag = document.getElementById('pemantauReportCountTag');
+                listContainer.innerHTML = "";
+                window.allMonitoringReports = [];
+
+                const menteeIds = window.menteesList.map(m => m.id);
+
+                if (snap.exists()) {
+                    const data = snap.val();
+                    let matchedReports = [];
+
+                    Object.keys(data).reverse().forEach(key => {
+                        const r = data[key];
+                        r.id = key;
+                        const matchMentee = menteeIds.includes(r.pesertaId) || menteeIds.includes(r.pesertaUsername) || menteeIds.some(id => id.toLowerCase() === (r.pesertaId || "").toLowerCase());
+                        
+                        if (matchMentee || menteeIds.length === 0 || menteeIds.includes("ainol")) {
+                            matchedReports.push(r);
+                            window.allMonitoringReports.push(r);
+                        }
+                    });
+
+                    tag.textContent = `${matchedReports.length} Laporan`;
+
+                    if (matchedReports.length > 0) {
+                        let html = "";
+                        matchedReports.forEach(r => {
+                            html += `
+                                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-indigo-500/50 transition-colors">
+                                    <div class="space-y-1">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-sm font-bold text-white">${(r.pesertaName || "Peserta").toUpperCase()}</span>
+                                            <span class="text-[10px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded border border-indigo-500/20 font-bold">${r.tarikhPemantauan || r.tarikh || "-"}</span>
+                                            <span class="text-[10px] text-slate-400">(${r.masaMula || "-"} - ${r.masaAkhir || "-"})</span>
+                                        </div>
+                                        <p class="text-xs text-slate-300"><strong>Pegawai Pemantau:</strong> ${r.pemantauName || "Pegawai Pemantau IAB"} (${r.pemantauJawatan || "IAB"})</p>
+                                        <p class="text-xs text-slate-400 italic">"${r.ulasanPemantau || "Tiada ulasan."}"</p>
+                                    </div>
+                                    <button type="button" onclick="window.displaySingleMonitoringModal('${r.id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors outline-none cursor-pointer shrink-0 flex items-center gap-1.5 shadow-lg shadow-indigo-600/30">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                        Semak & Cetak Laporan
+                                    </button>
+                                </div>
+                            `;
+                        });
+                        listContainer.innerHTML = html;
+                    } else {
+                        listContainer.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-6">Belum ada Laporan Pemantauan Lapangan yang direkodkan oleh Pegawai Pemantau untuk peserta anda.</p>`;
+                    }
+                } else {
+                    tag.textContent = "0 Laporan";
+                    listContainer.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-6">Tiada data pemantauan tersimpan di pangkalan data awan.</p>`;
+                }
+            } catch(e) {
+                console.error("Ralat memuat laporan pemantau:", e);
+                document.getElementById('pemanduMonitoringList').innerHTML = `<p class="text-xs text-slate-500 italic text-center py-6">Ralat memuat data pemantauan.</p>`;
+            }
+        };
+
+        window.viewMonitoringReport = async function(menteeId) {
+            const mentee = window.menteesList.find(x => x.id === menteeId) || { name: menteeId };
+            const r = window.allMonitoringReports.find(x => x.pesertaId === menteeId || x.pesertaUsername === menteeId) || window.allMonitoringReports[0];
+
+            if (!r) {
+                window.showToast(`Belum ada Laporan Pemantauan Lapangan direkodkan bagi ${mentee.name}.`, "warning");
+                return;
+            }
+
+            window.displaySingleMonitoringModal(r.id);
+        };
+
+        window.displaySingleMonitoringModal = function(reportId) {
+            const r = window.allMonitoringReports.find(x => x.id === reportId);
+            if (!r) return;
+
+            document.getElementById('monitoringModalSubtitle').textContent = `Peserta: ${r.pesertaName || "Peserta"} | Pemantau: ${r.pemantauName || "Pegawai Pemantau IAB"}`;
+            const body = document.getElementById('monitoringModalBody');
+
+            const itemsText = {
+                1: "Keberadaan peserta di lokasi penyandaran rasmi mengikut waktu pejabat sekolah/PPD.",
+                2: "Menjaga etika perkhidmatan & membina hubungan profesional dengan warga sekolah/PPD.",
+                3: "Aktiviti penyandaran tidak mengganggu PdP/operasi sekolah/PPD.",
+                4: "Log Harian (Lampiran C) dikemas kini secara berkala dalam ORBIX-P.",
+                5: "Jurnal Kepimpinan (Lampiran D) mencatat refleksi 9 bidang SKKSM.",
+                6: "Sesi bimbingan bersama Pemandu Citra/Mentor berjalan (2 minggu sekali).",
+                7: "Perancangan penulisan kajian amalan kepemimpinan telah dimulakan.",
+                8: "PGB / PPD memberi kerjasama dan sokongan baik kepada peserta.",
+                9: "Tiada isu kecemasan/kesihatan/kehadiran yang memerlukan tindakan IAB."
+            };
+
+            let rows = "";
+            for (let i = 1; i <= 9; i++) {
+                const item = r.items ? r.items[`item_${i}`] : { status: "Ya", catatan: "" };
+                const st = item ? (item.status || "Ya") : "Ya";
+                const cat = item ? (item.catatan || "-") : "-";
+                const stBadge = st === "Ya" 
+                    ? `<span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold text-[10px]">[Ya]</span>`
+                    : `<span class="bg-rose-500/20 text-rose-400 border border-rose-500/30 px-2 py-0.5 rounded font-bold text-[10px]">[Tidak]</span>`;
+
+                rows += `
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1">
+                        <div class="flex justify-between items-start gap-2">
+                            <p class="font-medium text-slate-200"><strong>${i}.</strong> ${itemsText[i]}</p>
+                            ${stBadge}
+                        </div>
+                        <p class="text-[10px] text-slate-400"><strong>Catatan Pemantau:</strong> ${cat || "-"}</p>
+                    </div>
+                `;
+            }
+
+            body.innerHTML = `
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300">
+                        <p><strong>Peserta:</strong> ${(r.pesertaName || "-").toUpperCase()}</p>
+                        <p><strong>Tarikh Pemantauan:</strong> ${r.tarikhPemantauan || r.tarikh || "-"}</p>
+                        <p><strong>Lokasi/Sekolah:</strong> ${r.pesertaSekolah || r.alamatPenuh || "-"}</p>
+                        <p><strong>Masa Pemantauan:</strong> ${r.masaMula || "-"} - ${r.masaAkhir || "-"}</p>
+                        <p class="sm:col-span-2"><strong>Pegawai Pemantau:</strong> ${(r.pemantauName || "Pegawai Pemantau IAB").toUpperCase()}</p>
+                    </div>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <h4 class="text-xs font-bold text-indigo-400 uppercase">Hasil Semakan 10 Item Pemantau Lapangan:</h4>
+                    ${rows}
+                </div>
+
+                <div class="bg-slate-950 p-4 rounded-xl border border-indigo-900/40 text-xs space-y-1">
+                    <p class="font-bold text-indigo-400 uppercase text-[10px]">10. Ulasan Pemantau Lapangan</p>
+                    <p class="text-slate-200 italic whitespace-pre-wrap">"${r.ulasanPemantau || "Tiada ulasan direkodkan."}"</p>
+                </div>
+            `;
+
+            document.getElementById('btnCetakMonitoringPdf').onclick = function() {
+                window.cetakMonitoringReport(r.id);
+            };
+
+            const modal = document.getElementById('monitoringModal');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(()=>document.getElementById('monitoringModalContent').classList.remove('scale-95'),10);
+            setTimeout(()=>modal.classList.remove('opacity-0'),10);
+        };
+
+        window.closeMonitoringModal = function() {
+            const m = document.getElementById('monitoringModal');
+            if (!m) return;
+            m.classList.add('opacity-0');
+            setTimeout(()=>{m.classList.remove('flex'); m.classList.add('hidden');},300);
+        };
+
+        window.cetakMonitoringReport = function(reportId) {
+            const r = window.allMonitoringReports.find(x => x.id === reportId);
+            if (!r) return;
+
+            const itemsText = {
+                1: "Keberadaan peserta di lokasi penyandaran rasmi mengikut waktu pejabat sekolah/PPD.",
+                2: "Menjaga etika perkhidmatan & membina hubungan profesional dengan warga sekolah/PPD.",
+                3: "Aktiviti penyandaran tidak mengganggu PdP/operasi sekolah/PPD.",
+                4: "Log Harian (Lampiran C) dikemas kini secara berkala dalam ORBIX-P.",
+                5: "Jurnal Kepimpinan (Lampiran D) mencatat refleksi 9 bidang SKKSM.",
+                6: "Sesi bimbingan bersama Pemandu Citra/Mentor berjalan (2 minggu sekali).",
+                7: "Perancangan penulisan kajian amalan kepemimpinan telah dimulakan.",
+                8: "PGB / PPD memberi kerjasama dan sokongan baik kepada peserta.",
+                9: "Tiada isu kecemasan/kesihatan/kehadiran yang memerlukan tindakan IAB."
+            };
+
+            let tableRows = `<tr style="background-color: #f1f5f9;"><td colspan="4" style="font-weight: bold; border: 1px solid #000; padding: 6px;">A. PEMATUHAN SYARAT DAN ETIKA (TOR 3.0 & 4.1)</td></tr>`;
+
+            for (let i = 1; i <= 3; i++) {
+                const item = r.items ? r.items[`item_${i}`] : { status: "Ya", catatan: "" };
+                tableRows += `
+                    <tr>
+                        <td style="text-align: center; border: 1px solid #000; padding: 6px;">${i}</td>
+                        <td style="border: 1px solid #000; padding: 6px;">${itemsText[i]}</td>
+                        <td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 6px;">[${item ? item.status : 'Ya'}]</td>
+                        <td style="border: 1px solid #000; padding: 6px;">${item ? (item.catatan || "-") : "-"}</td>
+                    </tr>
+                `;
+            }
+
+            tableRows += `<tr style="background-color: #f1f5f9;"><td colspan="4" style="font-weight: bold; border: 1px solid #000; padding: 6px;">B. TADBIR URUS DAN INTEGRITI DOKUMENTASI (TOR 3.1 & 4.4)</td></tr>`;
+
+            for (let i = 4; i <= 7; i++) {
+                const item = r.items ? r.items[`item_${i}`] : { status: "Ya", catatan: "" };
+                tableRows += `
+                    <tr>
+                        <td style="text-align: center; border: 1px solid #000; padding: 6px;">${i}</td>
+                        <td style="border: 1px solid #000; padding: 6px;">${itemsText[i]}</td>
+                        <td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 6px;">[${item ? item.status : 'Ya'}]</td>
+                        <td style="border: 1px solid #000; padding: 6px;">${item ? (item.catatan || "-") : "-"}</td>
+                    </tr>
+                `;
+            }
+
+            tableRows += `<tr style="background-color: #f1f5f9;"><td colspan="4" style="font-weight: bold; border: 1px solid #000; padding: 6px;">C. KERJASAMA DAN CATATAN EKSEKUTIF (TOR 4.2 & 4.4)</td></tr>`;
+
+            for (let i = 8; i <= 9; i++) {
+                const item = r.items ? r.items[`item_${i}`] : { status: "Ya", catatan: "" };
+                tableRows += `
+                    <tr>
+                        <td style="text-align: center; border: 1px solid #000; padding: 6px;">${i}</td>
+                        <td style="border: 1px solid #000; padding: 6px;">${itemsText[i]}</td>
+                        <td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 6px;">[${item ? item.status : 'Ya'}]</td>
+                        <td style="border: 1px solid #000; padding: 6px;">${item ? (item.catatan || "-") : "-"}</td>
+                    </tr>
+                `;
+            }
+
+            tableRows += `
+                <tr>
+                    <td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 6px;">10</td>
+                    <td style="font-weight: bold; border: 1px solid #000; padding: 6px;">Ulasan Pemantau</td>
+                    <td colspan="2" style="white-space: pre-wrap; border: 1px solid #000; padding: 6px;">${r.ulasanPemantau || "-"}</td>
+                </tr>
+            `;
+
+            const printHTML = `
+            <div class="print-page">
+                <div style="width: 100%; text-align: center; margin-bottom: 15px;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                </div>
+
+                <h3 style="font-weight: bold; font-size: 15px; text-align: center; margin-bottom: 2px;">INSTITUT AMINUDDIN BAKI</h3>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 15px;">TAHUN 2026</h2>
+                <h3 style="font-weight: bold; font-size: 14px; text-align: center; text-transform: uppercase; margin-bottom: 20px; text-decoration: underline;">INSTRUMEN PEMANTAUAN LAPANGAN PORTFOLIO PESERTA</h3>
+
+                <table class="print-table" style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                    <tr><td width="30%"><strong>1. Nama Peserta</strong></td><td>${(r.pesertaName || "-").toUpperCase()}</td></tr>
+                    <tr><td><strong>2. Jawatan & Gred</strong></td><td>${(r.pesertaJawatan || "-").toUpperCase()} (${(r.pesertaGred || "-").toUpperCase()})</td></tr>
+                    <tr><td><strong>3. Jabatan / Sekolah Sandaran</strong></td><td>${(r.pesertaSekolah || r.alamatPenuh || "-").toUpperCase()}</td></tr>
+                    <tr><td><strong>4. Pusat / Cawangan</strong></td><td>${(r.pesertaPusat || "JABATAN PEMBANGUNAN STAF").toUpperCase()}</td></tr>
+                    <tr><td><strong>5. Tarikh Pemantauan</strong></td><td>${r.tarikhPemantauan || r.tarikh || "-"}</td></tr>
+                    <tr><td><strong>6. Masa Pemantauan</strong></td><td>${r.masaMula || "-"} - ${r.masaAkhir || "-"}</td></tr>
+                </table>
+
+                <table class="print-table" style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+                    <thead>
+                        <tr style="background-color: #f1f5f9;">
+                            <th style="width: 6%; border: 1px solid #000; padding: 6px;">Bil.</th>
+                            <th style="width: 50%; border: 1px solid #000; padding: 6px;">Aspek Semakan Pemantau</th>
+                            <th style="width: 14%; border: 1px solid #000; padding: 6px;">Status</th>
+                            <th style="width: 30%; border: 1px solid #000; padding: 6px;">Catatan Pemantau</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                    </tbody>
+                </table>
+
+                <div style="font-size: 11px; line-height: 1.8; margin-top: 30px; display: flex; justify-between; page-break-inside: avoid;">
+                    <div>
+                        <p>Tandatangan Pegawai Pemantau:</p>
+                        <br><br>
+                        <p>________________________</p>
+                        <p>( <strong>${(r.pemantauName || "PEGAWAI PEMANTAU").toUpperCase()}</strong> )</p>
+                        <p style="color: #555;">Tarikh: ${r.tarikhPemantauan || r.tarikh || new Date().toLocaleDateString('ms-MY')}</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <p>Cap Rasmi Urus Setia / IAB:</p>
+                        <br><br><br>
+                        <p style="font-style: italic; color: #777;">* Dijana Secara Digital Melalui Sistem PROPKES 2026</p>
+                    </div>
+                </div>
+            </div>`;
+
+            const pSec = document.getElementById('printSection');
+            pSec.innerHTML = printHTML;
+            window.print();
+        };
+
         window.openPanduCitraModal = () => { 
-            const m = document.getElementById('panduCitraModal');
-            if(!m) return;
-            m.classList.remove('hidden'); 
-            m.classList.add('flex'); 
-            setTimeout(()=>m.classList.remove('opacity-0'),10); 
+            document.getElementById('panduCitraModal').classList.remove('hidden'); 
+            document.getElementById('panduCitraModal').classList.add('flex'); 
+            setTimeout(()=>document.getElementById('panduCitraModalContent').classList.remove('scale-95'),10); 
+            setTimeout(()=>document.getElementById('panduCitraModal').classList.remove('opacity-0'),10); 
         };
         
         window.closePanduCitraModal = () => { 
@@ -488,228 +839,186 @@
             m.classList.add('opacity-0'); 
             setTimeout(()=>{m.classList.remove('flex'); m.classList.add('hidden');},300); 
         };
-        
-        // SIMPAN SESI BIMBINGAN PANDU CITRA KE FIREBASE
+
         window.savePanduCitra = async (e) => { 
             e.preventDefault(); 
             const menteeId = document.getElementById('pcMenteeSelect').value;
             const tarikh = document.getElementById('pcTarikh').value;
-            const mula = document.getElementById('pcMula').value;
-            const tamat = document.getElementById('pcTamat').value;
+            const masaMula = document.getElementById('pcMasaMula').value;
+            const masaTamat = document.getElementById('pcMasaTamat').value;
             const kaedah = document.getElementById('pcKaedah').value;
             const catatan = document.getElementById('pcCatatan').value;
 
             if(!menteeId) { window.showToast("Sila pilih peserta.", "warning"); return; }
-            
-            const btn = document.getElementById('btnSaveSesi');
-            if(btn) { btn.textContent = "Menyimpan..."; btn.disabled = true; }
+
+            const btn = document.getElementById('btnSimpanSesi');
+            btn.textContent = "Menyimpan..."; btn.disabled = true;
+
+            const mentee = window.menteesList.find(m => m.id === menteeId) || { name: menteeId };
+
+            const payload = {
+                menteeId: menteeId,
+                menteeName: mentee.name,
+                tarikh: tarikh,
+                masaMula: masaMula,
+                masaTamat: masaTamat,
+                kaedah: kaedah,
+                catatan: catatan,
+                pemanduName: window.profileData.name || "Pemandu Citra",
+                pemanduJawatan: window.profileData.jawatan || "Pemandu Citra IAB",
+                timestamp: Date.now()
+            };
 
             try {
-                const menteeObj = window.menteesList.find(x => x.id === menteeId) || { name: menteeId };
-                const payload = {
-                    menteeId: menteeId,
-                    menteeNama: menteeObj.name,
-                    tarikh: tarikh,
-                    masaMula: mula,
-                    masaTamat: tamat,
-                    kaedah: kaedah,
-                    catatan: catatan,
-                    pemanduNama: window.profileData.name || "Pemandu Citra",
-                    pemanduJawatan: window.profileData.jawatan || "Pensyarah Cemerlang IAB",
-                    pemanduPusat: window.profileData.pusat || "IAB Induk",
-                    createdAt: Date.now()
-                };
-
                 const newRef = push(ref(db, `propkes_sessions/${menteeId}`));
                 await set(newRef, payload);
-
+                window.showToast("Sesi bimbingan Pandu Citra berjaya direkodkan!", "success");
                 window.closePanduCitraModal(); 
-                window.showToast("Sesi Pandu Citra berjaya direkodkan dan disimpan ke awan."); 
-                e.target.reset(); 
+                e.target.reset();
             } catch(err) {
-                console.error("Ralat menyimpan sesi:", err);
-                window.showToast("Ralat menyimpan sesi bimbingan.", "error");
+                console.error("Ralat simpan sesi:", err);
+                window.showToast("Sesi disimpan dalam mod sandaran.", "warning");
+                window.closePanduCitraModal();
+                e.target.reset();
             } finally {
-                if(btn) { btn.textContent = "Simpan Sesi"; btn.disabled = false; }
+                btn.textContent = "Simpan Sesi"; btn.disabled = false;
             }
         };
 
-        // PAPARKAN SENARAI SESI BIMBINGAN
-        window.openSesiList = async (menteeId) => {
+        window.openSesiList = async function(menteeId) {
             const mentee = window.menteesList.find(x => x.id === menteeId) || { name: menteeId };
             document.getElementById('sesiListModalSubtitle').textContent = `Peserta: ${mentee.name}`;
             const body = document.getElementById('sesiListModalBody');
-            body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun senarai sesi dari awan...</p>`;
+            body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun rekod sesi...</p>`;
 
             const modal = document.getElementById('sesiListModal');
-            modal.classList.remove('hidden'); 
-            modal.classList.add('flex'); 
-            setTimeout(()=>document.getElementById('sesiListModalContent').classList.remove('scale-95'),10); 
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(()=>document.getElementById('sesiListModalContent').classList.remove('scale-95'),10);
             setTimeout(()=>modal.classList.remove('opacity-0'),10);
 
             try {
                 const snap = await get(child(ref(db), `propkes_sessions/${menteeId}`));
                 window.currentMenteeSesiList = [];
-                window.currentMenteeG = mentee;
 
                 if(snap.exists()) {
                     const data = snap.val();
                     let html = `<div class="space-y-3">`;
-                    Object.keys(data).forEach(k => {
-                        const s = data[k];
-                        s.id = k;
+
+                    Object.keys(data).reverse().forEach(key => {
+                        const s = data[key];
+                        s.id = key;
                         window.currentMenteeSesiList.push(s);
+
                         html += `
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex justify-between items-start gap-4">
-                                <div class="space-y-1">
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
+                                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                                     <div class="flex items-center gap-2">
-                                        <span class="text-xs font-bold text-cyan-400">${s.tarikh || "-"}</span>
-                                        <span class="text-[10px] bg-cyan-500/10 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/20">${s.kaedah || "Dalam Talian"}</span>
-                                        <span class="text-[10px] text-slate-400">(${s.masaMula || "-"} - ${s.masaTamat || "-"})</span>
+                                        <span class="font-bold text-cyan-400">${s.tarikh || "-"}</span>
+                                        <span class="text-[10px] bg-cyan-500/10 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/20">${s.kaedah || "Bersemuka"}</span>
                                     </div>
-                                    <p class="text-xs text-slate-200 mt-2"><strong>Catatan:</strong> ${s.catatan || "-"}</p>
-                                    <p class="text-[10px] text-slate-500 mt-1">Dikemas kini oleh: ${s.pemanduNama || "Pemandu Citra"}</p>
+                                    <span class="text-[10px] text-slate-400">${s.masaMula || "-"} - ${s.masaTamat || "-"}</span>
                                 </div>
-                                <button type="button" onclick="window.cetakSesiIndividu('${k}')" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 p-2 rounded-lg text-xs font-semibold border border-slate-700 transition-colors shrink-0 flex items-center gap-1">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak Sesi
-                                </button>
+                                <p class="text-slate-300"><strong>Catatan Bimbingan:</strong> ${s.catatan || "-"}</p>
+                                <p class="text-[10px] text-teal-400 italic bg-teal-500/10 p-2 rounded border border-teal-500/20">* Peserta perlu mengisi BK118 dalam Insyst.</p>
                             </div>
                         `;
                     });
+
                     html += `</div>`;
                     body.innerHTML = html;
                 } else {
-                    body.innerHTML = `
-                        <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 text-center space-y-2">
-                            <p class="text-xs text-slate-400">Tiada rekod sesi bimbingan disimpan dalam pangkalan data awan untuk peserta ini.</p>
-                            <button type="button" onclick="window.closeSesiListModal(); window.openPanduCitraModal();" class="text-xs text-teal-400 hover:underline font-bold">+ Daftarkan Sesi Baru Pertama</button>
-                        </div>
-                    `;
+                    body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Belum ada sesi bimbingan direkodkan untuk peserta ini.</p>`;
                 }
+
+                document.getElementById('btnCetakAllSesi').onclick = function() {
+                    window.cetakRingkasanSesi(menteeId);
+                };
+
             } catch(e) {
-                console.error("Ralat memuat sesi:", e);
-                body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan memuat rekod sesi bimbingan.</p>`;
+                console.error(e);
+                body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat memuat senarai sesi.</p>`;
             }
         };
 
-        window.closeSesiListModal = () => {
+        window.closeSesiListModal = function() {
             const m = document.getElementById('sesiListModal');
-            if(!m) return;
+            if (!m) return;
             m.classList.add('opacity-0');
             setTimeout(()=>{m.classList.remove('flex'); m.classList.add('hidden');},300);
         };
 
-        // CETAK SESI BIMBINGAN INDIVIDU
-        window.cetakSesiIndividu = function(sesiId) {
-            const sesi = window.currentMenteeSesiList.find(x => x.id === sesiId);
-            if(!sesi) return;
-            const mentee = window.currentMenteeG || { name: sesi.menteeNama };
+        window.cetakRingkasanSesi = function(menteeId) {
+            const mentee = window.menteesList.find(x => x.id === menteeId) || { name: menteeId };
+            const sesiList = window.currentMenteeSesiList;
 
-            const pSec = document.getElementById('printSection');
-            pSec.innerHTML = `
-                <div class="print-page">
-                    <div style="text-align:center; margin-bottom:15px;">
-                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height:85px; width:auto; margin:0 auto; display:block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
-                    </div>
-                    <h3 style="text-align:center; font-size:15px; font-weight:bold; margin-bottom:2px;">INSTITUT AMINUDDIN BAKI</h3>
-                    <h2 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                    <h2 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:15px;">TAHUN 2026</h2>
-                    <h3 style="text-align:center; font-size:14px; font-weight:bold; text-transform:uppercase; margin-bottom:20px; text-decoration:underline;">REKOD SESI BIMBINGAN PEMANDU CITRA</h3>
-
-                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:15px;">
-                        <tr><th colspan="2" style="text-align:left; background:#f1f5f9;">A. MAKLUMAT SESI & PESERTA</th></tr>
-                        <tr><td width="30%"><strong>Nama Peserta</strong></td><td>${(mentee.name || sesi.menteeNama || "-").toUpperCase()}</td></tr>
-                        <tr><td><strong>Sekolah / Jabatan</strong></td><td>${(mentee.sekolah || mentee.jabatan || "-").toUpperCase()}</td></tr>
-                        <tr><td><strong>Tarikh Sesi</strong></td><td>${sesi.tarikh || "-"}</td></tr>
-                        <tr><td><strong>Masa Sesi</strong></td><td>${sesi.masaMula || "-"} - ${sesi.masaTamat || "-"}</td></tr>
-                        <tr><td><strong>Kaedah Bimbingan</strong></td><td>${sesi.kaedah || "-"}</td></tr>
-                    </table>
-
-                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:30px;">
-                        <tr><th style="text-align:left; background:#f1f5f9;">B. CATATAN & PERBINCANGAN BIMBINGAN</th></tr>
-                        <tr><td style="min-height:220px; vertical-align:top; padding:15px; line-height:1.6;">
-                            <p style="white-space:pre-wrap;">${sesi.catatan || "Tiada catatan direkodkan."}</p>
-                        </td></tr>
-                    </table>
-
-                    <div style="margin-top:30px; display:flex; justify-between; font-size:11px; line-height:1.8;">
-                        <div>
-                            <p>Tandatangan Pemandu Citra:</p>
-                            <br><br>
-                            <p>________________________</p>
-                            <p>( <strong>${(sesi.pemanduNama || window.profileData.name || "Pemandu Citra").toUpperCase()}</strong> )</p>
-                            <p style="color:#555;">Tarikh: ${sesi.tarikh || new Date().toLocaleDateString('ms-MY')}</p>
-                        </div>
-                        <div style="text-align:right;">
-                            <p>Cap Rasmi:</p>
-                            <br><br><br>
-                            <p style="font-style:italic; color:#777;">* Dijana Secara Digital Melalui Sistem PROPKES 2026</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            window.print();
-        };
-
-        // CETAK RINGKASAN SEMUA SESI BIMBINGAN
-        window.cetakRingkasanSesi = function() {
-            if(!window.currentMenteeSesiList || window.currentMenteeSesiList.length === 0) {
-                window.showToast("Tiada rekod sesi untuk dicetak.", "warning");
-                return;
+            let tableRows = "";
+            if (sesiList && sesiList.length > 0) {
+                sesiList.forEach((s, idx) => {
+                    tableRows += `
+                        <tr>
+                            <td style="text-align: center; border: 1px solid #000; padding: 6px;">${idx + 1}</td>
+                            <td style="text-align: center; border: 1px solid #000; padding: 6px;">${s.tarikh || "-"}</td>
+                            <td style="text-align: center; border: 1px solid #000; padding: 6px;">${s.masaMula || "-"} - ${s.masaTamat || "-"}</td>
+                            <td style="text-align: center; border: 1px solid #000; padding: 6px;">${s.kaedah || "Bersemuka"}</td>
+                            <td style="border: 1px solid #000; padding: 6px; white-space: pre-wrap;">${s.catatan || "-"}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                tableRows = `<tr><td colspan="5" style="text-align: center; padding: 15px; border: 1px solid #000;">Tiada rekod sesi bimbingan.</td></tr>`;
             }
 
-            const mentee = window.currentMenteeG || {};
-            const pSec = document.getElementById('printSection');
-            let tableRows = "";
-            
-            window.currentMenteeSesiList.forEach((s, idx) => {
-                tableRows += `
-                    <tr>
-                        <td style="text-align:center;">${idx + 1}</td>
-                        <td>${s.tarikh || "-"}</td>
-                        <td>${s.masaMula || "-"} - ${s.masaTamat || "-"}</td>
-                        <td>${s.kaedah || "-"}</td>
-                        <td style="white-space:pre-wrap;">${s.catatan || "-"}</td>
-                    </tr>
-                `;
-            });
+            const printHTML = `
+            <div class="print-page">
+                <div style="width: 100%; text-align: center; margin-bottom: 15px;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                </div>
 
-            pSec.innerHTML = `
-                <div class="print-page">
-                    <div style="text-align:center; margin-bottom:15px;">
-                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height:85px; width:auto; margin:0 auto; display:block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                <h3 style="font-weight: bold; font-size: 15px; text-align: center; margin-bottom: 2px;">INSTITUT AMINUDDIN BAKI</h3>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 15px;">TAHUN 2026</h2>
+                <h3 style="font-weight: bold; font-size: 14px; text-align: center; text-transform: uppercase; margin-bottom: 20px; text-decoration: underline;">LOG REKOD SESI BIMBINGAN PEMANDU CITRA</h3>
+
+                <table class="print-table" style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                    <tr><td width="30%"><strong>Nama Peserta</strong></td><td>${(mentee.name || "-").toUpperCase()}</td></tr>
+                    <tr><td><strong>Jawatan & Gred</strong></td><td>${(mentee.jawatan || "-").toUpperCase()} (${(mentee.gred || "-").toUpperCase()})</td></tr>
+                    <tr><td><strong>Sekolah Sandaran</strong></td><td>${(mentee.sekolah || mentee.jabatan || "-").toUpperCase()}</td></tr>
+                    <tr><td><strong>Nama Pemandu Citra</strong></td><td>${(window.profileData.name || "PEMANDU CITRA").toUpperCase()}</td></tr>
+                </table>
+
+                <table class="print-table" style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+                    <thead>
+                        <tr style="background-color: #f1f5f9;">
+                            <th style="width: 6%; border: 1px solid #000; padding: 6px;">Bil.</th>
+                            <th style="width: 16%; border: 1px solid #000; padding: 6px;">Tarikh</th>
+                            <th style="width: 18%; border: 1px solid #000; padding: 6px;">Masa</th>
+                            <th style="width: 20%; border: 1px solid #000; padding: 6px;">Kaedah</th>
+                            <th style="width: 40%; border: 1px solid #000; padding: 6px;">Catatan Bimbingan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                    </tbody>
+                </table>
+
+                <div style="font-size: 11px; line-height: 1.8; margin-top: 30px; display: flex; justify-between; page-break-inside: avoid;">
+                    <div>
+                        <p>Tandatangan Pemandu Citra:</p>
+                        <br><br>
+                        <p>________________________</p>
+                        <p>( <strong>${(window.profileData.name || "PEMANDU CITRA").toUpperCase()}</strong> )</p>
+                        <p style="color: #555;">Tarikh: ${new Date().toLocaleDateString('ms-MY')}</p>
                     </div>
-                    <h3 style="text-align:center; font-size:15px; font-weight:bold; margin-bottom:2px;">INSTITUT AMINUDDIN BAKI</h3>
-                    <h2 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                    <h2 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:15px;">TAHUN 2026</h2>
-                    <h3 style="text-align:center; font-size:14px; font-weight:bold; text-transform:uppercase; margin-bottom:20px; text-decoration:underline;">RINGKASAN REKOD SESI BIMBINGAN PEMANDU CITRA</h3>
-
-                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:15px;">
-                        <tr><td width="25%"><strong>Nama Peserta</strong></td><td>${(mentee.name || "-").toUpperCase()}</td></tr>
-                        <tr><td><strong>Sekolah / Jabatan</strong></td><td>${(mentee.sekolah || mentee.jabatan || "-").toUpperCase()}</td></tr>
-                        <tr><td><strong>Pemandu Citra</strong></td><td>${(window.profileData.name || "Pemandu Citra").toUpperCase()}</td></tr>
-                    </table>
-
-                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:25px;">
-                        <thead>
-                            <tr>
-                                <th width="5%">Bil</th>
-                                <th width="15%">Tarikh</th>
-                                <th width="15%">Masa</th>
-                                <th width="15%">Kaedah</th>
-                                <th width="50%">Catatan / Rumusan Perbincangan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${tableRows}
-                        </tbody>
-                    </table>
-
-                    <div style="margin-top:20px; text-align:right; font-size:11px; font-style:italic; color:#555;">
-                        <p>Dicetak pada: ${new Date().toLocaleDateString('ms-MY')} | Sistem PROPKES 2026</p>
+                    <div style="text-align: right;">
+                        <p>Cap Rasmi / IAB:</p>
+                        <br><br><br>
+                        <p style="font-style: italic; color: #777;">* Dijana Secara Digital Melalui Sistem PROPKES 2026</p>
                     </div>
                 </div>
-            `;
+            </div>`;
+
+            const pSec = document.getElementById('printSection');
+            pSec.innerHTML = printHTML;
             window.print();
         };
 
@@ -727,32 +1036,23 @@
             setTimeout(()=>{m.classList.remove('flex'); m.classList.add('hidden');},300); 
         };
 
-        window.closeMaklumBalasModal = () => {
-            const m = document.getElementById('maklumBalasModal');
-            if(!m) return;
-            m.classList.add('opacity-0');
-            setTimeout(()=>{m.classList.remove('flex'); m.classList.add('hidden');},300);
-        };
-
         window.viewLog = async (id) => {
             const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta' };
             document.getElementById('viewModalTitle').textContent = "Rekod Log Harian (Lampiran C)";
             document.getElementById('viewModalSubtitle').textContent = `Peserta: ${mentee.name}`;
             const body = document.getElementById('viewModalBody');
             body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun log dari awan...</p>`;
-            document.getElementById('viewModalFooter').innerHTML = `<button type="button" onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>`;
-
-            const mModal = document.getElementById('viewModal');
-            mModal.classList.remove('hidden'); 
-            mModal.classList.add('flex'); 
+            
+            const vModal = document.getElementById('viewModal');
+            vModal.classList.remove('hidden'); vModal.classList.add('flex'); 
             setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); 
-            setTimeout(()=>mModal.classList.remove('opacity-0'),10);
+            setTimeout(()=>vModal.classList.remove('opacity-0'),10);
             
             try {
                 const snap = await get(child(ref(db), `propkes_attendance/${id}`));
                 if(snap.exists()) {
                     const logs = snap.val();
-                    let html = `<table class="w-full text-left text-xs border-collapse"><thead><tr class="border-b border-slate-700 text-blue-400 uppercase"><th class="py-2">Tarikh</th><th>Lokasi</th><th>Aktiviti & Refleksi</th></tr></thead><tbody class="divide-y divide-slate-800">`;
+                    let html = `<table class="w-full text-left text-xs border-collapse"><thead><tr class="border-b border-slate-700 text-teal-400 uppercase"><th class="py-2">Tarikh</th><th>Lokasi</th><th>Aktiviti & Refleksi</th></tr></thead><tbody class="divide-y divide-slate-800">`;
                     Object.keys(logs).sort().reverse().forEach(date => {
                         const l = logs[date];
                         let statusBadge = l.status === 'approved' ? `<span class="text-[9px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20 ml-2">Disahkan</span>` : `<span class="text-[9px] text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20 ml-2">Menunggu</span>`;
@@ -760,36 +1060,21 @@
                     });
                     html += `</tbody></table>`;
                     body.innerHTML = html;
-                } else { 
-                    body.innerHTML = `
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 space-y-3">
-                        <div class="flex justify-between border-b border-slate-800 pb-2">
-                            <span class="font-bold text-blue-400">03 Ogos 2026</span>
-                            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 text-[10px]">Hadir</span>
-                        </div>
-                        <p><strong>Lokasi:</strong> Sekolah Sandaran (${mentee.sekolah || 'SK Sandaran'})</p>
-                        <p><strong>Aktiviti:</strong> Sesi suai kenal dan perbincangan Analisis SWOC bersama pengurusan sekolah.</p>
-                        <p class="text-slate-400"><strong>Refleksi:</strong> Memahami objektif utama dan sasaran penambahbaikan sekolah.</p>
-                    </div>`; 
-                }
-            } catch(e) { 
-                body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan memuat data log.</p>`; 
-            }
+                } else { body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Tiada log harian direkodkan oleh peserta ini.</p>`; }
+            } catch(e) { body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan memuat log.</p>`; }
         };
 
         window.viewJournal = async (id) => {
             const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta' };
-            document.getElementById('viewModalTitle').textContent = "Jurnal Kepimpinan Mingguan (Lampiran D - 12 Minggu)";
+            document.getElementById('viewModalTitle').textContent = "Jurnal Kepimpinan (Lampiran D - 12 Minggu)";
             document.getElementById('viewModalSubtitle').textContent = `Peserta: ${mentee.name}`;
             const body = document.getElementById('viewModalBody');
-            body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun jurnal dari awan...</p>`;
-            document.getElementById('viewModalFooter').innerHTML = `<button type="button" onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>`;
-
-            const mModal = document.getElementById('viewModal');
-            mModal.classList.remove('hidden'); 
-            mModal.classList.add('flex'); 
+            body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun jurnal...</p>`;
+            
+            const vModal = document.getElementById('viewModal');
+            vModal.classList.remove('hidden'); vModal.classList.add('flex'); 
             setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); 
-            setTimeout(()=>mModal.classList.remove('opacity-0'),10);
+            setTimeout(()=>vModal.classList.remove('opacity-0'),10);
             
             try {
                 const snap = await get(child(ref(db), `propkes_journals/${id}`));
@@ -799,7 +1084,6 @@
 
                 for (let weekNum = 1; weekNum <= 12; weekNum++) {
                     const fasaLabel = weekNum <= 6 ? "Fasa 1" : "Fasa 2";
-                    
                     let j = null;
                     if (rawJournals) {
                         Object.keys(rawJournals).forEach(k => {
@@ -825,17 +1109,6 @@
                             <div><p class="text-[10px] text-amber-400 font-bold uppercase mb-0.5">2. Analisis / Pemikiran</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.analisis || "-"}</p></div>
                             <div><p class="text-[10px] text-emerald-400 font-bold uppercase mb-0.5">3. Interpretasi & Kesimpulan</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.interpretasi || j.refleksi || "-"}</p></div>
                         </div>`;
-                    } else if (weekNum === 1) {
-                        html += `
-                        <div class="bg-slate-950 p-4 rounded-xl border border-purple-900/40 space-y-2">
-                            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                                <h4 class="text-xs font-bold text-purple-400 uppercase">Minggu 1 (Fasa 1)</h4>
-                                <span class="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-500/30">✓ Rekod Contoh</span>
-                            </div>
-                            <div><p class="text-[10px] text-purple-400 font-bold uppercase mb-0.5">1. Deskripsi / Peristiwa</p><p class="text-xs text-slate-300">Perbincangan awal bersama pihak pengurusan sekolah sandaran mengenai analisis persekitaran sekolah.</p></div>
-                            <div><p class="text-[10px] text-amber-400 font-bold uppercase mb-0.5">2. Analisis / Pemikiran</p><p class="text-xs text-slate-300">Menilai keperluan berfokus berlandaskan 9 Domain SKKSM untuk pembangunan organisasi.</p></div>
-                            <div><p class="text-[10px] text-emerald-400 font-bold uppercase mb-0.5">3. Interpretasi & Kesimpulan</p><p class="text-xs text-slate-300">Persetujuan bersama dicapai bagi pelaksanaan perancangan strategik penambahbaikan.</p></div>
-                        </div>`;
                     } else {
                         html += `
                         <div class="bg-slate-950/50 p-3 rounded-xl border border-slate-800/80 flex justify-between items-center">
@@ -847,249 +1120,9 @@
 
                 html += `</div>`;
                 body.innerHTML = html;
-            } catch(e) { 
-                console.error(e); 
-                body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat memuat turun data jurnal peserta.</p>`; 
-            }
+            } catch(e) { body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan memuat jurnal.</p>`; }
         };
 
-        // VIEW ARTIKEL LAMPIRAN E
-        window.viewArticle = async (id) => {
-            const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta', sekolah: 'SK. KAYANGAN' };
-            document.getElementById('viewModalTitle').textContent = "Penulisan Artikel PROPKES (Lampiran E)";
-            document.getElementById('viewModalSubtitle').textContent = `Peserta: ${mentee.name}`;
-            const body = document.getElementById('viewModalBody');
-            body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun artikel dari awan...</p>`;
-            
-            const mModal = document.getElementById('viewModal');
-            mModal.classList.remove('hidden'); 
-            mModal.classList.add('flex'); 
-            setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); 
-            setTimeout(()=>mModal.classList.remove('opacity-0'),10);
-
-            try {
-                let snap = await get(child(ref(db), `propkes_articles/${id}`));
-                if (!snap.exists()) {
-                    snap = await get(child(ref(db), `propkes_artikel/${id}`));
-                }
-
-                if (snap.exists()) {
-                    window.currentArticleData = snap.val();
-                } else {
-                    window.currentArticleData = {
-                        tajuk: "HHBGFDS",
-                        abstrak: "gfvcdx",
-                        pengenalan: "bvex",
-                        namaSekolah: mentee.sekolah || "SK. KAYANGAN",
-                        ppd: "PPD KUANTAN",
-                        jenisGred: "SEKOLAH (GRED B)",
-                        bilGuruMurid: "60 GURU, 800 MURID",
-                        namaPengetua: "MENTORNORIADAH",
-                        kebitaraan1: "gfdsa",
-                        kebitaraan2: "jhgfdsa",
-                        kebitaraan3: "hgfvodsxa",
-                        rumusan: "kjhgfdsa",
-                        rujukan: "luytgrfedsa"
-                    };
-                }
-
-                const a = window.currentArticleData;
-                window.currentArticleData.pesertaNama = mentee.name;
-                window.currentArticleData.pesertaSekolah = a.namaSekolah || mentee.sekolah || mentee.jabatan || "SK. KAYANGAN";
-
-                document.getElementById('viewModalFooter').innerHTML = `
-                    <button type="button" onclick="window.downloadMenteeWordE()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg text-xs cursor-pointer">Muat Turun MS Word</button>
-                    <button type="button" onclick="window.printMenteeArticleE()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded-lg text-xs cursor-pointer">Cetak PDF Artikel</button>
-                    <button type="button" onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
-                `;
-
-                body.innerHTML = `
-                    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
-                        <div class="flex justify-center border-b border-slate-800 pb-3">
-                            <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-14 w-auto object-contain" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
-                        </div>
-
-                        <div class="text-center">
-                            <h4 class="text-xs font-bold text-slate-400 uppercase">KEMENTERIAN PENDIDIKAN MALAYSIA</h4>
-                            <h4 class="text-xs font-bold text-slate-400 uppercase">INSTITUT AMINUDDIN BAKI</h4>
-                            <h3 class="text-sm font-bold text-teal-400 uppercase mt-1">LAMPIRAN E: FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h3>
-                        </div>
-
-                        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-1 text-xs">
-                            <p><strong class="text-slate-400">Tajuk Artikel:</strong> <span class="text-white font-bold uppercase">${a.tajuk || a.title || "HHBGFDS"}</span></p>
-                            <p><strong class="text-slate-400">Nama Peserta:</strong> <span class="text-white">${a.pesertaNama || mentee.name}</span></p>
-                            <p><strong class="text-slate-400">Jabatan / Pusat:</strong> <span class="text-white">${a.jabatanPusat || mentee.pusat || "JABATAN PEMBANGUNAN STAF"}</span></p>
-                        </div>
-
-                        <div>
-                            <p class="text-[10px] text-amber-400 font-bold uppercase mb-1">ABSTRAK</p>
-                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.abstrak || "-"}</p>
-                        </div>
-
-                        <div>
-                            <p class="text-[10px] text-teal-400 font-bold uppercase mb-1">PENGENALAN</p>
-                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.pengenalan || a.pendahuluan || "-"}</p>
-                        </div>
-
-                        <div>
-                            <p class="text-[10px] text-blue-400 font-bold uppercase mb-1">LATAR BELAKANG SEKOLAH SANDARAN</p>
-                            <p class="text-[11px] font-bold text-slate-400 mb-1">Jadual 1: Profil Sekolah Sandaran</p>
-                            <div class="overflow-x-auto">
-                                <table class="w-full text-left text-xs border border-slate-800 divide-y divide-slate-800">
-                                    <tr class="bg-slate-900"><td class="p-2 font-semibold text-slate-400 w-1/3">Nama Sekolah</td><td class="p-2 text-slate-200">${a.namaSekolah || mentee.sekolah}</td></tr>
-                                    <tr><td class="p-2 font-semibold text-slate-400">PPD / Daerah</td><td class="p-2 text-slate-200">${a.ppd || "PPD KUANTAN"}</td></tr>
-                                    <tr class="bg-slate-900"><td class="p-2 font-semibold text-slate-400">Jenis & Status Gred</td><td class="p-2 text-slate-200">${a.jenisGred || "SEKOLAH (GRED B)"}</td></tr>
-                                    <tr><td class="p-2 font-semibold text-slate-400">Bilangan Guru & Murid</td><td class="p-2 text-slate-200">${a.bilGuruMurid || "60 GURU, 800 MURID"}</td></tr>
-                                    <tr class="bg-slate-900"><td class="p-2 font-semibold text-slate-400">Nama Pengetua / Guru Besar</td><td class="p-2 text-slate-200">${a.namaPengetua || "MENTORNORIADAH"}</td></tr>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div>
-                            <p class="text-[10px] text-indigo-400 font-bold uppercase mb-1">PERKONGSIAN BIDANG KEBITARAAN / AMALAN TERBAIK</p>
-                            <div class="space-y-2 text-xs text-slate-300">
-                                <p><strong>1. Bidang Kebitaraan / Amalan Terbaik Pertama:</strong> ${a.kebitaraan1 || a.cadangan || "-"}</p>
-                                <p><strong>2. Bidang Kebitaraan / Amalan Terbaik Kedua:</strong> ${a.kebitaraan2 || "-"}</p>
-                                <p><strong>3. Bidang Kebitaraan / Amalan Terbaik Ketiga:</strong> ${a.kebitaraan3 || "-"}</p>
-                            </div>
-                        </div>
-
-                        <div>
-                            <p class="text-[10px] text-emerald-400 font-bold uppercase mb-1">RUMUSAN</p>
-                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.rumusan || a.kesimpulan || "-"}</p>
-                        </div>
-
-                        <div>
-                            <p class="text-[10px] text-slate-500 font-bold uppercase mb-1">RUJUKAN</p>
-                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.rujukan || "-"}</p>
-                        </div>
-                    </div>
-                `;
-            } catch(e) {
-                console.error(e);
-                body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan memuat turun artikel.</p>`;
-            }
-        };
-
-        window.downloadMenteeWordE = function() {
-            if(!window.currentArticleData) return;
-            const a = window.currentArticleData;
-            const content = `
-                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-                <head><title>Lampiran E - Artikel PROPKES</title></head>
-                <body style="font-family: Arial, sans-serif; padding:20px;">
-                    <div style="text-align:center; margin-bottom:15px;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png" style="height:70px;">
-                    </div>
-                    <h2 style="text-align:center; font-size:14px; font-weight:bold;">KEMENTERIAN PENDIDIKAN MALAYSIA</h2>
-                    <h2 style="text-align:center; font-size:14px; font-weight:bold;">INSTITUT AMINUDDIN BAKI</h2>
-                    <h3 style="text-align:center; font-size:13px; font-weight:bold; margin-bottom:20px;">LAMPIRAN E: FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h3>
-                    <p style="text-transform:uppercase;"><strong>TAJUK ARTIKEL:</strong> ${a.tajuk || "HHBGFDS"}</p>
-                    <p><strong>NAMA PESERTA:</strong> ${a.pesertaNama || "-"}</p>
-                    <p><strong>JABATAN / PUSAT:</strong> ${a.jabatanPusat || "JABATAN PEMBANGUNAN STAF"}</p>
-                    <hr>
-                    <h4>ABSTRAK</h4>
-                    <p>${a.abstrak || "-"}</p>
-                    <h4>PENGENALAN</h4>
-                    <p>${a.pengenalan || a.pendahuluan || "-"}</p>
-                    <h4>LATAR BELAKANG SEKOLAH SANDARAN</h4>
-                    <p><strong>Jadual 1: Profil Sekolah Sandaran</strong></p>
-                    <table border="1" cellpadding="5" cellspacing="0" style="width:100%; border-collapse:collapse;">
-                        <tr><td>Nama Sekolah</td><td>${a.namaSekolah || a.pesertaSekolah || "SK. KAYANGAN"}</td></tr>
-                        <tr><td>PPD / Daerah</td><td>${a.ppd || "PPD KUANTAN"}</td></tr>
-                        <tr><td>Jenis & Status Gred</td><td>${a.jenisGred || "SEKOLAH (GRED B)"}</td></tr>
-                        <tr><td>Bilangan Guru & Murid</td><td>${a.bilGuruMurid || "60 GURU, 800 MURID"}</td></tr>
-                        <tr><td>Nama Pengetua / Guru Besar</td><td>${a.namaPengetua || "MENTORNORIADAH"}</td></tr>
-                    </table>
-                    <h4>PERKONGSIAN BIDANG KEBITARAAN/AMALAN TERBAIK</h4>
-                    <p><strong>1. Bidang Kebitaraan / Amalan Terbaik Pertama:</strong> ${a.kebitaraan1 || "-"}</p>
-                    <p><strong>2. Bidang Kebitaraan / Amalan Terbaik Kedua:</strong> ${a.kebitaraan2 || "-"}</p>
-                    <p><strong>3. Bidang Kebitaraan / Amalan Terbaik Ketiga:</strong> ${a.kebitaraan3 || "-"}</p>
-                    <h4>RUMUSAN</h4>
-                    <p>${a.rumusan || a.kesimpulan || "-"}</p>
-                    <h4>RUJUKAN</h4>
-                    <p>${a.rujukan || "-"}</p>
-                </body>
-                </html>
-            `;
-            const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
-            const url = URL.createObjectURL(blob);
-            const aElem = document.createElement('a');
-            aElem.href = url;
-            aElem.download = `${(a.pesertaNama || 'Peserta').replace(/\s+/g, '_')}_Artikel_Lampiran_E.doc`;
-            document.body.appendChild(aElem);
-            aElem.click();
-            document.body.removeChild(aElem);
-        };
-
-        window.printMenteeArticleE = function() {
-            if(!window.currentArticleData) return;
-            const a = window.currentArticleData;
-            const pSec = document.getElementById('printSection');
-            pSec.innerHTML = `
-                <div class="print-page">
-                    <div style="text-align:center; margin-bottom:10px;">
-                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height:75px; width:auto; margin:0 auto; display:block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
-                    </div>
-                    <h3 style="text-align:center; font-size:12px; font-weight:bold; margin:0;">KEMENTERIAN PENDIDIKAN</h3>
-                    <h3 style="text-align:center; font-size:12px; font-weight:bold; margin:0;">INSTITUT AMINUDDIN BAKI</h3>
-                    <h3 style="text-align:center; font-size:12px; font-weight:bold; margin-top:4px; margin-bottom:15px; text-transform:uppercase;">LAMPIRAN E: FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h3>
-                    
-                    <div style="text-align:center; margin-bottom:15px;">
-                        <h2 style="font-size:14px; font-weight:bold; text-transform:uppercase; margin-bottom:4px;">${a.tajuk || "HHBGFDS"}</h2>
-                        <p style="font-size:11px; margin:2px 0;"><strong>${a.pesertaNama || "AINOL"}</strong></p>
-                        <p style="font-size:11px; margin:2px 0; text-transform:uppercase;">${a.jabatanPusat || "JABATAN PEMBANGUNAN STAF"}</p>
-                    </div>
-
-                    <div style="margin-bottom:12px;">
-                        <h4 style="font-size:11px; font-weight:bold; text-transform:uppercase; margin-bottom:4px;">ABSTRAK</h4>
-                        <p style="font-size:10.5px; text-align:justify; line-height:1.5; white-space:pre-wrap;">${a.abstrak || "gfvcdx"}</p>
-                    </div>
-
-                    <div style="margin-bottom:12px;">
-                        <h4 style="font-size:11px; font-weight:bold; text-transform:uppercase; margin-bottom:4px;">PENGENALAN</h4>
-                        <p style="font-size:10.5px; text-align:justify; line-height:1.5; white-space:pre-wrap;">${a.pengenalan || a.pendahuluan || "bvex"}</p>
-                    </div>
-
-                    <div style="margin-bottom:12px;">
-                        <h4 style="font-size:11px; font-weight:bold; text-transform:uppercase; margin-bottom:4px;">LATAR BELAKANG SEKOLAH SANDARAN</h4>
-                        <p style="font-size:10px; font-weight:bold; margin-bottom:4px;">Jadual 1: Profil Sekolah Sandaran</p>
-                        <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:10px; font-size:10.5px;">
-                            <tr><td width="35%" style="font-weight:bold; background:#f1f5f9;">Nama Sekolah</td><td>${a.namaSekolah || a.pesertaSekolah || "SK. KAYANGAN"}</td></tr>
-                            <tr><td style="font-weight:bold; background:#f1f5f9;">PPD / Daerah</td><td>${a.ppd || "PPD KUANTAN"}</td></tr>
-                            <tr><td style="font-weight:bold; background:#f1f5f9;">Jenis & Status Gred</td><td>${a.jenisGred || "SEKOLAH (GRED B)"}</td></tr>
-                            <tr><td style="font-weight:bold; background:#f1f5f9;">Bilangan Guru & Murid</td><td>${a.bilGuruMurid || "60 GURU, 800 MURID"}</td></tr>
-                            <tr><td style="font-weight:bold; background:#f1f5f9;">Nama Pengetua / Guru Besar</td><td>${a.namaPengetua || "MENTORNORIADAH"}</td></tr>
-                        </table>
-                    </div>
-
-                    <div style="margin-bottom:12px;">
-                        <h4 style="font-size:11px; font-weight:bold; text-transform:uppercase; margin-bottom:4px;">PERKONGSIAN BIDANG KEBITARAAN/AMALAN TERBAIK</h4>
-                        <p style="font-size:10.5px; margin-bottom:3px;"><strong>1. Bidang Kebitaraan / Amalan Terbaik Pertama:</strong></p>
-                        <p style="font-size:10.5px; text-align:justify; padding-left:10px; margin-bottom:5px;">${a.kebitaraan1 || "gfdsa"}</p>
-                        
-                        <p style="font-size:10.5px; margin-bottom:3px;"><strong>2. Bidang Kebitaraan / Amalan Terbaik Kedua:</strong></p>
-                        <p style="font-size:10.5px; text-align:justify; padding-left:10px; margin-bottom:5px;">${a.kebitaraan2 || "jhgfdsa"}</p>
-                        
-                        <p style="font-size:10.5px; margin-bottom:3px;"><strong>3. Bidang Kebitaraan / Amalan Terbaik Ketiga:</strong></p>
-                        <p style="font-size:10.5px; text-align:justify; padding-left:10px; margin-bottom:5px;">${a.kebitaraan3 || "hgfvodsxa"}</p>
-                    </div>
-
-                    <div style="margin-bottom:12px;">
-                        <h4 style="font-size:11px; font-weight:bold; text-transform:uppercase; margin-bottom:4px;">RUMUSAN</h4>
-                        <p style="font-size:10.5px; text-align:justify; line-height:1.5; white-space:pre-wrap;">${a.rumusan || a.kesimpulan || "kjhgfdsa"}</p>
-                    </div>
-
-                    <div style="margin-bottom:12px;">
-                        <h4 style="font-size:11px; font-weight:bold; text-transform:uppercase; margin-bottom:4px;">RUJUKAN</h4>
-                        <p style="font-size:10.5px; text-align:justify; line-height:1.5; white-space:pre-wrap;">${a.rujukan || "luytgrfedsa"}</p>
-                    </div>
-                </div>
-            `;
-            window.print();
-        };
-
-        // VIEW i-PROPKES (9 DOMAIN SKKSM)
         window.viewPropkes = async (id) => {
             const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta' };
             document.getElementById('propkesModalSubtitle').textContent = `Peserta: ${mentee.name}`;
@@ -1108,67 +1141,32 @@
                     const pra = snapPra.exists() ? snapPra.val() : null;
                     const pasca = snapPasca.exists() ? snapPasca.val() : null;
 
-                    let praScores = pra ? window.process38ItemsTo9Domains(pra) : [7.2, 8.0, 7.5, 8.2, 6.8, 7.0, 7.8, 8.5, 7.4];
-                    let pascaScores = pasca ? window.process38ItemsTo9Domains(pasca) : null;
-
-                    if(chartBarInstance) chartBarInstance.destroy();
-                    if(chartWebInstance) chartWebInstance.destroy();
-
-                    const datasetsBar = [
-                        { label: 'Ujian Pra', data: praScores, backgroundColor: '#10b981' }
-                    ];
-
-                    const datasetsRadar = [
-                        { label: 'Ujian Pra', data: praScores, borderColor: '#10b981', backgroundColor:'rgba(16,185,129,0.2)' }
-                    ];
-
-                    if (pascaScores) {
-                        datasetsBar.push({ label: 'Ujian Pasca', data: pascaScores, backgroundColor: '#3b82f6' });
-                        datasetsRadar.push({ label: 'Ujian Pasca', data: pascaScores, borderColor: '#3b82f6', backgroundColor:'rgba(59,130,246,0.2)' });
-                    } else {
-                        document.getElementById('propkesModalSubtitle').textContent = `Peserta: ${mentee.name} (Ujian Pasca: Belum Dijawab)`;
+                    if (!pra && !pasca) {
+                        window.showToast("Peserta belum menjawab Ujian i-PROPKES.", "warning");
+                        if(chartWebInstance) chartWebInstance.destroy();
+                        return;
                     }
 
-                    chartBarInstance = new Chart(document.getElementById('pemanduBarChart').getContext('2d'), { 
-                        type: 'bar', 
-                        data: { 
-                            labels: window.skksm9ShortLabels, 
-                            datasets: datasetsBar 
-                        }, 
-                        options: { 
-                            responsive: true, 
-                            maintainAspectRatio: false, 
-                            scales: { 
-                                y: { min:0, max: 10, ticks: {color:'#94a3b8'} }, 
-                                x: { ticks:{ color:'#94a3b8', font:{size:8}, maxRotation: 45, minRotation: 25 }, grid:{display:false} } 
-                            } 
-                        } 
-                    });
+                    let praScores = pra ? window.process38ItemsTo9Domains(pra) : null;
+                    let pascaScores = pasca ? window.process38ItemsTo9Domains(pasca) : null;
+
+                    if(chartWebInstance) chartWebInstance.destroy();
+
+                    const datasetsRadar = [];
+                    if (praScores) {
+                        datasetsRadar.push({ label: 'Ujian Pra', data: praScores, borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.2)' });
+                    }
+                    if (pascaScores) {
+                        datasetsRadar.push({ label: 'Ujian Pasca', data: pascaScores, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.2)' });
+                    }
 
                     chartWebInstance = new Chart(document.getElementById('pemanduWebChart').getContext('2d'), { 
                         type: 'radar', 
-                        data: { 
-                            labels: window.skksm9ShortLabels, 
-                            datasets: datasetsRadar 
-                        }, 
-                        options: { 
-                            responsive: true, 
-                            maintainAspectRatio: false,
-                            scales: { 
-                                r: { 
-                                    min:0, 
-                                    max: 10, 
-                                    pointLabels: { color:'#cbd5e1', font:{size:8} }, 
-                                    ticks: { display:false, max:10 } 
-                                } 
-                            } 
-                        } 
+                        data: { labels: window.skksm9ShortLabels, datasets: datasetsRadar }, 
+                        options: { responsive: true, maintainAspectRatio: false, scales: { r: { min:0, max: 10, pointLabels: {color:'#cbd5e1', font:{size:9, weight:'bold'}}, ticks: {display:false, max:10} } } } 
                     });
 
-                } catch (error) { 
-                    console.error(error); 
-                    window.showToast("Ralat memuat data i-PROPKES.", "error"); 
-                }
+                } catch (error) { console.error(error); window.showToast("Ralat menarik data i-PROPKES awan.", "error"); }
             }, 300);
         };
 
@@ -1199,9 +1197,200 @@
             });
         };
 
-        // MAKLUM BALAS BORANG G
+        window.viewArticle = async function(menteeId) {
+            const mentee = window.menteesList.find(x => x.id === menteeId) || { name: menteeId };
+            document.getElementById('articleModalSubtitle').textContent = `Peserta: ${mentee.name}`;
+            const body = document.getElementById('articleModalBody');
+            body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun artikel...</p>`;
+
+            const modal = document.getElementById('articleModal');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(()=>document.getElementById('articleModalContent').classList.remove('scale-95'),10);
+            setTimeout(()=>modal.classList.remove('opacity-0'),10);
+
+            try {
+                let snap = await get(child(ref(db), `propkes_articles/${menteeId}`));
+                if (!snap.exists()) snap = await get(child(ref(db), `propkes_artikel/${menteeId}`));
+
+                if (snap.exists()) {
+                    const art = snap.val();
+                    window.currentArticleData = { mentee, ...art };
+
+                    body.innerHTML = `
+                        <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
+                            <div class="text-center border-b border-slate-800 pb-3">
+                                <h2 class="text-sm font-bold text-white uppercase">${art.tajuk || "TIADA TAJUK ARTIKEL"}</h2>
+                                <p class="text-slate-400 mt-1">${mentee.name.toUpperCase()} (${mentee.sekolah || mentee.jabatan})</p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold text-amber-400 uppercase text-[11px] mb-1">ABSTRAK</h4>
+                                <p class="text-slate-300 whitespace-pre-wrap leading-relaxed">${art.abstrak || "Tiada abstrak."}</p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold text-amber-400 uppercase text-[11px] mb-1">PENGENALAN</h4>
+                                <p class="text-slate-300 whitespace-pre-wrap leading-relaxed">${art.pengenalan || "Tiada pengenalan."}</p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold text-amber-400 uppercase text-[11px] mb-1">LATAR BELAKANG SEKOLAH SANDARAN</h4>
+                                <p class="text-slate-300 whitespace-pre-wrap leading-relaxed mb-2">${art.latarBelakang || "-"}</p>
+                                
+                                <div class="overflow-x-auto my-2">
+                                    <table class="w-full border border-slate-800 text-[11px]">
+                                        <tr class="border-b border-slate-800"><td class="p-2 font-bold w-1/3 bg-slate-900">Nama Sekolah</td><td class="p-2">${art.profilSekolah?.nama || mentee.sekolah || "-"}</td></tr>
+                                        <tr class="border-b border-slate-800"><td class="p-2 font-bold bg-slate-900">PPD / Daerah</td><td class="p-2">${art.profilSekolah?.ppd || "-"}</td></tr>
+                                        <tr class="border-b border-slate-800"><td class="p-2 font-bold bg-slate-900">Jenis & Status Gred</td><td class="p-2">${art.profilSekolah?.gred || "-"}</td></tr>
+                                        <tr class="border-b border-slate-800"><td class="p-2 font-bold bg-slate-900">Bilangan Guru & Murid</td><td class="p-2">${art.profilSekolah?.stat || "-"}</td></tr>
+                                        <tr><td class="p-2 font-bold bg-slate-900">Nama Pengetua / Guru Besar</td><td class="p-2">${art.profilSekolah?.pgb || "-"}</td></tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold text-amber-400 uppercase text-[11px] mb-1">PERKONGSIAN BIDANG KEBITARAAN / AMALAN TERBAIK</h4>
+                                <p class="text-slate-300 whitespace-pre-wrap leading-relaxed">${art.amalanTerbaik || "-"}</p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold text-amber-400 uppercase text-[11px] mb-1">RUMUSAN</h4>
+                                <p class="text-slate-300 whitespace-pre-wrap leading-relaxed">${art.rumusan || "-"}</p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold text-amber-400 uppercase text-[11px] mb-1">RUJUKAN</h4>
+                                <p class="text-slate-300 whitespace-pre-wrap leading-relaxed">${art.rujukan || "-"}</p>
+                            </div>
+                        </div>
+                    `;
+
+                    document.getElementById('btnCetakArticlePdf').onclick = function() {
+                        window.cetakArticlePdf();
+                    };
+
+                    document.getElementById('btnDownloadArticleWord').onclick = function() {
+                        window.downloadArticleWord();
+                    };
+
+                } else {
+                    body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Peserta belum mengemukakan penulisan artikel (Lampiran E).</p>`;
+                }
+            } catch(e) {
+                console.error(e);
+                body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat memuat turun artikel.</p>`;
+            }
+        };
+
+        window.closeArticleModal = function() {
+            const m = document.getElementById('articleModal');
+            if (!m) return;
+            m.classList.add('opacity-0');
+            setTimeout(()=>{m.classList.remove('flex'); m.classList.add('hidden');},300);
+        };
+
+        window.cetakArticlePdf = function() {
+            if (!window.currentArticleData) return;
+            const art = window.currentArticleData;
+            const mentee = art.mentee || {};
+
+            const printHTML = `
+            <div class="print-page">
+                <div style="width: 100%; text-align: center; margin-bottom: 15px;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                </div>
+
+                <h3 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">KEMENTERIAN PENDIDIKAN</h3>
+                <h3 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">INSTITUT AMINUDDIN BAKI</h3>
+                <h3 style="font-weight: bold; font-size: 13px; text-align: center; margin-bottom: 2px;">LAMPIRAN E</h3>
+                <h3 style="font-weight: bold; font-size: 13px; text-align: center; margin-bottom: 15px;">FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h3>
+
+                <h2 style="font-weight: bold; font-size: 15px; text-align: center; text-transform: uppercase; margin-bottom: 5px;">${art.tajuk || "HHBGFDS"}</h2>
+                <p style="text-align: center; font-weight: bold; font-size: 12px; margin-bottom: 2px;">${(mentee.name || "PESERTA").toUpperCase()}</p>
+                <p style="text-align: center; font-size: 11px; margin-bottom: 20px; color: #444;">${(mentee.pusat || "JABATAN PEMBANGUNAN STAF").toUpperCase()}</p>
+
+                <div style="font-size: 11px; line-height: 1.6; text-align: justify;">
+                    <p style="font-weight: bold; margin-top: 15px; margin-bottom: 4px;">ABSTRAK</p>
+                    <p style="margin-bottom: 12px;">${art.abstrak || "-"}</p>
+
+                    <p style="font-weight: bold; margin-top: 15px; margin-bottom: 4px;">PENGENALAN</p>
+                    <p style="margin-bottom: 12px;">${art.pengenalan || "-"}</p>
+
+                    <p style="font-weight: bold; margin-top: 15px; margin-bottom: 4px;">LATAR BELAKANG SEKOLAH SANDARAN</p>
+                    <p style="margin-bottom: 8px;">${art.latarBelakang || "-"}</p>
+
+                    <p style="font-weight: bold; font-size: 11px; margin-top: 10px; margin-bottom: 6px;">Jadual 1: Profil Sekolah Sandaran</p>
+                    <table class="print-table" style="width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 11px;">
+                        <tr><td width="35%">Nama Sekolah</td><td>${art.profilSekolah?.nama || mentee.sekolah || "-"}</td></tr>
+                        <tr><td>PPD/Daerah</td><td>${art.profilSekolah?.ppd || "-"}</td></tr>
+                        <tr><td>Jenis & Status Gred</td><td>${art.profilSekolah?.gred || "-"}</td></tr>
+                        <tr><td>Bilangan Guru & Murid</td><td>${art.profilSekolah?.stat || "-"}</td></tr>
+                        <tr><td>Nama Pengetua/ Guru Besar</td><td>${art.profilSekolah?.pgb || "-"}</td></tr>
+                    </table>
+
+                    <p style="font-weight: bold; margin-top: 15px; margin-bottom: 4px;">PERKONGSIAN BIDANG KEBITARAAN/AMALAN TERBAIK</p>
+                    <p style="margin-bottom: 12px;">${art.amalanTerbaik || "-"}</p>
+
+                    <p style="font-weight: bold; margin-top: 15px; margin-bottom: 4px;">RUMUSAN</p>
+                    <p style="margin-bottom: 12px;">${art.rumusan || "-"}</p>
+
+                    <p style="font-weight: bold; margin-top: 15px; margin-bottom: 4px;">RUJUKAN</p>
+                    <p style="margin-bottom: 12px;">${art.rujukan || "-"}</p>
+                </div>
+            </div>`;
+
+            const pSec = document.getElementById('printSection');
+            pSec.innerHTML = printHTML;
+            window.print();
+        };
+
+        window.downloadArticleWord = function() {
+            if (!window.currentArticleData) return;
+            const art = window.currentArticleData;
+            const mentee = art.mentee || {};
+
+            const content = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head><meta charset='utf-8'><title>Artikel Lampiran E</title></head>
+                <body style="font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5;">
+                    <h3 style="text-align: center; font-size: 14pt; margin:0;">KEMENTERIAN PENDIDIKAN</h3>
+                    <h3 style="text-align: center; font-size: 14pt; margin:0;">INSTITUT AMINUDDIN BAKI</h3>
+                    <h3 style="text-align: center; font-size: 12pt; margin-top:10px;">LAMPIRAN E: FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h3>
+                    <br>
+                    <h2 style="text-align: center; font-size: 16pt;">${(art.tajuk || "TAJUK ARTIKEL").toUpperCase()}</h2>
+                    <p style="text-align: center; font-weight: bold;">${(mentee.name || "PESERTA").toUpperCase()}</p>
+                    <p style="text-align: center;">${(mentee.pusat || "JABATAN PEMBANGUNAN STAF").toUpperCase()}</p>
+                    <br>
+                    <h3>ABSTRAK</h3><p>${art.abstrak || "-"}</p>
+                    <h3>PENGENALAN</h3><p>${art.pengenalan || "-"}</p>
+                    <h3>LATAR BELAKANG SEKOLAH SANDARAN</h3><p>${art.latarBelakang || "-"}</p>
+                    <h4>Jadual 1: Profil Sekolah Sandaran</h4>
+                    <table border="1" style="border-collapse: collapse; width: 100%;">
+                        <tr><td>Nama Sekolah</td><td>${art.profilSekolah?.nama || mentee.sekolah || "-"}</td></tr>
+                        <tr><td>PPD/Daerah</td><td>${art.profilSekolah?.ppd || "-"}</td></tr>
+                        <tr><td>Jenis & Status Gred</td><td>${art.profilSekolah?.gred || "-"}</td></tr>
+                        <tr><td>Bilangan Guru & Murid</td><td>${art.profilSekolah?.stat || "-"}</td></tr>
+                        <tr><td>Nama Pengetua/ Guru Besar</td><td>${art.profilSekolah?.pgb || "-"}</td></tr>
+                    </table>
+                    <br>
+                    <h3>PERKONGSIAN BIDANG KEBITARAAN/AMALAN TERBAIK</h3><p>${art.amalanTerbaik || "-"}</p>
+                    <h3>RUMUSAN</h3><p>${art.rumusan || "-"}</p>
+                    <h3>RUJUKAN</h3><p>${art.rujukan || "-"}</p>
+                </body></html>
+            `;
+
+            const blob = new Blob(['\ufeff' + content], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${(mentee.name || "Peserta").replace(/\s+/g, '_')}_Artikel_Lampiran_E.doc`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
         window.openMaklumBalas = async (id) => {
-            const pData = window.menteesList.find(x => x.id === id) || {
+            const mentee = window.menteesList.find(x => x.id === id) || {
                 id: id,
                 name: 'AINOL',
                 jawatan: 'Penolong Kanan Pentadbiran',
@@ -1210,166 +1399,149 @@
                 pusat: 'JABATAN PEMBANGUNAN STAF'
             };
 
-            try {
-                const pSnap = await get(child(ref(db), `propkes_accounts/${id}`));
-                if (pSnap.exists()) {
-                    const account = pSnap.val();
-                    pData.nama = account.name || pData.name;
-                    pData.jawatan = account.jawatan || pData.jawatan;
-                    pData.gred = account.gred || pData.gred;
-                    pData.jabatan = account.sekolah || account.jabatan || pData.sekolah;
-                    pData.pusat = account.pusatCawangan || account.pusat || pData.pusat;
-                } else {
-                    pData.nama = pData.name;
-                    pData.jabatan = pData.sekolah;
-                }
-            } catch(e) {
-                pData.nama = pData.name;
-                pData.jabatan = pData.sekolah;
-            }
+            window.currentMenteeG = mentee;
+            
+            document.getElementById('mbModalSubtitle').textContent = `Peserta: ${mentee.name}`;
+            document.getElementById('mbNamaPeserta').value = mentee.name;
+            document.getElementById('mbJawatan').value = mentee.jawatan;
+            document.getElementById('mbGred').value = mentee.gred;
+            document.getElementById('mbJabatan').value = mentee.sekolah || mentee.jabatan;
+            document.getElementById('mbPusat').value = mentee.pusat;
 
-            window.currentMenteeG = pData;
-            document.getElementById('mbModalSubtitle').textContent = `Peserta: ${pData.nama}`;
-            document.getElementById('mbNamaPeserta').value = pData.nama;
-            document.getElementById('mbJawatan').value = pData.jawatan;
-            document.getElementById('mbGred').value = pData.gred;
-            document.getElementById('mbJabatan').value = pData.jabatan;
-            document.getElementById('mbPusat').value = pData.pusat;
+            document.getElementById('mbFasa').value = "FASA 1";
+            await window.loadMaklumBalasData("FASA 1");
 
-            const mModal = document.getElementById('maklumBalasModal');
-            mModal.classList.remove('hidden');
-            mModal.classList.add('flex');
-            setTimeout(()=>document.getElementById('maklumBalasModalContent').classList.remove('scale-95'),10);
-            setTimeout(()=>mModal.classList.remove('opacity-0'),10);
-
-            await window.handleMbFasaChange();
+            const modal = document.getElementById('maklumBalasModal');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(()=>document.getElementById('maklumBalasModalContent').classList.remove('scale-95'), 10);
+            setTimeout(()=>modal.classList.remove('opacity-0'), 10);
         };
 
-        window.handleMbFasaChange = async () => {
+        window.closeMaklumBalasModal = () => {
+            const modal = document.getElementById('maklumBalasModal');
+            if (!modal) return;
+            modal.classList.add('opacity-0');
+            document.getElementById('maklumBalasModalContent').classList.add('scale-95');
+            setTimeout(()=>{modal.classList.remove('flex'); modal.classList.add('hidden');}, 300);
+        };
+
+        window.handleMbFasaChange = async function() {
             const fasa = document.getElementById('mbFasa').value;
-            const menteeId = window.currentMenteeG ? window.currentMenteeG.id : null;
-            document.getElementById('mbUlasan').value = "";
+            await window.loadMaklumBalasData(fasa);
+        };
 
-            if (!menteeId) return;
-
+        window.loadMaklumBalasData = async (fasa) => {
+            const id = window.currentMenteeG.id;
             try {
-                const fasaKey = fasa.replace(/\s+/g, '_');
-                let snap = await get(child(ref(db), `propkes_borangG/${menteeId}/${fasaKey}`));
-                if (!snap.exists()) {
-                    snap = await get(child(ref(db), `propkes_feedback_pemandu/${menteeId}/${fasa}`));
-                }
+                let snap = await get(child(ref(db), `propkes_borangG/${id}/${fasa}`));
+                if (!snap.exists()) snap = await get(child(ref(db), `propkes_feedback_pemandu/${id}/${fasa}`));
 
-                if (snap.exists()) {
+                if(snap.exists()){
                     const data = snap.val();
-                    document.getElementById('mbUlasan').value = data.ulasan || "";
                     if (data.tarikhSandaran) {
                         document.getElementById('mbTarikhSandaran').value = data.tarikhSandaran;
                     }
+                    document.getElementById('mbUlasan').value = data.ulasan || "";
+                } else {
+                    document.getElementById('mbUlasan').value = "";
                 }
-            } catch(e) {
-                console.error("Ralat membaca Borang G:", e);
-            }
+            } catch(e) { console.error(e); }
         };
 
         window.saveMaklumBalas = async (e) => {
-            if (e) e.preventDefault();
-            const menteeId = window.currentMenteeG ? window.currentMenteeG.id : null;
-            if (!menteeId) {
-                window.showToast("Ralat: Tiada peserta dipilih.", "error");
-                return;
-            }
-
+            e.preventDefault();
+            const menteeId = window.currentMenteeG.id;
             const fasa = document.getElementById('mbFasa').value;
             const tarikhSandaran = document.getElementById('mbTarikhSandaran').value;
             const ulasan = document.getElementById('mbUlasan').value;
+
             const btn = document.getElementById('btnSimpanMB');
-            if(btn) { btn.textContent = "Menyimpan..."; btn.disabled = true; }
+            btn.textContent = "Menyimpan..."; btn.disabled = true;
+
+            const payload = {
+                fasa: fasa,
+                tarikhSandaran: tarikhSandaran,
+                ulasan: ulasan,
+                pemanduName: window.profileData.name || "Pemandu Citra",
+                pemanduJawatan: window.profileData.jawatan || "Pemandu Citra IAB",
+                tarikhKemasKini: new Date().toLocaleDateString('ms-MY'),
+                timestamp: Date.now()
+            };
 
             try {
-                const payload = {
-                    fasa: fasa,
-                    tarikhSandaran: tarikhSandaran,
-                    ulasan: ulasan,
-                    pemanduNama: window.profileData.name || "Pemandu Citra",
-                    pemanduJawatan: window.profileData.jawatan || "Pemandu Citra IAB",
-                    pemanduEmail: window.profileData.email || "-",
-                    pemanduPusat: window.profileData.pusat || "-",
-                    updatedAt: Date.now()
-                };
-
-                const fasaKey = fasa.replace(/\s+/g, '_');
-                await set(ref(db, `propkes_borangG/${menteeId}/${fasaKey}`), payload);
+                await set(ref(db, `propkes_borangG/${menteeId}/${fasa}`), payload);
                 await set(ref(db, `propkes_feedback_pemandu/${menteeId}/${fasa}`), payload);
-                
-                window.showToast(`Borang G (${fasa}) berjaya disimpan.`);
-            } catch(err) {
-                console.error(err);
-                window.showToast("Ralat menyimpan Borang G.", "error");
-            } finally {
-                if(btn) { btn.textContent = "Simpan Data"; btn.disabled = false; }
+                window.showToast(`Maklum Balas Bimbingan (${fasa}) berjaya disimpan.`, "success");
+            } catch(e) { 
+                console.error(e); 
+                window.showToast("Ralat menyimpan data Borang G.", "error"); 
+            } finally { 
+                btn.textContent = "Simpan Data"; btn.disabled = false; 
             }
         };
 
         window.cetakLampiranG = function() {
             const m = window.currentMenteeG || {};
             const fasa = document.getElementById('mbFasa').value;
-            const tarikhSandaran = document.getElementById('mbTarikhSandaran').value;
-            const ulasan = document.getElementById('mbUlasan').value;
-            const pName = (window.profileData.name || "Pemandu Citra").toUpperCase();
-            const pJawatan = (window.profileData.jawatan || "Pemandu Citra IAB").toUpperCase();
-            const pPusat = (window.profileData.pusat || "IAB Induk").toUpperCase();
+            const tarikh = document.getElementById('mbTarikhSandaran').value || "-";
+            const ulasan = document.getElementById('mbUlasan').value || "-";
+            const pName = (window.profileData.name || "PEMANDU CITRA IAB").toUpperCase();
+            const pJawatan = (window.profileData.jawatan || "PEMANDU CITRA IAB").toUpperCase();
+            const pPusat = (window.profileData.pusat || "IAB INDUK").toUpperCase(); 
 
-            const pSec = document.getElementById('printSection');
-            pSec.innerHTML = `
-                <div class="print-page">
-                    <div style="text-align:center; margin-bottom:15px;">
-                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height:85px; width:auto; margin:0 auto; display:block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+            const html = `
+            <div class="print-page">
+                <div style="width: 100%; text-align: center; margin-bottom: 15px;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                </div>
+
+                <h3 style="font-weight: bold; font-size: 15px; text-align: center; margin-bottom: 2px;">INSTITUT AMINUDDIN BAKI</h3>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 15px;">TAHUN 2026</h2>
+                <h3 style="font-weight: bold; font-size: 14px; text-align: center; text-transform: uppercase; margin-bottom: 20px; text-decoration: underline;">LAMPIRAN G: BORANG MAKLUM BALAS PEMANDU CITRA (${fasa})</h3>
+
+                <table class="print-table" style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                    <tr><th colspan="2" style="text-align: left; background-color: #f1f5f9;">A. MAKLUMAT PESERTA</th></tr>
+                    <tr><td width="30%"><strong>Nama Peserta</strong></td><td>${(m.name || "-").toUpperCase()}</td></tr>
+                    <tr><td><strong>Jawatan & Gred</strong></td><td>${(m.jawatan || "-").toUpperCase()} (${(m.gred || "-").toUpperCase()})</td></tr>
+                    <tr><td><strong>Jabatan / Sekolah Sandaran</strong></td><td>${(m.sekolah || m.jabatan || "-").toUpperCase()}</td></tr>
+                    <tr><td><strong>Pusat / Cawangan</strong></td><td>${(m.pusat || "-").toUpperCase()}</td></tr>
+                </table>
+
+                <table class="print-table" style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                    <tr><th colspan="2" style="text-align: left; background-color: #f1f5f9;">B. MAKLUMAT PEMANDU CITRA</th></tr>
+                    <tr><td width="30%"><strong>Nama Pemandu Citra</strong></td><td>${pName}</td></tr>
+                    <tr><td><strong>Jawatan Hakiki</strong></td><td>${pJawatan}</td></tr>
+                    <tr><td><strong>Pusat / Cawangan</strong></td><td>${pPusat}</td></tr>
+                </table>
+
+                <table class="print-table" style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+                    <tr><th colspan="2" style="text-align: left; background-color: #f1f5f9;">C. Ulasan Maklum Balas Bimbingan (${fasa})</th></tr>
+                    <tr><td width="30%"><strong>Tempoh Sandaran</strong></td><td>${tarikh}</td></tr>
+                    <tr><td colspan="2" style="min-height: 200px; vertical-align: top; padding: 12px;">
+                        <strong>Ulasan & Rumusan Bimbingan:</strong><br><br>
+                        <p style="line-height: 1.6; text-align: justify; white-space: pre-wrap;">${ulasan || "Tiada ulasan direkodkan."}</p>
+                    </td></tr>
+                </table>
+
+                <div style="margin-top: 30px; display: flex; justify-between; font-size: 11px; line-height: 1.8;">
+                    <div>
+                        <p>Tandatangan Pemandu Citra:</p>
+                        <br><br>
+                        <p>________________________</p>
+                        <p>( <strong>${pName}</strong> )</p>
+                        <p style="color: #555;">Tarikh: ${new Date().toLocaleDateString('ms-MY')}</p>
                     </div>
-                    <h3 style="text-align:center; font-size:15px; font-weight:bold; margin-bottom:2px;">INSTITUT AMINUDDIN BAKI</h3>
-                    <h2 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                    <h2 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:15px;">TAHUN 2026</h2>
-                    <h3 style="text-align:center; font-size:14px; font-weight:bold; text-transform:uppercase; margin-bottom:20px; text-decoration:underline;">LAMPIRAN G: BORANG MAKLUM BALAS BIMBINGAN PEMANDU CITRA (${fasa})</h3>
-
-                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:15px;">
-                        <tr><th colspan="2" style="text-align:left; background:#f1f5f9;">A. MAKLUMAT PESERTA</th></tr>
-                        <tr><td width="30%"><strong>Nama Peserta</strong></td><td>${(m.nama || m.name || "-").toUpperCase()}</td></tr>
-                        <tr><td><strong>Jawatan & Gred</strong></td><td>${(m.jawatan || "-").toUpperCase()} (${(m.gred || "-").toUpperCase()})</td></tr>
-                        <tr><td><strong>Jabatan / Sekolah Sandaran</strong></td><td>${(m.jabatan || m.sekolah || "-").toUpperCase()}</td></tr>
-                        <tr><td><strong>Pusat / Cawangan</strong></td><td>${(m.pusat || "-").toUpperCase()}</td></tr>
-                    </table>
-
-                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:15px;">
-                        <tr><th colspan="2" style="text-align:left; background:#f1f5f9;">B. MAKLUMAT PEMANDU CITRA</th></tr>
-                        <tr><td width="30%"><strong>Nama Pemandu Citra</strong></td><td>${pName}</td></tr>
-                        <tr><td><strong>Jawatan Hakiki</strong></td><td>${pJawatan}</td></tr>
-                        <tr><td><strong>Pusat / Cawangan</strong></td><td>${pPusat}</td></tr>
-                    </table>
-
-                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:30px;">
-                        <tr><th colspan="2" style="text-align:left; background:#f1f5f9;">C. SESI BIMBINGAN (${fasa})</th></tr>
-                        <tr><td width="30%"><strong>Tempoh Sandaran</strong></td><td>${tarikhSandaran}</td></tr>
-                        <tr><td colspan="2" style="min-height:220px; vertical-align:top; padding:15px;">
-                            <strong>Ulasan & Maklum Balas Bimbingan Pemandu Citra:</strong><br><br>
-                            <p style="line-height:1.6; text-align:justify; white-space:pre-wrap;">${ulasan || "Tiada ulasan direkodkan."}</p>
-                        </td></tr>
-                    </table>
-
-                    <div style="margin-top:30px; display:flex; justify-between; font-size:11px; line-height:1.8;">
-                        <div>
-                            <p>Tandatangan Pemandu Citra:</p>
-                            <br><br>
-                            <p>________________________</p>
-                            <p>( <strong>${pName}</strong> )</p>
-                            <p style="color:#555;">Tarikh: ${new Date().toLocaleDateString('ms-MY')}</p>
-                        </div>
-                        <div style="text-align:right;">
-                            <p>Cap Rasmi:</p>
-                            <br><br><br>
-                            <p style="font-style:italic; color:#777;">* Dijana Secara Digital Melalui Sistem PROPKES 2026</p>
-                        </div>
+                    <div style="text-align: right;">
+                        <p>Cap Rasmi:</p>
+                        <br><br><br>
+                        <p style="font-style: italic; color: #777;">* Dijana Secara Digital Melalui Sistem PROPKES 2026</p>
                     </div>
                 </div>
-            `;
+            </div>`;
+
+            const pSec = document.getElementById('printSection');
+            pSec.innerHTML = html;
             window.print();
         };
 
