@@ -1071,7 +1071,7 @@
                         .title { font-size: 14pt; font-weight: bold; text-align: center; text-transform: uppercase; margin-bottom: 10px; }
                         .author { text-align: center; font-weight: bold; margin-bottom: 20px; font-size: 11pt; }
                         .section-title { font-size: 11pt; font-weight: bold; text-transform: uppercase; margin-top: 15px; margin-bottom: 5px; }
-                        .abstract-box { border: 1px solid #000; padding: 12px; margin-bottom: 20px; font-style: italic; background-color: #f9f9f9; }
+                        .abstract-box { margin-bottom: 20px; font-style: italic; text-align: justify; }
                         table { border-collapse: collapse; width: 100%; margin-top: 10px; margin-bottom: 15px; font-size: 10pt; }
                         td, th { border: 1px solid #000; padding: 6px; vertical-align: top; }
                         th { background-color: #f1f5f9; font-weight: bold; text-align: left; }
@@ -1156,15 +1156,15 @@
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; text-transform: uppercase; margin-bottom: 10px;">${tajuk}</h2>
                     <p style="text-align: center; font-weight: bold; font-size: 11px; margin-bottom: 20px;">${nama}<br>${(u.jabatan || u.pusatCawangan || "INSTITUT AMINUDDIN BAKI").toUpperCase()}</p>
 
-                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; border-bottom: 1px solid #000; pb-1;">ABSTRAK</h4>
-                    <div style="border: 1px solid #000; padding: 10px; margin-bottom: 15px; font-size: 10px; font-style: italic; background-color: #f9f9f9;">
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; border-bottom: 1px solid #000; padding-bottom: 3px;">ABSTRAK</h4>
+                    <div style="margin-bottom: 15px; font-size: 10px; font-style: italic; text-align: justify; line-height: 1.5;">
                         ${getVal('artAbstrak') || "Tiada abstrak diisi."}
                     </div>
 
-                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; border-bottom: 1px solid #000; pb-1;">PENGENALAN</h4>
-                    <p style="font-size: 10px; white-space: pre-wrap;">${getVal('artPengenalan') || "Tiada pengenalan diisi."}</p>
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; border-bottom: 1px solid #000; padding-bottom: 3px;">PENGENALAN</h4>
+                    <p style="font-size: 10px; white-space: pre-wrap; text-align: justify; line-height: 1.5;">${getVal('artPengenalan') || "Tiada pengenalan diisi."}</p>
 
-                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; border-bottom: 1px solid #000; pb-1;">LATAR BELAKANG SEKOLAH SANDARAN</h4>
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; border-bottom: 1px solid #000; padding-bottom: 3px;">LATAR BELAKANG SEKOLAH SANDARAN</h4>
                     <p style="font-size: 10px; margin-bottom: 5px;"><b>Jadual 1: Profil Sekolah Sandaran</b></p>
                     <table class="print-table" style="margin-bottom: 15px;">
                         <tr><td style="width: 35%; font-weight: bold;">Nama Sekolah</td><td>${(u.sekolah || "-").toUpperCase()}</td></tr>
@@ -1174,21 +1174,21 @@
                         <tr><td style="font-weight: bold;">Nama Pengetua / Guru Besar</td><td>${(getVal('artNamaPengetua') || u.mentorSekolah || "-").toUpperCase()}</td></tr>
                     </table>
 
-                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; border-bottom: 1px solid #000; pb-1;">PERKONGSIAN BIDANG KEBITARAAN / AMALAN TERBAIK</h4>
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; border-bottom: 1px solid #000; padding-bottom: 3px;">PERKONGSIAN BIDANG KEBITARAAN / AMALAN TERBAIK</h4>
                     <p style="font-size: 10px;"><b>1. Bidang Kebitaraan / Amalan Terbaik Pertama</b></p>
-                    <p style="font-size: 10px; white-space: pre-wrap; margin-bottom: 10px;">${getVal('artKebitaraan1') || "-"}</p>
+                    <p style="font-size: 10px; white-space: pre-wrap; margin-bottom: 10px; text-align: justify; line-height: 1.5;">${getVal('artKebitaraan1') || "-"}</p>
 
                     <p style="font-size: 10px;"><b>2. Bidang Kebitaraan / Amalan Terbaik Kedua</b></p>
-                    <p style="font-size: 10px; white-space: pre-wrap; margin-bottom: 10px;">${getVal('artKebitaraan2') || "-"}</p>
+                    <p style="font-size: 10px; white-space: pre-wrap; margin-bottom: 10px; text-align: justify; line-height: 1.5;">${getVal('artKebitaraan2') || "-"}</p>
 
                     <p style="font-size: 10px;"><b>3. Bidang Kebitaraan / Amalan Terbaik Ketiga</b></p>
-                    <p style="font-size: 10px; white-space: pre-wrap; margin-bottom: 15px;">${getVal('artKebitaraan3') || "-"}</p>
+                    <p style="font-size: 10px; white-space: pre-wrap; margin-bottom: 15px; text-align: justify; line-height: 1.5;">${getVal('artKebitaraan3') || "-"}</p>
 
-                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; border-bottom: 1px solid #000; pb-1;">RUMUSAN</h4>
-                    <p style="font-size: 10px; white-space: pre-wrap;">${getVal('artRumusan') || "-"}</p>
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; border-bottom: 1px solid #000; padding-bottom: 3px;">RUMUSAN</h4>
+                    <p style="font-size: 10px; white-space: pre-wrap; text-align: justify; line-height: 1.5;">${getVal('artRumusan') || "-"}</p>
 
-                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; border-bottom: 1px solid #000; pb-1;">RUJUKAN</h4>
-                    <p style="font-size: 10px; white-space: pre-wrap;">${getVal('artRujukan') || "-"}</p>
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; border-bottom: 1px solid #000; padding-bottom: 3px;">RUJUKAN</h4>
+                    <p style="font-size: 10px; white-space: pre-wrap; line-height: 1.5;">${getVal('artRujukan') || "-"}</p>
                 </div>
             `;
             
@@ -1197,24 +1197,197 @@
             window.print();
             setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
         };
+        // ----------------------------------------------------
+        // LOGIK UTAMA TUGASAN & AUTO-SELESAI (CHECKLIST A, C, D, E)
+        // ----------------------------------------------------
+        const propkesTasks = [
+            {
+                phase: "Pra-Program (Julai 2026)",
+                tasks: [
+                    { 
+                        id: "t1", 
+                        title: "Mengenal pasti sekolah/PPD sandaran.", 
+                        date: "Jul 2026", 
+                        link: "javascript:window.openProfilModal()", 
+                        btnText: "Kemaskini Profil", 
+                        isAuto: true,
+                        checkAuto: () => {
+                            const u = window.profileData || {};
+                            return Boolean(u.sekolah && u.sekolah !== "Belum Diisi" && u.ppd && u.ppd !== "Belum Diisi");
+                        }
+                    },
+                    { 
+                        id: "t4", 
+                        title: "Instrumen i-PROPKES (Pra)", 
+                        date: "27 Jul 2026", 
+                        link: "instrumen_pra.html", 
+                        btnText: "Jawab", 
+                        isAssessment: true,
+                        isAuto: true,
+                        checkAuto: () => Boolean(localStorage.getItem(`propkes_pra_result_${currentUser}`))
+                    }
+                ]
+            },
+            {
+                phase: "Fasa 1 (Ogos - Sept 2026)",
+                isPhaseTable: true,
+                phaseId: "fasa1",
+                weeks: [
+                    { w: "W1", name: "Minggu 1", date: "3 - 9 Ogos 2026", loc: "Sekolah Sandaran", range: ["2026-08-03", "2026-08-09"] },
+                    { w: "W2", name: "Minggu 2", date: "10 - 16 Ogos 2026", loc: "Sekolah Sandaran", range: ["2026-08-10", "2026-08-16"] },
+                    { w: "W3", name: "Minggu 3", date: "17 - 23 Ogos 2026", loc: "Sekolah Sandaran", range: ["2026-08-17", "2026-08-23"] },
+                    { w: "W4", name: "Minggu 4", date: "24 - 30 Ogos 2026", loc: "Sekolah Sandaran", range: ["2026-08-24", "2026-08-30"] },
+                    { w: "W5", name: "Minggu 5", date: "31 Ogos - 6 Sept 2026", loc: "Sekolah Sandaran", range: ["2026-08-31", "2026-09-06"] },
+                    { w: "W6", name: "Minggu 6", date: "7 - 13 Sept 2026", loc: "PPD (5 Hari)", range: ["2026-09-07", "2026-09-13"] }
+                ]
+            },
+            {
+                phase: "Fasa 2 (Sept - Okt 2026)",
+                isPhaseTable: true,
+                phaseId: "fasa2",
+                weeks: [
+                    { w: "W7", name: "Minggu 7", date: "14 - 20 Sept 2026", loc: "Sekolah Sandaran", range: ["2026-09-14", "2026-09-20"] },
+                    { w: "W8", name: "Minggu 8", date: "21 - 27 Sept 2026", loc: "Sekolah Sandaran", range: ["2026-09-21", "2026-09-27"] },
+                    { w: "W9", name: "Minggu 9", date: "28 Sept - 4 Okt 2026", loc: "Sekolah Sandaran", range: ["2026-09-28", "2026-10-04"] },
+                    { w: "W10", name: "Minggu 10", date: "5 - 11 Okt 2026", loc: "Sekolah Sandaran", range: ["2026-10-05", "2026-10-11"] },
+                    { w: "W11", name: "Minggu 11", date: "12 - 18 Okt 2026", loc: "Sekolah Sandaran", range: ["2026-10-12", "2026-10-18"] },
+                    { w: "W12", name: "Minggu 12", date: "19 - 25 Okt 2026", loc: "PPD (5 Hari)", range: ["2026-10-19", "2026-10-25"] }
+                ]
+            },
+            {
+                phase: "Pasca-Program (November 2026)",
+                tasks: [
+                    { 
+                        id: "t11", 
+                        title: "Instrumen i-PROPKES (Pasca)", 
+                        date: "2 Nov 2026", 
+                        link: "instrumen_pasca.html", 
+                        btnText: "Jawab", 
+                        isAssessment: true,
+                        isAuto: true,
+                        checkAuto: () => Boolean(localStorage.getItem(`propkes_pasca_result_${currentUser}`))
+                    },
+                    { 
+                        id: "t12", 
+                        title: "Penulisan Artikel PROPKES (Lampiran E)", 
+                        date: "Nov 2026", 
+                        link: "javascript:window.openArtikelModal()", 
+                        btnText: "Buka Borang", 
+                        isAction: true,
+                        isAuto: true,
+                        checkAuto: () => Boolean(window.artikelData && window.artikelData.tajuk && window.artikelData.tajuk.trim() !== "")
+                    },
+                    { id: "t15", title: "Penyerahan Dokumen D, E, F, G ke Drive", date: "Nov 2026", link: "https://drive.google.com/drive/folders/1PfzBbH5CftPJJqoZGpPMD8n8O3UdpnXp?usp=sharing", btnText: "Drive" }
+                ]
+            }
+        ];
 
-        document.getElementById("profilForm").addEventListener("submit", async function(e) {
-            e.preventDefault();
-            const btn = document.getElementById("btnSimpanProfil"); btn.textContent = "Menyimpan..."; btn.disabled = true;
-            
-            const pemanduNama = getValUp('editPemanduCitra');
-            const pemanduJawatanVal = getValUp('editPemanduJawatan');
-            const pemanduPusatVal = getValUp('editPemanduPusat');
+        window.renderTasks = function() {
+            const container = document.getElementById("taskListContainer"); 
+            if(!container) return; container.innerHTML = ""; 
+            let progress = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
+            const cal = window.calendarData || {};
+            const jur = window.journalData || {};
 
-            const dataToSave = {
-                ic: getValUp('editIc'),
-                jawatan: getValUp('editJawatan'), gred: getValUp('editGred'), jabatan: getValUp('editJabatan'), pusatCawangan: getValUp('editPusatCawangan'),
-                sekolah: getValUp('editSekolah'), ppd: getValUp('editPpd'),
-                pemanduCitra: pemanduNama, pemanduJawatan: pemanduJawatanVal, pemanduPusat: pemanduPusatVal,
-                pemanducitra: pemanduNama, pemanducitraJawatan: pemanduJawatanVal, pemanducitraPusat: pemanduPusatVal,
-                mentorSekolah: getValUp('editMentorSekolah'), mentorJawatan: getValUp('editMentorJawatan'), mentorTelefon: getVal('editMentorTelefon'), mentorEmail: getVal('editMentorEmail'), mentorAlamat: getValUp('editMentorAlamat'), 
-                mentorPpd: getValUp('editMentorPpd'), mentorPpdJawatan: getValUp('editMentorPpdJawatan'), mentorPpdTelefon: getVal('editMentorPpdTelefon'), mentorPpdEmail: getVal('editMentorPpdEmail'), mentorPpdAlamat: getValUp('editMentorPpdAlamat')
-            };
+            propkesTasks.forEach(phaseGroup => {
+                let html = `<div class="mb-3 border-b border-slate-800 pb-2"><h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider">${phaseGroup.phase}</h4></div>`;
+
+                if (phaseGroup.isPhaseTable) {
+                    // JADUAL JURNAL & LOG BAGI FASA 1 & FASA 2
+                    html += `
+                        <div class="overflow-x-auto custom-scrollbar mb-6 border border-slate-800 rounded-xl bg-slate-950/60 p-2">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="border-b border-slate-800 text-slate-400 font-bold uppercase text-[10px]">
+                                        <th class="py-2.5 px-3">Minggu & Tarikh</th>
+                                        <th class="py-2.5 px-3">Lokasi</th>
+                                        <th class="py-2.5 px-3 text-center">Log Harian (C)</th>
+                                        <th class="py-2.5 px-3 text-center">Jurnal (D)</th>
+                                        <th class="py-2.5 px-3 text-right">Status Selesai</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800/60">
+                    `;
+
+                    phaseGroup.weeks.forEach(wk => {
+                        // Check Log C count for this week range
+                        let logCount = 0;
+                        Object.keys(cal).forEach(dt => {
+                            if (dt >= wk.range[0] && dt <= wk.range[1]) {
+                                if (cal[dt] && cal[dt].aktiviti && cal[dt].refleksi) logCount++;
+                            }
+                        });
+
+                        // Check Jurnal D for this week
+                        const jurKey = Object.keys(jur).find(k => k.startsWith(`${wk.w}_`));
+                        const hasJurnal = Boolean(jurKey && jur[jurKey] && jur[jurKey].deskripsi);
+
+                        const targetLog = wk.loc.includes("PPD") ? 5 : 3;
+                        const logDone = logCount >= targetLog;
+                        const isWeekComplete = logDone || hasJurnal;
+
+                        const logBadge = logDone 
+                            ? `<span class="bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded text-[10px] border border-emerald-500/20 font-bold">${logCount}/${targetLog} Hari</span>`
+                            : `<span class="bg-slate-800 text-slate-400 px-2 py-0.5 rounded text-[10px]">${logCount}/${targetLog} Hari</span>`;
+
+                        const jurBadge = hasJurnal
+                            ? `<span class="bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded text-[10px] border border-purple-500/20 font-bold">Dihantar</span>`
+                            : `<span class="bg-slate-800 text-slate-400 px-2 py-0.5 rounded text-[10px]">Belum</span>`;
+
+                        const statusBtn = isWeekComplete
+                            ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-950/40 border border-emerald-800 px-2.5 py-1 rounded-lg">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg> Auto Selesai
+                               </span>`
+                            : `<span class="text-[10px] text-slate-500 italic">Belum Lengkap</span>`;
+
+                        html += `
+                            <tr class="hover:bg-slate-900/50 transition-colors">
+                                <td class="py-2.5 px-3">
+                                    <div class="font-bold text-white">${wk.name}</div>
+                                    <div class="text-[10px] text-slate-400">${wk.date}</div>
+                                </td>
+                                <td class="py-2.5 px-3 text-slate-300 font-medium">${wk.loc}</td>
+                                <td class="py-2.5 px-3 text-center">${logBadge}</td>
+                                <td class="py-2.5 px-3 text-center">${jurBadge}</td>
+                                <td class="py-2.5 px-3 text-right">${statusBtn}</td>
+                            </tr>
+                        `;
+                    });
+
+                    html += `</tbody></table></div>`;
+                } else {
+                    // SENARAI CHECKLIST UNTUK PRA & PASCA
+                    html += `<div class="space-y-3 mb-6">`;
+                    phaseGroup.tasks.forEach(task => {
+                        let isDone = progress[task.id] === true;
+                        
+                        // AUTO CHECK LOGIC
+                        if (task.isAuto && typeof task.checkAuto === 'function') {
+                            if (task.checkAuto()) {
+                                isDone = true;
+                                progress[task.id] = true;
+                            }
+                        }
+
+                        const bg = isDone ? "bg-emerald-950/20 border-emerald-900/50" : "bg-slate-800/40 border-slate-700/50";
+                        const iconBg = isDone ? "bg-emerald-500 text-white" : "bg-slate-700 text-slate-400";
+                        
+                        const actBtn = isDone 
+                            ? `<span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded border border-emerald-500/30 font-bold flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg> Selesai</span>` 
+                            : `<button onclick="window.toggleTask('${task.id}', true)" class="text-[10px] bg-slate-700 hover:bg-emerald-600 text-white px-3 py-1.5 rounded transition-colors outline-none cursor-pointer">Tanda Selesai</button>`;
+                        
+                        let linkHtml = task.isStatic ? '' : (task.isAction ? `<button onclick="${task.link}" class="text-[10px] bg-purple-600/20 text-purple-400 px-2 py-1 rounded border border-purple-600/30 outline-none cursor-pointer font-bold">${task.btnText}</button>` : `<a href="${task.link}" target="${task.isAssessment ? '_self' : '_blank'}" class="text-[10px] bg-blue-600/10 text-blue-400 px-2 py-1 rounded border border-blue-600/20 outline-none cursor-pointer font-bold">${task.btnText}</a>`);
+
+                        html += `<div class="flex flex-col sm:flex-row justify-between p-4 rounded-xl border ${bg} gap-4"><div class="flex items-start gap-4"><div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${iconBg}"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div><div><h4 class="text-sm font-semibold text-white">${task.title}</h4><div class="flex items-center gap-3 mt-2"><span class="text-[10px] text-slate-400">${task.date}</span> ${linkHtml}</div></div></div><div class="shrink-0 flex justify-end items-center">${actBtn}</div></div>`;
+                    });
+                    html += `</div>`;
+                }
+
+                container.innerHTML += html;
+            });
+
+            localStorage.setItem(`propkes_progress_${currentUser}`, JSON.stringify(progress));
+        };
 
             try { 
                 await update(ref(db, `propkes_accounts/${currentUser}`), dataToSave); 
