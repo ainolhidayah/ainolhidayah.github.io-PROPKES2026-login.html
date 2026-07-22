@@ -804,6 +804,8 @@
             const lockedMsg = document.getElementById("modalLockedMsg");
             if (lockedMsg) lockedMsg.classList.toggle("hidden", !isLocked);
 
+            window.handleLocationChange();
+
             const modal = document.getElementById("dailyModal");
             if (modal) {
                 modal.classList.remove("hidden");
@@ -825,19 +827,69 @@
 
         window.handleLocationChange = function() {
             const loc = window.getVal("modalLocationSelect");
+            const isInactive = (loc === "iab" || loc === "cuti" || !loc);
+
+            const aktivitiEl = document.getElementById("modalAktiviti");
             const skksmSelect = document.getElementById("modalSkksm");
-            if (skksmSelect && (loc === "cuti" || loc === "iab" || !loc)) {
-                skksmSelect.value = "-";
+            const refleksiEl = document.getElementById("modalRefleksi");
+            const toggleEl = document.getElementById("modalLogToggle");
+            const toggleContainer = toggleEl ? toggleEl.closest('.bg-slate-950') : null;
+
+            if (aktivitiEl) {
+                aktivitiEl.disabled = isInactive;
+                if (isInactive) {
+                    aktivitiEl.value = "";
+                    aktivitiEl.classList.add("opacity-40", "cursor-not-allowed");
+                } else {
+                    aktivitiEl.classList.remove("opacity-40", "cursor-not-allowed");
+                }
+            }
+
+            if (skksmSelect) {
+                skksmSelect.disabled = isInactive;
+                if (isInactive) {
+                    skksmSelect.value = "-";
+                    skksmSelect.classList.add("opacity-40", "cursor-not-allowed");
+                } else {
+                    skksmSelect.classList.remove("opacity-40", "cursor-not-allowed");
+                }
+            }
+
+            if (refleksiEl) {
+                refleksiEl.disabled = isInactive;
+                if (isInactive) {
+                    refleksiEl.value = "";
+                    refleksiEl.classList.add("opacity-40", "cursor-not-allowed");
+                } else {
+                    refleksiEl.classList.remove("opacity-40", "cursor-not-allowed");
+                }
+            }
+
+            if (toggleEl) {
+                toggleEl.disabled = isInactive;
+                if (isInactive) {
+                    toggleEl.checked = false;
+                }
+            }
+
+            if (toggleContainer) {
+                if (isInactive) {
+                    toggleContainer.classList.add("opacity-40", "pointer-events-none");
+                } else {
+                    toggleContainer.classList.remove("opacity-40", "pointer-events-none");
+                }
             }
         };
 
         window.saveDailyData = async function() {
             if (!curEditDate) return;
             const loc = window.getVal("modalLocationSelect");
-            const aktiviti = window.getVal("modalAktiviti");
-            const skksm = window.getVal("modalSkksm");
-            const refleksi = window.getVal("modalRefleksi");
-            const isLog = document.getElementById("modalLogToggle") ? document.getElementById("modalLogToggle").checked : false;
+            const isInactive = (loc === "iab" || loc === "cuti" || !loc);
+
+            const aktiviti = isInactive ? "" : window.getVal("modalAktiviti");
+            const skksm = isInactive ? "-" : window.getVal("modalSkksm");
+            const refleksi = isInactive ? "" : window.getVal("modalRefleksi");
+            const isLog = isInactive ? false : (document.getElementById("modalLogToggle") ? document.getElementById("modalLogToggle").checked : false);
 
             if (!loc) {
                 window.showToast("Sila pilih lokasi keberadaan.", "error");
