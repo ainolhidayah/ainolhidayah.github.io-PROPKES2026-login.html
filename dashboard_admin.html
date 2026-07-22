@@ -109,6 +109,51 @@
             </div>
         </div>
 
+        <!-- KAD STATUS PURATA KEMAJUAN TUGASAN KESELURUHAN PESERTA -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg mb-8">
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <span class="w-2 h-2 bg-emerald-400 rounded-full"></span>
+                Purata Peratus Siap Tugasan Keseluruhan Peserta (Mengikut Fasa)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Fasa 1 -->
+                <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-blue-400 uppercase">Fasa 1 (Ogos - Sept)</span>
+                        <span class="text-base font-black text-white" id="overallFasa1Pct">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-900 rounded-full h-2.5 border border-slate-800 overflow-hidden">
+                        <div class="bg-blue-500 h-2.5 rounded-full transition-all duration-500" id="overallFasa1Bar" style="width: 0%"></div>
+                    </div>
+                    <p class="text-[10px] text-slate-400">Log C (40%), Jurnal D M1-M6 (40%), & Sandaran/Ujian Pra (20%).</p>
+                </div>
+
+                <!-- Fasa 2 -->
+                <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-purple-400 uppercase">Fasa 2 (Sept - Okt)</span>
+                        <span class="text-base font-black text-white" id="overallFasa2Pct">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-900 rounded-full h-2.5 border border-slate-800 overflow-hidden">
+                        <div class="bg-purple-500 h-2.5 rounded-full transition-all duration-500" id="overallFasa2Bar" style="width: 0%"></div>
+                    </div>
+                    <p class="text-[10px] text-slate-400">Log C (40%), Jurnal D M7-M12 (40%), Artikel E & Pasca (20%).</p>
+                </div>
+
+                <!-- Purata Keseluruhan -->
+                <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-emerald-400 uppercase">Purata Keseluruhan</span>
+                        <span class="text-base font-black text-emerald-400" id="overallGrandPct">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-900 rounded-full h-2.5 border border-slate-800 overflow-hidden">
+                        <div class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" id="overallGrandBar" style="width: 0%"></div>
+                    </div>
+                    <p class="text-[10px] text-slate-400">Purata kemajuan gabungan Fasa 1 & Fasa 2 semua peserta.</p>
+                </div>
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
             <div class="xl:col-span-2 space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -365,6 +410,114 @@
         let branchChartInstance = null;
 
         /* =========================================================
+           PENGIRAAN PERATUS KEMAJUAN TUGASAN FASA 1 & FASA 2
+           ========================================================= */
+        window.calculateParticipantProgress = function(userAcc = {}, attendData = {}, journalData = {}, articleData = {}, ipropkesData = {}) {
+            let f1LogCount = 0;
+            let f2LogCount = 0;
+
+            Object.keys(attendData).forEach(dt => {
+                const item = attendData[dt];
+                if (item && item.loc && item.aktiviti) {
+                    const [y, m, d] = dt.split('-').map(Number);
+                    const isFasa1 = (m === 8) || (m === 9 && d <= 13);
+                    const isFasa2 = (m === 9 && d >= 14) || (m === 10 && d <= 25);
+                    if (isFasa1) f1LogCount++;
+                    if (isFasa2) f2LogCount++;
+                }
+            });
+
+            let f1JurCount = 0;
+            let f2JurCount = 0;
+            Object.keys(journalData).forEach(wKey => {
+                const j = journalData[wKey];
+                if (j && (j.deskripsi || j.analisis || j.interpretasi)) {
+                    if (wKey.startsWith('W1_') || wKey.startsWith('W2_') || wKey.startsWith('W3_') || wKey.startsWith('W4_') || wKey.startsWith('W5_') || wKey.startsWith('W6_')) {
+                        f1JurCount++;
+                    } else {
+                        f2JurCount++;
+                    }
+                }
+            });
+
+            let f1TaskCount = 0;
+            if (userAcc.sekolah && userAcc.ppd) f1TaskCount++; 
+            if (ipropkesData.pra) f1TaskCount++; 
+
+            let f2TaskCount = 0;
+            if (ipropkesData.pasca) f2TaskCount++; 
+            if (articleData && articleData.tajuk) f2TaskCount++; 
+
+            const f1LogPct = Math.min(100, (f1LogCount / 20) * 100);
+            const f1JurPct = Math.min(100, (f1JurCount / 6) * 100);
+            const f1TaskPct = (f1TaskCount / 2) * 100;
+            const f1Overall = Math.round((f1LogPct * 0.4) + (f1JurPct * 0.4) + (f1TaskPct * 0.2));
+
+            const f2LogPct = Math.min(100, (f2LogCount / 20) * 100);
+            const f2JurPct = Math.min(100, (f2JurCount / 6) * 100);
+            const f2TaskPct = (f2TaskCount / 2) * 100;
+            const f2Overall = Math.round((f2LogPct * 0.4) + (f2JurPct * 0.4) + (f2TaskPct * 0.2));
+
+            const grandOverall = Math.round((f1Overall + f2Overall) / 2);
+
+            return {
+                f1LogCount, f1JurCount, f1TaskCount, f1Overall,
+                f2LogCount, f2JurCount, f2TaskCount, f2Overall,
+                grandOverall
+            };
+        };
+
+        async function loadOverallTaskProgress() {
+            try {
+                const dbRef = ref(db);
+                const [attendSnap, jurSnap, artSnap, ipropkesSnap] = await Promise.all([
+                    get(child(dbRef, 'propkes_attendance')).catch(()=>null),
+                    get(child(dbRef, 'propkes_journals')).catch(()=>null),
+                    get(child(dbRef, 'propkes_articles')).catch(()=>null),
+                    get(child(dbRef, 'propkes_ipropkes')).catch(()=>null)
+                ]);
+
+                const attendances = (attendSnap && attendSnap.exists()) ? attendSnap.val() : {};
+                const journals = (jurSnap && jurSnap.exists()) ? jurSnap.val() : {};
+                const articles = (artSnap && artSnap.exists()) ? artSnap.val() : {};
+                const ipropkes = (ipropkesSnap && ipropkesSnap.exists()) ? ipropkesSnap.val() : {};
+
+                let pesertaUsernames = Object.keys(window.accountsData || {}).filter(u => window.accountsData[u].role === 'peserta');
+
+                if (pesertaUsernames.length === 0) return;
+
+                let sumF1 = 0, sumF2 = 0, sumGrand = 0;
+
+                pesertaUsernames.forEach(username => {
+                    const acc = window.accountsData[username];
+                    const att = attendances[username] || {};
+                    const jur = journals[username] || {};
+                    const art = articles[username] || {};
+                    const iprop = ipropkes[username] || {};
+
+                    const prog = window.calculateParticipantProgress(acc, att, jur, art, iprop);
+                    sumF1 += prog.f1Overall;
+                    sumF2 += prog.f2Overall;
+                    sumGrand += prog.grandOverall;
+                });
+
+                const avgF1 = Math.round(sumF1 / pesertaUsernames.length);
+                const avgF2 = Math.round(sumF2 / pesertaUsernames.length);
+                const avgGrand = Math.round(sumGrand / pesertaUsernames.length);
+
+                document.getElementById('overallFasa1Pct').textContent = `${avgF1}%`;
+                document.getElementById('overallFasa1Bar').style.width = `${avgF1}%`;
+
+                document.getElementById('overallFasa2Pct').textContent = `${avgF2}%`;
+                document.getElementById('overallFasa2Bar').style.width = `${avgF2}%`;
+
+                document.getElementById('overallGrandPct').textContent = `${avgGrand}%`;
+                document.getElementById('overallGrandBar').style.width = `${avgGrand}%`;
+
+            } catch(e) { console.error("Error loading task progress stats:", e); }
+        }
+
+        /* =========================================================
            PEMETAAN 38 ITEM KEPADA 9 DOMAIN SKKSM
            ========================================================= */
         window.skksm9Domains = [
@@ -608,6 +761,7 @@
 
                     renderBranchPieChart(branchCount);
                     loadOverallIPropkesData();
+                    loadOverallTaskProgress();
                     window.filterTable(); 
                 }
             } catch(e) { console.error(e); }
@@ -922,6 +1076,14 @@
                     window.activeViewingUser.ipropkes = iPropkesSnap.exists() ? iPropkesSnap.val() : {};
                     window.activeViewingUser.article = articleSnap.exists() ? articleSnap.val() : {};
 
+                    const prog = window.calculateParticipantProgress(
+                        window.activeViewingUser,
+                        window.activeViewingUser.attendance,
+                        window.activeViewingUser.journals,
+                        window.activeViewingUser.article,
+                        window.activeViewingUser.ipropkes
+                    );
+
                     window.activeViewingUser.monitoringReports = [];
                     if(monitoringSnap.exists()) {
                         const allMon = monitoringSnap.val();
@@ -950,6 +1112,49 @@
                     }
 
                     body.innerHTML = `
+                        <!-- KAD PERATUS KEMAJUAN TUGASAN PESERTA -->
+                        <div class="col-span-1 md:col-span-2 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-5 rounded-2xl border border-blue-500/30 space-y-3">
+                            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                                <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Status Peratus Siap Tugasan Peserta
+                                </h4>
+                                <span class="text-xs font-black text-emerald-400 bg-emerald-950 px-2.5 py-1 rounded-lg border border-emerald-800/50">Purata Keseluruhan: ${prog.grandOverall}%</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                                <!-- Fasa 1 -->
+                                <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span class="text-blue-400">FASA 1 (Ogos - Sept)</span>
+                                        <span class="text-white">${prog.f1Overall}%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden mb-2">
+                                        <div class="bg-blue-500 h-2 rounded-full transition-all duration-500" style="width: ${prog.f1Overall}%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-[10px] text-slate-400">
+                                        <span>Log C: <b class="text-white">${prog.f1LogCount}/20</b></span>
+                                        <span>Jurnal D: <b class="text-white">${prog.f1JurCount}/6</b></span>
+                                        <span>Tugasan: <b class="text-white">${prog.f1TaskCount}/2</b></span>
+                                    </div>
+                                </div>
+                                <!-- Fasa 2 -->
+                                <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span class="text-purple-400">FASA 2 (Sept - Okt)</span>
+                                        <span class="text-white">${prog.f2Overall}%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden mb-2">
+                                        <div class="bg-purple-500 h-2 rounded-full transition-all duration-500" style="width: ${prog.f2Overall}%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-[10px] text-slate-400">
+                                        <span>Log C: <b class="text-white">${prog.f2LogCount}/20</b></span>
+                                        <span>Jurnal D: <b class="text-white">${prog.f2JurCount}/6</b></span>
+                                        <span>Tugasan: <b class="text-white">${prog.f2TaskCount}/2</b></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Lampiran B & C -->
                         <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
                             <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider">Lampiran B & C (Log Harian)</h4>
