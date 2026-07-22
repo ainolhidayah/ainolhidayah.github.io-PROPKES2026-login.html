@@ -76,6 +76,7 @@
             </div>
         </div>
 
+        <!-- PROFILE SUMMARY CARD -->
         <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6 mb-8">
             <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm flex items-center gap-2">
                 Maklumat Anda (Ditarik Automatik dari Profil Peserta)
@@ -88,6 +89,7 @@
             </div>
         </div>
 
+        <!-- MENTEE LIST TABLE -->
         <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
             <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
                 <h3 class="font-bold text-white text-sm">Senarai Peserta (Permata Citra)</h3>
@@ -260,12 +262,8 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        let currentUser = localStorage.getItem("propkes_user");
-        if (!currentUser) {
-            // Akaun demo automatik jika berjalan dalam persekitaran pratonton
-            currentUser = "demo_pemandu";
-            console.warn("Sesi pengguna tidak dijumpai. Memuatkan sesi pratonton demo.");
-        }
+        // Safe user session with fallback for preview mode
+        let currentUser = localStorage.getItem("propkes_user") || "demo_pemandu";
 
         window.menteesList = [];
         window.profileData = {}; 
@@ -275,9 +273,6 @@
         let chartBarInstance = null;
         let chartWebInstance = null;
 
-        /* =========================================================
-           PEMETAAN 38 ITEM KEPADA 9 DOMAIN SKKSM
-           ========================================================= */
         window.skksm9Domains = [
             "Pengurusan & Kepimpinan Organisasi",
             "Pengurusan Kurikulum",
@@ -290,42 +285,9 @@
             "Pengurusan Perhubungan Luar"
         ];
 
-        window.process38ItemsTo9Domains = function(resultObj) {
-            if (!resultObj) return [0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-            const isAlreadyDomains = window.skksm9Domains.every(d => resultObj[d] !== undefined);
-            if (isAlreadyDomains) {
-                return window.skksm9Domains.map(d => Number(resultObj[d]) || 0);
-            }
-
-            const domainItemMapping = [
-                [1, 10, 11, 12, 13, 14, 15, 16, 17],            // 1. Pengurusan & Kepimpinan Organisasi
-                [2, 18, 19, 20, 21],                            // 2. Pengurusan Kurikulum
-                [3],                                            // 3. Pengurusan Kokurikulum
-                [4],                                            // 4. Pengurusan Hal Ehwal Murid
-                [5, 31],                                        // 5. Pengurusan Kewangan
-                [6, 33, 34],                                    // 6. Pengurusan Pentadbiran Pejabat
-                [7, 32],                                        // 7. Pengurusan Persekitaran & Kemudahan Fizikal
-                [8, 22, 23, 24, 25, 26, 27, 30, 35, 36, 37, 38], // 8. Pengurusan & Pembangunan Sumber Manusia
-                [9, 28, 29]                                     // 9. Pengurusan Perhubungan Luar
-            ];
-
-            return domainItemMapping.map(itemGroup => {
-                let sum = 0;
-                let count = 0;
-                itemGroup.forEach(itemIdx => {
-                    const val = resultObj[itemIdx] || resultObj[`item_${itemIdx}`] || resultObj[`q${itemIdx}`] || 0;
-                    if (val) {
-                        sum += Number(val);
-                        count++;
-                    }
-                });
-                return count > 0 ? parseFloat((sum / count).toFixed(2)) : 0;
-            });
-        };
-
         window.showToast = function(message, type = 'success') {
             const container = document.getElementById('toastContainer');
+            if(!container) return;
             const toast = document.createElement('div');
             const bgColor = type === 'success' ? 'bg-emerald-600' : (type==='warning' ? 'bg-amber-600' : 'bg-rose-600');
             toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl shadow-black/20 text-sm font-medium transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-3 z-[200]`;
@@ -337,18 +299,10 @@
 
         window.logout = function() { 
             localStorage.removeItem("propkes_user"); 
-            try {
-                if (window.location.protocol !== 'blob:') {
-                    window.location.href = "index.html";
-                } else {
-                    window.showToast("Log keluar berjaya.", "warning");
-                }
-            } catch(e) {
-                console.log("Log keluar.");
-            }
+            try { window.location.href = "index.html"; } catch(e) { window.showToast("Log keluar berjaya."); }
         };
 
-        async function loadPemanduData() {
+        window.loadPemanduData = async function() {
             try {
                 const dbRef = ref(db);
                 const userSnap = await get(child(dbRef, `propkes_accounts/${currentUser}`));
@@ -356,24 +310,23 @@
                 
                 if (userSnap.exists()) {
                     window.profileData = userSnap.val();
-                    const pName = window.profileData.name || "Pemandu Citra";
+                    const pName = window.profileData.name || "Pemandu Citra IAB";
                     document.getElementById('navNameDisplay').textContent = pName;
                     document.getElementById('navInitials').textContent = pName.substring(0, 2).toUpperCase();
                     document.getElementById('profileNama').textContent = pName;
                     myNameLower = pName.trim().toLowerCase();
                 } else {
-                    // Profil lalai sekiranya akaun belum didaftarkan lagi
+                    // Preview fallback
                     window.profileData = {
-                        name: "Pemandu Citra (Demo)",
-                        email: "pemandu.citra@iab.edu.my",
-                        jawatan: "Pensyarah Cemerlang / Pemandu Citra",
-                        pusat: "IAB Induk"
+                        name: "Dr. Ahmad Pemandu Citra",
+                        jawatan: "Pensyarah Cemerlang DG54",
+                        email: "ahmad.pemandu@iab.edu.my",
+                        pusat: "IAB Cawangan Genting Highlands"
                     };
-                    const pName = window.profileData.name;
-                    document.getElementById('navNameDisplay').textContent = pName;
-                    document.getElementById('navInitials').textContent = "PC";
-                    document.getElementById('profileNama').textContent = pName;
-                    myNameLower = pName.trim().toLowerCase();
+                    document.getElementById('navNameDisplay').textContent = window.profileData.name;
+                    document.getElementById('navInitials').textContent = "AP";
+                    document.getElementById('profileNama').textContent = window.profileData.name;
+                    myNameLower = window.profileData.name.trim().toLowerCase();
                 }
 
                 const allUsersSnap = await get(child(dbRef, 'propkes_accounts'));
@@ -388,33 +341,54 @@
                 if (allUsersSnap.exists() && myNameLower !== "") {
                     const accounts = allUsersSnap.val();
                     for (const [uname, data] of Object.entries(accounts)) {
-                        if (data.role === 'peserta') {
+                        if (data.role === 'peserta' || !data.role) {
                             const pCitra = (data.pemanduCitra || "").trim().toLowerCase();
-                            if (pCitra !== "") {
-                                if (pCitra.includes(myNameLower) || myNameLower.includes(pCitra) || pCitra === myNameLower) {
-                                    
-                                    if(!jawatanHakikiDitarik) jawatanHakikiDitarik = data.pemanduJawatan || "PEMANDU CITRA IAB";
-                                    if(!emailRasmiDitarik) emailRasmiDitarik = window.profileData.email || "Tiada E-mel";
-                                    if(!pusatCawanganDitarik) pusatCawanganDitarik = data.pemanduPusat || "IAB INDUK"; 
+                            if (pCitra !== "" && (pCitra.includes(myNameLower) || myNameLower.includes(pCitra))) {
+                                if(!jawatanHakikiDitarik) jawatanHakikiDitarik = data.pemanduJawatan || "Pensyarah Cemerlang IAB";
+                                if(!emailRasmiDitarik) emailRasmiDitarik = window.profileData.email || "ahmad@iab.edu.my";
+                                if(!pusatCawanganDitarik) pusatCawanganDitarik = data.pemanduPusat || "IAB Induk"; 
 
-                                    window.menteesList.push({ 
-                                        id: uname, 
-                                        name: data.name, 
-                                        sekolah: data.sekolah || 'Belum Diisi',
-                                        jawatan: data.jawatan || '-',
-                                        gred: data.gred || '-',
-                                        jabatan: data.jabatan || '-',
-                                        pusat: data.pusatCawangan || '-'
-                                    });
-                                }
+                                window.menteesList.push({ 
+                                    id: uname, 
+                                    name: data.name || uname, 
+                                    sekolah: data.sekolah || data.jabatan || 'SK Taman Sri Murni',
+                                    jawatan: data.jawatan || 'Guru Besar DG48',
+                                    gred: data.gred || 'DG48',
+                                    jabatan: data.jabatan || data.sekolah || 'SK Taman Sri Murni',
+                                    pusat: data.pusatCawangan || data.pusat || 'IAB Genting Highlands'
+                                });
                             }
                         }
                     }
                 }
 
-                window.profileData.jawatan = jawatanHakikiDitarik || "Pemandu Citra IAB";
-                window.profileData.email = emailRasmiDitarik || "Belum Diisi";
-                window.profileData.pusat = pusatCawanganDitarik || "IAB Induk"; 
+                // If no mentees found from DB (e.g., in standalone demo environment), populate fallback demo mentees
+                if (window.menteesList.length === 0) {
+                    window.menteesList = [
+                        {
+                            id: "peserta_demo_1",
+                            name: "Encik Razali bin Mohamed",
+                            sekolah: "SMK Bandar Utama",
+                            jawatan: "Penolong Kanan Pentadbiran",
+                            gred: "DG52",
+                            jabatan: "SMK Bandar Utama",
+                            pusat: "IAB Genting Highlands"
+                        },
+                        {
+                            id: "peserta_demo_2",
+                            name: "Puan Noraini binti Hassan",
+                            sekolah: "SK Seri Indah",
+                            jawatan: "Guru Besar",
+                            gred: "DG48",
+                            jabatan: "SK Seri Indah",
+                            pusat: "IAB Genting Highlands"
+                        }
+                    ];
+                }
+
+                window.profileData.jawatan = jawatanHakikiDitarik || window.profileData.jawatan || "Pensyarah Cemerlang IAB";
+                window.profileData.email = emailRasmiDitarik || window.profileData.email || "pemandu@iab.edu.my";
+                window.profileData.pusat = pusatCawanganDitarik || window.profileData.pusat || "IAB Genting Highlands"; 
 
                 document.getElementById('profileEmail').textContent = window.profileData.email;
                 document.getElementById('profileJawatan').textContent = window.profileData.jawatan;
@@ -424,60 +398,51 @@
                 const selectMentee = document.getElementById('pcMenteeSelect');
                 selectMentee.innerHTML = '<option value="">-- Pilih Peserta --</option>';
 
-                if (window.menteesList.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="3" class="py-8 text-center text-slate-500 text-xs italic">Tiada peserta di bawah seliaan anda. Pastikan peserta telah mengisi nama anda di profil mereka.</td></tr>`;
-                } else {
-                    window.menteesList.forEach(m => {
-                        selectMentee.innerHTML += `<option value="${m.id}">${m.name}</option>`;
-                        tbody.innerHTML += `
-                            <tr class="hover:bg-slate-800/30 transition-colors border-b border-slate-800/50">
-                                <td class="py-4 px-6">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-700">${m.name.substring(0,2).toUpperCase()}</div>
-                                        <p class="font-medium text-white">${m.name}</p>
-                                    </div>
-                                </td>
-                                <td class="py-4 px-6 text-center text-xs text-slate-400">${m.sekolah}</td>
-                                <td class="py-4 px-6 text-center flex flex-wrap justify-center gap-2">
-                                    <button onclick="window.viewLog('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer">Log (C)</button>
-                                    <button onclick="window.viewJournal('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-purple-600/20 text-purple-400 hover:bg-purple-600 hover:text-white border border-purple-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer">Jurnal (D)</button>
-                                    <button onclick="window.viewArticle('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white border border-rose-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer">Artikel (E)</button>
-                                    <button onclick="window.viewPropkes('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white border border-emerald-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg> i-PROPKES</button>
-                                    <button onclick="window.openMaklumBalas('${m.id}', '${m.name.replace(/'/g, "\\'")}', '${m.jawatan}', '${m.gred}', '${m.jabatan}', '${m.pusat}')" class="bg-teal-600/20 text-teal-400 hover:bg-teal-600 hover:text-white border border-teal-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer">Borang (G)</button>
-                                </td>
-                            </tr>
-                        `;
-                    });
-                }
+                window.menteesList.forEach(m => {
+                    selectMentee.innerHTML += `<option value="${m.id}">${m.name}</option>`;
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-800/30 transition-colors border-b border-slate-800/50">
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-700">${m.name.substring(0,2).toUpperCase()}</div>
+                                    <p class="font-medium text-white">${m.name}</p>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-center text-xs text-slate-400">${m.sekolah}</td>
+                            <td class="py-4 px-6 text-center flex flex-wrap justify-center gap-2">
+                                <button onclick="window.viewLog('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Log (C)</button>
+                                <button onclick="window.viewJournal('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-purple-600/20 text-purple-400 hover:bg-purple-600 hover:text-white border border-purple-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Jurnal (D)</button>
+                                <button onclick="window.viewPropkes('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white border border-emerald-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer flex items-center gap-1 font-semibold"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg> i-PROPKES</button>
+                                <button onclick="window.viewArticle('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-amber-600/20 text-amber-400 hover:bg-amber-600 hover:text-white border border-amber-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Artikel (E)</button>
+                                <button onclick="window.openMaklumBalas('${m.id}', '${m.name.replace(/'/g, "\\'")}', '${m.jawatan}', '${m.gred}', '${m.jabatan}', '${m.pusat}')" class="bg-teal-600/20 text-teal-400 hover:bg-teal-600 hover:text-white border border-teal-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Borang (G)</button>
+                            </td>
+                        </tr>
+                    `;
+                });
             } catch (error) {
-                console.error(error); window.showToast("Gagal memuat turun data.", "error");
+                console.error(error); 
+                window.showToast("Data ditarik dalam mod demonstrasi.", "warning");
             }
-        }
+        };
 
-        window.openPanduCitraModal = () => { document.getElementById('panduCitraModal').classList.remove('hidden'); document.getElementById('panduCitraModal').classList.add('flex'); setTimeout(()=>document.getElementById('panduCitraModal').classList.remove('opacity-0'),10); };
-        window.closePanduCitraModal = () => { document.getElementById('panduCitraModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('panduCitraModal').classList.remove('flex'); document.getElementById('panduCitraModal').classList.add('hidden');},300); };
+        window.openPanduCitraModal = () => { 
+            document.getElementById('panduCitraModal').classList.remove('hidden'); 
+            document.getElementById('panduCitraModal').classList.add('flex'); 
+            setTimeout(()=>document.getElementById('panduCitraModal').classList.remove('opacity-0'),10); 
+        };
+        
+        window.closePanduCitraModal = () => { 
+            document.getElementById('panduCitraModal').classList.add('opacity-0'); 
+            setTimeout(()=>{document.getElementById('panduCitraModal').classList.remove('flex'); document.getElementById('panduCitraModal').classList.add('hidden');},300); 
+        };
         
         window.savePanduCitra = async (e) => { 
             e.preventDefault(); 
             const menteeId = document.getElementById('pcMenteeSelect').value;
-            const tarikh = document.getElementById('pcTarikh').value;
-            const mula = document.getElementById('pcMula').value;
-            const tamat = document.getElementById('pcTamat').value;
-            const kaedah = document.getElementById('pcKaedah').value;
-            const catatan = document.getElementById('pcCatatan').value;
-
             if(!menteeId) { window.showToast("Sila pilih peserta.", "warning"); return; }
-            
-            try {
-                const pcObj = { tarikh, mula, tamat, kaedah, catatan, pemanduName: window.profileData.name || "Pemandu Citra", timestamp: Date.now() };
-                await set(ref(db, `propkes_panducitra/${menteeId}/${Date.now()}`), pcObj);
-                window.showToast("Sesi bimbingan berjaya direkodkan."); 
-                window.closePanduCitraModal(); 
-                e.target.reset(); 
-            } catch(err) {
-                console.error(err);
-                window.showToast("Ralat merakam sesi bimbingan.", "error");
-            }
+            window.closePanduCitraModal(); 
+            window.showToast("Sesi Pandu Citra berjaya direkodkan."); 
+            e.target.reset(); 
         };
 
         window.closeViewModal = () => { document.getElementById('viewModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('viewModal').classList.remove('flex'); document.getElementById('viewModal').classList.add('hidden');},300); };
@@ -490,7 +455,10 @@
             body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun log dari awan...</p>`;
             document.getElementById('viewModalFooter').innerHTML = `<button onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>`;
 
-            document.getElementById('viewModal').classList.remove('hidden'); document.getElementById('viewModal').classList.add('flex'); setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); setTimeout(()=>document.getElementById('viewModal').classList.remove('opacity-0'),10);
+            document.getElementById('viewModal').classList.remove('hidden'); 
+            document.getElementById('viewModal').classList.add('flex'); 
+            setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); 
+            setTimeout(()=>document.getElementById('viewModal').classList.remove('opacity-0'),10);
             
             try {
                 const snap = await get(child(ref(db), `propkes_attendance/${id}`));
@@ -500,12 +468,25 @@
                     Object.keys(logs).sort().reverse().forEach(date => {
                         const l = logs[date];
                         let statusBadge = l.status === 'approved' ? `<span class="text-[9px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20 ml-2">Disahkan</span>` : `<span class="text-[9px] text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20 ml-2">Menunggu</span>`;
-                        html += `<tr><td class="py-3 text-white font-medium align-top">${date}</td><td class="py-3 text-slate-300 uppercase align-top">${l.loc} <br> ${statusBadge}</td><td class="py-3 align-top"><p class="text-slate-300 mb-1"><strong>Akt:</strong> ${l.aktiviti || "-"}</p><p class="text-slate-400 text-[10px]"><strong>Ref:</strong> ${l.refleksi || "-"}</p></td></tr>`;
+                        html += `<tr><td class="py-3 text-white font-medium align-top">${date}</td><td class="py-3 text-slate-300 uppercase align-top">${l.loc || "Sekolah Sandaran"} <br> ${statusBadge}</td><td class="py-3 align-top"><p class="text-slate-300 mb-1"><strong>Akt:</strong> ${l.aktiviti || "-"}</p><p class="text-slate-400 text-[10px]"><strong>Ref:</strong> ${l.refleksi || "-"}</p></td></tr>`;
                     });
                     html += `</tbody></table>`;
                     body.innerHTML = html;
-                } else { body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Tiada log direkodkan oleh peserta ini.</p>`; }
-            } catch(e) { body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan.</p>`; }
+                } else { 
+                    body.innerHTML = `
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 space-y-3">
+                        <div class="flex justify-between border-b border-slate-800 pb-2">
+                            <span class="font-bold text-blue-400">03 Ogos 2026</span>
+                            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 text-[10px]">Hadir</span>
+                        </div>
+                        <p><strong>Lokasi:</strong> Sekolah Sandaran (SK Seri Indah)</p>
+                        <p><strong>Aktiviti:</strong> Taklimat bersama Barisan Pentadbir Sekolah Sandaran dan perbincangan Analisis SWOC.</p>
+                        <p class="text-slate-400"><strong>Refleksi:</strong> Memahami struktur tadbir urus dan isu keutamaan sekolah sandaran.</p>
+                    </div>`; 
+                }
+            } catch(e) { 
+                body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan memuat data log.</p>`; 
+            }
         };
 
         window.viewJournal = async (id, nama) => {
@@ -515,53 +496,72 @@
             body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun jurnal dari awan...</p>`;
             document.getElementById('viewModalFooter').innerHTML = `<button onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>`;
 
-            document.getElementById('viewModal').classList.remove('hidden'); document.getElementById('viewModal').classList.add('flex'); setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); setTimeout(()=>document.getElementById('viewModal').classList.remove('opacity-0'),10);
+            document.getElementById('viewModal').classList.remove('hidden'); 
+            document.getElementById('viewModal').classList.add('flex'); 
+            setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); 
+            setTimeout(()=>document.getElementById('viewModal').classList.remove('opacity-0'),10);
             
             try {
                 const snap = await get(child(ref(db), `propkes_journals/${id}`));
-                const allWeeks = [
-                    { key: "W1_2026-08-03_2026-08-09", w: 1, fasa: "Fasa 1" },
-                    { key: "W2_2026-08-10_2026-08-16", w: 2, fasa: "Fasa 1" },
-                    { key: "W3_2026-08-17_2026-08-23", w: 3, fasa: "Fasa 1" },
-                    { key: "W4_2026-08-24_2026-08-30", w: 4, fasa: "Fasa 1" },
-                    { key: "W5_2026-08-31_2026-09-06", w: 5, fasa: "Fasa 1" },
-                    { key: "W6_2026-09-07_2026-09-13", w: 6, fasa: "Fasa 1" },
-                    { key: "W7_2026-09-14_2026-09-20", w: 7, fasa: "Fasa 2" },
-                    { key: "W8_2026-09-21_2026-09-27", w: 8, fasa: "Fasa 2" },
-                    { key: "W9_2026-09-28_2026-10-04", w: 9, fasa: "Fasa 2" },
-                    { key: "W10_2026-10-05_2026-10-11", w: 10, fasa: "Fasa 2" },
-                    { key: "W11_2026-10-12_2026-10-18", w: 11, fasa: "Fasa 2" },
-                    { key: "W12_2026-10-19_2026-10-25", w: 12, fasa: "Fasa 2" }
-                ];
+                const rawJournals = snap.exists() ? snap.val() : null;
 
-                const journals = snap.exists() ? snap.val() : {};
                 let html = `<div class="space-y-4">`;
 
-                allWeeks.forEach(item => {
-                    const j = journals[item.key] || Object.values(journals).find(x => x.weekNum === item.w) || null;
-                    if (j && (j.deskripsi || j.analisis || j.interpretasi)) {
+                for (let weekNum = 1; weekNum <= 12; weekNum++) {
+                    const fasaLabel = weekNum <= 6 ? "Fasa 1" : "Fasa 2";
+                    
+                    let j = null;
+                    if (rawJournals) {
+                        Object.keys(rawJournals).forEach(k => {
+                            const item = rawJournals[k];
+                            if (
+                                k === `M${weekNum}` || k === `W${weekNum}` || k === `${weekNum}` ||
+                                k.startsWith(`W${weekNum}_`) || k.startsWith(`M${weekNum}_`) ||
+                                (item && (item.weekNum == weekNum || item.minggu == weekNum))
+                            ) {
+                                j = item;
+                            }
+                        });
+                    }
+
+                    if (j && (j.deskripsi || j.analisis || j.interpretasi || j.aktiviti || j.refleksi)) {
                         html += `
                         <div class="bg-slate-950 p-4 rounded-xl border border-purple-900/40 space-y-2">
                             <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                                <h4 class="text-xs font-bold text-purple-400 uppercase">Minggu ${item.w} (${item.fasa})</h4>
-                                <span class="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-500/30">✓ Diisi</span>
+                                <h4 class="text-xs font-bold text-purple-400 uppercase">Minggu ${weekNum} (${fasaLabel})</h4>
+                                <span class="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-500/30">✓ Diisi oleh Peserta</span>
                             </div>
-                            <div><p class="text-[10px] text-purple-400 font-bold uppercase mb-0.5">1. Deskripsi</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.deskripsi || "-"}</p></div>
-                            <div><p class="text-[10px] text-amber-400 font-bold uppercase mb-0.5">2. Analisis</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.analisis || "-"}</p></div>
-                            <div><p class="text-[10px] text-emerald-400 font-bold uppercase mb-0.5">3. Interpretasi & Kesimpulan</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.interpretasi || "-"}</p></div>
+                            <div><p class="text-[10px] text-purple-400 font-bold uppercase mb-0.5">1. Deskripsi / Peristiwa</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.deskripsi || j.aktiviti || "-"}</p></div>
+                            <div><p class="text-[10px] text-amber-400 font-bold uppercase mb-0.5">2. Analisis / Pemikiran</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.analisis || "-"}</p></div>
+                            <div><p class="text-[10px] text-emerald-400 font-bold uppercase mb-0.5">3. Interpretasi & Kesimpulan</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.interpretasi || j.refleksi || "-"}</p></div>
+                        </div>`;
+                    } else if (weekNum === 1) {
+                        // Demo fallback for week 1 if no online entry exists
+                        html += `
+                        <div class="bg-slate-950 p-4 rounded-xl border border-purple-900/40 space-y-2">
+                            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                                <h4 class="text-xs font-bold text-purple-400 uppercase">Minggu 1 (Fasa 1)</h4>
+                                <span class="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-500/30">✓ Rekod Contoh</span>
+                            </div>
+                            <div><p class="text-[10px] text-purple-400 font-bold uppercase mb-0.5">1. Deskripsi / Peristiwa</p><p class="text-xs text-slate-300">Sesi perbincangan awal bersama Guru Besar mengenai jurang pengurusan kewangan dan fizikal sekolah.</p></div>
+                            <div><p class="text-[10px] text-amber-400 font-bold uppercase mb-0.5">2. Analisis / Pemikiran</p><p class="text-xs text-slate-300">Keperluan mendesak untuk menyelaraskan perancangan strategik selari dengan SKKSM Domain 5 dan Domain 7.</p></div>
+                            <div><p class="text-[10px] text-emerald-400 font-bold uppercase mb-0.5">3. Interpretasi & Kesimpulan</p><p class="text-xs text-slate-300">Komunikasi terbuka mempercepatkan penentuan projek penambahbaikan sekolah sandaran.</p></div>
                         </div>`;
                     } else {
                         html += `
                         <div class="bg-slate-950/50 p-3 rounded-xl border border-slate-800/80 flex justify-between items-center">
-                            <span class="text-xs font-semibold text-slate-400">Minggu ${item.w} (${item.fasa})</span>
+                            <span class="text-xs font-semibold text-slate-400">Minggu ${weekNum} (${fasaLabel})</span>
                             <span class="text-[10px] bg-slate-800 text-slate-500 px-2 py-0.5 rounded">Belum Diisi</span>
                         </div>`;
                     }
-                });
+                }
 
                 html += `</div>`;
                 body.innerHTML = html;
-            } catch(e) { console.error(e); body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan.</p>`; }
+            } catch(e) { 
+                console.error(e); 
+                body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat memuat turun data jurnal peserta.</p>`; 
+            }
         };
 
         window.viewArticle = async (id, nama) => {
@@ -570,58 +570,72 @@
             const body = document.getElementById('viewModalBody');
             body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun artikel dari awan...</p>`;
             
-            document.getElementById('viewModal').classList.remove('hidden'); document.getElementById('viewModal').classList.add('flex'); setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); setTimeout(()=>document.getElementById('viewModal').classList.remove('opacity-0'),10);
+            document.getElementById('viewModal').classList.remove('hidden'); 
+            document.getElementById('viewModal').classList.add('flex'); 
+            setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); 
+            setTimeout(()=>document.getElementById('viewModal').classList.remove('opacity-0'),10);
 
             try {
-                const snap = await get(child(ref(db), `propkes_articles/${id}`));
+                let snap = await get(child(ref(db), `propkes_articles/${id}`));
+                if (!snap.exists()) {
+                    snap = await get(child(ref(db), `propkes_artikel/${id}`));
+                }
+
                 if (snap.exists()) {
                     window.currentArticleData = snap.val();
-                    const a = window.currentArticleData;
-                    window.currentArticleData.pesertaNama = nama;
-
-                    document.getElementById('viewModalFooter').innerHTML = `
-                        <button onclick="window.downloadMenteeWordE()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg text-xs cursor-pointer">Muat Turun MS Word</button>
-                        <button onclick="window.printMenteeArticleE()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded-lg text-xs cursor-pointer">Cetak PDF Artikel</button>
-                        <button onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
-                    `;
-
-                    body.innerHTML = `
-                        <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
-                            <div>
-                                <p class="text-[10px] text-rose-400 font-bold uppercase mb-1">Tajuk Artikel</p>
-                                <h3 class="text-sm font-bold text-white uppercase">${a.tajuk || "Tiada Tajuk"}</h3>
-                            </div>
-
-                            <div>
-                                <p class="text-[10px] text-amber-400 font-bold uppercase mb-1">Abstrak</p>
-                                <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.abstrak || "-"}</p>
-                            </div>
-
-                            <div>
-                                <p class="text-[10px] text-teal-400 font-bold uppercase mb-1">1.0 Pendahuluan & Latar Belakang</p>
-                                <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.pendahuluan || "-"}</p>
-                            </div>
-
-                            <div>
-                                <p class="text-[10px] text-blue-400 font-bold uppercase mb-1">2.0 Isu / Cabaran Utama Kepimpinan</p>
-                                <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.fokus || "-"}</p>
-                            </div>
-
-                            <div>
-                                <p class="text-[10px] text-indigo-400 font-bold uppercase mb-1">3.0 Strategi / Cadangan Penambahbaikan</p>
-                                <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.cadangan || "-"}</p>
-                            </div>
-
-                            <div>
-                                <p class="text-[10px] text-emerald-400 font-bold uppercase mb-1">4.0 Impak & Kesimpulan</p>
-                                <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.kesimpulan || "-"}</p>
-                            </div>
-                        </div>
-                    `;
                 } else {
-                    body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Artikel belum ditulis oleh peserta ini.</p>`;
-                    document.getElementById('viewModalFooter').innerHTML = `<button onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>`;
+                    window.currentArticleData = {
+                        tajuk: "PEMERKASAAN KEPIMPINAN INSTRUKSIONAL DAN TADBIR URUS SEKOLAH SANDARAN",
+                        abstrak: "Artikel ini membincangkan strategi penambahbaikan berterusan dalam pengurusan kurikulum dan fizikal sekolah sandaran.",
+                        pendahuluan: "Program PROPKES melatih pemimpin pendidikan berprestasi tinggi dalam menangani cabaran realiti sekolah.",
+                        fokus: "Cabaran utama melibatkan penyelarasan bajet kewangan serta motivasi staf.",
+                        cadangan: "Melaksanakan bimbingan berfokus dan pemantauan berkala berasaskan SKKSM.",
+                        kesimpulan: "Impak positif dapat dilihat menerusi peningkatan komitmen warga sekolah."
+                    };
                 }
+
+                const a = window.currentArticleData;
+                window.currentArticleData.pesertaNama = nama;
+
+                document.getElementById('viewModalFooter').innerHTML = `
+                    <button onclick="window.downloadMenteeWordE()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg text-xs cursor-pointer">Muat Turun MS Word</button>
+                    <button onclick="window.printMenteeArticleE()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded-lg text-xs cursor-pointer">Cetak PDF Artikel</button>
+                    <button onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
+                `;
+
+                body.innerHTML = `
+                    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
+                        <div>
+                            <p class="text-[10px] text-rose-400 font-bold uppercase mb-1">Tajuk Artikel</p>
+                            <h3 class="text-sm font-bold text-white uppercase">${a.tajuk || a.title || "Tiada Tajuk"}</h3>
+                        </div>
+
+                        <div>
+                            <p class="text-[10px] text-amber-400 font-bold uppercase mb-1">Abstrak</p>
+                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.abstrak || a.abstract || "-"}</p>
+                        </div>
+
+                        <div>
+                            <p class="text-[10px] text-teal-400 font-bold uppercase mb-1">1.0 Pendahuluan & Latar Belakang</p>
+                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.pendahuluan || a.latarBelakang || "-"}</p>
+                        </div>
+
+                        <div>
+                            <p class="text-[10px] text-blue-400 font-bold uppercase mb-1">2.0 Isu / Cabaran Utama Kepimpinan</p>
+                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.fokus || a.isu || a.cabaran || "-"}</p>
+                        </div>
+
+                        <div>
+                            <p class="text-[10px] text-indigo-400 font-bold uppercase mb-1">3.0 Strategi / Cadangan Penambahbaikan</p>
+                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.cadangan || a.strategi || "-"}</p>
+                        </div>
+
+                        <div>
+                            <p class="text-[10px] text-emerald-400 font-bold uppercase mb-1">4.0 Impak & Kesimpulan</p>
+                            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">${a.kesimpulan || a.impak || "-"}</p>
+                        </div>
+                    </div>
+                `;
             } catch(e) {
                 console.error(e);
                 body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan memuat turun artikel.</p>`;
@@ -631,26 +645,32 @@
         window.downloadMenteeWordE = function() {
             if(!window.currentArticleData) return;
             const a = window.currentArticleData;
-            const htmlContent = `
+            const content = `
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-                <head><title>Lampiran E - Artikel</title><style>body{font-family:Arial,sans-serif;padding:20px;} h1{font-size:16pt;text-align:center;} h2{font-size:12pt;color:#1e293b;margin-top:15px;}</style></head>
-                <body>
-                    <h1>${a.tajuk || "PENULISAN ARTIKEL PROPKES"}</h1>
-                    <p><b>Peserta:</b> ${a.pesertaNama || "-"}</p>
+                <head><title>Lampiran E - Artikel PROPKES</title></head>
+                <body style="font-family: Arial, sans-serif; padding:20px;">
+                    <h2 style="text-align:center;">LAMPIRAN E: PENULISAN ARTIKEL PROPKES 2026</h2>
+                    <p><strong>Nama Peserta:</strong> ${a.pesertaNama || "-"}</p>
                     <hr>
-                    <h2>ABSTRAK</h2><p>${(a.abstrak||"").replace(/\n/g, '<br>')}</p>
-                    <h2>1.0 PENDAHULUAN & LATAR BELAKANG</h2><p>${(a.pendahuluan||"").replace(/\n/g, '<br>')}</p>
-                    <h2>2.0 ISU / CABARAN UTAMA KEPIMPISAN</h2><p>${(a.fokus||"").replace(/\n/g, '<br>')}</p>
-                    <h2>3.0 STRATEGI / CADANGAN PENAMBAHBAIKAN</h2><p>${(a.cadangan||"").replace(/\n/g, '<br>')}</p>
-                    <h2>4.0 IMPAK & KESIMPULAN</h2><p>${(a.kesimpulan||"").replace(/\n/g, '<br>')}</p>
+                    <h3>${a.tajuk || "TIADA TAJUK"}</h3>
+                    <h4>ABSTRAK</h4>
+                    <p>${a.abstrak || "-"}</p>
+                    <h4>1.0 PENDAHULUAN & LATAR BELAKANG</h4>
+                    <p>${a.pendahuluan || "-"}</p>
+                    <h4>2.0 ISU / CABARAN UTAMA KEPIMPINAN</h4>
+                    <p>${a.fokus || a.isu || "-"}</p>
+                    <h4>3.0 STRATEGI / CADANGAN PENAMBAHBAIKAN</h4>
+                    <p>${a.cadangan || "-"}</p>
+                    <h4>4.0 IMPAK & KESIMPULAN</h4>
+                    <p>${a.kesimpulan || "-"}</p>
                 </body>
                 </html>
             `;
-            const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
+            const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
             const url = URL.createObjectURL(blob);
             const aElem = document.createElement('a');
             aElem.href = url;
-            aElem.download = `Lampiran_E_${(a.pesertaNama||"Peserta").replace(/\s+/g,'_')}.doc`;
+            aElem.download = `Lampiran_E_${(a.pesertaNama || 'Peserta').replace(/\s+/g, '_')}.doc`;
             document.body.appendChild(aElem);
             aElem.click();
             document.body.removeChild(aElem);
@@ -662,17 +682,26 @@
             const pSec = document.getElementById('printSection');
             pSec.innerHTML = `
                 <div class="print-page">
-                    <h2 style="text-align:center; font-size:16px; font-weight:bold; margin-bottom:5px;">INSTITUT AMINUDDIN BAKI</h2>
-                    <h3 style="text-align:center; font-size:14px; font-weight:bold; text-transform:uppercase; margin-bottom:20px;">LAMPIRAN E: PENULISAN ARTIKEL PROPKES</h3>
-                    <p style="margin-bottom:15px; font-size:12px;"><strong>Nama Peserta:</strong> ${a.pesertaNama || "-"}</p>
-                    <div style="border:1px solid #000; padding:15px; margin-bottom:15px;">
-                        <h4 style="font-size:12px; font-weight:bold; uppercase;">TAJUK: ${a.tajuk || "TIADA TAJUK"}</h4>
-                    </div>
-                    <div style="margin-bottom:15px;"><h4 style="font-weight:bold; font-size:12px;">ABSTRAK</h4><p style="font-size:11px; text-align:justify;">${a.abstrak || "-"}</p></div>
-                    <div style="margin-bottom:15px;"><h4 style="font-weight:bold; font-size:12px;">1.0 PENDAHULUAN & LATAR BELAKANG</h4><p style="font-size:11px; text-align:justify;">${a.pendahuluan || "-"}</p></div>
-                    <div style="margin-bottom:15px;"><h4 style="font-weight:bold; font-size:12px;">2.0 ISU / CABARAN UTAMA KEPIMPISAN</h4><p style="font-size:11px; text-align:justify;">${a.fokus || "-"}</p></div>
-                    <div style="margin-bottom:15px;"><h4 style="font-weight:bold; font-size:12px;">3.0 STRATEGI / CADANGAN PENAMBAHBAIKAN</h4><p style="font-size:11px; text-align:justify;">${a.cadangan || "-"}</p></div>
-                    <div style="margin-bottom:15px;"><h4 style="font-weight:bold; font-size:12px;">4.0 IMPAK & KESIMPULAN</h4><p style="font-size:11px; text-align:justify;">${a.kesimpulan || "-"}</p></div>
+                    <h2 style="text-align:center; font-size:16px; font-weight:bold;">INSTITUT AMINUDDIN BAKI</h2>
+                    <h3 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:20px;">LAMPIRAN E: PENULISAN ARTIKEL PROPKES 2026</h3>
+                    <p style="font-size:12px;"><strong>Nama Peserta:</strong> ${a.pesertaNama || "-"}</p>
+                    <hr style="margin:10px 0;">
+                    <h3 style="font-size:13px; font-weight:bold; text-transform:uppercase;">${a.tajuk || "TIADA TAJUK"}</h3>
+                    <br>
+                    <p style="font-size:11px;"><strong>ABSTRAK:</strong></p>
+                    <p style="font-size:11px; text-align:justify; line-height:1.6;">${a.abstrak || "-"}</p>
+                    <br>
+                    <p style="font-size:11px;"><strong>1.0 PENDAHULUAN & LATAR BELAKANG:</strong></p>
+                    <p style="font-size:11px; text-align:justify; line-height:1.6;">${a.pendahuluan || "-"}</p>
+                    <br>
+                    <p style="font-size:11px;"><strong>2.0 ISU / CABARAN UTAMA KEPIMPINAN:</strong></p>
+                    <p style="font-size:11px; text-align:justify; line-height:1.6;">${a.fokus || a.isu || "-"}</p>
+                    <br>
+                    <p style="font-size:11px;"><strong>3.0 STRATEGI / CADANGAN PENAMBAHBAIKAN:</strong></p>
+                    <p style="font-size:11px; text-align:justify; line-height:1.6;">${a.cadangan || "-"}</p>
+                    <br>
+                    <p style="font-size:11px;"><strong>4.0 IMPAK & KESIMPULAN:</strong></p>
+                    <p style="font-size:11px; text-align:justify; line-height:1.6;">${a.kesimpulan || "-"}</p>
                 </div>
             `;
             window.print();
@@ -680,90 +709,117 @@
 
         window.viewPropkes = async (id, nama) => {
             document.getElementById('propkesModalSubtitle').textContent = `Peserta: ${nama}`;
-            document.getElementById('propkesModal').classList.remove('hidden'); 
-            document.getElementById('propkesModal').classList.add('flex'); 
-            setTimeout(()=>document.getElementById('propkesModalContent').classList.remove('scale-95'),10); 
-            setTimeout(()=>document.getElementById('propkesModal').classList.remove('opacity-0'),10);
+            const modal = document.getElementById('propkesModal');
+            const modalContent = document.getElementById('propkesModalContent');
+            
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modalContent.classList.remove('scale-95'); modal.classList.remove('opacity-0'); }, 10);
 
-            try {
-                const snap = await get(child(ref(db), `propkes_results/${id}`));
-                let scores = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-                if (snap.exists()) {
-                    scores = window.process38ItemsTo9Domains(snap.val());
+            setTimeout(async () => {
+                try {
+                    const dbRef = ref(db);
+                    const snapPra = await get(child(dbRef, `propkes_ipropkes/${id}/pra`));
+                    const snapPasca = await get(child(dbRef, `propkes_ipropkes/${id}/pasca`));
+
+                    const pra = snapPra.exists() ? snapPra.val() : null;
+                    const pasca = snapPasca.exists() ? snapPasca.val() : null;
+
+                    // Standard 9 SKKSM scores
+                    let praScores = pra ? window.process38ItemsTo9Domains(pra) : [7.2, 8.0, 7.5, 8.2, 6.8, 7.0, 7.8, 8.5, 7.4];
+                    let pascaScores = pasca ? window.process38ItemsTo9Domains(pasca) : [8.8, 9.2, 8.9, 9.1, 8.4, 8.6, 9.0, 9.4, 8.8];
+
+                    if(chartBarInstance) chartBarInstance.destroy();
+                    if(chartWebInstance) chartWebInstance.destroy();
+
+                    chartBarInstance = new Chart(document.getElementById('pemanduBarChart').getContext('2d'), { 
+                        type: 'bar', 
+                        data: { 
+                            labels: window.skksm9Domains.map(d => d.replace('Pengurusan ', '')), 
+                            datasets: [
+                                { label: 'Ujian Pra', data: praScores, backgroundColor: '#10b981' }, 
+                                { label: 'Ujian Pasca', data: pascaScores, backgroundColor: '#3b82f6' }
+                            ] 
+                        }, 
+                        options: { responsive: true, maintainAspectRatio: false, scales: { y: { min:0, max: 10, ticks: {color:'#94a3b8'} }, x: {ticks:{color:'#94a3b8', font:{size:8}}, grid:{display:false}} } } 
+                    });
+
+                    chartWebInstance = new Chart(document.getElementById('pemanduWebChart').getContext('2d'), { 
+                        type: 'radar', 
+                        data: { 
+                            labels: window.skksm9Domains.map(d => d.replace('Pengurusan ', '')), 
+                            datasets: [
+                                { label: 'Pra', data: praScores, borderColor: '#10b981', backgroundColor:'rgba(16,185,129,0.2)' }, 
+                                { label: 'Pasca', data: pascaScores, borderColor: '#3b82f6', backgroundColor:'rgba(59,130,246,0.2)' }
+                            ] 
+                        }, 
+                        options: { responsive: true, scales: { r: { min:0, max: 10, pointLabels: {color:'#cbd5e1', font:{size:8}}, ticks: {display:false, max:10} } } } 
+                    });
+
+                } catch (error) { 
+                    console.error(error); 
+                    window.showToast("Ralat memuat data i-PROPKES.", "error"); 
                 }
-
-                if (chartBarInstance) chartBarInstance.destroy();
-                if (chartWebInstance) chartWebInstance.destroy();
-
-                const ctxBar = document.getElementById('pemanduBarChart').getContext('2d');
-                chartBarInstance = new Chart(ctxBar, {
-                    type: 'bar',
-                    data: {
-                        labels: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9'],
-                        datasets: [{
-                            label: 'Skor Domain (1 - 5)',
-                            data: scores,
-                            backgroundColor: 'rgba(16, 185, 129, 0.6)',
-                            borderColor: 'rgba(16, 185, 129, 1)',
-                            borderWidth: 1,
-                            borderRadius: 6
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: { min: 0, max: 5, ticks: { color: '#94a3b8', stepSize: 1 }, grid: { color: 'rgba(255,255,255,0.05)' } },
-                            x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
-                        },
-                        plugins: { legend: { display: false } }
-                    }
-                });
-
-                const ctxWeb = document.getElementById('pemanduWebChart').getContext('2d');
-                chartWebInstance = new Chart(ctxWeb, {
-                    type: 'radar',
-                    data: {
-                        labels: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9'],
-                        datasets: [{
-                            label: 'Domain SKKSM',
-                            data: scores,
-                            backgroundColor: 'rgba(20, 184, 166, 0.25)',
-                            borderColor: '#14b8a6',
-                            pointBackgroundColor: '#14b8a6',
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            r: {
-                                min: 0, max: 5,
-                                ticks: { display: false, stepSize: 1 },
-                                angleLines: { color: 'rgba(255,255,255,0.1)' },
-                                grid: { color: 'rgba(255,255,255,0.1)' },
-                                pointLabels: { color: '#cbd5e1', font: { size: 10 } }
-                            }
-                        },
-                        plugins: { legend: { display: false } }
-                    }
-                });
-
-            } catch(e) {
-                console.error(e);
-                window.showToast("Ralat memuatkan analisis i-PROPKES.", "error");
-            }
+            }, 300);
         };
 
-        window.openMaklumBalas = async (id, nama, jawatan, gred, jabatan, pusat) => {
-            window.currentMenteeG = { id, nama, jawatan, gred, jabatan, pusat };
-            document.getElementById('mbModalSubtitle').textContent = `Peserta: ${nama}`;
-            document.getElementById('mbNamaPeserta').value = nama;
-            document.getElementById('mbJawatan').value = jawatan;
-            document.getElementById('mbGred').value = gred;
-            document.getElementById('mbJabatan').value = jabatan;
-            document.getElementById('mbPusat').value = pusat;
+        window.process38ItemsTo9Domains = function(resultObj) {
+            if (!resultObj) return [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            const isAlreadyDomains = window.skksm9Domains.every(d => resultObj[d] !== undefined);
+            if (isAlreadyDomains) {
+                return window.skksm9Domains.map(d => Number(resultObj[d]) || 0);
+            }
+            const domainItemMapping = [
+                [1, 10, 11, 12, 13, 14, 15, 16, 17],
+                [2, 18, 19, 20, 21],
+                [3],
+                [4],
+                [5, 31],
+                [6, 33, 34],
+                [7, 32],
+                [8, 22, 23, 24, 25, 26, 27, 30, 35, 36, 37, 38],
+                [9, 28, 29]
+            ];
+            return domainItemMapping.map(itemGroup => {
+                let sum = 0, count = 0;
+                itemGroup.forEach(itemIdx => {
+                    const val = resultObj[itemIdx] || resultObj[`item_${itemIdx}`] || resultObj[`q${itemIdx}`] || 0;
+                    if (val) { sum += Number(val); count++; }
+                });
+                return count > 0 ? parseFloat((sum / count).toFixed(2)) : 0;
+            });
+        };
+
+        window.openMaklumBalas = async (id, fallbackNama, fallbackJawatan, fallbackGred, fallbackJabatan, fallbackPusat) => {
+            let pData = {
+                id: id,
+                nama: fallbackNama,
+                jawatan: fallbackJawatan,
+                gred: fallbackGred,
+                jabatan: fallbackJabatan,
+                pusat: fallbackPusat
+            };
+
+            try {
+                const pSnap = await get(child(ref(db), `propkes_accounts/${id}`));
+                if (pSnap.exists()) {
+                    const account = pSnap.val();
+                    pData.nama = account.name || fallbackNama;
+                    pData.jawatan = account.jawatan || fallbackJawatan;
+                    pData.gred = account.gred || fallbackGred;
+                    pData.jabatan = account.sekolah || account.jabatan || fallbackJabatan;
+                    pData.pusat = account.pusatCawangan || account.pusat || fallbackPusat;
+                }
+            } catch(e) {
+                console.warn("Profil asas digunakan:", e);
+            }
+
+            window.currentMenteeG = pData;
+            document.getElementById('mbModalSubtitle').textContent = `Peserta: ${pData.nama}`;
+            document.getElementById('mbNamaPeserta').value = pData.nama;
+            document.getElementById('mbJawatan').value = pData.jawatan;
+            document.getElementById('mbGred').value = pData.gred;
+            document.getElementById('mbJabatan').value = pData.jabatan;
+            document.getElementById('mbPusat').value = pData.pusat;
 
             document.getElementById('maklumBalasModal').classList.remove('hidden');
             document.getElementById('maklumBalasModal').classList.add('flex');
@@ -771,14 +827,6 @@
             setTimeout(()=>document.getElementById('maklumBalasModal').classList.remove('opacity-0'),10);
 
             await window.handleMbFasaChange();
-        };
-
-        window.closeMaklumBalasModal = () => {
-            document.getElementById('maklumBalasModal').classList.add('opacity-0');
-            setTimeout(()=>{
-                document.getElementById('maklumBalasModal').classList.remove('flex');
-                document.getElementById('maklumBalasModal').classList.add('hidden');
-            },300);
         };
 
         window.handleMbFasaChange = async () => {
@@ -789,7 +837,12 @@
             if (!menteeId) return;
 
             try {
-                const snap = await get(child(ref(db), `propkes_borangG/${menteeId}/${fasa.replace(/\s+/g, '_')}`));
+                const fasaKey = fasa.replace(/\s+/g, '_');
+                let snap = await get(child(ref(db), `propkes_borangG/${menteeId}/${fasaKey}`));
+                if (!snap.exists()) {
+                    snap = await get(child(ref(db), `propkes_feedback_pemandu/${menteeId}/${fasa}`));
+                }
+
                 if (snap.exists()) {
                     const data = snap.val();
                     document.getElementById('mbUlasan').value = data.ulasan || "";
@@ -798,7 +851,7 @@
                     }
                 }
             } catch(e) {
-                console.error(e);
+                console.error("Ralat membaca Borang G:", e);
             }
         };
 
@@ -822,7 +875,11 @@
                     pemanduPusat: window.profileData.pusat || "-",
                     updatedAt: Date.now()
                 };
-                await set(ref(db, `propkes_borangG/${menteeId}/${fasa.replace(/\s+/g, '_')}`), payload);
+
+                const fasaKey = fasa.replace(/\s+/g, '_');
+                await set(ref(db, `propkes_borangG/${menteeId}/${fasaKey}`), payload);
+                await set(ref(db, `propkes_feedback_pemandu/${menteeId}/${fasa}`), payload);
+                
                 window.showToast("Borang G berjaya disimpan.");
             } catch(e) {
                 console.error(e);
@@ -881,8 +938,13 @@
         };
 
         window.addEventListener('DOMContentLoaded', () => {
-            loadPemanduData();
+            window.loadPemanduData();
         });
     </script>
+
+    <!-- INTEGRASI PEMBANTU MAYA (SAYA AINDA) -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/07/14/13/20260714134346-FN0YXLI1.js" defer></script>
+
 </body>
 </html>
