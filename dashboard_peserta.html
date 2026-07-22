@@ -36,7 +36,6 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <!-- STREAMING_CHUNK:Rendering navigation bar... -->
     <!-- TOP NAVBAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 no-print shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
@@ -65,7 +64,6 @@
         </div>
     </nav>
 
-    <!-- STREAMING_CHUNK:Building dashboard main layout structure... -->
     <!-- MAIN BODY -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 no-print">
         
@@ -371,7 +369,6 @@
         </div>
     </main>
 
-    <!-- STREAMING_CHUNK:Rendering modal dialogs... -->
     <!-- MODAL MODUL MINGGUAN -->
     <div id="weeklyModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-emerald-500/50 rounded-2xl shadow-2xl max-w-lg w-full p-6 transform scale-95 transition-transform duration-300" id="weeklyModalContent">
@@ -650,7 +647,6 @@
     <div id="printSection" class="print-container no-print"></div>
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
-    <!-- STREAMING_CHUNK:Loading Firebase module & print engines... -->
     <!-- LOGIK SKRIP FIREBASE & PEMEROSESAN 38 ITEM MENGIKUT 9 DOMAIN SKKSM -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -695,6 +691,9 @@
         window.journalData = {};
         window.profileData = {}; 
         window.artikelData = {};
+
+        let disMonth = 7, disYear = 2026, curEditDate = "";
+        const mNames = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
 
         const EMAILJS_PUBLIC_KEY = "s1-CZxnlw_v-G1dap"; 
         const EMAILJS_SERVICE_ID = "service_r8gyjit";
@@ -791,7 +790,161 @@
             });
         };
 
-        // STREAMING_CHUNK:Defining print report functions...
+        window.openDailyModal = function(dt, d) {
+            curEditDate = dt;
+            safeSetText("modalDateTitle", `Tarikh: ${dt}`);
+            
+            const data = window.calendarData[dt] || { loc: "", aktiviti: "", skksm: "-", refleksi: "", status: "", log: false };
+            
+            safeSetValue("modalLocationSelect", data.loc || "");
+            safeSetValue("modalAktiviti", data.aktiviti || "");
+            safeSetValue("modalSkksm", data.skksm || "-");
+            safeSetValue("modalRefleksi", data.refleksi || "");
+            
+            const toggle = document.getElementById("modalLogToggle");
+            if (toggle) toggle.checked = !!data.log;
+
+            const isLocked = data.status === 'approved';
+            const lockedMsg = document.getElementById("modalLockedMsg");
+            if (lockedMsg) lockedMsg.classList.toggle("hidden", !isLocked);
+
+            const modal = document.getElementById("dailyModal");
+            if (modal) {
+                modal.classList.remove("hidden");
+                modal.classList.add("flex");
+                setTimeout(() => modal.classList.remove("opacity-0"), 10);
+            }
+        };
+
+        window.closeDailyModal = function() {
+            const modal = document.getElementById("dailyModal");
+            if (modal) {
+                modal.classList.add("opacity-0");
+                setTimeout(() => {
+                    modal.classList.remove("flex");
+                    modal.classList.add("hidden");
+                }, 300);
+            }
+        };
+
+        window.handleLocationChange = function() {
+            const loc = window.getVal("modalLocationSelect");
+            const skksmSelect = document.getElementById("modalSkksm");
+            if (skksmSelect && (loc === "cuti" || loc === "iab" || !loc)) {
+                skksmSelect.value = "-";
+            }
+        };
+
+        window.saveDailyData = async function() {
+            if (!curEditDate) return;
+            const loc = window.getVal("modalLocationSelect");
+            const aktiviti = window.getVal("modalAktiviti");
+            const skksm = window.getVal("modalSkksm");
+            const refleksi = window.getVal("modalRefleksi");
+            const isLog = document.getElementById("modalLogToggle") ? document.getElementById("modalLogToggle").checked : false;
+
+            if (!loc) {
+                window.showToast("Sila pilih lokasi keberadaan.", "error");
+                return;
+            }
+
+            const currentStatus = (window.calendarData[curEditDate] && window.calendarData[curEditDate].status) || (isLog ? "pending" : "");
+
+            const updatedObj = {
+                loc: loc,
+                aktiviti: aktiviti,
+                skksm: skksm,
+                refleksi: refleksi,
+                log: isLog,
+                status: isLog ? (currentStatus || "pending") : ""
+            };
+
+            window.calendarData[curEditDate] = updatedObj;
+
+            try {
+                await set(ref(db, `propkes_attendance/${currentUser}/${curEditDate}`), updatedObj);
+                window.showToast("Log harian berjaya disimpan!");
+            } catch (err) {
+                console.error("Error saving daily log:", err);
+                window.showToast("Disimpan secara tempatan.", "warning");
+            }
+
+            window.renderCal();
+            window.renderWeeklyScheduleTable();
+            window.calculatePhaseStats();
+            window.closeDailyModal();
+        };
+
+        window.openJournalForm = function() {
+            const selWeek = window.getVal("weekSelector");
+            if (!selWeek) return;
+            const [wId] = selWeek.split('_');
+            safeSetText("journalModalTitle", `Jurnal Kepimpinan (Minggu ${wId.replace('W', '')})`);
+            
+            const existing = window.journalData[selWeek] || {};
+            safeSetValue("jDeskripsi", existing.deskripsi || "");
+            safeSetValue("jAnalisis", existing.analisis || "");
+            safeSetValue("jInterpretasi", existing.interpretasi || "");
+
+            const modal = document.getElementById("journalModal");
+            if (modal) {
+                modal.classList.remove("hidden");
+                modal.classList.add("flex");
+                setTimeout(() => modal.classList.remove("opacity-0"), 10);
+            }
+        };
+
+        window.closeJournalForm = function() {
+            const modal = document.getElementById("journalModal");
+            if (modal) {
+                modal.classList.add("opacity-0");
+                setTimeout(() => {
+                    modal.classList.remove("flex");
+                    modal.classList.add("hidden");
+                }, 300);
+            }
+        };
+
+        window.calculatePhaseStats = function() {
+            let f1Hadir = 0, f1Sekolah = 0, f1Ppd = 0, f1Sah = 0;
+            let f2Hadir = 0, f2Sekolah = 0, f2Ppd = 0, f2Sah = 0;
+
+            Object.keys(window.calendarData || {}).forEach(dt => {
+                const item = window.calendarData[dt];
+                if (!item || !item.loc) return;
+                const [y, m, d] = dt.split('-').map(Number);
+                
+                const isFasa1 = (m === 8) || (m === 9 && d <= 13);
+                const isFasa2 = (m === 9 && d >= 14) || (m === 10 && d <= 25);
+
+                if (isFasa1) {
+                    f1Hadir++;
+                    if (item.loc === 'sekolah') f1Sekolah++;
+                    if (item.loc === 'ppd') f1Ppd++;
+                    if (item.status === 'approved') f1Sah++;
+                } else if (isFasa2) {
+                    f2Hadir++;
+                    if (item.loc === 'sekolah') f2Sekolah++;
+                    if (item.loc === 'ppd') f2Ppd++;
+                    if (item.status === 'approved') f2Sah++;
+                }
+            });
+
+            safeSetText("fasa1SekolahCount", `${f1Sekolah}/15`);
+            safeSetText("fasa1PpdCount", `${f1Ppd}/5`);
+            safeSetText("fasa1SahCount", `${f1Sah}`);
+            const f1HadirPct = Math.min(100, Math.round((f1Hadir / 20) * 100));
+            safeSetText("fasa1HadirPct", `${f1HadirPct}%`);
+            if (document.getElementById("fasa1HadirBar")) document.getElementById("fasa1HadirBar").style.width = `${f1HadirPct}%`;
+
+            safeSetText("fasa2SekolahCount", `${f2Sekolah}/15`);
+            safeSetText("fasa2PpdCount", `${f2Ppd}/5`);
+            safeSetText("fasa2SahCount", `${f2Sah}`);
+            const f2HadirPct = Math.min(100, Math.round((f2Hadir / 20) * 100));
+            safeSetText("fasa2HadirPct", `${f2HadirPct}%`);
+            if (document.getElementById("fasa2HadirBar")) document.getElementById("fasa2HadirBar").style.width = `${f2HadirPct}%`;
+        };
+
         /* =========================================================
            FUNGSI CETAKAN LAPORAN PDF I-PROPKES (PRA & PASCA 38 ITEM)
            ========================================================= */
@@ -1106,7 +1259,6 @@
             window.print(); setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
         };
 
-        // STREAMING_CHUNK:Rendering Chart.js components...
         let barChartInstance = null;
         let webChartInstance = null;
 
@@ -1183,9 +1335,6 @@
                 }
             }
         }
-
-        let disMonth = 7, disYear = 2026, curEditDate = "";
-        const mNames = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
 
         window.changeMonth = function(dir) {
             disMonth += dir; if(disMonth > 11) { disMonth = 0; disYear++; } if(disMonth < 0) { disMonth = 11; disYear--; }
@@ -1403,15 +1552,17 @@
                     safeSetText("profileSekolah", u.sekolah || "Belum Diisi");
                     safeSetText("profilePPD", u.ppd ? `PPD: ${u.ppd}` : "PPD: Belum Diisi");
                     
-                    const namaPemandu = u.pemanduCitra || u.pemanducitra || "Belum Diisi";
+                    const namaPemandu = u.pemanduCitra || u.pemanducitra || u.pemandu_citra || "Belum Diisi";
                     const jawatanPemandu = u.pemanduJawatan || u.pemanducitraJawatan || "";
                     const pusatPemandu = u.pemanduPusat || u.pemanducitraPusat || "";
                     safeSetText("infoPemanduNama", namaPemandu);
                     safeSetText("infoPemanduJawatan", (jawatanPemandu || pusatPemandu) ? `${jawatanPemandu} ${pusatPemandu ? '('+pusatPemandu+')' : ''}` : "-");
-                    safeSetText("infoMentorNama", u.mentorSekolah || "Belum Diisi");
-                    safeSetText("infoMentorJawatan", u.mentorJawatan || "-");
-                    safeSetText("infoMentorPpdNama", u.mentorPpd || "Belum Diisi");
-                    safeSetText("infoMentorPpdJawatan", u.mentorPpdJawatan || "-");
+                    
+                    safeSetText("infoMentorNama", u.mentorSekolah || u.mentor_sekolah || "Belum Diisi");
+                    safeSetText("infoMentorJawatan", u.mentorJawatan || u.mentor_jawatan || "-");
+                    
+                    safeSetText("infoMentorPpdNama", u.mentorPpd || u.mentor_ppd || "Belum Diisi");
+                    safeSetText("infoMentorPpdJawatan", u.mentorPpdJawatan || u.mentor_ppd_jawatan || "-");
                 }
 
                 if(calSnap && calSnap.exists()) window.calendarData = calSnap.val();
@@ -1421,22 +1572,203 @@
                 window.renderCal();
                 window.renderWeeklyScheduleTable();
                 window.renderTasks();
+                window.calculatePhaseStats();
                 loadCharts();
             } catch(e) {
                 console.error("Ralat memuat data:", e);
             }
         }
 
+        const journalForm = document.getElementById("journalForm");
+        if (journalForm) {
+            journalForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const selWeek = window.getVal("weekSelector");
+                if (!selWeek) return;
+                
+                const jObj = { 
+                    deskripsi: window.getVal("jDeskripsi"), 
+                    analisis: window.getVal("jAnalisis"), 
+                    interpretasi: window.getVal("jInterpretasi"), 
+                    updatedAt: Date.now() 
+                };
+                window.journalData[selWeek] = jObj;
+
+                try {
+                    await set(ref(db, `propkes_journals/${currentUser}/${selWeek}`), jObj);
+                    window.showToast("Jurnal berjaya disimpan!");
+                } catch(err) {
+                    console.error("Error saving journal:", err);
+                    window.showToast("Jurnal disimpan secara tempatan.", "warning");
+                }
+                window.renderWeeklyScheduleTable();
+                window.closeJournalForm();
+            });
+        }
+
+        const profilForm = document.getElementById("profilForm");
+        if (profilForm) {
+            profilForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const updatedProfile = {
+                    ...window.profileData,
+                    ic: window.getVal("editIc"),
+                    jawatan: window.getVal("editJawatan"),
+                    gred: window.getVal("editGred"),
+                    jabatan: window.getVal("editJabatan"),
+                    pusatCawangan: window.getVal("editPusatCawangan"),
+                    sekolah: window.getVal("editSekolah"),
+                    ppd: window.getVal("editPpd"),
+                    pemanduCitra: window.getVal("editPemanduCitra"),
+                    pemanduJawatan: window.getVal("editPemanduJawatan"),
+                    pemanduPusat: window.getVal("editPemanduPusat"),
+                    mentorSekolah: window.getVal("editMentorSekolah"),
+                    mentorJawatan: window.getVal("editMentorJawatan"),
+                    mentorTelefon: window.getVal("editMentorTelefon"),
+                    mentorEmail: window.getVal("editMentorEmail"),
+                    mentorAlamat: window.getVal("editMentorAlamat"),
+                    mentorPpd: window.getVal("editMentorPpd"),
+                    mentorPpdJawatan: window.getVal("editMentorPpdJawatan"),
+                    mentorPpdTelefon: window.getVal("editMentorPpdTelefon"),
+                    mentorPpdEmail: window.getVal("editMentorPpdEmail"),
+                    mentorPpdAlamat: window.getVal("editMentorPpdAlamat")
+                };
+
+                window.profileData = updatedProfile;
+
+                try {
+                    await update(ref(db, `propkes_accounts/${currentUser}`), updatedProfile);
+                    window.showToast("Profil berjaya dikemaskini!");
+                } catch(err) {
+                    console.error("Error updating profile:", err);
+                    window.showToast("Kemaskini tempatan disimpan.", "warning");
+                }
+
+                window.closeProfilModal();
+                loadUserData();
+            });
+        }
+
+        const artikelForm = document.getElementById("artikelForm");
+        if (artikelForm) {
+            artikelForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const artObj = {
+                    tajuk: window.getVal("artTajuk"),
+                    abstrak: window.getVal("artAbstrak"),
+                    pengenalan: window.getVal("artPengenalan"),
+                    jenisGred: window.getVal("artJenisGred"),
+                    lokasiDaerah: window.getVal("artLokasiDaerah"),
+                    bilGuruMurid: window.getVal("artBilGuruMurid"),
+                    namaPengetua: window.getVal("artNamaPengetua"),
+                    kebitaraan1: window.getVal("artKebitaraan1"),
+                    kebitaraan2: window.getVal("artKebitaraan2"),
+                    kebitaraan3: window.getVal("artKebitaraan3"),
+                    rumusan: window.getVal("artRumusan"),
+                    rujukan: window.getVal("artRujukan"),
+                    updatedAt: Date.now()
+                };
+
+                window.artikelData = artObj;
+
+                try {
+                    await set(ref(db, `propkes_articles/${currentUser}`), artObj);
+                    window.showToast("Artikel Lampiran E berjaya disimpan!");
+                } catch(err) {
+                    console.error("Error saving article:", err);
+                    window.showToast("Artikel disimpan secara tempatan.", "warning");
+                }
+
+                window.closeArtikelModal();
+            });
+        }
+
+        window.savePanduCitra = async function(event) {
+            if (event) event.preventDefault();
+            const form = document.getElementById("panduCitraForm");
+            if (!form) return;
+            const inputs = form.querySelectorAll("input, select, textarea");
+            const dateVal = inputs[0] ? inputs[0].value : "";
+            const startTime = inputs[1] ? inputs[1].value : "";
+            const endTime = inputs[2] ? inputs[2].value : "";
+            const mode = inputs[3] ? inputs[3].value : "";
+            const notes = inputs[4] ? inputs[4].value : "";
+
+            const pcData = { tarikh: dateVal, mula: startTime, tamat: endTime, kaedah: mode, catatan: notes, timestamp: Date.now() };
+
+            try {
+                await set(ref(db, `propkes_panducitra/${currentUser}/${Date.now()}`), pcData);
+                window.showToast("Sesi Pandu Citra berjaya direkodkan!");
+                window.closePanduCitraModal();
+            } catch(e) {
+                console.error("Error saving Pandu Citra:", e);
+                window.showToast("Sesi disimpan secara tempatan.", "warning");
+                window.closePanduCitraModal();
+            }
+        };
+
         window.openWeeklyModal = () => { document.getElementById('weeklyModal').classList.remove('hidden'); document.getElementById('weeklyModal').classList.add('flex'); setTimeout(()=>document.getElementById('weeklyModal').classList.remove('opacity-0'),10); };
         window.closeWeeklyModal = () => { document.getElementById('weeklyModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('weeklyModal').classList.remove('flex'); document.getElementById('weeklyModal').classList.add('hidden');},300); };
         
-        window.openProfilModal = () => { document.getElementById('profilModal').classList.remove('hidden'); document.getElementById('profilModal').classList.add('flex'); setTimeout(()=>document.getElementById('profilModal').classList.remove('opacity-0'),10); };
+        window.openProfilModal = () => { 
+            const u = window.profileData || {};
+            safeSetValue("editIc", u.ic || "");
+            safeSetValue("editJawatan", u.jawatan || "");
+            safeSetValue("editGred", u.gred || "");
+            safeSetValue("editJabatan", u.jabatan || "");
+            safeSetValue("editPusatCawangan", u.pusatCawangan || "");
+            safeSetValue("editSekolah", u.sekolah || "");
+            safeSetValue("editPpd", u.ppd || "");
+            safeSetValue("editPemanduCitra", u.pemanduCitra || u.pemanducitra || u.pemandu_citra || "");
+            safeSetValue("editPemanduJawatan", u.pemanduJawatan || u.pemanducitraJawatan || "");
+            safeSetValue("editPemanduPusat", u.pemanduPusat || u.pemanducitraPusat || "");
+            safeSetValue("editMentorSekolah", u.mentorSekolah || u.mentor_sekolah || "");
+            safeSetValue("editMentorJawatan", u.mentorJawatan || u.mentor_jawatan || "");
+            safeSetValue("editMentorTelefon", u.mentorTelefon || "");
+            safeSetValue("editMentorEmail", u.mentorEmail || "");
+            safeSetValue("editMentorAlamat", u.mentorAlamat || "");
+            safeSetValue("editMentorPpd", u.mentorPpd || u.mentor_ppd || "");
+            safeSetValue("editMentorPpdJawatan", u.mentorPpdJawatan || u.mentor_ppd_jawatan || "");
+            safeSetValue("editMentorPpdTelefon", u.mentorPpdTelefon || "");
+            safeSetValue("editMentorPpdEmail", u.mentorPpdEmail || "");
+            safeSetValue("editMentorPpdAlamat", u.mentorPpdAlamat || "");
+
+            document.getElementById('profilModal').classList.remove('hidden'); 
+            document.getElementById('profilModal').classList.add('flex'); 
+            setTimeout(()=>document.getElementById('profilModal').classList.remove('opacity-0'),10); 
+        };
         window.closeProfilModal = () => { document.getElementById('profilModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('profilModal').classList.remove('flex'); document.getElementById('profilModal').classList.add('hidden');},300); };
 
         window.openPanduCitraModal = () => { document.getElementById('panduCitraModal').classList.remove('hidden'); document.getElementById('panduCitraModal').classList.add('flex'); setTimeout(()=>document.getElementById('panduCitraModal').classList.remove('opacity-0'),10); };
         window.closePanduCitraModal = () => { document.getElementById('panduCitraModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('panduCitraModal').classList.remove('flex'); document.getElementById('panduCitraModal').classList.add('hidden');},300); };
 
-        window.openArtikelModal = () => { document.getElementById('artikelModal').classList.remove('hidden'); document.getElementById('artikelModal').classList.add('flex'); setTimeout(()=>document.getElementById('artikelModal').classList.remove('opacity-0'),10); };
+        window.updateWordCount = function() {
+            const text = window.getVal("artAbstrak");
+            const words = text ? text.trim().split(/\s+/).filter(Boolean).length : 0;
+            safeSetText("abstrakWordCount", `${words} / 200 Perkataan`);
+        };
+
+        window.openArtikelModal = () => { 
+            const a = window.artikelData || {};
+            const u = window.profileData || {};
+            safeSetValue("artTajuk", a.tajuk || "");
+            safeSetValue("artAbstrak", a.abstrak || "");
+            safeSetValue("artPengenalan", a.pengenalan || "");
+            safeSetValue("artJenisGred", a.jenisGred || "");
+            safeSetValue("artLokasiDaerah", a.lokasiDaerah || (u.ppd ? `PPD ${u.ppd}` : ""));
+            safeSetValue("artBilGuruMurid", a.bilGuruMurid || "");
+            safeSetValue("artNamaPengetua", a.namaPengetua || u.mentorSekolah || "");
+            safeSetValue("artKebitaraan1", a.kebitaraan1 || "");
+            safeSetValue("artKebitaraan2", a.kebitaraan2 || "");
+            safeSetValue("artKebitaraan3", a.kebitaraan3 || "");
+            safeSetValue("artRumusan", a.rumusan || "");
+            safeSetValue("artRujukan", a.rujukan || "");
+            window.updateWordCount();
+
+            document.getElementById('artikelModal').classList.remove('hidden'); 
+            document.getElementById('artikelModal').classList.add('flex'); 
+            setTimeout(()=>document.getElementById('artikelModal').classList.remove('opacity-0'),10); 
+        };
         window.closeArtikelModal = () => { document.getElementById('artikelModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('artikelModal').classList.remove('flex'); document.getElementById('artikelModal').classList.add('hidden');},300); };
 
         loadUserData();
