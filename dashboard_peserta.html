@@ -1306,32 +1306,6 @@
             }
         }
 
-        let disMonth = 7, disYear = 2026, curEditDate = "";
-                            datasets: [
-                                { label: 'Pra', data: praDomainScores, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.2)' }, 
-                                { label: 'Pasca', data: pascaDomainScores, borderColor: '#a855f7', backgroundColor: 'rgba(168,85,247,0.2)' }
-                            ] 
-                        }, 
-                        options: { 
-                            responsive: true, 
-                            maintainAspectRatio: false, 
-                            scales: { 
-                                r: { 
-                                    min: 0, 
-                                    max: 10, 
-                                    pointLabels: { color: '#cbd5e1', font: { size: 7.5 } }, 
-                                    ticks: { display: false } 
-                                } 
-                            },
-                            plugins: {
-                                legend: { labels: { color: '#cbd5e1', font: { size: 9 } } }
-                            }
-                        } 
-                    });
-                }
-            }
-        }
-
         window.changeMonth = function(dir) {
             disMonth += dir; if(disMonth > 11) { disMonth = 0; disYear++; } if(disMonth < 0) { disMonth = 11; disYear--; }
             window.renderCal();
