@@ -15,6 +15,7 @@
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px;}
         .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
         .fade-in { animation: fadeIn 0.4s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .toggle-checkbox:checked { right: 0; border-color: #10b981; }
@@ -35,6 +36,7 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
+    <!-- TOP NAVBAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 no-print shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex justify-between items-center">
@@ -62,36 +64,39 @@
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
+    <!-- MAIN BODY -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 no-print">
         
-        <div class="bg-gradient-to-r from-blue-900/40 via-slate-900 to-purple-900/30 border border-blue-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+        <!-- BANNER WELCOME -->
+        <div class="bg-gradient-to-r from-blue-900/40 via-slate-900 to-purple-900/30 border border-blue-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-blue-500/10 blur-3xl rounded-full pointer-events-none"></div>
             <div class="relative z-10">
                 <h1 class="text-2xl md:text-3xl font-bold text-white mb-2" id="welcomeMessage">Selamat Datang!</h1>
                 <p class="text-slate-400 text-sm max-w-2xl">Urus keberadaan, rekod log harian (Lampiran C), jurnal mingguan (Lampiran D), serta Penulisan Artikel (Lampiran E) mengikut Fasa 1 dan Fasa 2.</p>
             </div>
             <div class="relative z-10 flex flex-wrap gap-3">
-                <button onclick="window.openArtikelModal()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-xl shadow-lg shadow-purple-600/30 flex items-center gap-2 outline-none transition-all cursor-pointer text-xs">
+                <button onclick="window.openArtikelModal()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg shadow-purple-600/30 flex items-center gap-2 outline-none transition-all cursor-pointer text-xs">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                     Penulisan Artikel (Lamp. E)
                 </button>
-                <button onclick="window.openWeeklyModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-5 rounded-xl shadow-lg shadow-emerald-600/30 flex items-center gap-2 outline-none transition-all cursor-pointer text-xs">
+                <button onclick="window.openWeeklyModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg shadow-emerald-600/30 flex items-center gap-2 outline-none transition-all cursor-pointer text-xs">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     Modul Mingguan (Lamp. C & D)
                 </button>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <!-- PERATUS KEMAJUAN FASA 1 & FASA 2 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <!-- FASA 1 -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
-                <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-800">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+                <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-800">
                     <div>
                         <span class="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-950 px-2 py-0.5 rounded border border-blue-800/50">Fasa 1 (Ogos - Sept 2026)</span>
-                        <h3 class="text-base font-bold text-white mt-1">Penyertaan & Kepimpinan Fasa 1</h3>
+                        <h3 class="text-sm font-bold text-white mt-1">Penyertaan & Kepimpinan Fasa 1</h3>
                     </div>
                 </div>
-                <div class="space-y-4">
+                <div class="space-y-3">
                     <div>
                         <div class="flex justify-between text-xs font-semibold mb-1">
                             <span class="text-slate-300">📊 Peratus Kehadiran (Keberadaan)</span>
@@ -100,7 +105,7 @@
                         <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden">
                             <div class="bg-blue-500 h-2 rounded-full transition-all duration-500" id="fasa1HadirBar" style="width: 0%"></div>
                         </div>
-                        <div class="flex justify-between text-[10px] text-slate-400 mt-1.5">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
                             <span>Sekolah: <b class="text-white" id="fasa1SekolahCount">0/15</b> hari</span>
                             <span>PPD: <b class="text-white" id="fasa1PpdCount">0/5</b> hari</span>
                             <span>Disahkan: <b class="text-emerald-400" id="fasa1SahCount">0</b> hari</span>
@@ -114,7 +119,7 @@
                         <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden">
                             <div class="bg-emerald-500 h-2 rounded-full transition-all duration-500" id="fasa1TugasanBar" style="width: 0%"></div>
                         </div>
-                        <div class="flex justify-between text-[10px] text-slate-400 mt-1.5">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
                             <span>Log C: <b class="text-white" id="fasa1LogCCount">0/20</b> (40%)</span>
                             <span>Jurnal D: <b class="text-white" id="fasa1JurDCount">0/6</b> (40%)</span>
                             <span>Tugasan A: <b class="text-white" id="fasa1TaskACount">0/2</b> (20%)</span>
@@ -124,14 +129,14 @@
             </div>
 
             <!-- FASA 2 -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
-                <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-800">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+                <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-800">
                     <div>
                         <span class="text-[10px] font-bold uppercase tracking-wider text-purple-400 bg-purple-950 px-2 py-0.5 rounded border border-purple-800/50">Fasa 2 (Sept - Okt 2026)</span>
-                        <h3 class="text-base font-bold text-white mt-1">Penyertaan & Kepimpinan Fasa 2</h3>
+                        <h3 class="text-sm font-bold text-white mt-1">Penyertaan & Kepimpinan Fasa 2</h3>
                     </div>
                 </div>
-                <div class="space-y-4">
+                <div class="space-y-3">
                     <div>
                         <div class="flex justify-between text-xs font-semibold mb-1">
                             <span class="text-slate-300">📊 Peratus Kehadiran (Keberadaan)</span>
@@ -140,7 +145,7 @@
                         <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden">
                             <div class="bg-purple-500 h-2 rounded-full transition-all duration-500" id="fasa2HadirBar" style="width: 0%"></div>
                         </div>
-                        <div class="flex justify-between text-[10px] text-slate-400 mt-1.5">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
                             <span>Sekolah: <b class="text-white" id="fasa2SekolahCount">0/15</b> hari</span>
                             <span>PPD: <b class="text-white" id="fasa2PpdCount">0/5</b> hari</span>
                             <span>Disahkan: <b class="text-emerald-400" id="fasa2SahCount">0</b> hari</span>
@@ -154,7 +159,7 @@
                         <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden">
                             <div class="bg-emerald-500 h-2 rounded-full transition-all duration-500" id="fasa2TugasanBar" style="width: 0%"></div>
                         </div>
-                        <div class="flex justify-between text-[10px] text-slate-400 mt-1.5">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
                             <span>Log C: <b class="text-white" id="fasa2LogCCount">0/20</b> (40%)</span>
                             <span>Jurnal D: <b class="text-white" id="fasa2JurDCount">0/6</b> (40%)</span>
                             <span>Tugasan A: <b class="text-white" id="fasa2TaskACount">0/2</b> (20%)</span>
@@ -164,88 +169,104 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- UTAMA 12-KOLUM GRID (SEIMBANG & OPTIMUM) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
-            <!-- KIRI: PROFIL -->
-            <div class="lg:col-span-1 space-y-6">
+            <!-- KIRI (4 KOLUM): PROFIL & STATISTIK -->
+            <div class="lg:col-span-4 space-y-6">
                 <!-- MAKLUMAT DIDAFTARKAN -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
-                    <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm flex items-center gap-2">Maklumat Didaftarkan</h3>
-                    <div class="space-y-4">
-                        <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Nama Penuh</p><p class="text-sm font-medium text-slate-200" id="profileNama">Memuat turun...</p></div>
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
+                    <h3 class="font-bold text-white mb-3 border-b border-slate-800 pb-2.5 text-xs uppercase tracking-wider flex items-center gap-2">
+                        <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                        Maklumat Didaftarkan
+                    </h3>
+                    <div class="space-y-3">
+                        <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-0.5">Nama Penuh</p><p class="text-xs font-medium text-slate-200" id="profileNama">Memuat turun...</p></div>
                         <div class="grid grid-cols-2 gap-2">
-                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">E-mel Rasmi</p><p class="text-sm font-medium text-slate-300 truncate" id="profileEmail">Belum Diisi</p></div>
-                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">No. KP</p><p class="text-sm font-medium text-amber-400" id="profileIC">Belum Diisi</p></div>
+                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-0.5">E-mel Rasmi</p><p class="text-xs font-medium text-slate-300 truncate" id="profileEmail">Belum Diisi</p></div>
+                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-0.5">No. KP</p><p class="text-xs font-medium text-amber-400" id="profileIC">Belum Diisi</p></div>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
-                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Jawatan/Gred</p><p class="text-sm font-medium text-slate-300" id="profileJawatanGred">Belum Diisi</p></div>
-                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Pusat/Jabatan</p><p class="text-sm font-medium text-slate-300" id="profileJabatanPusat">Belum Diisi</p></div>
+                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-0.5">Jawatan/Gred</p><p class="text-xs font-medium text-slate-300" id="profileJawatanGred">Belum Diisi</p></div>
+                            <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-0.5">Pusat/Jabatan</p><p class="text-xs font-medium text-slate-300" id="profileJabatanPusat">Belum Diisi</p></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
-                    <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-3 text-sm">Maklumat Sandaran & Pembimbing</h3>
-                    <div class="space-y-4">
-                        <div class="bg-blue-950/20 p-3 rounded-lg border border-blue-900/30">
-                            <p class="text-[10px] text-blue-400 font-bold uppercase mb-1">Sekolah Sandaran & PPD</p>
-                            <p class="text-sm font-bold text-slate-200" id="profileSekolah">Belum Diisi</p>
+                <!-- MAKLUMAT SANDARAN & PEMBIMBING -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
+                    <h3 class="font-bold text-white mb-3 border-b border-slate-800 pb-2.5 text-xs uppercase tracking-wider flex items-center gap-2">
+                        <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                        Sandaran & Pembimbing
+                    </h3>
+                    <div class="space-y-2.5">
+                        <div class="bg-blue-950/20 p-2.5 rounded-xl border border-blue-900/30">
+                            <p class="text-[9px] text-blue-400 font-bold uppercase mb-0.5">Sekolah Sandaran & PPD</p>
+                            <p class="text-xs font-bold text-slate-200" id="profileSekolah">Belum Diisi</p>
                             <p class="text-[10px] text-slate-400" id="profilePPD">PPD: Belum Diisi</p>
                         </div>
-                        <div class="bg-purple-950/20 p-3 rounded-lg border border-purple-900/30">
-                            <p class="text-[10px] text-purple-400 font-bold uppercase mb-1">Pemandu Citra (IAB)</p>
-                            <p class="text-sm font-bold text-slate-200" id="infoPemanduNama">Belum Diisi</p>
+                        <div class="bg-purple-950/20 p-2.5 rounded-xl border border-purple-900/30">
+                            <p class="text-[9px] text-purple-400 font-bold uppercase mb-0.5">Pemandu Citra (IAB)</p>
+                            <p class="text-xs font-bold text-slate-200" id="infoPemanduNama">Belum Diisi</p>
                             <p class="text-[10px] text-slate-400" id="infoPemanduJawatan">-</p>
                         </div>
-                        <div class="bg-amber-950/20 p-3 rounded-lg border border-amber-900/30">
-                            <p class="text-[10px] text-amber-400 font-bold uppercase mb-1">Mentor 1 (Sekolah)</p>
-                            <p class="text-sm font-bold text-slate-200" id="infoMentorNama">Belum Diisi</p>
+                        <div class="bg-amber-950/20 p-2.5 rounded-xl border border-amber-900/30">
+                            <p class="text-[9px] text-amber-400 font-bold uppercase mb-0.5">Mentor 1 (Sekolah)</p>
+                            <p class="text-xs font-bold text-slate-200" id="infoMentorNama">Belum Diisi</p>
                             <p class="text-[10px] text-slate-400" id="infoMentorJawatan">-</p>
                         </div>
-                        <div class="bg-amber-950/20 p-3 rounded-lg border border-amber-900/30">
-                            <p class="text-[10px] text-amber-400 font-bold uppercase mb-1">Mentor 2 (PPD)</p>
-                            <p class="text-sm font-bold text-slate-200" id="infoMentorPpdNama">Belum Diisi</p>
+                        <div class="bg-amber-950/20 p-2.5 rounded-xl border border-amber-900/30">
+                            <p class="text-[9px] text-amber-400 font-bold uppercase mb-0.5">Mentor 2 (PPD)</p>
+                            <p class="text-xs font-bold text-slate-200" id="infoMentorPpdNama">Belum Diisi</p>
                             <p class="text-[10px] text-slate-400" id="infoMentorPpdJawatan">-</p>
                         </div>
                     </div>
                     
-                    <button onclick="window.openProfilModal()" class="w-full mt-4 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-lg text-xs font-bold border border-slate-700 outline-none cursor-pointer">
+                    <button onclick="window.openProfilModal()" class="w-full mt-3 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg text-xs font-bold border border-slate-700 outline-none cursor-pointer">
                         Kemaskini Maklumat Profil
                     </button>
-                    <button onclick="window.openPanduCitraModal()" class="w-full mt-3 bg-purple-600/20 hover:bg-purple-600 text-purple-400 hover:text-white py-2.5 rounded-lg text-xs font-bold border border-purple-500/50 outline-none cursor-pointer transition-colors">
+                    <button onclick="window.openPanduCitraModal()" class="w-full mt-2 bg-purple-600/20 hover:bg-purple-600 text-purple-400 hover:text-white py-2 rounded-lg text-xs font-bold border border-purple-500/50 outline-none cursor-pointer transition-colors">
                         Daftar Sesi Pandu Citra
                     </button>
                 </div>
 
+                <!-- STATISTIK KEBERADAAN -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
-                    <h3 class="font-bold text-white text-sm flex items-center gap-2 mb-4 border-b border-slate-800 pb-3">Statistik Keberadaan (<span id="statMonthLabel">Ini</span>)</h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center text-sm"><span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-blue-500"></div> Sekolah Sandaran</span><span class="font-bold text-white" id="countSekolah">0 Hari</span></div>
-                        <div class="flex justify-between items-center text-sm"><span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-indigo-500"></div> PPD</span><span class="font-bold text-white" id="countPpd">0 Hari</span></div>
-                        <div class="flex justify-between items-center text-sm"><span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-purple-500"></div> IAB</span><span class="font-bold text-white" id="countIab">0 Hari</span></div>
-                        <div class="flex justify-between items-center text-sm"><span class="flex items-center gap-2 text-slate-300"><div class="w-3 h-3 rounded bg-slate-600"></div> Cuti / Lain</span><span class="font-bold text-white" id="countCuti">0 Hari</span></div>
+                    <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2 mb-3 border-b border-slate-800 pb-2.5">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                        Keberadaan (<span id="statMonthLabel">Bulan Ini</span>)
+                    </h3>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between items-center"><span class="flex items-center gap-2 text-slate-300"><div class="w-2.5 h-2.5 rounded bg-blue-500"></div> Sekolah Sandaran</span><span class="font-bold text-white" id="countSekolah">0 Hari</span></div>
+                        <div class="flex justify-between items-center"><span class="flex items-center gap-2 text-slate-300"><div class="w-2.5 h-2.5 rounded bg-indigo-500"></div> PPD</span><span class="font-bold text-white" id="countPpd">0 Hari</span></div>
+                        <div class="flex justify-between items-center"><span class="flex items-center gap-2 text-slate-300"><div class="w-2.5 h-2.5 rounded bg-purple-500"></div> IAB</span><span class="font-bold text-white" id="countIab">0 Hari</span></div>
+                        <div class="flex justify-between items-center"><span class="flex items-center gap-2 text-slate-300"><div class="w-2.5 h-2.5 rounded bg-slate-600"></div> Cuti / Lain</span><span class="font-bold text-white" id="countCuti">0 Hari</span></div>
                     </div>
                 </div>
             </div>
 
-            <div class="lg:col-span-2 space-y-6">
+            <!-- KANAN (8 KOLUM): KALENDAR, JADUAL MINGGUAN, TUGASAN & CARTA -->
+            <div class="lg:col-span-8 space-y-6">
                 
                 <!-- KALENDAR LOG HARIAN -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
-                    <div class="flex flex-col sm:flex-row justify-between items-center border-b border-slate-800 pb-4 mb-4 gap-4">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
+                    <div class="flex flex-col sm:flex-row justify-between items-center border-b border-slate-800 pb-3 mb-3 gap-3">
                         <div>
-                            <h3 class="font-bold text-white text-sm flex items-center gap-2">Perekod Log Harian (Lampiran C)</h3>
-                            <p class="text-[10px] text-slate-400 mt-1">Sila klik tarikh untuk mengisi Aktiviti & Refleksi.</p>
+                            <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+                                Perekod Log Harian (Lampiran C)
+                            </h3>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Klik mana-mana tarikh untuk mengisi Aktiviti & Refleksi.</p>
                         </div>
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2">
                             <button onclick="window.cetakLampiranB()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 outline-none cursor-pointer flex items-center gap-1.5">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
                                 Cetak Lampiran B
                             </button>
-                            <div class="flex items-center gap-2 bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg">
-                                <button onclick="window.changeMonth(-1)" class="text-slate-400 hover:text-white p-1 outline-none cursor-pointer"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button>
-                                <span class="text-xs font-bold text-white w-28 text-center" id="calendarMonthYear">Ogos 2026</span>
-                                <button onclick="window.changeMonth(1)" class="text-slate-400 hover:text-white p-1 outline-none cursor-pointer"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg></button>
+                            <div class="flex items-center gap-1 bg-slate-950 border border-slate-700 px-2.5 py-1 rounded-lg">
+                                <button onclick="window.changeMonth(-1)" class="text-slate-400 hover:text-white p-0.5 outline-none cursor-pointer"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button>
+                                <span class="text-xs font-bold text-white w-24 text-center" id="calendarMonthYear">Ogos 2026</span>
+                                <button onclick="window.changeMonth(1)" class="text-slate-400 hover:text-white p-0.5 outline-none cursor-pointer"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg></button>
                             </div>
                         </div>
                     </div>
@@ -255,66 +276,84 @@
                     <!-- Tempat Kalendar Dijana -->
                     <div class="grid grid-cols-7 gap-1.5 sm:gap-2 text-center" id="calendarGrid"></div>
                     
-                    <div class="mt-4 pt-3 border-t border-slate-800 flex flex-wrap justify-center gap-4 text-[10px] text-slate-400">
+                    <div class="mt-3 pt-2.5 border-t border-slate-800 flex flex-wrap justify-center gap-3 text-[10px] text-slate-400">
                         <div class="flex items-center gap-1"><div class="w-2 h-2 bg-blue-500 rounded-sm"></div> Sekolah</div>
                         <div class="flex items-center gap-1"><div class="w-2 h-2 bg-indigo-500 rounded-sm"></div> PPD</div>
                         <div class="flex items-center gap-1"><div class="w-2 h-2 bg-purple-500 rounded-sm"></div> IAB</div>
-                        <div class="flex items-center gap-1 border-l border-slate-700 pl-4"><div class="w-3 h-3 bg-amber-500 rounded-full"></div> Menunggu Sah</div>
-                        <div class="flex items-center gap-1"><div class="w-3 h-3 bg-emerald-500 rounded-full"></div> Disahkan</div>
+                        <div class="flex items-center gap-1 border-l border-slate-700 pl-3"><div class="w-2.5 h-2.5 bg-amber-500 rounded-full"></div> Menunggu Sah</div>
+                        <div class="flex items-center gap-1"><div class="w-2.5 h-2.5 bg-emerald-500 rounded-full"></div> Disahkan</div>
                     </div>
                 </div>
 
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
-                    <div class="flex justify-between items-center">
+                <!-- JADUAL PERINCIAN MINGGUAN & PENYERAHAN MODUL (OPTIMUM, COMPACT & STICKY HEADER) -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 pb-2.5 border-b border-slate-800 gap-2">
                         <div>
-                            <h3 class="font-bold text-white text-sm">Keputusan i-PROPKES</h3>
-                            <p class="text-[10px] text-slate-400 mt-1">Selesai Ujian Pra dan Pasca.</p>
+                            <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
+                                <span class="w-2 h-2 bg-emerald-400 rounded-full"></span>
+                                Jadual Perincian Mingguan & Penyerahan Modul
+                            </h3>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Status Log (C) & Jurnal (D) ditanda selesai secara automatik apabila direkodkan.</p>
                         </div>
-                        <button onclick="document.getElementById('analisisBox').classList.toggle('hidden')" class="bg-slate-800 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-700 outline-none cursor-pointer hover:bg-slate-700">Lihat Carta</button>
+                        <span class="text-[9px] bg-slate-950 text-slate-400 border border-slate-800 px-2 py-1 rounded-lg">12 Minggu Sasaran</span>
                     </div>
-                    <div id="analisisBox" class="hidden mt-6 pt-6 border-t border-slate-800">
-                        <div class="flex justify-end mb-4">
-                            <button onclick="window.cetakLaporanPropkes()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs px-4 py-2 rounded-lg font-bold outline-none flex gap-2 cursor-pointer"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF i-PROPKES</button>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800"><canvas id="barChart" class="w-full h-48"></canvas></div>
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800"><canvas id="webChart" class="w-full h-48"></canvas></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
-                    <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
-                        <div>
-                            <h3 class="font-bold text-white text-sm">Status Tugasan PROPKES (Lampiran A)</h3>
-                            <p class="text-[11px] text-slate-400 mt-1">Status akan dikemaskini secara automatik mengikut tindakan anda.</p>
-                        </div>
-                        <div class="w-10 h-10 rounded-full border-4 border-slate-700 flex items-center justify-center shrink-0" id="progressCircle">
-                            <span class="text-[10px] font-bold text-slate-300" id="progressText">0%</span>
-                        </div>
-                    </div>
-                    <div class="p-6 space-y-8" id="taskListContainer"></div>
-                </div>
-
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-6">
-                    <h3 class="font-bold text-white text-sm mb-2">Jadual Perincian Mingguan & Penyerahan Modul</h3>
-                    <p class="text-xs text-slate-400 mb-6 border-b border-slate-800 pb-4">Log Kehadiran (3 Hari Sekolah M1-M5 / 5 Hari PPD M6) & Jurnal Mingguan akan ditanda selesai secara automatik apabila anda memasukkannya ke sistem.</p>
                     
-                    <div class="overflow-x-auto custom-scrollbar">
+                    <!-- Scrollable Container untuk mengelakkan layout memanjang -->
+                    <div class="overflow-x-auto max-h-[320px] overflow-y-auto custom-scrollbar border border-slate-800 rounded-xl bg-slate-950/40">
                         <table class="w-full text-left text-xs text-slate-300 border-collapse">
-                            <thead>
-                                <tr class="bg-slate-950 text-slate-400 uppercase text-[10px]">
-                                    <th class="p-3 border border-slate-800">Minggu & Fasa</th>
-                                    <th class="p-3 border border-slate-800">Julat Tarikh</th>
-                                    <th class="p-3 border border-slate-800">Lokasi Sasaran</th>
-                                    <th class="p-3 border border-slate-800">Log Harian (C)</th>
-                                    <th class="p-3 border border-slate-800">Jurnal Kepimpinan (D)</th>
+                            <thead class="sticky top-0 z-10 bg-slate-950/95 backdrop-blur-sm border-b border-slate-800 shadow-md">
+                                <tr class="text-slate-400 uppercase text-[9px] font-bold">
+                                    <th class="p-2.5 border-r border-slate-800/80">Minggu & Fasa</th>
+                                    <th class="p-2.5 border-r border-slate-800/80">Julat Tarikh</th>
+                                    <th class="p-2.5 border-r border-slate-800/80">Lokasi Sasaran</th>
+                                    <th class="p-2.5 border-r border-slate-800/80 text-center">Log Harian (C)</th>
+                                    <th class="p-2.5 text-center">Jurnal Kepimpinan (D)</th>
                                 </tr>
                             </thead>
-                            <tbody id="weeklyScheduleTable">
+                            <tbody id="weeklyScheduleTable" class="divide-y divide-slate-800/50">
                                 <!-- Dijana Secara Automatik -->
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- STATUS TUGASAN PROPKES (LAMPIRAN A) -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg overflow-hidden">
+                    <div class="p-4 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
+                                <span class="w-2 h-2 bg-amber-400 rounded-full"></span>
+                                Status Tugasan PROPKES (Lampiran A)
+                            </h3>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Status dikemaskini secara automatik mengikut tindakan anda.</p>
+                        </div>
+                        <div class="w-9 h-9 rounded-full border-4 border-slate-700 flex items-center justify-center shrink-0" id="progressCircle">
+                            <span class="text-[9px] font-bold text-slate-300" id="progressText">0%</span>
+                        </div>
+                    </div>
+                    <div class="p-4 max-h-[350px] overflow-y-auto custom-scrollbar" id="taskListContainer"></div>
+                </div>
+
+                <!-- KEPUTUSAN i-PROPKES -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
+                                Keputusan i-PROPKES
+                            </h3>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Selesai Ujian Pra dan Pasca.</p>
+                        </div>
+                        <button onclick="document.getElementById('analisisBox').classList.toggle('hidden')" class="bg-slate-800 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-700 outline-none cursor-pointer hover:bg-slate-700">Lihat Carta</button>
+                    </div>
+                    <div id="analisisBox" class="hidden mt-4 pt-4 border-t border-slate-800">
+                        <div class="flex justify-end mb-3">
+                            <button onclick="window.cetakLaporanPropkes()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs px-3.5 py-1.5 rounded-lg font-bold outline-none flex gap-1.5 cursor-pointer"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF i-PROPKES</button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800"><canvas id="barChart" class="w-full h-44"></canvas></div>
+                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800"><canvas id="webChart" class="w-full h-44"></canvas></div>
+                        </div>
                     </div>
                 </div>
 
@@ -517,6 +556,7 @@
         </div>
     </div>
 
+    <!-- MODAL PROFIL -->
     <div id="profilModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-blue-500/50 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar p-6 transform scale-95 transition-transform duration-300" id="profilModalContent">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4 sticky top-0 bg-slate-900 z-10">
@@ -579,6 +619,7 @@
         </div>
     </div>
 
+    <!-- MODAL SESI PANDU CITRA -->
     <div id="panduCitraModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-purple-500/50 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="panduCitraModalContent">
             <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-2 border-b border-slate-800 pb-3">Rekod Sesi Pandu Citra</h3>
@@ -600,9 +641,11 @@
         </div>
     </div>
 
+    <!-- SEKSYEN CETAKAN & TOAST NOTIFICATION -->
     <div id="printSection" class="print-container no-print"></div>
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
+    <!-- LOGIK & SKRIP FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, get, child, update, set, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -633,15 +676,12 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // PEMBAIKAN KUNCI PENGGUNA DAFTAR REALTIME
         let rawUser = localStorage.getItem("propkes_user") || "";
         
-        // PEMBAIKAN 1: Semakan kebenaran / Pengendalian Log Masuk
         if (!rawUser) {
             window.location.replace("index.html");
         }
 
-        // Sanitasi kunci sahaja jika mengandungi e-mel/aksara terlarang dalam RTDB Firebase
         let currentUser = rawUser.replace(/[^a-zA-Z0-9_-]/g, "_");
 
         window.calendarData = {};
@@ -682,7 +722,6 @@
             setTimeout(() => { toast.classList.add('translate-y-2', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
         };
 
-        // PEMBAIKAN 2: Fungsi Log Keluar yang betul (Kembali ke index.html)
         window.logout = function() { 
             localStorage.removeItem("propkes_user"); 
             window.location.replace("index.html");
@@ -885,7 +924,6 @@
                 if(calSnap && calSnap.exists()) window.calendarData = calSnap.val();
                 if(jurSnap && jurSnap.exists()) window.journalData = jurSnap.val();
                 
-                // Backup storan tempatan
                 const localArt = localStorage.getItem(`propkes_article_${currentUser}`);
                 if (localArt) {
                     try { window.artikelData = JSON.parse(localArt); } catch(e){}
@@ -1051,12 +1089,12 @@
                     `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400 border border-slate-700">Belum Diisi</span>`;
 
                 html += `
-                    <tr class="border-b border-slate-800/60 hover:bg-slate-800/30">
-                        <td class="p-3 font-semibold text-white">Minggu ${item.w} <span class="text-[10px] text-slate-400">(${item.fasa})</span></td>
-                        <td class="p-3 text-slate-300 text-[11px]">${item.range}</td>
-                        <td class="p-3 font-medium ${item.w === 6 || item.w === 12 ? 'text-indigo-400' : 'text-blue-400'}">${item.target}</td>
-                        <td class="p-3">${badgeLogC}</td>
-                        <td class="p-3">${badgeJurD}</td>
+                    <tr class="hover:bg-slate-800/30 transition-colors">
+                        <td class="p-2.5 font-semibold text-white border-r border-slate-800/50">M${item.w} <span class="text-[9px] text-slate-400 font-normal">(${item.fasa})</span></td>
+                        <td class="p-2.5 text-slate-300 text-[11px] border-r border-slate-800/50">${item.range}</td>
+                        <td class="p-2.5 font-medium border-r border-slate-800/50 ${item.w === 6 || item.w === 12 ? 'text-indigo-400' : 'text-blue-400'}">${item.target}</td>
+                        <td class="p-2.5 text-center border-r border-slate-800/50">${badgeLogC}</td>
+                        <td class="p-2.5 text-center">${badgeJurD}</td>
                     </tr>
                 `;
             });
@@ -1106,7 +1144,7 @@
             let total = 0, completed = 0;
 
             propkesTasks.forEach(phase => {
-                let html = `<div class="mb-4 border-b border-slate-800/50 pb-2"><h4 class="text-xs font-bold text-blue-400 uppercase">${phase.phase}</h4></div><div class="space-y-3 mb-6">`;
+                let html = `<div class="mb-3 border-b border-slate-800/50 pb-1.5"><h4 class="text-[11px] font-bold text-blue-400 uppercase">${phase.phase}</h4></div><div class="space-y-2.5 mb-4">`;
                 phase.tasks.forEach(task => {
                     total++; const isDone = progress[task.id] === true; if(isDone) completed++;
                     const bg = isDone ? "bg-emerald-950/20 border-emerald-900/50" : "bg-slate-800/40 border-slate-700/50";
@@ -1115,20 +1153,20 @@
                     let actBtn = task.isStatic ? 
                         `<span class="text-[10px] text-slate-500 italic">Sistem Auto</span>` : 
                         (isDone ? 
-                            `<button onclick="window.toggleTask('${task.id}', false)" class="text-[10px] bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded border border-emerald-500/30 outline-none cursor-pointer font-bold">✓ Selesai</button>` : 
-                            `<button onclick="window.toggleTask('${task.id}', true)" class="text-[10px] bg-slate-700 hover:bg-emerald-600 text-white px-3 py-1.5 rounded transition-colors outline-none cursor-pointer">Tanda Selesai</button>`
+                            `<button onclick="window.toggleTask('${task.id}', false)" class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded border border-emerald-500/30 outline-none cursor-pointer font-bold">✓ Selesai</button>` : 
+                            `<button onclick="window.toggleTask('${task.id}', true)" class="text-[10px] bg-slate-700 hover:bg-emerald-600 text-white px-2.5 py-1 rounded transition-colors outline-none cursor-pointer">Tanda Selesai</button>`
                         );
 
-                    let linkHtml = task.isStatic ? '' : `<a href="${task.link}" target="${task.isAssessment ? '_self' : '_blank'}" class="text-[10px] bg-blue-600/10 text-blue-400 px-2 py-1 rounded border border-blue-600/20 outline-none cursor-pointer font-semibold">${task.btnText}</a>`;
+                    let linkHtml = task.isStatic ? '' : `<a href="${task.link}" target="${task.isAssessment ? '_self' : '_blank'}" class="text-[10px] bg-blue-600/10 text-blue-400 px-2 py-0.5 rounded border border-blue-600/20 outline-none cursor-pointer font-semibold">${task.btnText}</a>`;
 
-                    html += `<div class="flex flex-col sm:flex-row justify-between p-4 rounded-xl border ${bg} gap-4"><div class="flex items-start gap-4"><div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${iconBg}"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div><div><h4 class="text-sm font-semibold text-white">${task.title}</h4><div class="flex items-center gap-3 mt-2"><span class="text-[10px] text-slate-400">${task.date}</span> ${linkHtml}</div></div></div><div class="shrink-0 flex justify-end items-center">${actBtn}</div></div>`;
+                    html += `<div class="flex flex-col sm:flex-row justify-between p-3 rounded-xl border ${bg} gap-3"><div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${iconBg}"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div><div><h4 class="text-xs font-semibold text-white">${task.title}</h4><div class="flex items-center gap-2 mt-1"><span class="text-[10px] text-slate-400">${task.date}</span> ${linkHtml}</div></div></div><div class="shrink-0 flex justify-end items-center">${actBtn}</div></div>`;
                 });
                 html += `</div>`; container.innerHTML += html;
             });
 
             const pct = total === 0 ? 0 : Math.round((completed/total)*100);
             safeSetText("progressText", pct + "%");
-            if(document.getElementById("progressCircle")) document.getElementById("progressCircle").className = `w-10 h-10 rounded-full border-4 flex items-center justify-center shrink-0 ${pct === 100 ? 'border-emerald-500 bg-emerald-500/10' : (pct > 0 ? 'border-blue-500' : 'border-slate-700')}`;
+            if(document.getElementById("progressCircle")) document.getElementById("progressCircle").className = `w-9 h-9 rounded-full border-4 flex items-center justify-center shrink-0 ${pct === 100 ? 'border-emerald-500 bg-emerald-500/10' : (pct > 0 ? 'border-blue-500' : 'border-slate-700')}`;
         };
 
         window.toggleTask = function(id, val) {
@@ -1139,7 +1177,6 @@
             if(val) window.showToast("Tugasan direkodkan.");
         };
 
-        // PEMBAIKAN 3: Borang Artikel Lampiran E Dibaiki untuk Menyimpan ke Firebase RTDB
         document.getElementById("artikelForm").addEventListener("submit", async function(e) {
             e.preventDefault();
             const btn = document.getElementById("btnSimpanArtikel"); 
@@ -1162,13 +1199,11 @@
                 updatedAt: new Date().toISOString()
             };
 
-            // Simpanan tempatan sebagai sandaran
             localStorage.setItem(`propkes_article_${currentUser}`, JSON.stringify(payload));
             window.artikelData = payload;
 
             let savedToCloud = false;
             try {
-                // Simpan terus ke nod propkes_articles/{currentUser}
                 await set(ref(db, `propkes_articles/${currentUser}`), payload);
                 savedToCloud = true;
             } catch(err) {
