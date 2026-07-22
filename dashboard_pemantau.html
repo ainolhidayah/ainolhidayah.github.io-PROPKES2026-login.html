@@ -410,20 +410,19 @@
                     </h3>
                     <p class="text-xs text-slate-400 mt-1" id="ipropkesSubtitle">Perbandingan Ujian Pra dan Ujian Pasca peserta yang dipilih</p>
                 </div>
-                <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20" id="ipropkesStatusTag">Sedia Dibarisi</span>
+                <span class="text-xs font-bold text-rose-400 bg-rose-500/10 px-3 py-1 rounded-full border border-rose-500/20" id="ipropkesStatusTag">Belum Dijawab</span>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- CARTA BAR -->
-                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80">
-                    <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Carta Bar Skor (9 Domain SKKSM)</h4>
-                    <div class="w-full h-72"><canvas id="pemantauBarChart"></canvas></div>
+            <!-- CARTA RADAR WEB SAHAJA -->
+            <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800/80 flex flex-col items-center justify-center min-h-[360px]" id="ipropkesChartContainer">
+                <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Carta Radar Web Profil (9 Domain SKKSM)</h4>
+                <div class="w-full max-w-[360px] aspect-square relative" id="radarWrapper">
+                    <canvas id="pemantauRadarChart"></canvas>
                 </div>
-
-                <!-- CARTA RADAR WEB -->
-                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 flex flex-col items-center">
-                    <h4 class="text-xs font-bold text-slate-400 text-center mb-4 uppercase tracking-wider">Carta Radar Web Profil (9 Domain SKKSM)</h4>
-                    <div class="w-full max-w-[320px] aspect-square"><canvas id="pemantauRadarChart"></canvas></div>
+                <div id="ipropkesEmptyNotice" class="hidden text-center py-12 space-y-2">
+                    <svg class="w-12 h-12 text-slate-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <p class="text-sm font-semibold text-slate-400">Peserta belum menjawab Ujian i-PROPKES</p>
+                    <p class="text-xs text-slate-500">Carta radar profil 9 domain SKKSM akan dipaparkan secara automatik selepas peserta melengkapkan ujian.</p>
                 </div>
             </div>
 
@@ -547,7 +546,6 @@
         window.selectedPeserta = null;
         window.historyReports = [];
 
-        let barChartInstance = null;
         let radarChartInstance = null;
 
         window.skksm9Domains = [
@@ -865,58 +863,72 @@
                 const praData = snapPra.exists() ? snapPra.val() : null;
                 const pascaData = snapPasca.exists() ? snapPasca.val() : null;
 
-                let praScores = praData ? window.process38ItemsTo9Domains(praData) : [7.2, 8.0, 7.5, 8.2, 6.8, 7.0, 7.8, 8.5, 7.4];
-                let pascaScores = pascaData ? window.process38ItemsTo9Domains(pascaData) : null;
-
                 const statusTag = document.getElementById('ipropkesStatusTag');
                 const badgeIprop = document.getElementById('statIpropkesBadge');
                 const statusIprop = document.getElementById('statIpropkesStatus');
+                const radarWrapper = document.getElementById('radarWrapper');
+                const emptyNotice = document.getElementById('ipropkesEmptyNotice');
+                const tbody = document.getElementById('domainTableBody');
+
+                if (radarChartInstance) {
+                    radarChartInstance.destroy();
+                    radarChartInstance = null;
+                }
+
+                // JIKA BELUM JAWAB SAMA ADA PRA ATAU PASCA
+                if (!praData && !pascaData) {
+                    statusTag.textContent = "Belum Dijawab";
+                    statusTag.className = "text-xs font-bold text-rose-400 bg-rose-500/10 px-3 py-1 rounded-full border border-rose-500/20";
+                    badgeIprop.textContent = "0%";
+                    badgeIprop.className = "text-sm font-extrabold text-rose-400";
+                    statusIprop.textContent = "Belum Dijawab";
+
+                    radarWrapper.classList.add('hidden');
+                    emptyNotice.classList.remove('hidden');
+
+                    tbody.innerHTML = "";
+                    window.skksm9Domains.forEach((domainName, idx) => {
+                        tbody.innerHTML += `
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-semibold text-slate-400">${idx + 1}</td>
+                                <td class="p-3 font-medium text-white">${domainName}</td>
+                                <td class="p-3 text-center text-slate-500 font-bold">-</td>
+                                <td class="p-3 text-center text-slate-500 font-bold">-</td>
+                                <td class="p-3 text-center text-slate-500">-</td>
+                            </tr>
+                        `;
+                    });
+                    return;
+                }
+
+                // JIKA PESERTA SUDAH MENJAWAB
+                radarWrapper.classList.remove('hidden');
+                emptyNotice.classList.add('hidden');
+
+                let praScores = praData ? window.process38ItemsTo9Domains(praData) : null;
+                let pascaScores = pascaData ? window.process38ItemsTo9Domains(pascaData) : null;
 
                 if (praData && pascaData) {
                     statusTag.textContent = "Pra & Pasca Dijawab";
+                    statusTag.className = "text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20";
                     badgeIprop.textContent = "100%";
                     badgeIprop.className = "text-sm font-extrabold text-emerald-400";
                     statusIprop.textContent = "Pra & Pasca";
                 } else if (praData) {
                     statusTag.textContent = "Pra Sahaja Dijawab";
+                    statusTag.className = "text-xs font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20";
                     badgeIprop.textContent = "50%";
                     badgeIprop.className = "text-sm font-extrabold text-amber-400";
                     statusIprop.textContent = "Pasca Belum";
-                } else {
-                    statusTag.textContent = "Belum Dijawab";
-                    badgeIprop.textContent = "0%";
-                    badgeIprop.className = "text-sm font-extrabold text-rose-400";
-                    statusIprop.textContent = "Belum Dijawab";
                 }
 
-                // Render Chart.js
-                if (barChartInstance) barChartInstance.destroy();
-                if (radarChartInstance) radarChartInstance.destroy();
-
-                const datasetsBar = [
-                    { label: 'Ujian Pra', data: praScores, backgroundColor: '#10b981' }
-                ];
-                const datasetsRadar = [
-                    { label: 'Ujian Pra', data: praScores, borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.2)' }
-                ];
-
+                const datasetsRadar = [];
+                if (praScores) {
+                    datasetsRadar.push({ label: 'Ujian Pra', data: praScores, borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.2)' });
+                }
                 if (pascaScores) {
-                    datasetsBar.push({ label: 'Ujian Pasca', data: pascaScores, backgroundColor: '#3b82f6' });
                     datasetsRadar.push({ label: 'Ujian Pasca', data: pascaScores, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.2)' });
                 }
-
-                barChartInstance = new Chart(document.getElementById('pemantauBarChart').getContext('2d'), {
-                    type: 'bar',
-                    data: { labels: window.skksm9ShortLabels, datasets: datasetsBar },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: { min: 0, max: 10, ticks: { color: '#94a3b8' } },
-                            x: { ticks: { color: '#94a3b8', font: { size: 8 }, maxRotation: 45, minRotation: 25 }, grid: { display: false } }
-                        }
-                    }
-                });
 
                 radarChartInstance = new Chart(document.getElementById('pemantauRadarChart').getContext('2d'), {
                     type: 'radar',
@@ -925,21 +937,20 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         scales: {
-                            r: { min: 0, max: 10, pointLabels: { color: '#cbd5e1', font: { size: 8 } }, ticks: { display: false, max: 10 } }
+                            r: { min: 0, max: 10, pointLabels: { color: '#cbd5e1', font: { size: 9, weight: 'bold' } }, ticks: { display: false, max: 10 } }
                         }
                     }
                 });
 
                 // Render Jadual 9 Domain
-                const tbody = document.getElementById('domainTableBody');
                 tbody.innerHTML = "";
                 window.skksm9Domains.forEach((domainName, idx) => {
-                    const praVal = praScores[idx] || 0;
-                    const pascaVal = pascaScores ? (pascaScores[idx] || 0) : null;
+                    const praVal = praScores ? praScores[idx] : null;
+                    const pascaVal = pascaScores ? pascaScores[idx] : null;
                     
                     let diffStr = "-";
                     let diffClass = "text-slate-500";
-                    if (pascaVal !== null) {
+                    if (praVal !== null && pascaVal !== null) {
                         const diff = parseFloat((pascaVal - praVal).toFixed(2));
                         if (diff > 0) { diffStr = `+${diff} (Meningkat)`; diffClass = "text-emerald-400 font-bold"; }
                         else if (diff < 0) { diffStr = `${diff} (Penurunan)`; diffClass = "text-rose-400 font-bold"; }
@@ -950,7 +961,7 @@
                         <tr class="hover:bg-slate-900/50">
                             <td class="p-3 font-semibold text-slate-400">${idx + 1}</td>
                             <td class="p-3 font-medium text-white">${domainName}</td>
-                            <td class="p-3 text-center text-emerald-400 font-bold">${praVal.toFixed(2)}</td>
+                            <td class="p-3 text-center text-emerald-400 font-bold">${praVal !== null ? praVal.toFixed(2) : '-'}</td>
                             <td class="p-3 text-center text-blue-400 font-bold">${pascaVal !== null ? pascaVal.toFixed(2) : 'Belum'}</td>
                             <td class="p-3 text-center ${diffClass}">${diffStr}</td>
                         </tr>
