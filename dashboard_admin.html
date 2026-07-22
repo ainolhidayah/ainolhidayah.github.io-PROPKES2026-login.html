@@ -901,14 +901,15 @@
 
             try {
                 const dbRef = ref(db);
-                const [userSnap, attendSnap, journalSnap, fbMentorSnap, fbPemanduSnap, iPropkesSnap, monitoringSnap] = await Promise.all([
+                const [userSnap, attendSnap, journalSnap, fbMentorSnap, fbPemanduSnap, iPropkesSnap, monitoringSnap, articleSnap] = await Promise.all([
                     get(child(dbRef, `propkes_accounts/${username}`)),
                     get(child(dbRef, `propkes_attendance/${username}`)),
                     get(child(dbRef, `propkes_journals/${username}`)),
                     get(child(dbRef, `propkes_feedback_mentor/${username}`)),
                     get(child(dbRef, `propkes_feedback_pemandu/${username}`)),
                     get(child(dbRef, `propkes_ipropkes/${username}`)),
-                    get(child(dbRef, `propkes_monitoring`))
+                    get(child(dbRef, `propkes_monitoring`)),
+                    get(child(dbRef, `propkes_articles/${username}`))
                 ]);
 
                 if(userSnap.exists()) {
@@ -919,6 +920,7 @@
                     window.activeViewingUser.feedbackMentor = fbMentorSnap.exists() ? fbMentorSnap.val() : {};
                     window.activeViewingUser.feedbackPemandu = fbPemanduSnap.exists() ? fbPemanduSnap.val() : {};
                     window.activeViewingUser.ipropkes = iPropkesSnap.exists() ? iPropkesSnap.val() : {};
+                    window.activeViewingUser.article = articleSnap.exists() ? articleSnap.val() : {};
 
                     window.activeViewingUser.monitoringReports = [];
                     if(monitoringSnap.exists()) {
@@ -963,6 +965,16 @@
                             <h4 class="text-xs font-bold text-purple-400 uppercase tracking-wider">Lampiran D (Jurnal)</h4>
                             <p class="text-xs text-slate-400 font-medium">Cetak Jurnal Kepimpinan Mingguan yang dikemaskini oleh peserta di awan.</p>
                             <button onclick="window.printD()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded-lg text-xs cursor-pointer">Cetak Jurnal (D)</button>
+                        </div>
+
+                        <!-- Lampiran E (Penulisan Artikel) -->
+                        <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
+                            <h4 class="text-xs font-bold text-rose-400 uppercase tracking-wider">Lampiran E (Penulisan Artikel)</h4>
+                            <p class="text-xs text-slate-400">Cetak Penulisan Artikel Capstone PROPKES yang telah disiapkan oleh peserta.</p>
+                            <div class="flex gap-2">
+                                <button onclick="window.printE()" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 rounded-lg text-xs cursor-pointer">Cetak PDF Artikel</button>
+                                <button onclick="window.downloadWordE()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold py-2 rounded-lg text-xs cursor-pointer">Muat Turun Word</button>
+                            </div>
                         </div>
 
                         <!-- Lampiran F -->
@@ -1010,6 +1022,149 @@
         /* =========================================================
            FUNGSI-FUNGSI CETAKAN LAMPIRAN PESERTA DARI ADMIN
            ========================================================= */
+        window.printE = function() {
+            const u = window.activeViewingUser || {};
+            const a = u.article || {};
+            const nama = (u.name || "Peserta").toUpperCase();
+            const tajuk = (a.tajuk || "TAJUK ARTIKEL PROPKES").toUpperCase();
+
+            if (!a || !a.tajuk) {
+                window.showToast("Tiada rekod Penulisan Artikel (Lampiran E) ditemui untuk peserta ini.", "warning");
+                return;
+            }
+
+            document.getElementById('printSection').innerHTML = `
+                <div class="print-page">
+                    <div style="width: 100%; text-align: center; margin-bottom: 15px; display: flex; justify-content: center;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 75px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                    </div>
+                    <h3 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">LAMPIRAN E</h3>
+                    <h2 style="font-weight: bold; font-size: 13px; text-align: center; margin-bottom: 15px;">FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h2>
+                    
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; text-transform: uppercase; margin-bottom: 10px;">${tajuk}</h2>
+                    <p style="text-align: center; font-weight: bold; font-size: 11px; margin-bottom: 20px;">${nama}<br>${(u.jabatan || u.pusatCawangan || "INSTITUT AMINUDDIN BAKI").toUpperCase()}</p>
+
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; padding-bottom: 3px;">ABSTRAK</h4>
+                    <div style="margin-bottom: 15px; font-size: 10px; font-style: italic; text-align: justify; line-height: 1.5;">
+                        ${a.abstrak || "Tiada abstrak diisi."}
+                    </div>
+
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; padding-bottom: 3px;">PENGENALAN</h4>
+                    <p style="font-size: 10px; white-space: pre-wrap; text-align: justify; line-height: 1.5;">${a.pengenalan || "Tiada pengenalan diisi."}</p>
+
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; padding-bottom: 3px;">LATAR BELAKANG SEKOLAH SANDARAN</h4>
+                    <p style="font-size: 10px; margin-bottom: 5px;"><b>Jadual 1: Profil Sekolah Sandaran</b></p>
+                    <table class="print-table" style="margin-bottom: 15px;">
+                        <tr><td style="width: 35%; font-weight: bold;">Nama Sekolah</td><td>${(u.sekolah || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">PPD / Daerah</td><td>${(a.lokasiDaerah || u.ppd || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">Jenis & Status Gred</td><td>${(a.jenisGred || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">Bilangan Guru & Murid</td><td>${a.bilGuruMurid || "-"}</td></tr>
+                        <tr><td style="font-weight: bold;">Nama Pengetua / Guru Besar</td><td>${(a.namaPengetua || u.mentorSekolah || "-").toUpperCase()}</td></tr>
+                    </table>
+
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; padding-bottom: 3px;">PERKONGSIAN BIDANG KEBITARAAN / AMALAN TERBAIK</h4>
+                    <p style="font-size: 10px; font-weight: bold;">1. Bidang Kebitaraan / Amalan Terbaik Pertama</p>
+                    <p style="font-size: 10px; white-space: pre-wrap; margin-bottom: 10px; text-align: justify; line-height: 1.5;">${a.kebitaraan1 || "-"}</p>
+
+                    <p style="font-size: 10px; font-weight: bold;">2. Bidang Kebitaraan / Amalan Terbaik Kedua</p>
+                    <p style="font-size: 10px; white-space: pre-wrap; margin-bottom: 10px; text-align: justify; line-height: 1.5;">${a.kebitaraan2 || "-"}</p>
+
+                    <p style="font-size: 10px; font-weight: bold;">3. Bidang Kebitaraan / Amalan Terbaik Ketiga</p>
+                    <p style="font-size: 10px; white-space: pre-wrap; margin-bottom: 15px; text-align: justify; line-height: 1.5;">${a.kebitaraan3 || "-"}</p>
+
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; padding-bottom: 3px;">RUMUSAN</h4>
+                    <p style="font-size: 10px; white-space: pre-wrap; text-align: justify; line-height: 1.5;">${a.rumusan || "-"}</p>
+
+                    <h4 style="font-weight: bold; font-size: 11px; margin-top: 15px; padding-bottom: 3px;">RUJUKAN</h4>
+                    <p style="font-size: 10px; white-space: pre-wrap; line-height: 1.5;">${a.rujukan || "-"}</p>
+                </div>`;
+
+            const oldTitle = document.title;
+            document.title = `${nama} - Artikel Lampiran E - PROPKES`;
+            window.print();
+            setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
+        };
+
+        window.downloadWordE = function() {
+            const u = window.activeViewingUser || {};
+            const a = u.article || {};
+            const nama = (u.name || "Peserta").toUpperCase();
+            const tajuk = (a.tajuk || "TAJUK ARTIKEL PROPKES").toUpperCase();
+
+            if (!a || !a.tajuk) {
+                window.showToast("Tiada rekod Penulisan Artikel (Lampiran E) ditemui untuk peserta ini.", "warning");
+                return;
+            }
+
+            const wordContent = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head><meta charset='utf-8'><title>${tajuk}</title>
+                <style>
+                    body { font-family: 'Arial', sans-serif; font-size: 11pt; line-height: 1.5; color: #000; }
+                    h2 { font-size: 14pt; text-align: center; text-transform: uppercase; font-weight: bold; margin-bottom: 5px; }
+                    h3 { font-size: 12pt; text-align: center; font-weight: bold; margin-bottom: 2px; }
+                    h4 { font-size: 11pt; font-weight: bold; margin-top: 15px; margin-bottom: 5px; text-transform: uppercase; border: none; }
+                    p { text-align: justify; margin-bottom: 10px; }
+                    table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+                    td { border: 1px solid #000; padding: 6px; font-size: 10pt; vertical-align: top; }
+                </style>
+                </head>
+                <body>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png" width="90" alt="Logo KPM IAB">
+                    </div>
+                    <h3>LAMPIRAN E</h3>
+                    <h3>FORMAT PENULISAN ARTIKEL PROPKES TAHUN 2026</h3>
+                    <br>
+                    <h2>${tajuk}</h2>
+                    <p style="text-align: center; font-weight: bold;">${nama}<br>${(u.jabatan || u.pusatCawangan || "INSTITUT AMINUDDIN BAKI").toUpperCase()}</p>
+                    <br>
+                    <h4>ABSTRAK</h4>
+                    <p style="font-style: italic;">${a.abstrak || "Tiada abstrak diisi."}</p>
+
+                    <h4>PENGENALAN</h4>
+                    <p>${a.pengenalan || "Tiada pengenalan diisi."}</p>
+
+                    <h4>LATAR BELAKANG SEKOLAH SANDARAN</h4>
+                    <p><b>Jadual 1: Profil Sekolah Sandaran</b></p>
+                    <table>
+                        <tr><td style="width: 35%; font-weight: bold;">Nama Sekolah</td><td>${(u.sekolah || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">PPD / Daerah</td><td>${(a.lokasiDaerah || u.ppd || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">Jenis & Status Gred</td><td>${(a.jenisGred || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">Bilangan Guru & Murid</td><td>${a.bilGuruMurid || "-"}</td></tr>
+                        <tr><td style="font-weight: bold;">Nama Pengetua / Guru Besar</td><td>${(a.namaPengetua || u.mentorSekolah || "-").toUpperCase()}</td></tr>
+                    </table>
+
+                    <h4>PERKONGSIAN BIDANG KEBITARAAN / AMALAN TERBAIK</h4>
+                    <p><b>1. Bidang Kebitaraan / Amalan Terbaik Pertama</b></p>
+                    <p>${a.kebitaraan1 || "-"}</p>
+
+                    <p><b>2. Bidang Kebitaraan / Amalan Terbaik Kedua</b></p>
+                    <p>${a.kebitaraan2 || "-"}</p>
+
+                    <p><b>3. Bidang Kebitaraan / Amalan Terbaik Ketiga</b></p>
+                    <p>${a.kebitaraan3 || "-"}</p>
+
+                    <h4>RUMUSAN</h4>
+                    <p>${a.rumusan || "-"}</p>
+
+                    <h4>RUJUKAN</h4>
+                    <p>${a.rujukan || "-"}</p>
+                </body>
+                </html>
+            `;
+
+            const blob = new Blob(['\ufeff', wordContent], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            const aEl = document.createElement('a');
+            aEl.href = url;
+            aEl.download = `Artikel_Lampiran_E_${nama.replace(/\s+/g, '_')}.doc`;
+            document.body.appendChild(aEl);
+            aEl.click();
+            document.body.removeChild(aEl);
+            URL.revokeObjectURL(url);
+        };
+
         window.printB = function() {
             const u = window.activeViewingUser || {};
             const nama = (u.name || "Peserta").toUpperCase();
