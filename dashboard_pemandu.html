@@ -116,7 +116,12 @@
     <!-- MODAL PENDAFTARAN SESI PANDU CITRA -->
     <div id="panduCitraModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-teal-500/50 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition-transform duration-300" id="panduCitraModalContent">
-            <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-2 border-b border-slate-800 pb-3">Rekod Sesi Pandu Citra</h3>
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-3">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">Rekod Sesi Pandu Citra</h3>
+                <button type="button" onclick="window.closePanduCitraModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
             <form id="panduCitraForm" class="space-y-4" onsubmit="window.savePanduCitra(event)">
                 <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Peserta Terlibat</label>
                     <select id="pcMenteeSelect" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none cursor-pointer">
@@ -147,7 +152,9 @@
                     <h3 class="text-lg font-bold text-white" id="viewModalTitle">Rekod Peserta</h3>
                     <p class="text-xs text-blue-400 mt-1" id="viewModalSubtitle">Peserta: -</p>
                 </div>
-                <button onclick="window.closeViewModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <button type="button" onclick="window.closeViewModal()" class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors outline-none cursor-pointer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
             
             <div id="viewModalBody" class="space-y-4">
@@ -155,7 +162,7 @@
             </div>
 
             <div class="pt-4 border-t border-slate-800 mt-6 flex justify-end gap-3" id="viewModalFooter">
-                <button onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
+                <button type="button" onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
             </div>
         </div>
     </div>
@@ -168,7 +175,9 @@
                     <h3 class="text-lg font-bold text-white">Analisis Keputusan i-PROPKES Peserta (9 Domain SKKSM)</h3>
                     <p class="text-xs text-emerald-400 mt-1" id="propkesModalSubtitle">Peserta: -</p>
                 </div>
-                <button onclick="window.closePropkesModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <button type="button" onclick="window.closePropkesModal()" class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors outline-none cursor-pointer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
             
             <div id="propkesModalBody" class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -183,7 +192,7 @@
             </div>
 
             <div class="pt-4 border-t border-slate-800 mt-6 flex justify-end">
-                <button onclick="window.closePropkesModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
+                <button type="button" onclick="window.closePropkesModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
             </div>
         </div>
     </div>
@@ -193,10 +202,15 @@
         <div class="bg-slate-900 border border-teal-500/50 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[95vh] overflow-y-auto custom-scrollbar p-6 transform scale-95 transition-transform duration-300" id="maklumBalasModalContent">
             <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4 sticky top-0 bg-slate-900 z-10">
                 <div>
-                    <h3 class="text-lg font-bold text-white flex items-center gap-2"><svg class="w-5 h-5 text-teal-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>Borang Bimbingan Pemandu Citra (Lampiran G)</h3>
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-teal-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                        Borang Bimbingan Pemandu Citra (Lampiran G)
+                    </h3>
                     <p class="text-xs text-teal-400 mt-1" id="mbModalSubtitle">Peserta: -</p>
                 </div>
-                <button onclick="window.closeMaklumBalasModal()" class="text-slate-500 hover:text-white outline-none cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <button type="button" onclick="window.closeMaklumBalasModal()" class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors outline-none cursor-pointer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
             
             <form id="maklumBalasForm" onsubmit="window.saveMaklumBalas(event)" class="space-y-5">
@@ -204,7 +218,7 @@
                     <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Nama Peserta</label><input type="text" id="mbNamaPeserta" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 outline-none cursor-not-allowed"></div>
                     <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Jawatan</label><input type="text" id="mbJawatan" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 outline-none cursor-not-allowed"></div>
                     <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Gred</label><input type="text" id="mbGred" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 outline-none cursor-not-allowed"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Jabatan</label><input type="text" id="mbJabatan" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 outline-none cursor-not-allowed"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Jabatan / Sekolah Sandaran</label><input type="text" id="mbJabatan" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 outline-none cursor-not-allowed"></div>
                     <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Pusat / Cawangan</label><input type="text" id="mbPusat" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 outline-none cursor-not-allowed"></div>
                 </div>
 
@@ -234,7 +248,9 @@
                 <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-800 sticky bottom-0 bg-slate-900 pb-2">
                     <button type="button" onclick="window.closeMaklumBalasModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-3 px-6 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors">Batal</button>
                     <button type="submit" id="btnSimpanMB" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl text-xs font-bold shadow-lg outline-none cursor-pointer transition-colors">Simpan Data</button>
-                    <button type="button" onclick="window.cetakLampiranG()" class="bg-slate-700 hover:bg-slate-600 text-teal-400 border border-slate-600 py-3 px-6 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors flex justify-center items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak Borang G</button>
+                    <button type="button" onclick="window.cetakLampiranG()" class="bg-slate-700 hover:bg-slate-600 text-teal-400 border border-slate-600 py-3 px-6 rounded-xl text-xs font-bold outline-none cursor-pointer transition-colors flex justify-center items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak Borang G
+                    </button>
                 </div>
             </form>
         </div>
@@ -262,7 +278,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Safe user session with fallback for preview mode
         let currentUser = localStorage.getItem("propkes_user") || "demo_pemandu";
 
         window.menteesList = [];
@@ -316,7 +331,6 @@
                     document.getElementById('profileNama').textContent = pName;
                     myNameLower = pName.trim().toLowerCase();
                 } else {
-                    // Preview fallback
                     window.profileData = {
                         name: "Dr. Ahmad Pemandu Citra",
                         jawatan: "Pensyarah Cemerlang DG54",
@@ -362,7 +376,6 @@
                     }
                 }
 
-                // If no mentees found from DB (e.g., in standalone demo environment), populate fallback demo mentees
                 if (window.menteesList.length === 0) {
                     window.menteesList = [
                         {
@@ -410,11 +423,11 @@
                             </td>
                             <td class="py-4 px-6 text-center text-xs text-slate-400">${m.sekolah}</td>
                             <td class="py-4 px-6 text-center flex flex-wrap justify-center gap-2">
-                                <button onclick="window.viewLog('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Log (C)</button>
-                                <button onclick="window.viewJournal('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-purple-600/20 text-purple-400 hover:bg-purple-600 hover:text-white border border-purple-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Jurnal (D)</button>
-                                <button onclick="window.viewPropkes('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white border border-emerald-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer flex items-center gap-1 font-semibold"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg> i-PROPKES</button>
-                                <button onclick="window.viewArticle('${m.id}', '${m.name.replace(/'/g, "\\'")}')" class="bg-amber-600/20 text-amber-400 hover:bg-amber-600 hover:text-white border border-amber-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Artikel (E)</button>
-                                <button onclick="window.openMaklumBalas('${m.id}', '${m.name.replace(/'/g, "\\'")}', '${m.jawatan}', '${m.gred}', '${m.jabatan}', '${m.pusat}')" class="bg-teal-600/20 text-teal-400 hover:bg-teal-600 hover:text-white border border-teal-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Borang (G)</button>
+                                <button onclick="window.viewLog('${m.id}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Log (C)</button>
+                                <button onclick="window.viewJournal('${m.id}')" class="bg-purple-600/20 text-purple-400 hover:bg-purple-600 hover:text-white border border-purple-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Jurnal (D)</button>
+                                <button onclick="window.viewPropkes('${m.id}')" class="bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white border border-emerald-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer flex items-center gap-1 font-semibold"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg> i-PROPKES</button>
+                                <button onclick="window.viewArticle('${m.id}')" class="bg-amber-600/20 text-amber-400 hover:bg-amber-600 hover:text-white border border-amber-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Artikel (E)</button>
+                                <button onclick="window.openMaklumBalas('${m.id}')" class="bg-teal-600/20 text-teal-400 hover:bg-teal-600 hover:text-white border border-teal-600/30 px-3 py-1.5 rounded-lg text-[11px] transition-colors outline-none cursor-pointer font-semibold">Borang (G)</button>
                             </td>
                         </tr>
                     `;
@@ -426,14 +439,18 @@
         };
 
         window.openPanduCitraModal = () => { 
-            document.getElementById('panduCitraModal').classList.remove('hidden'); 
-            document.getElementById('panduCitraModal').classList.add('flex'); 
-            setTimeout(()=>document.getElementById('panduCitraModal').classList.remove('opacity-0'),10); 
+            const m = document.getElementById('panduCitraModal');
+            if(!m) return;
+            m.classList.remove('hidden'); 
+            m.classList.add('flex'); 
+            setTimeout(()=>m.classList.remove('opacity-0'),10); 
         };
         
         window.closePanduCitraModal = () => { 
-            document.getElementById('panduCitraModal').classList.add('opacity-0'); 
-            setTimeout(()=>{document.getElementById('panduCitraModal').classList.remove('flex'); document.getElementById('panduCitraModal').classList.add('hidden');},300); 
+            const m = document.getElementById('panduCitraModal');
+            if(!m) return;
+            m.classList.add('opacity-0'); 
+            setTimeout(()=>{m.classList.remove('flex'); m.classList.add('hidden');},300); 
         };
         
         window.savePanduCitra = async (e) => { 
@@ -445,20 +462,40 @@
             e.target.reset(); 
         };
 
-        window.closeViewModal = () => { document.getElementById('viewModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('viewModal').classList.remove('flex'); document.getElementById('viewModal').classList.add('hidden');},300); };
-        window.closePropkesModal = () => { document.getElementById('propkesModal').classList.add('opacity-0'); setTimeout(()=>{document.getElementById('propkesModal').classList.remove('flex'); document.getElementById('propkesModal').classList.add('hidden');},300); };
+        window.closeViewModal = () => { 
+            const m = document.getElementById('viewModal');
+            if(!m) return;
+            m.classList.add('opacity-0'); 
+            setTimeout(()=>{m.classList.remove('flex'); m.classList.add('hidden');},300); 
+        };
 
-        window.viewLog = async (id, nama) => {
+        window.closePropkesModal = () => { 
+            const m = document.getElementById('propkesModal');
+            if(!m) return;
+            m.classList.add('opacity-0'); 
+            setTimeout(()=>{m.classList.remove('flex'); m.classList.add('hidden');},300); 
+        };
+
+        window.closeMaklumBalasModal = () => {
+            const m = document.getElementById('maklumBalasModal');
+            if(!m) return;
+            m.classList.add('opacity-0');
+            setTimeout(()=>{m.classList.remove('flex'); m.classList.add('hidden');},300);
+        };
+
+        window.viewLog = async (id) => {
+            const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta' };
             document.getElementById('viewModalTitle').textContent = "Rekod Log Harian (Lampiran C)";
-            document.getElementById('viewModalSubtitle').textContent = `Peserta: ${nama}`;
+            document.getElementById('viewModalSubtitle').textContent = `Peserta: ${mentee.name}`;
             const body = document.getElementById('viewModalBody');
             body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun log dari awan...</p>`;
-            document.getElementById('viewModalFooter').innerHTML = `<button onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>`;
+            document.getElementById('viewModalFooter').innerHTML = `<button type="button" onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>`;
 
-            document.getElementById('viewModal').classList.remove('hidden'); 
-            document.getElementById('viewModal').classList.add('flex'); 
+            const mModal = document.getElementById('viewModal');
+            mModal.classList.remove('hidden'); 
+            mModal.classList.add('flex'); 
             setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); 
-            setTimeout(()=>document.getElementById('viewModal').classList.remove('opacity-0'),10);
+            setTimeout(()=>mModal.classList.remove('opacity-0'),10);
             
             try {
                 const snap = await get(child(ref(db), `propkes_attendance/${id}`));
@@ -479,9 +516,9 @@
                             <span class="font-bold text-blue-400">03 Ogos 2026</span>
                             <span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 text-[10px]">Hadir</span>
                         </div>
-                        <p><strong>Lokasi:</strong> Sekolah Sandaran (SK Seri Indah)</p>
-                        <p><strong>Aktiviti:</strong> Taklimat bersama Barisan Pentadbir Sekolah Sandaran dan perbincangan Analisis SWOC.</p>
-                        <p class="text-slate-400"><strong>Refleksi:</strong> Memahami struktur tadbir urus dan isu keutamaan sekolah sandaran.</p>
+                        <p><strong>Lokasi:</strong> Sekolah Sandaran (${mentee.sekolah || 'SK Sandaran'})</p>
+                        <p><strong>Aktiviti:</strong> Sesi suai kenal dan perbincangan Analisis SWOC bersama pengurusan sekolah.</p>
+                        <p class="text-slate-400"><strong>Refleksi:</strong> Memahami objektif utama dan sasaran penambahbaikan sekolah.</p>
                     </div>`; 
                 }
             } catch(e) { 
@@ -489,17 +526,19 @@
             }
         };
 
-        window.viewJournal = async (id, nama) => {
+        window.viewJournal = async (id) => {
+            const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta' };
             document.getElementById('viewModalTitle').textContent = "Jurnal Kepimpinan Mingguan (Lampiran D - 12 Minggu)";
-            document.getElementById('viewModalSubtitle').textContent = `Peserta: ${nama}`;
+            document.getElementById('viewModalSubtitle').textContent = `Peserta: ${mentee.name}`;
             const body = document.getElementById('viewModalBody');
             body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun jurnal dari awan...</p>`;
-            document.getElementById('viewModalFooter').innerHTML = `<button onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>`;
+            document.getElementById('viewModalFooter').innerHTML = `<button type="button" onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>`;
 
-            document.getElementById('viewModal').classList.remove('hidden'); 
-            document.getElementById('viewModal').classList.add('flex'); 
+            const mModal = document.getElementById('viewModal');
+            mModal.classList.remove('hidden'); 
+            mModal.classList.add('flex'); 
             setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); 
-            setTimeout(()=>document.getElementById('viewModal').classList.remove('opacity-0'),10);
+            setTimeout(()=>mModal.classList.remove('opacity-0'),10);
             
             try {
                 const snap = await get(child(ref(db), `propkes_journals/${id}`));
@@ -536,16 +575,15 @@
                             <div><p class="text-[10px] text-emerald-400 font-bold uppercase mb-0.5">3. Interpretasi & Kesimpulan</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.interpretasi || j.refleksi || "-"}</p></div>
                         </div>`;
                     } else if (weekNum === 1) {
-                        // Demo fallback for week 1 if no online entry exists
                         html += `
                         <div class="bg-slate-950 p-4 rounded-xl border border-purple-900/40 space-y-2">
                             <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                                 <h4 class="text-xs font-bold text-purple-400 uppercase">Minggu 1 (Fasa 1)</h4>
                                 <span class="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-500/30">✓ Rekod Contoh</span>
                             </div>
-                            <div><p class="text-[10px] text-purple-400 font-bold uppercase mb-0.5">1. Deskripsi / Peristiwa</p><p class="text-xs text-slate-300">Sesi perbincangan awal bersama Guru Besar mengenai jurang pengurusan kewangan dan fizikal sekolah.</p></div>
-                            <div><p class="text-[10px] text-amber-400 font-bold uppercase mb-0.5">2. Analisis / Pemikiran</p><p class="text-xs text-slate-300">Keperluan mendesak untuk menyelaraskan perancangan strategik selari dengan SKKSM Domain 5 dan Domain 7.</p></div>
-                            <div><p class="text-[10px] text-emerald-400 font-bold uppercase mb-0.5">3. Interpretasi & Kesimpulan</p><p class="text-xs text-slate-300">Komunikasi terbuka mempercepatkan penentuan projek penambahbaikan sekolah sandaran.</p></div>
+                            <div><p class="text-[10px] text-purple-400 font-bold uppercase mb-0.5">1. Deskripsi / Peristiwa</p><p class="text-xs text-slate-300">Perbincangan awal bersama pihak pengurusan sekolah sandaran mengenai analisis persekitaran sekolah.</p></div>
+                            <div><p class="text-[10px] text-amber-400 font-bold uppercase mb-0.5">2. Analisis / Pemikiran</p><p class="text-xs text-slate-300">Menilai keperluan berfokus berlandaskan 9 Domain SKKSM untuk pembangunan organisasi.</p></div>
+                            <div><p class="text-[10px] text-emerald-400 font-bold uppercase mb-0.5">3. Interpretasi & Kesimpulan</p><p class="text-xs text-slate-300">Persetujuan bersama dicapai bagi pelaksanaan perancangan strategik penambahbaikan.</p></div>
                         </div>`;
                     } else {
                         html += `
@@ -564,16 +602,18 @@
             }
         };
 
-        window.viewArticle = async (id, nama) => {
+        window.viewArticle = async (id) => {
+            const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta', sekolah: 'Sekolah Sandaran' };
             document.getElementById('viewModalTitle').textContent = "Penulisan Artikel PROPKES (Lampiran E)";
-            document.getElementById('viewModalSubtitle').textContent = `Peserta: ${nama}`;
+            document.getElementById('viewModalSubtitle').textContent = `Peserta: ${mentee.name}`;
             const body = document.getElementById('viewModalBody');
             body.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Memuat turun artikel dari awan...</p>`;
             
-            document.getElementById('viewModal').classList.remove('hidden'); 
-            document.getElementById('viewModal').classList.add('flex'); 
+            const mModal = document.getElementById('viewModal');
+            mModal.classList.remove('hidden'); 
+            mModal.classList.add('flex'); 
             setTimeout(()=>document.getElementById('viewModalContent').classList.remove('scale-95'),10); 
-            setTimeout(()=>document.getElementById('viewModal').classList.remove('opacity-0'),10);
+            setTimeout(()=>mModal.classList.remove('opacity-0'),10);
 
             try {
                 let snap = await get(child(ref(db), `propkes_articles/${id}`));
@@ -595,19 +635,24 @@
                 }
 
                 const a = window.currentArticleData;
-                window.currentArticleData.pesertaNama = nama;
+                window.currentArticleData.pesertaNama = mentee.name;
+                window.currentArticleData.pesertaSekolah = mentee.sekolah || mentee.jabatan || "-";
 
                 document.getElementById('viewModalFooter').innerHTML = `
-                    <button onclick="window.downloadMenteeWordE()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg text-xs cursor-pointer">Muat Turun MS Word</button>
-                    <button onclick="window.printMenteeArticleE()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded-lg text-xs cursor-pointer">Cetak PDF Artikel</button>
-                    <button onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
+                    <button type="button" onclick="window.downloadMenteeWordE()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg text-xs cursor-pointer">Muat Turun MS Word</button>
+                    <button type="button" onclick="window.printMenteeArticleE()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded-lg text-xs cursor-pointer">Cetak PDF Artikel</button>
+                    <button type="button" onclick="window.closeViewModal()" class="bg-slate-800 hover:bg-slate-700 text-white py-2 px-6 rounded-lg text-xs font-bold outline-none cursor-pointer transition-colors">Tutup</button>
                 `;
 
                 body.innerHTML = `
                     <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
+                        <div class="flex justify-center border-b border-slate-800 pb-3">
+                            <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-14 w-auto object-contain" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                        </div>
+
                         <div>
                             <p class="text-[10px] text-rose-400 font-bold uppercase mb-1">Tajuk Artikel</p>
-                            <h3 class="text-sm font-bold text-white uppercase">${a.tajuk || a.title || "Tiada Tajuk"}</h3>
+                            <h3 class="text-sm font-bold text-white uppercase">${a.tajuk || a.title || "TIADA TAJUK"}</h3>
                         </div>
 
                         <div>
@@ -649,10 +694,15 @@
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head><title>Lampiran E - Artikel PROPKES</title></head>
                 <body style="font-family: Arial, sans-serif; padding:20px;">
-                    <h2 style="text-align:center;">LAMPIRAN E: PENULISAN ARTIKEL PROPKES 2026</h2>
+                    <div style="text-align:center; margin-bottom:15px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png" style="height:70px;">
+                    </div>
+                    <h2 style="text-align:center; font-size:16px; font-weight:bold;">INSTITUT AMINUDDIN BAKI</h2>
+                    <h3 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:20px;">LAMPIRAN E: PENULISAN ARTIKEL PROPKES 2026</h3>
                     <p><strong>Nama Peserta:</strong> ${a.pesertaNama || "-"}</p>
+                    <p><strong>Sekolah / Jabatan:</strong> ${a.pesertaSekolah || "-"}</p>
                     <hr>
-                    <h3>${a.tajuk || "TIADA TAJUK"}</h3>
+                    <h3 style="text-transform:uppercase;">${a.tajuk || "TIADA TAJUK"}</h3>
                     <h4>ABSTRAK</h4>
                     <p>${a.abstrak || "-"}</p>
                     <h4>1.0 PENDAHULUAN & LATAR BELAKANG</h4>
@@ -682,33 +732,50 @@
             const pSec = document.getElementById('printSection');
             pSec.innerHTML = `
                 <div class="print-page">
-                    <h2 style="text-align:center; font-size:16px; font-weight:bold;">INSTITUT AMINUDDIN BAKI</h2>
-                    <h3 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:20px;">LAMPIRAN E: PENULISAN ARTIKEL PROPKES 2026</h3>
-                    <p style="font-size:12px;"><strong>Nama Peserta:</strong> ${a.pesertaNama || "-"}</p>
-                    <hr style="margin:10px 0;">
-                    <h3 style="font-size:13px; font-weight:bold; text-transform:uppercase;">${a.tajuk || "TIADA TAJUK"}</h3>
-                    <br>
-                    <p style="font-size:11px;"><strong>ABSTRAK:</strong></p>
-                    <p style="font-size:11px; text-align:justify; line-height:1.6;">${a.abstrak || "-"}</p>
-                    <br>
-                    <p style="font-size:11px;"><strong>1.0 PENDAHULUAN & LATAR BELAKANG:</strong></p>
-                    <p style="font-size:11px; text-align:justify; line-height:1.6;">${a.pendahuluan || "-"}</p>
-                    <br>
-                    <p style="font-size:11px;"><strong>2.0 ISU / CABARAN UTAMA KEPIMPINAN:</strong></p>
-                    <p style="font-size:11px; text-align:justify; line-height:1.6;">${a.fokus || a.isu || "-"}</p>
-                    <br>
-                    <p style="font-size:11px;"><strong>3.0 STRATEGI / CADANGAN PENAMBAHBAIKAN:</strong></p>
-                    <p style="font-size:11px; text-align:justify; line-height:1.6;">${a.cadangan || "-"}</p>
-                    <br>
-                    <p style="font-size:11px;"><strong>4.0 IMPAK & KESIMPULAN:</strong></p>
-                    <p style="font-size:11px; text-align:justify; line-height:1.6;">${a.kesimpulan || "-"}</p>
+                    <div style="text-align:center; margin-bottom:15px;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height:80px; width:auto; margin:0 auto; display:block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                    </div>
+                    <h2 style="text-align:center; font-size:15px; font-weight:bold;">INSTITUT AMINUDDIN BAKI</h2>
+                    <h3 style="text-align:center; font-size:13px; font-weight:bold; margin-bottom:20px; text-transform:uppercase;">LAMPIRAN E: PENULISAN ARTIKEL PROPKES 2026</h3>
+                    
+                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+                        <tr><td width="25%" style="font-weight:bold; background:#f1f5f9;">Nama Peserta</td><td>${a.pesertaNama || "-"}</td></tr>
+                        <tr><td style="font-weight:bold; background:#f1f5f9;">Sekolah / Jabatan</td><td>${a.pesertaSekolah || "-"}</td></tr>
+                        <tr><td style="font-weight:bold; background:#f1f5f9;">Tajuk Artikel</td><td style="font-weight:bold; text-transform:uppercase;">${a.tajuk || "TIADA TAJUK"}</td></tr>
+                    </table>
+
+                    <div style="margin-bottom:15px;">
+                        <h4 style="font-size:12px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:3px; margin-bottom:6px;">ABSTRAK</h4>
+                        <p style="font-size:11px; text-align:justify; line-height:1.6; white-space:pre-wrap;">${a.abstrak || "-"}</p>
+                    </div>
+
+                    <div style="margin-bottom:15px;">
+                        <h4 style="font-size:12px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:3px; margin-bottom:6px;">1.0 PENDAHULUAN & LATAR BELAKANG</h4>
+                        <p style="font-size:11px; text-align:justify; line-height:1.6; white-space:pre-wrap;">${a.pendahuluan || "-"}</p>
+                    </div>
+
+                    <div style="margin-bottom:15px;">
+                        <h4 style="font-size:12px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:3px; margin-bottom:6px;">2.0 ISU / CABARAN UTAMA KEPIMPINAN</h4>
+                        <p style="font-size:11px; text-align:justify; line-height:1.6; white-space:pre-wrap;">${a.fokus || a.isu || "-"}</p>
+                    </div>
+
+                    <div style="margin-bottom:15px;">
+                        <h4 style="font-size:12px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:3px; margin-bottom:6px;">3.0 STRATEGI / CADANGAN PENAMBAHBAIKAN</h4>
+                        <p style="font-size:11px; text-align:justify; line-height:1.6; white-space:pre-wrap;">${a.cadangan || "-"}</p>
+                    </div>
+
+                    <div style="margin-bottom:15px;">
+                        <h4 style="font-size:12px; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:3px; margin-bottom:6px;">4.0 IMPAK & KESIMPULAN</h4>
+                        <p style="font-size:11px; text-align:justify; line-height:1.6; white-space:pre-wrap;">${a.kesimpulan || "-"}</p>
+                    </div>
                 </div>
             `;
             window.print();
         };
 
-        window.viewPropkes = async (id, nama) => {
-            document.getElementById('propkesModalSubtitle').textContent = `Peserta: ${nama}`;
+        window.viewPropkes = async (id) => {
+            const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta' };
+            document.getElementById('propkesModalSubtitle').textContent = `Peserta: ${mentee.name}`;
             const modal = document.getElementById('propkesModal');
             const modalContent = document.getElementById('propkesModalContent');
             
@@ -724,7 +791,6 @@
                     const pra = snapPra.exists() ? snapPra.val() : null;
                     const pasca = snapPasca.exists() ? snapPasca.val() : null;
 
-                    // Standard 9 SKKSM scores
                     let praScores = pra ? window.process38ItemsTo9Domains(pra) : [7.2, 8.0, 7.5, 8.2, 6.8, 7.0, 7.8, 8.5, 7.4];
                     let pascaScores = pasca ? window.process38ItemsTo9Domains(pasca) : [8.8, 9.2, 8.9, 9.1, 8.4, 8.6, 9.0, 9.4, 8.8];
 
@@ -789,28 +855,32 @@
             });
         };
 
-        window.openMaklumBalas = async (id, fallbackNama, fallbackJawatan, fallbackGred, fallbackJabatan, fallbackPusat) => {
-            let pData = {
+        window.openMaklumBalas = async (id) => {
+            const pData = window.menteesList.find(x => x.id === id) || {
                 id: id,
-                nama: fallbackNama,
-                jawatan: fallbackJawatan,
-                gred: fallbackGred,
-                jabatan: fallbackJabatan,
-                pusat: fallbackPusat
+                name: 'Peserta',
+                jawatan: 'Guru Besar',
+                gred: 'DG48',
+                sekolah: 'Sekolah Sandaran',
+                pusat: 'IAB Induk'
             };
 
             try {
                 const pSnap = await get(child(ref(db), `propkes_accounts/${id}`));
                 if (pSnap.exists()) {
                     const account = pSnap.val();
-                    pData.nama = account.name || fallbackNama;
-                    pData.jawatan = account.jawatan || fallbackJawatan;
-                    pData.gred = account.gred || fallbackGred;
-                    pData.jabatan = account.sekolah || account.jabatan || fallbackJabatan;
-                    pData.pusat = account.pusatCawangan || account.pusat || fallbackPusat;
+                    pData.nama = account.name || pData.name;
+                    pData.jawatan = account.jawatan || pData.jawatan;
+                    pData.gred = account.gred || pData.gred;
+                    pData.jabatan = account.sekolah || account.jabatan || pData.sekolah;
+                    pData.pusat = account.pusatCawangan || account.pusat || pData.pusat;
+                } else {
+                    pData.nama = pData.name;
+                    pData.jabatan = pData.sekolah;
                 }
             } catch(e) {
-                console.warn("Profil asas digunakan:", e);
+                pData.nama = pData.name;
+                pData.jabatan = pData.sekolah;
             }
 
             window.currentMenteeG = pData;
@@ -821,17 +891,18 @@
             document.getElementById('mbJabatan').value = pData.jabatan;
             document.getElementById('mbPusat').value = pData.pusat;
 
-            document.getElementById('maklumBalasModal').classList.remove('hidden');
-            document.getElementById('maklumBalasModal').classList.add('flex');
+            const mModal = document.getElementById('maklumBalasModal');
+            mModal.classList.remove('hidden');
+            mModal.classList.add('flex');
             setTimeout(()=>document.getElementById('maklumBalasModalContent').classList.remove('scale-95'),10);
-            setTimeout(()=>document.getElementById('maklumBalasModal').classList.remove('opacity-0'),10);
+            setTimeout(()=>mModal.classList.remove('opacity-0'),10);
 
             await window.handleMbFasaChange();
         };
 
         window.handleMbFasaChange = async () => {
             const fasa = document.getElementById('mbFasa').value;
-            const menteeId = window.currentMenteeG.id;
+            const menteeId = window.currentMenteeG ? window.currentMenteeG.id : null;
             document.getElementById('mbUlasan').value = "";
 
             if (!menteeId) return;
@@ -856,19 +927,24 @@
         };
 
         window.saveMaklumBalas = async (e) => {
-            e.preventDefault();
-            const menteeId = window.currentMenteeG.id;
+            if (e) e.preventDefault();
+            const menteeId = window.currentMenteeG ? window.currentMenteeG.id : null;
+            if (!menteeId) {
+                window.showToast("Ralat: Tiada peserta dipilih.", "error");
+                return;
+            }
+
             const fasa = document.getElementById('mbFasa').value;
             const tarikhSandaran = document.getElementById('mbTarikhSandaran').value;
             const ulasan = document.getElementById('mbUlasan').value;
-
-            if(!menteeId) return;
+            const btn = document.getElementById('btnSimpanMB');
+            if(btn) { btn.textContent = "Menyimpan..."; btn.disabled = true; }
 
             try {
                 const payload = {
-                    fasa,
-                    tarikhSandaran,
-                    ulasan,
+                    fasa: fasa,
+                    tarikhSandaran: tarikhSandaran,
+                    ulasan: ulasan,
                     pemanduNama: window.profileData.name || "Pemandu Citra",
                     pemanduJawatan: window.profileData.jawatan || "Pemandu Citra IAB",
                     pemanduEmail: window.profileData.email || "-",
@@ -880,56 +956,71 @@
                 await set(ref(db, `propkes_borangG/${menteeId}/${fasaKey}`), payload);
                 await set(ref(db, `propkes_feedback_pemandu/${menteeId}/${fasa}`), payload);
                 
-                window.showToast("Borang G berjaya disimpan.");
-            } catch(e) {
-                console.error(e);
+                window.showToast(`Borang G (${fasa}) berjaya disimpan.`);
+            } catch(err) {
+                console.error(err);
                 window.showToast("Ralat menyimpan Borang G.", "error");
+            } finally {
+                if(btn) { btn.textContent = "Simpan Data"; btn.disabled = false; }
             }
         };
 
         window.cetakLampiranG = function() {
-            const m = window.currentMenteeG;
+            const m = window.currentMenteeG || {};
             const fasa = document.getElementById('mbFasa').value;
             const tarikhSandaran = document.getElementById('mbTarikhSandaran').value;
             const ulasan = document.getElementById('mbUlasan').value;
-            const pName = window.profileData.name || "Pemandu Citra";
-            const pJawatan = window.profileData.jawatan || "Pemandu Citra IAB";
-            const pPusat = window.profileData.pusat || "IAB Induk";
+            const pName = (window.profileData.name || "Pemandu Citra").toUpperCase();
+            const pJawatan = (window.profileData.jawatan || "Pemandu Citra IAB").toUpperCase();
+            const pPusat = (window.profileData.pusat || "IAB Induk").toUpperCase();
 
             const pSec = document.getElementById('printSection');
             pSec.innerHTML = `
                 <div class="print-page">
-                    <h2 style="text-align:center; font-size:15px; font-weight:bold; margin-bottom:2px;">INSTITUT AMINUDDIN BAKI</h2>
-                    <h3 style="text-align:center; font-size:13px; font-weight:bold; text-transform:uppercase; margin-bottom:15px;">LAMPIRAN G: BORANG MAKLUM BALAS BIMBINGAN PEMANDU CITRA</h3>
+                    <div style="text-align:center; margin-bottom:15px;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height:85px; width:auto; margin:0 auto; display:block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                    </div>
+                    <h3 style="text-align:center; font-size:15px; font-weight:bold; margin-bottom:2px;">INSTITUT AMINUDDIN BAKI</h3>
+                    <h2 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                    <h2 style="text-align:center; font-size:14px; font-weight:bold; margin-bottom:15px;">TAHUN 2026</h2>
+                    <h3 style="text-align:center; font-size:14px; font-weight:bold; text-transform:uppercase; margin-bottom:20px; text-decoration:underline;">LAMPIRAN G: BORANG MAKLUM BALAS BIMBINGAN PEMANDU CITRA (${fasa})</h3>
 
-                    <table class="print-table">
-                        <tr><th colspan="2" style="text-align:left;">A. MAKLUMAT PESERTA</th></tr>
-                        <tr><td width="30%"><strong>Nama Peserta</strong></td><td>${m.nama || "-"}</td></tr>
-                        <tr><td><strong>Jawatan & Gred</strong></td><td>${m.jawatan || "-"} (${m.gred || "-"})</td></tr>
-                        <tr><td><strong>Jabatan / Sekolah</strong></td><td>${m.jabatan || "-"}</td></tr>
-                        <tr><td><strong>Pusat / Cawangan</strong></td><td>${m.pusat || "-"}</td></tr>
+                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:15px;">
+                        <tr><th colspan="2" style="text-align:left; background:#f1f5f9;">A. MAKLUMAT PESERTA</th></tr>
+                        <tr><td width="30%"><strong>Nama Peserta</strong></td><td>${(m.nama || m.name || "-").toUpperCase()}</td></tr>
+                        <tr><td><strong>Jawatan & Gred</strong></td><td>${(m.jawatan || "-").toUpperCase()} (${(m.gred || "-").toUpperCase()})</td></tr>
+                        <tr><td><strong>Jabatan / Sekolah Sandaran</strong></td><td>${(m.jabatan || m.sekolah || "-").toUpperCase()}</td></tr>
+                        <tr><td><strong>Pusat / Cawangan</strong></td><td>${(m.pusat || "-").toUpperCase()}</td></tr>
                     </table>
 
-                    <table class="print-table">
-                        <tr><th colspan="2" style="text-align:left;">B. MAKLUMAT PEMANDU CITRA</th></tr>
+                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:15px;">
+                        <tr><th colspan="2" style="text-align:left; background:#f1f5f9;">B. MAKLUMAT PEMANDU CITRA</th></tr>
                         <tr><td width="30%"><strong>Nama Pemandu Citra</strong></td><td>${pName}</td></tr>
                         <tr><td><strong>Jawatan Hakiki</strong></td><td>${pJawatan}</td></tr>
                         <tr><td><strong>Pusat / Cawangan</strong></td><td>${pPusat}</td></tr>
                     </table>
 
-                    <table class="print-table">
-                        <tr><th colspan="2" style="text-align:left;">C. SESI BIMBINGAN (${fasa})</th></tr>
+                    <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:30px;">
+                        <tr><th colspan="2" style="text-align:left; background:#f1f5f9;">C. SESI BIMBINGAN (${fasa})</th></tr>
                         <tr><td width="30%"><strong>Tempoh Sandaran</strong></td><td>${tarikhSandaran}</td></tr>
-                        <tr><td colspan="2"><strong>Ulasan & Maklum Balas Bimbingan:</strong><br><br><p style="line-height:1.6; text-align:justify;">${(ulasan||"Tiada ulasan direkodkan.").replace(/\n/g, '<br>')}</p></td></tr>
+                        <tr><td colspan="2" style="min-height:220px; vertical-align:top; padding:15px;">
+                            <strong>Ulasan & Maklum Balas Bimbingan Pemandu Citra:</strong><br><br>
+                            <p style="line-height:1.6; text-align:justify; white-space:pre-wrap;">${ulasan || "Tiada ulasan direkodkan."}</p>
+                        </td></tr>
                     </table>
 
-                    <div style="margin-top:40px; display:flex; justify-content:space-between;">
+                    <div style="margin-top:30px; display:flex; justify-between; font-size:11px; line-height:1.8;">
                         <div>
-                            <p style="font-size:11px;">Tandatangan Pemandu Citra:</p>
+                            <p>Tandatangan Pemandu Citra:</p>
                             <br><br>
-                            <p style="font-size:11px;">________________________</p>
-                            <p style="font-size:11px;">( <strong>${pName}</strong> )</p>
-                            <p style="font-size:10px; color:#555;">Tarikh: ${new Date().toLocaleDateString('ms-MY')}</p>
+                            <p>________________________</p>
+                            <p>( <strong>${pName}</strong> )</p>
+                            <p style="color:#555;">Tarikh: ${new Date().toLocaleDateString('ms-MY')}</p>
+                        </div>
+                        <div style="text-align:right;">
+                            <p>Cap Rasmi:</p>
+                            <br><br><br>
+                            <p style="font-style:italic; color:#777;">* Dijana Secara Digital Melalui Sistem PROPKES 2026</p>
                         </div>
                     </div>
                 </div>
