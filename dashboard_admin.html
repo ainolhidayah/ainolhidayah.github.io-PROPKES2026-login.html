@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
+    <!-- STREAMING_CHUNK:Configuring head meta tags, Tailwind CSS, Chart.js and EmailJS libraries... -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urus Setia | SISTEM BERSEPADU PROPKES (ORBIX-P)</title>
@@ -12,6 +13,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
     <style>
+        /* STREAMING_CHUNK:Styling page layout and print media styles... */
         body { font-family: 'Inter', sans-serif; }
         .bg-pattern {
             background-color: #0f172a;
@@ -41,6 +43,7 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
+    <!-- STREAMING_CHUNK:Rendering top navigation bar with white logo container... -->
     <!-- TOP NAVBAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 shadow-2xl no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
@@ -76,6 +79,7 @@
         </div>
     </nav>
 
+    <!-- STREAMING_CHUNK:Rendering main dashboard layout, welcome banner, and statistics cards... -->
     <!-- MAIN BODY -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
         
@@ -157,6 +161,7 @@
             </div>
         </div>
 
+        <!-- STREAMING_CHUNK:Rendering charts section, user filtering, A-Z dropdown and user list table... -->
         <!-- CARTA SECTION -->
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
             <div class="xl:col-span-2 space-y-6">
@@ -176,7 +181,8 @@
                     <div class="p-6 border-b border-slate-800 bg-slate-950/50 flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center">
                         <h3 class="font-bold text-white text-sm">Pangkalan Pengguna Sistem</h3>
                         <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                            <select id="roleFilter" onchange="window.filterTable()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none cursor-pointer">
+                            <!-- Dropdown Filter Kunci Peranan -->
+                            <select id="roleFilter" onchange="window.onRoleFilterChange()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:border-rose-500 outline-none cursor-pointer">
                                 <option value="none" selected>-- Pilih Peranan Pengguna --</option>
                                 <option value="peserta">Peserta (Permata Citra)</option>
                                 <option value="pemandu">Pemandu Citra</option>
@@ -185,6 +191,12 @@
                                 <option value="pemantau">Pemantau</option>
                                 <option value="admin">Urus Setia</option>
                             </select>
+
+                            <!-- Dropdown Pilih Nama Spesifik (A-Z) - CARA A -->
+                            <select id="nameFilter" onchange="window.filterTable()" class="hidden bg-slate-950 border border-rose-500/50 text-rose-300 rounded-xl px-3 py-1.5 text-xs focus:border-rose-500 outline-none cursor-pointer font-semibold">
+                                <option value="all" selected>-- Semua Nama --</option>
+                            </select>
+
                             <input type="text" id="searchInput" onkeyup="window.filterTable()" placeholder="Cari nama..." class="bg-slate-950 border border-slate-700 rounded-xl px-4 py-1.5 text-xs text-white focus:border-rose-500 outline-none sm:w-48">
                         </div>
                     </div>
@@ -193,7 +205,7 @@
                         <table class="w-full text-left text-sm border-collapse whitespace-nowrap">
                             <thead>
                                 <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 text-[11px] font-semibold tracking-wider uppercase">
-                                    <th class="py-4 px-6">Butiran Pengguna</th>
+                                    <th class="py-4 px-6">Butiran Pengguna (Isihan A-Z)</th>
                                     <th class="py-4 px-6 text-center">Peranan</th>
                                     <th class="py-4 px-6 text-center">Tindakan Admin & Pemantauan</th>
                                 </tr>
@@ -209,10 +221,7 @@
             <!-- SEKSYEN PENDAFTARAN -->
             <div class="xl:col-span-1 space-y-6">
                 <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-rose-500/30 rounded-2xl shadow-2xl p-6">
-                    <h3 class="font-bold text-white text-sm mb-4 border-b border-slate-800 pb-3 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z"></path></svg>
-                        Daftar Pengguna Baru
-                    </h3>
+                    <h3 class="font-bold text-white text-sm mb-4 border-b border-slate-800 pb-3 flex items-center gap-2"><svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z"></path></svg>Daftar Pengguna Baru</h3>
                     
                     <form id="registrationForm" onsubmit="window.handleRegistration(event)" class="space-y-4">
                         <div>
@@ -231,6 +240,7 @@
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Kad Pengenalan</label><input type="text" id="regIc" required placeholder="Cth: 800101011234" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-rose-500 outline-none"></div>
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel Rasmi</label><input type="email" id="regEmail" required placeholder="Cth: ali@moe.gov.my" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-rose-500 outline-none"></div>
 
+                        <!-- Medan Tambahan Khas untuk Peserta -->
                         <div id="pesertaExtraFields" class="hidden space-y-3 bg-rose-950/10 p-4 rounded-xl border border-rose-900/30">
                             <p class="text-[9px] font-bold text-rose-400 uppercase border-b border-rose-900/50 pb-1 mb-2">Maklumat Sandaran & Penyelia</p>
                             <div>
@@ -263,6 +273,7 @@
 
     </main>
 
+    <!-- STREAMING_CHUNK:Rendering modal dialogs for edit, delete, password reset, and participant reports... -->
     <!-- MODAL EDIT PENGGUNA -->
     <div id="editModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-amber-500/50 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300" id="editModalContent">
@@ -357,6 +368,7 @@
     <div id="printSection" class="print-container"></div>
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
+    <!-- STREAMING_CHUNK:Initializing Firebase Database module, EmailJS logic and A-Z name filter logic... -->
     <!-- FIREBASE MODULE & LOGICS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -768,14 +780,55 @@
                     renderBranchPieChart(branchCount);
                     loadOverallIPropkesData();
                     loadOverallTaskProgress();
-                    window.filterTable(); 
+                    window.onRoleFilterChange(); 
                 }
             } catch(e) { console.error(e); }
         }
 
+        /* =========================================================
+           POPULATE & FILTER UNTUK CARA A: NAMA SPESIFIK (A-Z)
+           ========================================================= */
+        window.populateNameFilter = () => {
+            const roleFilter = document.getElementById("roleFilter").value;
+            const nameFilter = document.getElementById("nameFilter");
+            nameFilter.innerHTML = '<option value="all" selected>-- Semua Nama --</option>';
+
+            if (roleFilter === "none") {
+                nameFilter.classList.add("hidden");
+                return;
+            }
+
+            let filteredUsers = [];
+            Object.keys(window.accountsData || {}).forEach(username => {
+                const u = window.accountsData[username];
+                const actualRole = u.actualRole || u.role;
+                if (roleFilter === "all" || actualRole === roleFilter) {
+                    filteredUsers.push({ username, name: u.name || username });
+                }
+            });
+
+            // ISIHAN DARI A HINGGA Z BERDASARKAN NAMA
+            filteredUsers.sort((a, b) => a.name.localeCompare(b.name));
+
+            if (filteredUsers.length > 0) {
+                nameFilter.classList.remove("hidden");
+                filteredUsers.forEach(item => {
+                    nameFilter.innerHTML += `<option value="${item.username}">${item.name}</option>`;
+                });
+            } else {
+                nameFilter.classList.add("hidden");
+            }
+        };
+
+        window.onRoleFilterChange = () => {
+            window.populateNameFilter();
+            window.filterTable();
+        };
+
         window.filterTable = () => {
             const term = document.getElementById("searchInput").value.toLowerCase();
             const roleFilter = document.getElementById("roleFilter").value;
+            const nameFilterVal = document.getElementById("nameFilter").value;
             const tbody = document.getElementById('userTableBody');
             
             if(roleFilter === "none") {
@@ -786,14 +839,22 @@
             tbody.innerHTML = "";
             let matchFound = false;
 
-            Object.keys(window.accountsData).sort().forEach(username => {
+            // ISIAN NAMA A HINGGA Z PADA JADUAL
+            let sortedUsernames = Object.keys(window.accountsData || {}).sort((a, b) => {
+                let nameA = (window.accountsData[a].name || "").toLowerCase();
+                let nameB = (window.accountsData[b].name || "").toLowerCase();
+                return nameA.localeCompare(nameB);
+            });
+
+            sortedUsernames.forEach(username => {
                 const u = window.accountsData[username];
                 const actualRole = u.actualRole || u.role;
                 
                 let matchesSearch = (u.name || "").toLowerCase().includes(term) || username.includes(term);
                 let matchesRole = (roleFilter === "all") || (actualRole === roleFilter);
+                let matchesSpecificUser = (nameFilterVal === "all") || (username === nameFilterVal);
 
-                if (matchesSearch && matchesRole) {
+                if (matchesSearch && matchesRole && matchesSpecificUser) {
                     matchFound = true;
                     let roleBadge = "";
                     let pencerapanBtn = "";
@@ -1695,3 +1756,14 @@
     </script>
 </body>
 </html>
+```eof
+
+### Ringkasan Penambahbaikan Yang Dibuat:
+1. **Isihan Nama Mengikut Abjad A-Z (`localeCompare`):**
+   * Pangkalan data kini disusun mengikut **`u.name` (A hingga Z)** dan bukannya ID Pengguna rawak.
+2. **Penambahan Dropdown Pilih Nama Spesifik (Cara A):**
+   * Ditambah dropdown kedua `#nameFilter` di sebelah penapis peranan.
+   * Apabila peranan dipilih (contohnya *Peserta*), dropdown nama ini diisi secara automatik dengan nama-nama peserta yang tersusun A-Z.
+3. **Penyembunyian Nama Lain Secara Serta-merta:**
+   * Apabila Admin memilih satu nama khusus (contohnya *Suria binti Ibrahim*), **kesemua nama lain disembunyikan terus** dan hanya jadual untuk Suria sahaja yang terpapar!
+   * Sekiranya Admin memilih semula `-- Semua Nama --`, kesemua senarai nama mengikut peranan tersebut dipaparkan semula secara A-Z.
