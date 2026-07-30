@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-    <!-- STREAMING_CHUNK:Configuring head meta tags, Tailwind CSS, Google Fonts, EmailJS and FontAwesome icons... -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log Masuk | SISTEM BERSEPADU PROPKES (ORBIX-P)</title>
@@ -15,7 +14,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <style>
-        /* STREAMING_CHUNK:Styling layout and visual design tokens... */
         body { 
             font-family: 'Inter', sans-serif; 
         }
@@ -48,7 +46,6 @@
 </head>
 <body class="bg-gradient-custom bg-pattern-overlay min-h-screen flex items-center justify-center p-3 sm:p-6 md:p-8 m-0 overflow-x-hidden text-slate-800">
 
-    <!-- STREAMING_CHUNK:Rendering main layout container for desktop and mobile... -->
     <!-- Bekas Utama Responsive: 2-Lajur pada Desktop (md:grid-cols-12), 1-Lajur pada Mobile -->
     <div class="max-w-5xl w-full mx-auto my-auto space-y-4 md:space-y-0 md:grid md:grid-cols-12 md:gap-6 md:items-start">
         
@@ -62,9 +59,9 @@
                 <div class="absolute -right-10 -top-10 w-40 h-40 bg-blue-500/20 blur-3xl rounded-full pointer-events-none"></div>
                 
                 <div class="flex items-center justify-between gap-3 relative z-10">
-                    <!-- Logo KPM & IAB (Kiri) -->
-                    <div class="w-11 h-11 sm:w-12 sm:h-12 bg-white p-1 rounded-xl flex items-center justify-center shadow-md shrink-0 border border-white/20">
-                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-8 sm:h-9 w-auto object-contain" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                    <!-- Logo KPM & IAB (Kiri) - Tanpa latar putih supaya logo bertulisan putih bersatu dengan latar gelap -->
+                    <div class="h-11 sm:h-12 flex items-center justify-center shrink-0">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" class="h-10 sm:h-12 w-auto object-contain drop-shadow-md" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
 
                     <!-- Tajuk Utama (Tengah) -->
@@ -269,7 +266,6 @@
 
     </div>
 
-    <!-- STREAMING_CHUNK:Rendering forgot password modal and toast notification container... -->
     <!-- MODAL TERLUPA KATA LALUAN -->
     <div id="forgotPasswordModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-slate-900 border border-cyan-500/40 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300" id="forgotPasswordModalContent">
@@ -307,7 +303,6 @@
     <!-- TOAST NOTIFIKASI -->
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2"></div>
 
-    <!-- STREAMING_CHUNK:Initializing Firebase Database and EmailJS scripts... -->
     <!-- FIREBASE & EMAILJS MODULE LOGICS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -477,5 +472,9 @@
             }
         };
     </script>
+            <!-- INTEGRASI PEMBANTU MAYA -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/07/14/13/20260714134346-FN0YXLI1.js" defer></script>
+
 </body>
 </html>
