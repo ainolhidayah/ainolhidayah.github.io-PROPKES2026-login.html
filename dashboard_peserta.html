@@ -953,9 +953,84 @@
             }
         };
 
+        // FIX: Safely parse YYYY-MM-DD locally to avoid timezone offsets and ISO conversion shifts
+        function getDatesInRange(startDateStr, endDateStr) {
+            const dateArray = [];
+            const [sY, sM, sD] = startDateStr.split('-').map(Number);
+            const [eY, eM, eD] = endDateStr.split('-').map(Number);
+
+            let curr = new Date(sY, sM - 1, sD);
+            const stop = new Date(eY, eM - 1, eD);
+
+            while (curr <= stop) {
+                const y = curr.getFullYear();
+                const m = String(curr.getMonth() + 1).padStart(2, '0');
+                const d = String(curr.getDate()).padStart(2, '0');
+                dateArray.push(`${y}-${m}-${d}`);
+                curr.setDate(curr.getDate() + 1);
+            }
+            return dateArray;
+        }
+
+        window.renderWeeklyScheduleTable = function() {
+            const table = document.getElementById('weeklyScheduleTable');
+            if (!table) return;
+
+            const weeks = [
+                { w: 1, fasa: "Fasa 1", range: "3 Ogos - 9 Ogos 2026", target: "Sekolah (3 Hari)", key: "W1_2026-08-03_2026-08-09" },
+                { w: 2, fasa: "Fasa 1", range: "10 Ogos - 16 Ogos 2026", target: "Sekolah (3 Hari)", key: "W2_2026-08-10_2026-08-16" },
+                { w: 3, fasa: "Fasa 1", range: "17 Ogos - 23 Ogos 2026", target: "Sekolah (3 Hari)", key: "W3_2026-08-17_2026-08-23" },
+                { w: 4, fasa: "Fasa 1", range: "24 Ogos - 30 Ogos 2026", target: "Sekolah (3 Hari)", key: "W4_2026-08-24_2026-08-30" },
+                { w: 5, fasa: "Fasa 1", range: "31 Ogos - 6 Sept 2026", target: "Sekolah (3 Hari)", key: "W5_2026-08-31_2026-09-06" },
+                { w: 6, fasa: "Fasa 1", range: "7 Sept - 13 Sept 2026", target: "PPD (5 Hari)", key: "W6_2026-09-07_2026-09-13" },
+                { w: 7, fasa: "Fasa 2", range: "14 Sept - 20 Sept 2026", target: "Sekolah (3 Hari)", key: "W7_2026-09-14_2026-09-20" },
+                { w: 8, fasa: "Fasa 2", range: "21 Sept - 27 Sept 2026", target: "Sekolah (3 Hari)", key: "W8_2026-09-21_2026-09-27" },
+                { w: 9, fasa: "Fasa 2", range: "28 Sept - 4 Okt 2026", target: "Sekolah (3 Hari)", key: "W9_2026-09-28_2026-10-04" },
+                { w: 10, fasa: "Fasa 2", range: "5 Okt - 11 Okt 2026", target: "Sekolah (3 Hari)", key: "W10_2026-10-05_2026-10-11" },
+                { w: 11, fasa: "Fasa 2", range: "12 Okt - 18 Okt 2026", target: "Sekolah (3 Hari)", key: "W11_2026-10-12_2026-10-18" },
+                { w: 12, fasa: "Fasa 2", range: "19 Okt - 25 Okt 2026", target: "PPD (5 Hari)", key: "W12_2026-10-19_2026-10-25" }
+            ];
+
+            let html = "";
+            weeks.forEach(item => {
+                const [wId, startStr, endStr] = item.key.split('_');
+                const dates = getDatesInRange(startStr, endStr);
+                let logCCount = 0;
+
+                dates.forEach(dt => {
+                    const log = window.calendarData[dt];
+                    if (log && log.loc && log.loc !== 'cuti' && log.aktiviti) logCCount++;
+                });
+
+                const reqTarget = item.w === 6 || item.w === 12 ? 5 : 3;
+                const isLogCSelesai = logCCount >= reqTarget;
+                const isJurDSelesai = !!window.journalData[item.key];
+
+                const badgeLogC = isLogCSelesai ? 
+                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✓ Selesai (${logCCount}/${reqTarget})</span>` : 
+                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">Belum Selesai (${logCCount}/${reqTarget})</span>`;
+
+                const badgeJurD = isJurDSelesai ? 
+                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✓ Selesai</span>` : 
+                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400 border border-slate-700">Belum Diisi</span>`;
+
+                html += `
+                    <tr class="hover:bg-slate-800/30 transition-colors">
+                        <td class="p-2.5 font-semibold text-white border-r border-slate-800/50">M${item.w} <span class="text-[9px] text-slate-400 font-normal">(${item.fasa})</span></td>
+                        <td class="p-2.5 text-slate-300 text-[11px] border-r border-slate-800/50">${item.range}</td>
+                        <td class="p-2.5 font-medium border-r border-slate-800/50 ${item.w === 6 || item.w === 12 ? 'text-indigo-400' : 'text-blue-400'}">${item.target}</td>
+                        <td class="p-2.5 text-center border-r border-slate-800/50">${badgeLogC}</td>
+                        <td class="p-2.5 text-center">${badgeJurD}</td>
+                    </tr>
+                `;
+            });
+
+            table.innerHTML = html;
+        };
+
         window.calculatePhaseStats = function() {
-            let f1Hadir = 0, f1Sekolah = 0, f1Ppd = 0, f1Sah = 0;
-            let f2Hadir = 0, f2Sekolah = 0, f2Ppd = 0, f2Sah = 0;
+            let f1Sekolah = 0, f1Ppd = 0, f1Sah = 0, f1LogC = 0, f1JurD = 0;
+            let f2Sekolah = 0, f2Ppd = 0, f2Sah = 0, f2LogC = 0, f2JurD = 0;
 
             Object.keys(window.calendarData || {}).forEach(dt => {
                 const item = window.calendarData[dt];
@@ -966,31 +1041,74 @@
                 const isFasa2 = (m === 9 && d >= 14) || (m === 10 && d <= 25);
 
                 if (isFasa1) {
-                    f1Hadir++;
                     if (item.loc === 'sekolah') f1Sekolah++;
                     if (item.loc === 'ppd') f1Ppd++;
                     if (item.status === 'approved') f1Sah++;
+                    if (item.loc && item.loc !== 'cuti' && item.aktiviti) f1LogC++;
                 } else if (isFasa2) {
-                    f2Hadir++;
                     if (item.loc === 'sekolah') f2Sekolah++;
                     if (item.loc === 'ppd') f2Ppd++;
                     if (item.status === 'approved') f2Sah++;
+                    if (item.loc && item.loc !== 'cuti' && item.aktiviti) f2LogC++;
+                }
+            });
+
+            Object.keys(window.journalData || {}).forEach(k => {
+                if (window.journalData[k] && window.journalData[k].deskripsi) {
+                    if (k.startsWith("W1_") || k.startsWith("W2_") || k.startsWith("W3_") || k.startsWith("W4_") || k.startsWith("W5_") || k.startsWith("W6_")) {
+                        f1JurD++;
+                    } else {
+                        f2JurD++;
+                    }
                 }
             });
 
             safeSetText("fasa1SekolahCount", `${f1Sekolah}/15`);
             safeSetText("fasa1PpdCount", `${f1Ppd}/5`);
             safeSetText("fasa1SahCount", `${f1Sah}`);
-            const f1HadirPct = Math.min(100, Math.round((f1Hadir / 20) * 100));
+            const f1HadirPct = Math.min(100, Math.round(((f1Sekolah + f1Ppd) / 20) * 100));
             safeSetText("fasa1HadirPct", `${f1HadirPct}%`);
             if (document.getElementById("fasa1HadirBar")) document.getElementById("fasa1HadirBar").style.width = `${f1HadirPct}%`;
+
+            safeSetText("fasa1LogCCount", `${f1LogC}/20`);
+            safeSetText("fasa1JurDCount", `${f1JurD}/6`);
+            
+            let f1TaskCount = 0;
+            const prog = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
+            if (prog['t1']) f1TaskCount++;
+            if (prog['t4']) f1TaskCount++;
+            safeSetText("fasa1TaskACount", `${f1TaskCount}/2`);
+
+            const f1LogPct = Math.min(100, (f1LogC / 20) * 100);
+            const f1JurPct = Math.min(100, (f1JurD / 6) * 100);
+            const f1TaskPct = (f1TaskCount / 2) * 100;
+            const f1TugasanTotalPct = Math.round((f1LogPct * 0.4) + (f1JurPct * 0.4) + (f1TaskPct * 0.2));
+
+            safeSetText("fasa1TugasanPct", `${f1TugasanTotalPct}%`);
+            if (document.getElementById("fasa1TugasanBar")) document.getElementById("fasa1TugasanBar").style.width = `${f1TugasanTotalPct}%`;
 
             safeSetText("fasa2SekolahCount", `${f2Sekolah}/15`);
             safeSetText("fasa2PpdCount", `${f2Ppd}/5`);
             safeSetText("fasa2SahCount", `${f2Sah}`);
-            const f2HadirPct = Math.min(100, Math.round((f2Hadir / 20) * 100));
+            const f2HadirPct = Math.min(100, Math.round(((f2Sekolah + f2Ppd) / 20) * 100));
             safeSetText("fasa2HadirPct", `${f2HadirPct}%`);
             if (document.getElementById("fasa2HadirBar")) document.getElementById("fasa2HadirBar").style.width = `${f2HadirPct}%`;
+
+            safeSetText("fasa2LogCCount", `${f2LogC}/20`);
+            safeSetText("fasa2JurDCount", `${f2JurD}/6`);
+
+            let f2TaskCount = 0;
+            if (prog['t11']) f2TaskCount++;
+            if (window.artikelData && window.artikelData.tajuk) f2TaskCount++;
+            safeSetText("fasa2TaskACount", `${f2TaskCount}/2`);
+
+            const f2LogPct = Math.min(100, (f2LogC / 20) * 100);
+            const f2JurPct = Math.min(100, (f2JurD / 6) * 100);
+            const f2TaskPct = (f2TaskCount / 2) * 100;
+            const f2TugasanTotalPct = Math.round((f2LogPct * 0.4) + (f2JurPct * 0.4) + (f2TaskPct * 0.2));
+
+            safeSetText("fasa2TugasanPct", `${f2TugasanTotalPct}%`);
+            if (document.getElementById("fasa2TugasanBar")) document.getElementById("fasa2TugasanBar").style.width = `${f2TugasanTotalPct}%`;
         };
 
         /* =========================================================
@@ -1219,45 +1337,76 @@
                 const dt = `${disYear}-${String(disMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
                 const data = window.calendarData[dt];
                 if(data && data.loc) {
-                    const dateObj = new Date(disYear, disMonth, d); const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'short' });
+                    const dateObj = new Date(disYear, disMonth, d); 
+                    const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'short' });
                     const formatTarikh = `${d} ${mNames[disMonth].toUpperCase()} ${disYear} (${hari.toUpperCase()})`;
                     let locText = "";
-                    if(data.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN"; else if(data.loc === 'ppd') locText = u.ppd || "PPD"; else if(data.loc === 'iab') locText = "IAB"; else if(data.loc === 'cuti') locText = "-";
-                    let catatan = data.loc === 'cuti' ? "CUTI REHAT" : "";
+                    if(data.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN"; 
+                    else if(data.loc === 'ppd') locText = u.ppd || "PPD"; 
+                    else if(data.loc === 'iab') locText = "IAB"; 
+                    else if(data.loc === 'cuti') locText = "-";
+                    let catatan = data.loc === 'cuti' ? "CUTI REHAT / UMUM" : "";
 
                     tableRows += `<tr><td style="text-align:center;">${bil++}</td><td>${formatTarikh}</td><td>${locText.toUpperCase()}</td><td></td><td>${catatan}</td></tr>`;
                 }
             }
             if(tableRows === '') tableRows = `<tr><td colspan="5" style="text-align:center; padding: 20px;">Tiada rekod kehadiran untuk bulan ini.</td></tr>`;
 
-            document.getElementById('printSection').innerHTML = `
+            const printEl = document.getElementById('printSection');
+            if (printEl) {
+                printEl.innerHTML = `
                 <div class="print-page">
                     <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
                         <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
                     </div>
                     <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN B</h3>
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">FASA 1 / 2</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG KEHADIRAN</h2>
-                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px;"><tr><td style="padding: 5px; width: 15%; font-weight: bold;">NAMA</td><td style="padding: 5px;">${nama}</td></tr><tr><td style="padding: 5px; font-weight: bold;">JAWATAN</td><td style="padding: 5px;">${(u.jawatan||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">GRED</td><td style="padding: 5px;">${(u.gred||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">JABATAN</td><td style="padding: 5px;">${(u.jabatan||'-').toUpperCase()}</td></tr><tr><td style="padding: 5px; font-weight: bold;">PUSAT</td><td style="padding: 5px;">${(u.pusatCawangan||'-').toUpperCase()}</td></tr></table>
-                    <table class="print-table"><thead><tr><th style="width: 5%;">BIL.</th><th style="width: 25%;">TARIKH & HARI</th><th style="width: 30%;">LOKASI BERTUGAS</th><th style="width: 20%;">TANDATANGAN MENTOR</th><th style="width: 20%;">CATATAN</th></tr></thead><tbody>${tableRows}</tbody></table>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">FASA 1 / 2</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG KEHADIRAN</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px;">
+                        <tr><td style="padding: 5px; width: 15%; font-weight: bold;">NAMA</td><td style="padding: 5px;">${nama}</td></tr>
+                        <tr><td style="padding: 5px; font-weight: bold;">JAWATAN</td><td style="padding: 5px;">${(u.jawatan||'-').toUpperCase()}</td></tr>
+                        <tr><td style="padding: 5px; font-weight: bold;">GRED</td><td style="padding: 5px;">${(u.gred||'-').toUpperCase()}</td></tr>
+                        <tr><td style="padding: 5px; font-weight: bold;">JABATAN</td><td style="padding: 5px;">${(u.jabatan||'-').toUpperCase()}</td></tr>
+                        <tr><td style="padding: 5px; font-weight: bold;">PUSAT</td><td style="padding: 5px;">${(u.pusatCawangan||'-').toUpperCase()}</td></tr>
+                    </table>
+                    <table class="print-table">
+                        <thead>
+                            <tr><th style="width: 5%;">BIL.</th><th style="width: 25%;">TARIKH & HARI</th><th style="width: 30%;">LOKASI BERTUGAS</th><th style="width: 20%;">TANDATANGAN MENTOR</th><th style="width: 20%;">CATATAN</th></tr>
+                        </thead>
+                        <tbody>${tableRows}</tbody>
+                    </table>
                 </div>`;
-            window.print(); setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
+                window.print(); 
+                setTimeout(() => { document.title = oldTitle; printEl.innerHTML = ''; }, 1000);
+            }
         };
 
         window.cetakLampiranC = function() {
             const weekVal = document.getElementById('weekSelector').value;
+            if (!weekVal) return;
             const [wId, startStr, endStr] = weekVal.split('_');
             const dates = getDatesInRange(startStr, endStr);
-            const u = window.profileData || {}; const nama = (u.name || "Peserta").toUpperCase();
-            let htmlPages = ""; let adaRekod = false;
+            const u = window.profileData || {}; 
+            const nama = (u.name || "Peserta").toUpperCase();
+            let htmlPages = ""; 
+            let adaRekod = false;
 
             dates.forEach(dt => {
                 const data = window.calendarData[dt];
                 if(data && data.loc) {
-                    adaRekod = true; const dateObj = new Date(dt); const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'long' });
-                    const formatTarikh = `${dateObj.getDate()} ${mNames[dateObj.getMonth()].toUpperCase()} ${dateObj.getFullYear()} / ${hari.toUpperCase()}`;
+                    adaRekod = true; 
+                    const [y, m, d] = dt.split('-').map(Number);
+                    const dateObj = new Date(y, m - 1, d); 
+                    const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'long' });
+                    const formatTarikh = `${d} ${mNames[m - 1].toUpperCase()} ${y} / ${hari.toUpperCase()}`;
                     let locText = "";
-                    if(data.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN"; else if(data.loc === 'ppd') locText = u.ppd || "PPD"; else if(data.loc === 'iab') locText = "IAB"; else locText = "-";
+                    if(data.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN"; 
+                    else if(data.loc === 'ppd') locText = u.ppd || "PPD"; 
+                    else if(data.loc === 'iab') locText = "IAB"; 
+                    else if(data.loc === 'cuti') locText = "CUTI REHAT / UMUM";
+                    else locText = "-";
 
                     htmlPages += `
                     <div class="print-page">
@@ -1266,9 +1415,14 @@
                         </div>
                         <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN C</h3>
                         <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                        <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG HARIAN FASA 1 / 2</h2>
+                        <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
+                        <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG HARIAN FASA 1 / 2</h2>
                         <table class="print-table" style="margin-bottom: 30px;">
-                            <tr><td style="width: 20%; font-weight: bold;">NAMA</td><td>${nama}</td></tr><tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">JABATAN</td><td>${(u.jabatan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">PUSAT</td><td>${(u.pusatCawangan || "-").toUpperCase()}</td></tr>
+                            <tr><td style="width: 20%; font-weight: bold;">NAMA</td><td>${nama}</td></tr>
+                            <tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr>
+                            <tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr>
+                            <tr><td style="font-weight: bold;">JABATAN</td><td>${(u.jabatan || "-").toUpperCase()}</td></tr>
+                            <tr><td style="font-weight: bold;">PUSAT</td><td>${(u.pusatCawangan || "-").toUpperCase()}</td></tr>
                             <tr><td style="font-weight: bold;">TARIKH/ HARI</td><td>${formatTarikh} <br><br> Lokasi: ${locText.toUpperCase()}</td></tr>
                             <tr><td style="font-weight: bold; height: 100px;">AKTIVITI</td><td style="white-space: pre-wrap;">${data.aktiviti || "-"}</td></tr>
                             <tr><td style="font-weight: bold;">REFLEKSI<br><br><span style="font-weight:normal; font-size:10px;">(Satu SKKSM)</span><br><br><span style="font-size:10px;">${data.skksm || "-"}</span></td><td style="white-space: pre-wrap; height: 150px;">${data.refleksi || "-"}</td></tr>
@@ -1279,32 +1433,52 @@
             });
 
             if(!adaRekod) { window.showToast("Tiada log dijumpai untuk minggu ini.", "warning"); return; }
-            document.getElementById('printSection').innerHTML = htmlPages; const oldTitle = document.title; document.title = `${nama} - Lampiran C - ${wId}`;
-            window.print(); setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
+            const printEl = document.getElementById('printSection');
+            if (printEl) {
+                printEl.innerHTML = htmlPages; 
+                const oldTitle = document.title; 
+                document.title = `${nama} - Lampiran C - ${wId}`;
+                window.print(); 
+                setTimeout(() => { document.title = oldTitle; printEl.innerHTML = ''; }, 1000);
+            }
         };
 
         window.cetakLampiranD = function() {
             const weekVal = document.getElementById('weekSelector').value;
+            if(!weekVal) return;
             const weekLabel = document.getElementById('weekSelector').options[document.getElementById('weekSelector').selectedIndex].text;
             const data = window.journalData[weekVal];
             if(!data) { window.showToast("Jurnal belum diisi untuk minggu ini.", "warning"); return; }
             const u = window.profileData || {}; const nama = (u.name || "Peserta").toUpperCase();
 
-            document.getElementById('printSection').innerHTML = `
-            <div class="print-page">
-                <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
-                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
-                </div>
-                <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN D</h3>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
-                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2><h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">JURNAL KEPIMPINAN MINGGUAN</h2>
-                <table class="print-table">
-                    <tr><td style="width: 20%; font-weight: bold;">NAMA</td><td>${nama}</td></tr><tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">JABATAN</td><td>${(u.jabatan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">PUSAT</td><td>${(u.pusatCawangan || "-").toUpperCase()}</td></tr><tr><td style="font-weight: bold;">MINGGU</td><td>${weekLabel.toUpperCase()}</td></tr>
-                    <tr><td style="font-weight: bold; height: 150px;">DISKRIPSI</td><td style="white-space: pre-wrap;">${data.deskripsi || "-"}</td></tr><tr><td style="font-weight: bold; height: 150px;">ANALISIS</td><td style="white-space: pre-wrap;">${data.analisis || "-"}</td></tr><tr><td style="font-weight: bold; height: 150px;">INTERPRETASI</td><td style="white-space: pre-wrap;">${data.interpretasi || "-"}</td></tr>
-                </table>
-            </div>`;
-            const oldTitle = document.title; document.title = `${nama} - Lampiran D - ${weekVal.split('_')[0]}`;
-            window.print(); setTimeout(() => { document.title = oldTitle; document.getElementById('printSection').innerHTML = ''; }, 1000);
+            const printEl = document.getElementById('printSection');
+            if (printEl) {
+                printEl.innerHTML = `
+                <div class="print-page">
+                    <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
+                        <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                    </div>
+                    <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN D</h3>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">JURNAL KEPIMPINAN MINGGUAN</h2>
+                    <table class="print-table">
+                        <tr><td style="width: 20%; font-weight: bold;">NAMA</td><td>${nama}</td></tr>
+                        <tr><td style="font-weight: bold;">JAWATAN</td><td>${(u.jawatan || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">GRED</td><td>${(u.gred || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">JABATAN</td><td>${(u.jabatan || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">PUSAT</td><td>${(u.pusatCawangan || "-").toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold;">MINGGU</td><td>${weekLabel.toUpperCase()}</td></tr>
+                        <tr><td style="font-weight: bold; height: 150px;">DISKRIPSI</td><td style="white-space: pre-wrap;">${data.deskripsi || "-"}</td></tr>
+                        <tr><td style="font-weight: bold; height: 150px;">ANALISIS</td><td style="white-space: pre-wrap;">${data.analisis || "-"}</td></tr>
+                        <tr><td style="font-weight: bold; height: 150px;">INTERPRETASI</td><td style="white-space: pre-wrap;">${data.interpretasi || "-"}</td></tr>
+                    </table>
+                </div>`;
+                const oldTitle = document.title; 
+                document.title = `${nama} - Lampiran D - ${weekVal.split('_')[0]}`;
+                window.print(); 
+                setTimeout(() => { document.title = oldTitle; printEl.innerHTML = ''; }, 1000);
+            }
         };
 
         let barChartInstance = null;
@@ -1483,144 +1657,6 @@
             if(val) window.showToast("Tugasan direkodkan.");
         };
 
-              window.renderWeeklyScheduleTable = function() {
-            const table = document.getElementById('weeklyScheduleTable');
-            if (!table) return;
-
-            const weeks = [
-                { w: 1, fasa: "Fasa 1", range: "3 Ogos - 9 Ogos 2026", target: "Sekolah (3 Hari)", key: "W1_2026-08-03_2026-08-09" },
-                { w: 2, fasa: "Fasa 1", range: "10 Ogos - 16 Ogos 2026", target: "Sekolah (3 Hari)", key: "W2_2026-08-10_2026-08-16" },
-                { w: 3, fasa: "Fasa 1", range: "17 Ogos - 23 Ogos 2026", target: "Sekolah (3 Hari)", key: "W3_2026-08-17_2026-08-23" },
-                { w: 4, fasa: "Fasa 1", range: "24 Ogos - 30 Ogos 2026", target: "Sekolah (3 Hari)", key: "W4_2026-08-24_2026-08-30" },
-                { w: 5, fasa: "Fasa 1", range: "31 Ogos - 6 Sept 2026", target: "Sekolah (3 Hari)", key: "W5_2026-08-31_2026-09-06" },
-                { w: 6, fasa: "Fasa 1", range: "7 Sept - 13 Sept 2026", target: "PPD (5 Hari)", key: "W6_2026-09-07_2026-09-13" },
-                { w: 7, fasa: "Fasa 2", range: "14 Sept - 20 Sept 2026", target: "Sekolah (3 Hari)", key: "W7_2026-09-14_2026-09-20" },
-                { w: 8, fasa: "Fasa 2", range: "21 Sept - 27 Sept 2026", target: "Sekolah (3 Hari)", key: "W8_2026-09-21_2026-09-27" },
-                { w: 9, fasa: "Fasa 2", range: "28 Sept - 4 Okt 2026", target: "Sekolah (3 Hari)", key: "W9_2026-09-28_2026-10-04" },
-                { w: 10, fasa: "Fasa 2", range: "5 Okt - 11 Okt 2026", target: "Sekolah (3 Hari)", key: "W10_2026-10-05_2026-10-11" },
-                { w: 11, fasa: "Fasa 2", range: "12 Okt - 18 Okt 2026", target: "Sekolah (3 Hari)", key: "W11_2026-10-12_2026-10-18" },
-                { w: 12, fasa: "Fasa 2", range: "19 Okt - 25 Okt 2026", target: "PPD (5 Hari)", key: "W12_2026-10-19_2026-10-25" }
-            ];
-
-            let html = "";
-            weeks.forEach(item => {
-                const [wId, startStr, endStr] = item.key.split('_');
-                const dates = getDatesInRange(startStr, endStr);
-                let logCCount = 0;
-
-                dates.forEach(dt => {
-                    const log = window.calendarData[dt];
-                    if (log && log.loc && log.loc !== 'cuti' && log.aktiviti) logCCount++;
-                });
-
-                const reqTarget = item.w === 6 || item.w === 12 ? 5 : 3;
-                const isLogCSelesai = logCCount >= reqTarget;
-                const isJurDSelesai = !!window.journalData[item.key];
-
-                const badgeLogC = isLogCSelesai ? 
-                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✓ Selesai (${logCCount}/${reqTarget})</span>` : 
-                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">Belum Selesai (${logCCount}/${reqTarget})</span>`;
-
-                const badgeJurD = isJurDSelesai ? 
-                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✓ Selesai</span>` : 
-                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400 border border-slate-700">Belum Diisi</span>`;
-
-                html += `
-                    <tr class="hover:bg-slate-800/30 transition-colors">
-                        <td class="p-2.5 font-semibold text-white border-r border-slate-800/50">M${item.w} <span class="text-[9px] text-slate-400 font-normal">(${item.fasa})</span></td>
-                        <td class="p-2.5 text-slate-300 text-[11px] border-r border-slate-800/50">${item.range}</td>
-                        <td class="p-2.5 font-medium border-r border-slate-800/50 ${item.w === 6 || item.w === 12 ? 'text-indigo-400' : 'text-blue-400'}">${item.target}</td>
-                        <td class="p-2.5 text-center border-r border-slate-800/50">${badgeLogC}</td>
-                        <td class="p-2.5 text-center">${badgeJurD}</td>
-                    </tr>
-                `;
-            });
-
-            table.innerHTML = html;
-        };
-
-        window.calculatePhaseStats = function() {
-            let f1Hadir = 0, f1Sekolah = 0, f1Ppd = 0, f1Sah = 0, f1LogC = 0, f1JurD = 0;
-            let f2Hadir = 0, f2Sekolah = 0, f2Ppd = 0, f2Sah = 0, f2LogC = 0, f2JurD = 0;
-
-            Object.keys(window.calendarData || {}).forEach(dt => {
-                const item = window.calendarData[dt];
-                if (!item || !item.loc) return;
-                const [y, m, d] = dt.split('-').map(Number);
-                
-                const isFasa1 = (m === 8) || (m === 9 && d <= 13);
-                const isFasa2 = (m === 9 && d >= 14) || (m === 10 && d <= 25);
-
-                if (isFasa1) {
-                    if (item.loc === 'sekolah') f1Sekolah++;
-                    if (item.loc === 'ppd') f1Ppd++;
-                    if (item.status === 'approved') f1Sah++;
-                    if (item.loc && item.loc !== 'cuti' && item.aktiviti) f1LogC++;
-                } else if (isFasa2) {
-                    if (item.loc === 'sekolah') f2Sekolah++;
-                    if (item.loc === 'ppd') f2Ppd++;
-                    if (item.status === 'approved') f2Sah++;
-                    if (item.loc && item.loc !== 'cuti' && item.aktiviti) f2LogC++;
-                }
-            });
-
-            Object.keys(window.journalData || {}).forEach(k => {
-                if (window.journalData[k] && window.journalData[k].deskripsi) {
-                    if (k.startsWith("W1_") || k.startsWith("W2_") || k.startsWith("W3_") || k.startsWith("W4_") || k.startsWith("W5_") || k.startsWith("W6_")) {
-                        f1JurD++;
-                    } else {
-                        f2JurD++;
-                    }
-                }
-            });
-
-            safeSetText("fasa1SekolahCount", `${f1Sekolah}/15`);
-            safeSetText("fasa1PpdCount", `${f1Ppd}/5`);
-            safeSetText("fasa1SahCount", `${f1Sah}`);
-            const f1HadirPct = Math.min(100, Math.round(((f1Sekolah + f1Ppd) / 20) * 100));
-            safeSetText("fasa1HadirPct", `${f1HadirPct}%`);
-            if (document.getElementById("fasa1HadirBar")) document.getElementById("fasa1HadirBar").style.width = `${f1HadirPct}%`;
-
-            safeSetText("fasa1LogCCount", `${f1LogC}/20`);
-            safeSetText("fasa1JurDCount", `${f1JurD}/6`);
-            
-            let f1TaskCount = 0;
-            const prog = JSON.parse(localStorage.getItem(`propkes_progress_${currentUser}`) || "{}");
-            if (prog['t1']) f1TaskCount++;
-            if (prog['t4']) f1TaskCount++;
-            safeSetText("fasa1TaskACount", `${f1TaskCount}/2`);
-
-            const f1LogPct = Math.min(100, (f1LogC / 20) * 100);
-            const f1JurPct = Math.min(100, (f1JurD / 6) * 100);
-            const f1TaskPct = (f1TaskCount / 2) * 100;
-            const f1TugasanTotalPct = Math.round((f1LogPct * 0.4) + (f1JurPct * 0.4) + (f1TaskPct * 0.2));
-
-            safeSetText("fasa1TugasanPct", `${f1TugasanTotalPct}%`);
-            if (document.getElementById("fasa1TugasanBar")) document.getElementById("fasa1TugasanBar").style.width = `${f1TugasanTotalPct}%`;
-
-            safeSetText("fasa2SekolahCount", `${f2Sekolah}/15`);
-            safeSetText("fasa2PpdCount", `${f2Ppd}/5`);
-            safeSetText("fasa2SahCount", `${f2Sah}`);
-            const f2HadirPct = Math.min(100, Math.round(((f2Sekolah + f2Ppd) / 20) * 100));
-            safeSetText("fasa2HadirPct", `${f2HadirPct}%`);
-            if (document.getElementById("fasa2HadirBar")) document.getElementById("fasa2HadirBar").style.width = `${f2HadirPct}%`;
-
-            safeSetText("fasa2LogCCount", `${f2LogC}/20`);
-            safeSetText("fasa2JurDCount", `${f2JurD}/6`);
-
-            let f2TaskCount = 0;
-            if (prog['t11']) f2TaskCount++;
-            if (window.artikelData && window.artikelData.tajuk) f2TaskCount++;
-            safeSetText("fasa2TaskACount", `${f2TaskCount}/2`);
-
-            const f2LogPct = Math.min(100, (f2LogC / 20) * 100);
-            const f2JurPct = Math.min(100, (f2JurD / 6) * 100);
-            const f2TaskPct = (f2TaskCount / 2) * 100;
-            const f2TugasanTotalPct = Math.round((f2LogPct * 0.4) + (f2JurPct * 0.4) + (f2TaskPct * 0.2));
-
-            safeSetText("fasa2TugasanPct", `${f2TugasanTotalPct}%`);
-            if (document.getElementById("fasa2TugasanBar")) document.getElementById("fasa2TugasanBar").style.width = `${f2TugasanTotalPct}%`;
-        };
         async function loadUserData() {
             try {
                 const dbRef = ref(db);
@@ -1871,7 +1907,7 @@
 
         loadUserData();
     </script>
-        <!-- INTEGRASI PEMBANTU MAYA -->
+    <!-- INTEGRASI PEMBANTU MAYA -->
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2026/07/14/13/20260714134346-FN0YXLI1.js" defer></script>
 
