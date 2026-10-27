@@ -36,7 +36,7 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <!-- TOP NAVBAR -->
+    <!-- BAR NAVIGASI ATAS -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 no-print shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex justify-between items-center">
@@ -64,10 +64,10 @@
         </div>
     </nav>
 
-    <!-- MAIN BODY -->
+    <!-- KANDUNGAN UTAMA -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 no-print">
         
-        <!-- BANNER WELCOME -->
+        <!-- BANNER ALUALAN -->
         <div class="bg-gradient-to-r from-blue-900/40 via-slate-900 to-purple-900/30 border border-blue-800/50 rounded-2xl p-6 md:p-8 shadow-xl mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-64 h-64 bg-blue-500/10 blur-3xl rounded-full pointer-events-none"></div>
             <div class="relative z-10">
@@ -169,10 +169,10 @@
             </div>
         </div>
 
-        <!-- UTAMA 12-KOLUM GRID -->
+        <!-- GRID UTAMA 12-KOLUM -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
-            <!-- KIRI (4 KOLUM): PROFIL, SANDARAN, KEBERADAAN & CARTA KEPUTUSAN I-PROPKES (9 DOMAIN SKKSM) -->
+            <!-- KIRI (4 KOLUM): PROFIL, SANDARAN, KEBERADAAN & CARTA KEPUTUSAN I-PROPKES -->
             <div class="lg:col-span-4 space-y-6">
                 <!-- MAKLUMAT DIDAFTARKAN -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
@@ -256,7 +256,7 @@
                         </div>
                         <button onclick="document.getElementById('analisisBox').classList.toggle('hidden')" class="bg-slate-800 text-slate-300 text-[11px] px-2.5 py-1 rounded-lg border border-slate-700 outline-none cursor-pointer hover:bg-slate-700">Lihat Carta</button>
                     </div>
-                    <div id="analisisBox" class="hidden mt-3 pt-3 border-t border-slate-800">
+                    <div id="analisisBox" class="mt-3 pt-3 border-t border-slate-800">
                         <div class="flex justify-end mb-3">
                             <button onclick="window.cetakLaporanPropkes()" class="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs py-2 rounded-lg font-bold outline-none flex justify-center items-center gap-1.5 cursor-pointer shadow-lg shadow-purple-600/30">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF i-PROPKES
@@ -344,7 +344,7 @@
                     </div>
                 </div>
 
-                <!-- [PENAMBAHAN 1]: KAD STATUS MAKLUM BALAS MENTOR (LAMPIRAN F) -->
+                <!-- KAD STATUS MAKLUM BALAS MENTOR (LAMPIRAN F) -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
                     <div class="flex justify-between items-center mb-3 pb-2.5 border-b border-slate-800">
                         <div>
@@ -688,7 +688,7 @@
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editMentorJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Telefon</label><input type="text" id="editMentorTelefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-blue-500"></div>
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel Rasmi</label><input type="email" id="editMentorEmail" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-blue-500"></div>
-                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap</label><input type="text" id="editMentorAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-blue-500"></div>
+                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap</label><input type="text" id="editMentorAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
                     </div>
                 </div>
                 <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
@@ -736,7 +736,7 @@
     <div id="printSection" class="print-container no-print"></div>
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
-    <!-- LOGIK SKRIP FIREBASE & PEMEROSESAN 38 ITEM MENGIKUT 9 DOMAIN SKKSM -->
+    <!-- LOGIK SKRIP FIREBASE & PEMEROSESAN -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, get, child, update, set, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -780,7 +780,6 @@
         window.journalData = {};
         window.profileData = {}; 
         window.artikelData = {};
-        // [PENAMBAHAN 2a]: Objek untuk memegang rekod maklum balas mentor
         window.mentorFeedbackData = {};
 
         let disMonth = 7, disYear = 2026, curEditDate = "";
@@ -801,9 +800,9 @@
                 subject: subjek,
                 message: mesej
             }).then(() => {
-                console.log("Notifikasi e-mel dihantar ke: " + keEmel);
+                console.log("Notifikasi e-mel berjaya dihantar ke: " + keEmel);
             }, (err) => {
-                console.warn("Gagal hantar e-mel: ", err);
+                console.warn("Gagal menghantar e-mel: ", err);
             });
         };
 
@@ -827,7 +826,7 @@
                 try {
                     window.location.replace("index.html");
                 } catch(e) {
-                    window.showToast("Sesi dilog keluar.");
+                    window.showToast("Sesi telah dilog keluar.");
                 }
             }
         };
@@ -1205,9 +1204,6 @@
             if (document.getElementById("fasa2TugasanBar")) document.getElementById("fasa2TugasanBar").style.width = `${f2TugasanTotalPct}%`;
         };
 
-        /* =========================================================
-           [PENAMBAHAN 3a]: LOGIK PAPAR STATUS LAMPIRAN F
-           ========================================================= */
         window.renderLampiranFStatus = function() {
             const u = window.profileData || {};
             const fb = window.mentorFeedbackData || {};
@@ -1274,7 +1270,6 @@
             }
         };
 
-        // [PENAMBAHAN 3b]: FUNGSI HANTAR EMEL AUTOMATIK (SOFT REMINDER)
         window.sendMentorReminder = function(jenisMentor, fasa) {
             const u = window.profileData || {};
             const namaPeserta = u.name || "Peserta PROPKES";
@@ -1293,7 +1288,6 @@
             window.showToast(`Peringatan mesra telah berjaya dihantar ke e-mel ${namaMentor}!`);
         };
 
-        // [PENAMBAHAN 3c]: FUNGSI CETAKAN PDF LAMPIRAN F UNTUK SIMPANAN / G-DRIVE
         window.cetakLampiranFPeserta = function(jenisMentor, fasa) {
             const u = window.profileData || {};
             const nama = (u.name || "Peserta").toUpperCase();
@@ -1346,9 +1340,6 @@
             }
         };
 
-        /* =========================================================
-           FUNGSI CETAKAN LAPORAN PDF I-PROPKES (PRA & PASCA 38 ITEM)
-           ========================================================= */
         window.cetakLaporanPropkes = function() {
             let pra = null, pasca = null;
             try {
@@ -1559,9 +1550,6 @@
             URL.revokeObjectURL(url);
         };
 
-        /* =========================================================
-           FUNGSI CETAKAN LAMPIRAN B DENGAN PENGESAHAN DIGITAL MENTOR
-           ========================================================= */
         window.cetakLampiranB = function() {
             const oldTitle = document.title;
             const u = window.profileData || {};
@@ -1944,16 +1932,18 @@
             if(val) window.showToast("Tugasan direkodkan.");
         };
 
+        // --- PENARIKAN DATA FIREBASE YANG TELAH DISELARASKAN SECARA PENUH ---
         async function loadUserData() {
             try {
                 const dbRef = ref(db);
-                // [PENAMBAHAN 2b]: Ambil sekali rekod maklum balas mentor daripada Firebase
-                const [userSnap, calSnap, jurSnap, artSnap, fbMentorSnap] = await Promise.all([
+                // Tarik data profil, log harian, jurnal, artikel, maklum balas mentor DAN ujian i-PROPKES terus dari awan
+                const [userSnap, calSnap, jurSnap, artSnap, fbMentorSnap, ipropSnap] = await Promise.all([
                     get(child(dbRef, `propkes_accounts/${currentUser}`)).catch(()=>null),
                     get(child(dbRef, `propkes_attendance/${currentUser}`)).catch(()=>null),
                     get(child(dbRef, `propkes_journals/${currentUser}`)).catch(()=>null),
                     get(child(dbRef, `propkes_articles/${currentUser}`)).catch(()=>null),
-                    get(child(dbRef, `propkes_feedback_mentor/${currentUser}`)).catch(()=>null)
+                    get(child(dbRef, `propkes_feedback_mentor/${currentUser}`)).catch(()=>null),
+                    get(child(dbRef, `propkes_ipropkes/${currentUser}`)).catch(()=>null)
                 ]);
 
                 if (userSnap && userSnap.exists()) {
@@ -1992,10 +1982,20 @@
                 if(jurSnap && jurSnap.exists()) window.journalData = jurSnap.val();
                 if(artSnap && artSnap.exists()) window.artikelData = artSnap.val();
                 if(fbMentorSnap && fbMentorSnap.exists()) window.mentorFeedbackData = fbMentorSnap.val();
+
+                // SINKRONISASIKAN DATA i-PROPKES DARI FIREBASE KE DALAM SISTEM TEMPATAN
+                if(ipropSnap && ipropSnap.exists()) {
+                    const ipData = ipropSnap.val();
+                    if(ipData.pra) {
+                        localStorage.setItem(`propkes_pra_result_${currentUser}`, JSON.stringify(ipData.pra));
+                    }
+                    if(ipData.pasca) {
+                        localStorage.setItem(`propkes_pasca_result_${currentUser}`, JSON.stringify(ipData.pasca));
+                    }
+                }
                 
                 window.renderCal();
                 window.renderWeeklyScheduleTable();
-                // [PENAMBAHAN 2c]: Panggil kemaskini status Lampiran F
                 window.renderLampiranFStatus();
                 window.renderTasks();
                 window.calculatePhaseStats();
