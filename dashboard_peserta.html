@@ -273,7 +273,7 @@
 
             </div>
 
-            <!-- KANAN (8 KOLUM): KALENDAR, JADUAL MINGGUAN & TUGASAN -->
+            <!-- KANAN (8 KOLUM): KALENDAR, JADUAL MINGGUAN, LAMPIRAN F & TUGASAN -->
             <div class="lg:col-span-8 space-y-6">
                 
                 <!-- KALENDAR LOG HARIAN -->
@@ -341,6 +341,99 @@
                                 <!-- Dijana Secara Automatik -->
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- [PENAMBAHAN 1]: KAD STATUS MAKLUM BALAS MENTOR (LAMPIRAN F) -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-lg p-5">
+                    <div class="flex justify-between items-center mb-3 pb-2.5 border-b border-slate-800">
+                        <div>
+                            <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
+                                <span class="w-2 h-2 bg-amber-400 rounded-full"></span>
+                                Status Maklum Balas Mentor (Lampiran F)
+                            </h3>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Semak status pengisian ulasan mentor, hantar peringatan emel, atau jana PDF untuk Google Drive.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <!-- Mentor Sekolah -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+                            <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
+                                <div>
+                                    <p class="text-[10px] font-bold text-amber-400 uppercase">Mentor 1 (Sekolah)</p>
+                                    <p class="text-xs font-semibold text-white truncate max-w-[180px]" id="labelMentorSekolahNama">-</p>
+                                </div>
+                                <span class="text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded">Sekolah Sandaran</span>
+                            </div>
+
+                            <!-- Fasa 1 Sekolah -->
+                            <div class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/60">
+                                <div>
+                                    <p class="text-[11px] font-bold text-slate-200">Fasa 1 (Ogos - Sept)</p>
+                                    <p class="text-[10px]" id="badge_sekolah_f1"><span class="text-amber-400 font-semibold">Belum Diisi</span></p>
+                                </div>
+                                <div class="flex items-center gap-1.5" id="action_sekolah_f1">
+                                    <button onclick="window.sendMentorReminder('sekolah', 'FASA 1')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all border border-slate-700 outline-none flex items-center gap-1 cursor-pointer">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                                        Peringatan
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Fasa 2 Sekolah -->
+                            <div class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/60">
+                                <div>
+                                    <p class="text-[11px] font-bold text-slate-200">Fasa 2 (Sept - Okt)</p>
+                                    <p class="text-[10px]" id="badge_sekolah_f2"><span class="text-amber-400 font-semibold">Belum Diisi</span></p>
+                                </div>
+                                <div class="flex items-center gap-1.5" id="action_sekolah_f2">
+                                    <button onclick="window.sendMentorReminder('sekolah', 'FASA 2')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all border border-slate-700 outline-none flex items-center gap-1 cursor-pointer">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                                        Peringatan
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mentor PPD -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+                            <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
+                                <div>
+                                    <p class="text-[10px] font-bold text-indigo-400 uppercase">Mentor 2 (PPD)</p>
+                                    <p class="text-xs font-semibold text-white truncate max-w-[180px]" id="labelMentorPpdNama">-</p>
+                                </div>
+                                <span class="text-[9px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 px-2 py-0.5 rounded">Penyelia PPD</span>
+                            </div>
+
+                            <!-- Fasa 1 PPD -->
+                            <div class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/60">
+                                <div>
+                                    <p class="text-[11px] font-bold text-slate-200">Fasa 1 (Ogos - Sept)</p>
+                                    <p class="text-[10px]" id="badge_ppd_f1"><span class="text-amber-400 font-semibold">Belum Diisi</span></p>
+                                </div>
+                                <div class="flex items-center gap-1.5" id="action_ppd_f1">
+                                    <button onclick="window.sendMentorReminder('ppd', 'FASA 1')" class="bg-slate-800 hover:bg-slate-700 text-indigo-400 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all border border-slate-700 outline-none flex items-center gap-1 cursor-pointer">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                                        Peringatan
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Fasa 2 PPD -->
+                            <div class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/60">
+                                <div>
+                                    <p class="text-[11px] font-bold text-slate-200">Fasa 2 (Sept - Okt)</p>
+                                    <p class="text-[10px]" id="badge_ppd_f2"><span class="text-amber-400 font-semibold">Belum Diisi</span></p>
+                                </div>
+                                <div class="flex items-center gap-1.5" id="action_ppd_f2">
+                                    <button onclick="window.sendMentorReminder('ppd', 'FASA 2')" class="bg-slate-800 hover:bg-slate-700 text-indigo-400 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all border border-slate-700 outline-none flex items-center gap-1 cursor-pointer">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                                        Peringatan
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -595,7 +688,7 @@
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jawatan</label><input type="text" id="editMentorJawatan" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Telefon</label><input type="text" id="editMentorTelefon" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-blue-500"></div>
                         <div><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">E-mel Rasmi</label><input type="email" id="editMentorEmail" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-blue-500"></div>
-                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap</label><input type="text" id="editMentorAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white uppercase outline-none focus:border-blue-500"></div>
+                        <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alamat Lengkap</label><input type="text" id="editMentorAlamat" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-blue-500"></div>
                     </div>
                 </div>
                 <div class="bg-amber-950/20 p-4 rounded-xl border border-amber-900/30">
@@ -687,6 +780,8 @@
         window.journalData = {};
         window.profileData = {}; 
         window.artikelData = {};
+        // [PENAMBAHAN 2a]: Objek untuk memegang rekod maklum balas mentor
+        window.mentorFeedbackData = {};
 
         let disMonth = 7, disYear = 2026, curEditDate = "";
         const mNames = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
@@ -761,15 +856,15 @@
             }
 
             const domainItemMapping = [
-                [1, 10, 11, 12, 13, 14, 15, 16, 17],            // 1. Pengurusan & Kepimpinan Organisasi
-                [2, 18, 19, 20, 21],                            // 2. Pengurusan Kurikulum
-                [3],                                            // 3. Pengurusan Kokurikulum
-                [4],                                            // 4. Pengurusan Hal Ehwal Murid
-                [5, 31],                                        // 5. Pengurusan Kewangan
-                [6, 33, 34],                                    // 6. Pengurusan Pentadbiran Pejabat
-                [7, 32],                                        // 7. Pengurusan Persekitaran & Kemudahan Fizikal
-                [8, 22, 23, 24, 25, 26, 27, 30, 35, 36, 37, 38], // 8. Pengurusan & Pembangunan Sumber Manusia
-                [9, 28, 29]                                     // 9. Pengurusan Perhubungan Luar
+                [1, 10, 11, 12, 13, 14, 15, 16, 17],
+                [2, 18, 19, 20, 21],
+                [3],
+                [4],
+                [5, 31],
+                [6, 33, 34],
+                [7, 32],
+                [8, 22, 23, 24, 25, 26, 27, 30, 35, 36, 37, 38],
+                [9, 28, 29]
             ];
 
             return domainItemMapping.map(itemGroup => {
@@ -953,7 +1048,6 @@
             }
         };
 
-        // Mengelakkan isu anjakan zon masa (timezone offset)
         function getDatesInRange(startDateStr, endDateStr) {
             const dateArray = [];
             const [sY, sM, sD] = startDateStr.split('-').map(Number);
@@ -1109,6 +1203,147 @@
 
             safeSetText("fasa2TugasanPct", `${f2TugasanTotalPct}%`);
             if (document.getElementById("fasa2TugasanBar")) document.getElementById("fasa2TugasanBar").style.width = `${f2TugasanTotalPct}%`;
+        };
+
+        /* =========================================================
+           [PENAMBAHAN 3a]: LOGIK PAPAR STATUS LAMPIRAN F
+           ========================================================= */
+        window.renderLampiranFStatus = function() {
+            const u = window.profileData || {};
+            const fb = window.mentorFeedbackData || {};
+
+            safeSetText("labelMentorSekolahNama", u.mentorSekolah || u.mentor_sekolah || "Belum Didaftarkan");
+            safeSetText("labelMentorPpdNama", u.mentorPpd || u.mentor_ppd || "Belum Didaftarkan");
+
+            const checkFilled = (obj) => obj && (obj.ulasan || obj.catatan);
+
+            // 1. Mentor Sekolah - Fasa 1
+            const sekF1 = fb['sekolah'] ? (fb['sekolah']['FASA 1'] || fb['sekolah']['fasa 1']) : (fb['FASA 1'] || fb['fasa 1']);
+            const isSekF1Filled = checkFilled(sekF1);
+            const badgeSekF1 = document.getElementById("badge_sekolah_f1");
+            const actSekF1 = document.getElementById("action_sekolah_f1");
+
+            if (isSekF1Filled) {
+                if (badgeSekF1) badgeSekF1.innerHTML = `<span class="text-emerald-400 font-bold">✓ Telah Diisi (Tahap: ${sekF1.tahap || "-"})</span>`;
+                if (actSekF1) actSekF1.innerHTML = `<button onclick="window.cetakLampiranFPeserta('sekolah', 'FASA 1')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] shadow outline-none flex items-center gap-1 cursor-pointer"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF</button>`;
+            } else {
+                if (badgeSekF1) badgeSekF1.innerHTML = `<span class="text-amber-400 font-semibold">Belum Diisi</span>`;
+                if (actSekF1) actSekF1.innerHTML = `<button onclick="window.sendMentorReminder('sekolah', 'FASA 1')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all border border-slate-700 outline-none flex items-center gap-1 cursor-pointer"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg> Peringatan</button>`;
+            }
+
+            // 2. Mentor Sekolah - Fasa 2
+            const sekF2 = fb['sekolah'] ? (fb['sekolah']['FASA 2'] || fb['sekolah']['fasa 2']) : (fb['FASA 2'] || fb['fasa 2']);
+            const isSekF2Filled = checkFilled(sekF2);
+            const badgeSekF2 = document.getElementById("badge_sekolah_f2");
+            const actSekF2 = document.getElementById("action_sekolah_f2");
+
+            if (isSekF2Filled) {
+                if (badgeSekF2) badgeSekF2.innerHTML = `<span class="text-emerald-400 font-bold">✓ Telah Diisi (Tahap: ${sekF2.tahap || "-"})</span>`;
+                if (actSekF2) actSekF2.innerHTML = `<button onclick="window.cetakLampiranFPeserta('sekolah', 'FASA 2')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] shadow outline-none flex items-center gap-1 cursor-pointer"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF</button>`;
+            } else {
+                if (badgeSekF2) badgeSekF2.innerHTML = `<span class="text-amber-400 font-semibold">Belum Diisi</span>`;
+                if (actSekF2) actSekF2.innerHTML = `<button onclick="window.sendMentorReminder('sekolah', 'FASA 2')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all border border-slate-700 outline-none flex items-center gap-1 cursor-pointer"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg> Peringatan</button>`;
+            }
+
+            // 3. Mentor PPD - Fasa 1
+            const ppdF1 = fb['ppd'] ? (fb['ppd']['FASA 1'] || fb['ppd']['fasa 1']) : null;
+            const isPpdF1Filled = checkFilled(ppdF1);
+            const badgePpdF1 = document.getElementById("badge_ppd_f1");
+            const actPpdF1 = document.getElementById("action_ppd_f1");
+
+            if (isPpdF1Filled) {
+                if (badgePpdF1) badgePpdF1.innerHTML = `<span class="text-emerald-400 font-bold">✓ Telah Diisi (Tahap: ${ppdF1.tahap || "-"})</span>`;
+                if (actPpdF1) actPpdF1.innerHTML = `<button onclick="window.cetakLampiranFPeserta('ppd', 'FASA 1')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] shadow outline-none flex items-center gap-1 cursor-pointer"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF</button>`;
+            } else {
+                if (badgePpdF1) badgePpdF1.innerHTML = `<span class="text-amber-400 font-semibold">Belum Diisi</span>`;
+                if (actPpdF1) actPpdF1.innerHTML = `<button onclick="window.sendMentorReminder('ppd', 'FASA 1')" class="bg-slate-800 hover:bg-slate-700 text-indigo-400 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all border border-slate-700 outline-none flex items-center gap-1 cursor-pointer"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg> Peringatan</button>`;
+            }
+
+            // 4. Mentor PPD - Fasa 2
+            const ppdF2 = fb['ppd'] ? (fb['ppd']['FASA 2'] || fb['ppd']['fasa 2']) : null;
+            const isPpdF2Filled = checkFilled(ppdF2);
+            const badgePpdF2 = document.getElementById("badge_ppd_f2");
+            const actPpdF2 = document.getElementById("action_ppd_f2");
+
+            if (isPpdF2Filled) {
+                if (badgePpdF2) badgePpdF2.innerHTML = `<span class="text-emerald-400 font-bold">✓ Telah Diisi (Tahap: ${ppdF2.tahap || "-"})</span>`;
+                if (actPpdF2) actPpdF2.innerHTML = `<button onclick="window.cetakLampiranFPeserta('ppd', 'FASA 2')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] shadow outline-none flex items-center gap-1 cursor-pointer"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak PDF</button>`;
+            } else {
+                if (badgePpdF2) badgePpdF2.innerHTML = `<span class="text-amber-400 font-semibold">Belum Diisi</span>`;
+                if (actPpdF2) actPpdF2.innerHTML = `<button onclick="window.sendMentorReminder('ppd', 'FASA 2')" class="bg-slate-800 hover:bg-slate-700 text-indigo-400 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all border border-slate-700 outline-none flex items-center gap-1 cursor-pointer"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg> Peringatan</button>`;
+            }
+        };
+
+        // [PENAMBAHAN 3b]: FUNGSI HANTAR EMEL AUTOMATIK (SOFT REMINDER)
+        window.sendMentorReminder = function(jenisMentor, fasa) {
+            const u = window.profileData || {};
+            const namaPeserta = u.name || "Peserta PROPKES";
+            const namaMentor = jenisMentor === 'sekolah' ? (u.mentorSekolah || u.mentor_sekolah || "Mentor") : (u.mentorPpd || u.mentor_ppd || "Mentor PPD");
+            const emelMentor = jenisMentor === 'sekolah' ? (u.mentorEmail || "") : (u.mentorPpdEmail || "");
+
+            if (!emelMentor) {
+                window.showToast(`E-mel bagi ${namaMentor} belum diisi dalam maklumat profil anda. Sila kemaskini profil terlebih dahulu.`, "warning");
+                return;
+            }
+
+            const subjek = `Peringatan Mesra: Pengisian Maklum Balas Lampiran F (${fasa}) - PROPKES 2026`;
+            const mesej = `Assalamualaikum w.b.t dan Salam Sejahtera ${namaMentor},\n\nSemoga berada dalam keadaan sihat sejahtera.\n\nDengan hormatnya dimaklumkan bahawa peserta bimbingan YBrs. Dr./Tuan/Puan:\nNama Peserta: ${namaPeserta}\nProgram: PROPKES 2026\n\nMemerlukan pengisian Borang Maklum Balas Mentor (Lampiran F) bagi ${fasa} di dalam Sistem Bersepadu PROPKES (ORBIX-P).\n\nKerjasama pihak YBrs. Dr./Tuan/Puan amat dihargai untuk log masuk ke portal sistem dan melengkapkan ulasan tersebut bagi tujuan dokumentasi dan fail penyerahan latihan peserta.\n\nSekian, terima kasih.\nUrus Setia PROPKES 2026 / Institut Aminuddin Baki (IAB)`;
+
+            window.hantarNotifikasiEmel(subjek, mesej, emelMentor);
+            window.showToast(`Peringatan mesra telah berjaya dihantar ke e-mel ${namaMentor}!`);
+        };
+
+        // [PENAMBAHAN 3c]: FUNGSI CETAKAN PDF LAMPIRAN F UNTUK SIMPANAN / G-DRIVE
+        window.cetakLampiranFPeserta = function(jenisMentor, fasa) {
+            const u = window.profileData || {};
+            const nama = (u.name || "Peserta").toUpperCase();
+            const fb = window.mentorFeedbackData || {};
+            
+            let data = null;
+            if (jenisMentor === 'sekolah') {
+                data = fb['sekolah'] ? (fb['sekolah'][fasa] || fb['sekolah'][fasa.toLowerCase()]) : (fb[fasa] || fb[fasa.toLowerCase()]);
+            } else {
+                data = fb['ppd'] ? (fb['ppd'][fasa] || fb['ppd'][fasa.toLowerCase()]) : null;
+            }
+
+            if (!data || (!data.ulasan && !data.catatan)) {
+                window.showToast(`Maklum balas ${jenisMentor.toUpperCase()} (${fasa}) belum dilengkapkan oleh mentor.`, "warning");
+                return;
+            }
+
+            const namaMentor = (jenisMentor === 'sekolah' ? (u.mentorSekolah || u.mentor_sekolah) : (u.mentorPpd || u.mentor_ppd)) || data.mentorName || "-";
+            const perananLabel = jenisMentor === 'sekolah' ? 'MENTOR 1 (SEKOLAH)' : 'MENTOR 2 (PPD)';
+
+            const printHTML = `
+            <div class="print-page">
+                <div style="width: 100%; text-align: center; margin-bottom: 20px; display: flex; justify-content: center;">
+                    <img src="logo IAB KPM.png" alt="Logo KPM & IAB" style="height: 85px; width: auto; object-fit: contain; margin: 0 auto; display: block;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ministry_of_Education_Malaysia.svg/200px-Ministry_of_Education_Malaysia.svg.png'">
+                </div>
+                <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN F</h3>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
+                <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">BORANG MAKLUM BALAS MENTOR (${fasa})</h2>
+                <table class="print-table">
+                    <tr><td style="width: 30%; font-weight: bold;">NAMA PESERTA</td><td>${nama}</td></tr>
+                    <tr><td style="font-weight: bold;">PERANAN MENTOR</td><td>${perananLabel}</td></tr>
+                    <tr><td style="font-weight: bold;">NAMA MENTOR</td><td>${namaMentor.toUpperCase()}</td></tr>
+                    <tr><td style="font-weight: bold; height: 180px;">ULASAN & MAKLUM BALAS MENTOR</td><td style="white-space: pre-wrap;">${data.ulasan || data.catatan || "-"}</td></tr>
+                    <tr><td style="font-weight: bold;">TAHAP PRESTASI</td><td style="font-weight: bold; color: #047857;">${data.tahap || "-"}</td></tr>
+                </table>
+                <div style="margin-top: 20px; border: 1px dashed #64748b; padding: 12px; border-radius: 6px; font-size: 9.5px; color: #334155; line-height: 1.5;">
+                    <strong>PERAKUAN SISTEM DIGITAL (ORBIX-P):</strong><br>
+                    Borang maklum balas dan penilaian prestasi ini telah disahkan dan direkodkan secara dalam talian melalui Sistem Bersepadu PROPKES (O.R.B.I.X-P) oleh pegawai penilai yang dinamakan. Dokumen PDF ini sah dijana secara elektronik untuk simpanan portfolio dan muat naik Google Drive.
+                </div>
+            </div>`;
+
+            const printEl = document.getElementById('printSection');
+            if (printEl) {
+                printEl.innerHTML = printHTML;
+                const oldTitle = document.title;
+                document.title = `${nama} - Lampiran F (${jenisMentor.toUpperCase()}_${fasa})`;
+                window.print();
+                setTimeout(() => { document.title = oldTitle; printEl.innerHTML = ''; }, 1000);
+            }
         };
 
         /* =========================================================
@@ -1712,11 +1947,13 @@
         async function loadUserData() {
             try {
                 const dbRef = ref(db);
-                const [userSnap, calSnap, jurSnap, artSnap] = await Promise.all([
+                // [PENAMBAHAN 2b]: Ambil sekali rekod maklum balas mentor daripada Firebase
+                const [userSnap, calSnap, jurSnap, artSnap, fbMentorSnap] = await Promise.all([
                     get(child(dbRef, `propkes_accounts/${currentUser}`)).catch(()=>null),
                     get(child(dbRef, `propkes_attendance/${currentUser}`)).catch(()=>null),
                     get(child(dbRef, `propkes_journals/${currentUser}`)).catch(()=>null),
-                    get(child(dbRef, `propkes_articles/${currentUser}`)).catch(()=>null)
+                    get(child(dbRef, `propkes_articles/${currentUser}`)).catch(()=>null),
+                    get(child(dbRef, `propkes_feedback_mentor/${currentUser}`)).catch(()=>null)
                 ]);
 
                 if (userSnap && userSnap.exists()) {
@@ -1754,9 +1991,12 @@
                 if(calSnap && calSnap.exists()) window.calendarData = calSnap.val();
                 if(jurSnap && jurSnap.exists()) window.journalData = jurSnap.val();
                 if(artSnap && artSnap.exists()) window.artikelData = artSnap.val();
+                if(fbMentorSnap && fbMentorSnap.exists()) window.mentorFeedbackData = fbMentorSnap.val();
                 
                 window.renderCal();
                 window.renderWeeklyScheduleTable();
+                // [PENAMBAHAN 2c]: Panggil kemaskini status Lampiran F
+                window.renderLampiranFStatus();
                 window.renderTasks();
                 window.calculatePhaseStats();
                 loadCharts();
