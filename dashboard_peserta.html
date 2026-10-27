@@ -953,7 +953,7 @@
             }
         };
 
-        // FIX: Safely parse YYYY-MM-DD locally to avoid timezone offsets and ISO conversion shifts
+        // Mengelakkan isu anjakan zon masa (timezone offset)
         function getDatesInRange(startDateStr, endDateStr) {
             const dateArray = [];
             const [sY, sM, sD] = startDateStr.split('-').map(Number);
@@ -1324,6 +1324,9 @@
             URL.revokeObjectURL(url);
         };
 
+        /* =========================================================
+           FUNGSI CETAKAN LAMPIRAN B DENGAN PENGESAHAN DIGITAL MENTOR
+           ========================================================= */
         window.cetakLampiranB = function() {
             const oldTitle = document.title;
             const u = window.profileData || {};
@@ -1340,14 +1343,49 @@
                     const dateObj = new Date(disYear, disMonth, d); 
                     const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'short' });
                     const formatTarikh = `${d} ${mNames[disMonth].toUpperCase()} ${disYear} (${hari.toUpperCase()})`;
+                    
                     let locText = "";
-                    if(data.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN"; 
-                    else if(data.loc === 'ppd') locText = u.ppd || "PPD"; 
-                    else if(data.loc === 'iab') locText = "IAB"; 
-                    else if(data.loc === 'cuti') locText = "-";
+                    let mentorSign = "";
+
+                    if(data.loc === 'sekolah') {
+                        locText = u.sekolah || "SEKOLAH SANDARAN";
+                        if(data.status === 'approved') {
+                            const namaMentorSek = u.mentorSekolah || u.mentor_sekolah || "Mentor Sekolah";
+                            mentorSign = `<div style="line-height:1.2;">
+                                            <span style="color:#059669; font-weight:bold; font-size:10px;">✓ DISAHKAN DIGITAL</span><br>
+                                            <span style="font-size:8.5px; color:#475569;">(${namaMentorSek.toUpperCase()})</span>
+                                          </div>`;
+                        } else {
+                            mentorSign = `<span style="color:#d97706; font-size:9px; font-style:italic;">Menunggu Pengesahan</span>`;
+                        }
+                    } else if(data.loc === 'ppd') {
+                        locText = u.ppd || "PPD";
+                        if(data.status === 'approved') {
+                            const namaMentorPpd = u.mentorPpd || u.mentor_ppd || "Mentor PPD";
+                            mentorSign = `<div style="line-height:1.2;">
+                                            <span style="color:#059669; font-weight:bold; font-size:10px;">✓ DISAHKAN DIGITAL</span><br>
+                                            <span style="font-size:8.5px; color:#475569;">(${namaMentorPpd.toUpperCase()})</span>
+                                          </div>`;
+                        } else {
+                            mentorSign = `<span style="color:#d97706; font-size:9px; font-style:italic;">Menunggu Pengesahan</span>`;
+                        }
+                    } else if(data.loc === 'iab') {
+                        locText = "IAB";
+                        mentorSign = `<span style="font-size:10px; color:#64748b;">-</span>`;
+                    } else if(data.loc === 'cuti') {
+                        locText = "-";
+                        mentorSign = `<span style="font-size:10px; color:#64748b;">-</span>`;
+                    }
+
                     let catatan = data.loc === 'cuti' ? "CUTI REHAT / UMUM" : "";
 
-                    tableRows += `<tr><td style="text-align:center;">${bil++}</td><td>${formatTarikh}</td><td>${locText.toUpperCase()}</td><td></td><td>${catatan}</td></tr>`;
+                    tableRows += `<tr>
+                                    <td style="text-align:center;">${bil++}</td>
+                                    <td>${formatTarikh}</td>
+                                    <td>${locText.toUpperCase()}</td>
+                                    <td style="text-align:center; padding: 4px;">${mentorSign}</td>
+                                    <td>${catatan}</td>
+                                  </tr>`;
                 }
             }
             if(tableRows === '') tableRows = `<tr><td colspan="5" style="text-align:center; padding: 20px;">Tiada rekod kehadiran untuk bulan ini.</td></tr>`;
@@ -1362,7 +1400,7 @@
                     <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN B</h3>
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
-                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">FASA 1 / 2</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">FASA 1 / 2</h2>
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG KEHADIRAN</h2>
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px;">
                         <tr><td style="padding: 5px; width: 15%; font-weight: bold;">NAMA</td><td style="padding: 5px;">${nama}</td></tr>
@@ -1373,10 +1411,24 @@
                     </table>
                     <table class="print-table">
                         <thead>
-                            <tr><th style="width: 5%;">BIL.</th><th style="width: 25%;">TARIKH & HARI</th><th style="width: 30%;">LOKASI BERTUGAS</th><th style="width: 20%;">TANDATANGAN MENTOR</th><th style="width: 20%;">CATATAN</th></tr>
+                            <tr>
+                                <th style="width: 5%;">BIL.</th>
+                                <th style="width: 25%;">TARIKH & HARI</th>
+                                <th style="width: 30%;">LOKASI BERTUGAS</th>
+                                <th style="width: 20%;">TANDATANGAN MENTOR</th>
+                                <th style="width: 20%;">CATATAN</th>
+                            </tr>
                         </thead>
                         <tbody>${tableRows}</tbody>
                     </table>
+                    
+                    <!-- NOTA PENGESAHAN INTEGRITI DIGITAL -->
+                    <div style="margin-top: 15px; border: 1px dashed #64748b; padding: 10px; border-radius: 6px; font-size: 9.5px; color: #334155; line-height: 1.4;">
+                        <strong>PERAKUAN SISTEM DIGITAL (ORBIX-P):</strong><br>
+                        Dokumen log kehadiran ini dijana secara digital melalui <em>Sistem Bersepadu PROPKES (O.R.B.I.X-P)</em>. 
+                        Entri bertanda <strong>✓ DISAHKAN DIGITAL</strong> telah disemak serta diluluskan secara dalam talian oleh Mentor Sekolah atau Mentor PPD yang dinamakan berdasarkan peranan seliaan masing-masing. 
+                        Tandatangan fizikal pada setiap baris tarikh tidak diperlukan selaras dengan inisiatif pendigitalan latihan KPM.
+                    </div>
                 </div>`;
                 window.print(); 
                 setTimeout(() => { document.title = oldTitle; printEl.innerHTML = ''; }, 1000);
