@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Papan Pemuka | Mentor PROPKES</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -197,20 +197,29 @@
                     <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Pusat / Cawangan</label><input type="text" id="mbPusat" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 outline-none cursor-not-allowed"></div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-[10px] font-bold text-amber-400 uppercase mb-1">Fasa Program</label>
-                        <select id="mbFasa" onchange="window.handleMbFasaChange()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-amber-500 outline-none cursor-pointer">
+                        <select id="mbFasa" onchange="window.handleMbFasaChange()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none cursor-pointer">
                             <option value="FASA 1">Fasa 1 (Ogos - Sept 2026)</option>
                             <option value="FASA 2">Fasa 2 (Sept - Okt 2026)</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-amber-400 uppercase mb-1">Pilihan Tarikh Sandaran</label>
-                        <select id="mbTarikhSandaran" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-amber-500 outline-none cursor-pointer">
+                        <select id="mbTarikhSandaran" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none cursor-pointer">
                             <option value="3 Ogos - 13 September 2026">3 Ogos - 13 September 2026 (Fasa 1)</option>
                             <option value="14 September - 25 Oktober 2026">14 September - 25 Oktober 2026 (Fasa 2)</option>
                             <option value="3 Ogos - 25 Oktober 2026">3 Ogos - 25 Oktober 2026 (Keseluruhan)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-amber-400 uppercase mb-1">Tahap Prestasi</label>
+                        <select id="mbTahapPrestasi" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:border-amber-500 outline-none cursor-pointer font-bold text-emerald-400">
+                            <option value="Cemerlang">Cemerlang</option>
+                            <option value="Amat Baik">Amat Baik</option>
+                            <option value="Baik">Baik</option>
+                            <option value="Memuaskan">Memuaskan</option>
                         </select>
                     </div>
                 </div>
@@ -255,8 +264,8 @@
         let currentUser = localStorage.getItem("propkes_user") || "mentor1";
 
         window.menteesList = [];
-        window.profileData = {}; // Simpan profil mentor (diri sendiri)
-        window.currentMenteeF = {}; // Mentee semasa untuk Borang F
+        window.profileData = {}; 
+        window.currentMenteeF = {}; 
         
         let chartBarInstance = null;
         let chartWebInstance = null;
@@ -328,7 +337,7 @@
                     myNameLower = window.profileData.name.trim().toLowerCase();
                 }
 
-                // 2. Tarik senarai semua peserta untuk padankan mentor DAN SEDUT MAKLUMAT JAWATAN
+                // 2. Tarik senarai semua peserta untuk padankan mentor
                 const allUsersSnap = await get(child(dbRef, 'propkes_accounts'));
                 const tbody = document.getElementById("menteeTableBody");
                 tbody.innerHTML = "";
@@ -348,8 +357,10 @@
                                 if (mSekolah.includes(myNameLower) || myNameLower.includes(mSekolah) || mPpd.includes(myNameLower) || myNameLower.includes(mPpd) || uname === "ainol") {
                                     
                                     let mentorType = "Sekolah";
+                                    let mentorKey = "sekolah";
                                     if(mPpd.includes(myNameLower) || myNameLower.includes(mPpd)) { 
-                                        mentorType = "PPD"; 
+                                        mentorType = "PPD";
+                                        mentorKey = "ppd"; 
                                         if(!jawatanHakikiDitarik) jawatanHakikiDitarik = data.mentorPpdJawatan || "Pegawai Pendidikan Daerah";
                                         if(!emailRasmiDitarik) emailRasmiDitarik = data.mentorPpdEmail || window.profileData.email;
                                     } else {
@@ -365,7 +376,8 @@
                                         gred: data.gred || 'DG48',
                                         jabatan: data.jabatan || data.sekolah || 'SK. KAYANGAN',
                                         pusat: data.pusatCawangan || data.pusat || 'JABATAN PEMBANGUNAN STAF',
-                                        mentorType: mentorType
+                                        mentorType: mentorType,
+                                        mentorKey: mentorKey
                                     });
                                 }
                             }
@@ -383,7 +395,8 @@
                             gred: "DG52",
                             jabatan: "SK. KAYANGAN",
                             pusat: "JABATAN PEMBANGUNAN STAF",
-                            mentorType: "Sekolah"
+                            mentorType: "Sekolah",
+                            mentorKey: "sekolah"
                         }
                     ];
                 }
@@ -450,20 +463,15 @@
                         const l = logs[date];
                         let locStr = l.loc || "Sekolah Sandaran"; 
                         
-                        let canApprove = true;
                         let statusBadge = "";
                         let actionBtn = "";
 
                         if (l.status === 'approved') {
-                            statusBadge = `<span class="text-[9px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">Telah Disahkan</span>`;
+                            statusBadge = `<span class="text-[9px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">Telah Disahkan Digital</span>`;
                             actionBtn = `<button disabled class="bg-emerald-600/10 text-emerald-500 border border-emerald-500/20 px-3 py-1.5 rounded text-xs opacity-50 cursor-not-allowed">Selesai</button>`;
                         } else {
                             statusBadge = `<span class="text-[9px] text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">Menunggu Sah</span>`;
-                            if (canApprove) {
-                                actionBtn = `<button onclick="window.approveLog('${id}', '${date}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded text-xs font-bold transition-colors outline-none cursor-pointer shadow-lg shadow-emerald-600/30">Sahkan</button>`;
-                            } else {
-                                actionBtn = `<button disabled class="bg-slate-800 text-slate-500 border border-slate-700 px-3 py-1.5 rounded text-[10px] cursor-not-allowed">Bukan Bidang Kuasa</button>`;
-                            }
+                            actionBtn = `<button onclick="window.approveLog('${id}', '${date}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded text-xs font-bold transition-colors outline-none cursor-pointer shadow-lg shadow-emerald-600/30">Sahkan Digital</button>`;
                         }
 
                         html += `<tr><td class="py-4 text-white font-medium align-top w-1/4">${date}<br><span class="text-slate-400 uppercase text-[10px]">${locStr}</span><br>${statusBadge}</td><td class="py-4 align-top w-2/4"><p class="text-slate-300 mb-1"><strong>Aktiviti:</strong> ${l.aktiviti || "-"}</p><p class="text-slate-400 text-[10px]"><strong>Refleksi:</strong> ${l.refleksi || "-"}</p></td><td class="py-4 align-top text-center w-1/4">${actionBtn}</td></tr>`;
@@ -471,16 +479,7 @@
                     html += `</tbody></table>`;
                     body.innerHTML = html;
                 } else { 
-                    body.innerHTML = `
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 space-y-3">
-                        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                            <span class="font-bold text-blue-400">03 Ogos 2026</span>
-                            <button onclick="window.approveLog('${id}', '03 Ogos 2026')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded text-xs font-bold transition-colors">Sahkan</button>
-                        </div>
-                        <p><strong>Lokasi:</strong> Sekolah Sandaran (${mentee.sekolah})</p>
-                        <p><strong>Aktiviti:</strong> Sesi mesyuarat pengurusan dan perancangan strategik penambahbaikan.</p>
-                        <p class="text-slate-400"><strong>Refleksi:</strong> Mengutamakankepimpinan instruksional dan kebajikan guru.</p>
-                    </div>`; 
+                    body.innerHTML = `<p class="text-center text-slate-500 text-xs py-8">Tiada rekod kehadiran diisi oleh peserta ini lagi.</p>`; 
                 }
             } catch(e) { body.innerHTML = `<p class="text-center text-rose-400 text-xs py-8">Ralat pelayan memuat log.</p>`; }
         };
@@ -494,8 +493,12 @@
 
         window.approveLog = async (menteeId, date) => {
             try {
-                await update(ref(db, `propkes_attendance/${menteeId}/${date}`), { status: 'approved' });
-                window.showToast(`Log tarikh ${date} berjaya disahkan.`, "success");
+                await update(ref(db, `propkes_attendance/${menteeId}/${date}`), { 
+                    status: 'approved',
+                    approvedBy: window.profileData.name || "Mentor",
+                    approvedAt: Date.now()
+                });
+                window.showToast(`Log tarikh ${date} berjaya disahkan secara digital.`, "success");
                 window.viewLog(menteeId);
             } catch(e) { 
                 console.error(e); 
@@ -503,16 +506,17 @@
             }
         };
 
-        // --- MAKLUM BALAS LAMPIRAN F DENGAN PENGASINGAN DATA MENTOR ---
+        // --- MAKLUM BALAS LAMPIRAN F DENGAN PENGASINGAN DATA MENTOR YANG LENGKAP ---
         window.openMaklumBalas = async (id) => {
             let pData = window.menteesList.find(x => x.id === id) || {
                 id: id,
-                name: 'AINOL',
+                name: 'Peserta',
                 jawatan: 'Penolong Kanan Pentadbiran',
                 gred: 'DG52',
                 sekolah: 'SK. KAYANGAN',
                 pusat: 'JABATAN PEMBANGUNAN STAF',
-                mentorType: 'Sekolah'
+                mentorType: 'Sekolah',
+                mentorKey: 'sekolah'
             };
 
             try {
@@ -524,22 +528,18 @@
                     pData.gred = account.gred || pData.gred;
                     pData.jabatan = account.sekolah || account.jabatan || pData.sekolah;
                     pData.pusat = account.pusatCawangan || account.pusat || pData.pusat;
-                } else {
-                    pData.nama = pData.name;
-                    pData.jabatan = pData.sekolah;
                 }
             } catch(e) {
-                pData.nama = pData.name;
-                pData.jabatan = pData.sekolah;
+                console.warn(e);
             }
 
             window.currentMenteeF = pData;
             document.getElementById('mbModalSubtitle').textContent = `Peserta: ${pData.nama || pData.name} (Oleh: Mentor ${pData.mentorType || 'Sekolah'})`;
             document.getElementById('mbNamaPeserta').value = pData.nama || pData.name;
-            document.getElementById('mbJawatan').value = pData.jawatan;
-            document.getElementById('mbGred').value = pData.gred;
-            document.getElementById('mbJabatan').value = pData.jabatan;
-            document.getElementById('mbPusat').value = pData.pusat;
+            document.getElementById('mbJawatan').value = pData.jawatan || "-";
+            document.getElementById('mbGred').value = pData.gred || "-";
+            document.getElementById('mbJabatan').value = pData.jabatan || "-";
+            document.getElementById('mbPusat').value = pData.pusat || "-";
 
             const modal = document.getElementById('maklumBalasModal');
             modal.classList.remove('hidden'); modal.classList.add('flex');
@@ -560,23 +560,28 @@
         window.handleMbFasaChange = async () => {
             const fasa = document.getElementById('mbFasa').value;
             const menteeId = window.currentMenteeF ? window.currentMenteeF.id : null;
+            const mKey = window.currentMenteeF ? (window.currentMenteeF.mentorKey || "sekolah") : "sekolah";
             const mType = window.currentMenteeF ? (window.currentMenteeF.mentorType || "Sekolah") : "Sekolah";
             document.getElementById('mbUlasan').value = "";
+            document.getElementById('mbTahapPrestasi').value = "Cemerlang";
 
             if (!menteeId) return;
 
             try {
-                const fasaKey = fasa.replace(/\s+/g, '_');
-                let snap = await get(child(ref(db), `propkes_feedback_mentor/${menteeId}/${mType}/${fasaKey}`));
+                // Cek format standard huruf kecil (sekolah/ppd) dan sokongan format lama
+                let snap = await get(child(ref(db), `propkes_feedback_mentor/${menteeId}/${mKey}/${fasa}`));
                 if (!snap.exists()) {
                     snap = await get(child(ref(db), `propkes_feedback_mentor/${menteeId}/${mType}/${fasa}`));
                 }
 
                 if (snap.exists()) {
                     const data = snap.val();
-                    document.getElementById('mbUlasan').value = data.ulasan || "";
+                    document.getElementById('mbUlasan').value = data.ulasan || data.catatan || "";
                     if (data.tarikhSandaran) {
                         document.getElementById('mbTarikhSandaran').value = data.tarikhSandaran;
+                    }
+                    if (data.tahap) {
+                        document.getElementById('mbTahapPrestasi').value = data.tahap;
                     }
                 }
             } catch(e) {
@@ -593,8 +598,10 @@
             }
 
             const fasa = document.getElementById('mbFasa').value;
+            const mKey = window.currentMenteeF.mentorKey || "sekolah";
             const mType = window.currentMenteeF.mentorType || "Sekolah";
             const tarikhSandaran = document.getElementById('mbTarikhSandaran').value;
+            const tahap = document.getElementById('mbTahapPrestasi').value;
             const ulasan = document.getElementById('mbUlasan').value;
             
             const btn = document.getElementById('btnSimpanMB');
@@ -603,17 +610,18 @@
             const payload = {
                 fasa: fasa,
                 tarikhSandaran: tarikhSandaran,
+                tahap: tahap,
                 ulasan: ulasan,
-                mentorNama: window.profileData.name || "MENTORNORIADAH",
+                mentorName: window.profileData.name || "MENTOR PROPKES",
                 mentorJawatan: window.profileData.jawatan || "Pengetua / Guru Besar",
                 updatedAt: Date.now()
             };
 
             try {
-                const fasaKey = fasa.replace(/\s+/g, '_');
-                await set(ref(db, `propkes_feedback_mentor/${menteeId}/${mType}/${fasaKey}`), payload);
+                // Disimpan dalam format huruf kecil (sekolah/ppd) untuk dibaca peserta & admin, serta format huruf besar untuk keserasian
+                await set(ref(db, `propkes_feedback_mentor/${menteeId}/${mKey}/${fasa}`), payload);
                 await set(ref(db, `propkes_feedback_mentor/${menteeId}/${mType}/${fasa}`), payload);
-                window.showToast(`Maklum Balas Mentor (${fasa}) berjaya disimpan.`);
+                window.showToast(`Maklum Balas Lampiran F (${fasa}) berjaya disimpan.`);
             } catch(e) { 
                 console.error(e); 
                 window.showToast("Ralat menyimpan Borang F.", "error"); 
@@ -627,8 +635,9 @@
             const m = window.currentMenteeF || {};
             const fasa = document.getElementById('mbFasa').value;
             const tarikhSandaran = document.getElementById('mbTarikhSandaran').value;
+            const tahap = document.getElementById('mbTahapPrestasi').value;
             const ulasan = document.getElementById('mbUlasan').value;
-            const pName = (window.profileData.name || "MENTORNORIADAH").toUpperCase();
+            const pName = (window.profileData.name || "MENTOR PROPKES").toUpperCase();
             const pJawatan = (window.profileData.jawatan || "PENGETUA / GURU BESAR").toUpperCase();
 
             const pSec = document.getElementById('printSection');
@@ -653,19 +662,21 @@
                     <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:15px;">
                         <tr><th colspan="2" style="text-align:left; background:#f1f5f9;">B. MAKLUMAT MENTOR</th></tr>
                         <tr><td width="30%"><strong>Nama Mentor</strong></td><td>${pName}</td></tr>
+                        <tr><td><strong>Peranan</strong></td><td>${(m.mentorType === 'PPD' ? 'MENTOR 2 (PPD)' : 'MENTOR 1 (SEKOLAH)')}</td></tr>
                         <tr><td><strong>Jawatan Hakiki</strong></td><td>${pJawatan}</td></tr>
                     </table>
 
                     <table class="print-table" style="width:100%; border-collapse:collapse; margin-bottom:30px;">
                         <tr><th colspan="2" style="text-align:left; background:#f1f5f9;">C. Ulasan Maklum Balas (${fasa})</th></tr>
                         <tr><td width="30%"><strong>Tempoh Sandaran</strong></td><td>${tarikhSandaran}</td></tr>
+                        <tr><td><strong>Tahap Prestasi</strong></td><td style="font-weight:bold; color:#047857;">${tahap}</td></tr>
                         <tr><td colspan="2" style="min-height:220px; vertical-align:top; padding:15px;">
                             <strong>Ulasan & Maklum Balas Mentor:</strong><br><br>
                             <p style="line-height:1.6; text-align:justify; white-space:pre-wrap;">${ulasan || "Tiada ulasan direkodkan."}</p>
                         </td></tr>
                     </table>
 
-                    <div style="margin-top:30px; display:flex; justify-between; font-size:11px; line-height:1.8;">
+                    <div style="margin-top:30px; display:flex; justify-content:space-between; font-size:11px; line-height:1.8;">
                         <div>
                             <p>Tandatangan Mentor:</p>
                             <br><br>
@@ -674,9 +685,9 @@
                             <p style="color:#555;">Tarikh: ${new Date().toLocaleDateString('ms-MY')}</p>
                         </div>
                         <div style="text-align:right;">
-                            <p>Cap Rasmi:</p>
+                            <p>Pengesahan Sistem Digital:</p>
                             <br><br><br>
-                            <p style="font-style:italic; color:#777;">* Dijana Secara Digital Melalui Sistem PROPKES 2026</p>
+                            <p style="font-style:italic; color:#777;">* Disahkan dan dijana secara digital melalui Sistem Bersepadu PROPKES (ORBIX-P)</p>
                         </div>
                     </div>
                 </div>
@@ -745,17 +756,6 @@
                             <div><p class="text-[10px] text-purple-400 font-bold uppercase mb-0.5">1. Deskripsi / Peristiwa</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.deskripsi || j.aktiviti || "-"}</p></div>
                             <div><p class="text-[10px] text-amber-400 font-bold uppercase mb-0.5">2. Analisis / Pemikiran</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.analisis || "-"}</p></div>
                             <div><p class="text-[10px] text-emerald-400 font-bold uppercase mb-0.5">3. Interpretasi & Kesimpulan</p><p class="text-xs text-slate-300 whitespace-pre-wrap">${j.interpretasi || j.refleksi || "-"}</p></div>
-                        </div>`;
-                    } else if (weekNum === 1) {
-                        html += `
-                        <div class="bg-slate-950 p-4 rounded-xl border border-purple-900/40 space-y-2">
-                            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                                <h4 class="text-xs font-bold text-purple-400 uppercase">Minggu 1 (Fasa 1)</h4>
-                                <span class="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-500/30">✓ Rekod Contoh</span>
-                            </div>
-                            <div><p class="text-[10px] text-purple-400 font-bold uppercase mb-0.5">1. Deskripsi / Peristiwa</p><p class="text-xs text-slate-300">Sesi perbincangan awal perancangan strategik dan pengurusan sekolah sandaran.</p></div>
-                            <div><p class="text-[10px] text-amber-400 font-bold uppercase mb-0.5">2. Analisis / Pemikiran</p><p class="text-xs text-slate-300">Menilai keperluan peningkatan mengikut 9 Domain SKKSM.</p></div>
-                            <div><p class="text-[10px] text-emerald-400 font-bold uppercase mb-0.5">3. Interpretasi & Kesimpulan</p><p class="text-xs text-slate-300">Langkah susulan diselaraskan bersama pengurusan sekolah.</p></div>
                         </div>`;
                     } else {
                         html += `
@@ -837,7 +837,7 @@
                         }, 
                         options: { 
                             responsive: true, 
-                            maintainAspectRatio: false,
+                            maintainAspectRatio: false, 
                             scales: { 
                                 r: { 
                                     min:0, 
