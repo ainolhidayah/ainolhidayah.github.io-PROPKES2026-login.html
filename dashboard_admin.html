@@ -43,7 +43,6 @@
 </head>
 <body class="bg-pattern min-h-screen text-slate-200">
 
-    <!-- STREAMING_CHUNK:Rendering top navigation bar with white logo container... -->
     <!-- TOP NAVBAR -->
     <nav class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 sticky top-0 z-50 shadow-2xl no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
@@ -79,7 +78,6 @@
         </div>
     </nav>
 
-    <!-- STREAMING_CHUNK:Rendering main dashboard layout, welcome banner, and statistics cards... -->
     <!-- MAIN BODY -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-print">
         
@@ -161,7 +159,6 @@
             </div>
         </div>
 
-        <!-- STREAMING_CHUNK:Rendering charts section, user filtering, A-Z dropdown and user list table... -->
         <!-- CARTA SECTION -->
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
             <div class="xl:col-span-2 space-y-6">
@@ -192,7 +189,7 @@
                                 <option value="admin">Urus Setia</option>
                             </select>
 
-                            <!-- Dropdown Pilih Nama Spesifik (A-Z) - CARA A -->
+                            <!-- Dropdown Pilih Nama Spesifik (A-Z) -->
                             <select id="nameFilter" onchange="window.filterTable()" class="hidden bg-slate-950 border border-rose-500/50 text-rose-300 rounded-xl px-3 py-1.5 text-xs focus:border-rose-500 outline-none cursor-pointer font-semibold">
                                 <option value="all" selected>-- Semua Nama --</option>
                             </select>
@@ -273,7 +270,6 @@
 
     </main>
 
-    <!-- STREAMING_CHUNK:Rendering modal dialogs for edit, delete, password reset, and participant reports... -->
     <!-- MODAL EDIT PENGGUNA -->
     <div id="editModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 no-print">
         <div class="bg-slate-900 border border-amber-500/50 rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300" id="editModalContent">
@@ -368,7 +364,6 @@
     <div id="printSection" class="print-container"></div>
     <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2 pointer-events-none no-print"></div>
 
-    <!-- STREAMING_CHUNK:Initializing Firebase Database module, EmailJS logic and A-Z name filter logic... -->
     <!-- FIREBASE MODULE & LOGICS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -785,9 +780,6 @@
             } catch(e) { console.error(e); }
         }
 
-        /* =========================================================
-           POPULATE & FILTER UNTUK CARA A: NAMA SPESIFIK (A-Z)
-           ========================================================= */
         window.populateNameFilter = () => {
             const roleFilter = document.getElementById("roleFilter").value;
             const nameFilter = document.getElementById("nameFilter");
@@ -807,7 +799,6 @@
                 }
             });
 
-            // ISIHAN DARI A HINGGA Z BERDASARKAN NAMA
             filteredUsers.sort((a, b) => a.name.localeCompare(b.name));
 
             if (filteredUsers.length > 0) {
@@ -839,7 +830,6 @@
             tbody.innerHTML = "";
             let matchFound = false;
 
-            // ISIAN NAMA A HINGGA Z PADA JADUAL
             let sortedUsernames = Object.keys(window.accountsData || {}).sort((a, b) => {
                 let nameA = (window.accountsData[a].name || "").toLowerCase();
                 let nameB = (window.accountsData[b].name || "").toLowerCase();
@@ -1291,6 +1281,12 @@
             } catch(e) { console.error(e); }
         };
 
+        window.closeReportsModal = () => {
+            const modal = document.getElementById('viewReportsModal');
+            modal.classList.add('opacity-0'); document.getElementById('viewReportsModalContent').classList.add('scale-95');
+            setTimeout(()=> { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
+        };
+
         /* =========================================================
            FUNGSI-FUNGSI CETAKAN LAMPIRAN PESERTA DARI ADMIN
            ========================================================= */
@@ -1437,27 +1433,66 @@
             URL.revokeObjectURL(url);
         };
 
+        /* =========================================================
+           KEMAS KINI LAMPIRAN B DENGAN PENGESAHAN DIGITAL MENTOR
+           ========================================================= */
         window.printB = function() {
             const u = window.activeViewingUser || {};
             const nama = (u.name || "Peserta").toUpperCase();
             const attendance = u.attendance || {};
+            const mNames = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
             let tableRows = ''; let bil = 1;
             
             Object.keys(attendance).sort().forEach(dt => {
                 const data = attendance[dt];
                 if(data && data.loc) {
-                    const [y, m, d] = dt.split('-');
+                    const [y, m, d] = dt.split('-').map(Number);
                     const dateObj = new Date(y, m - 1, d);
                     const hari = dateObj.toLocaleDateString('ms-MY', { weekday: 'short' });
-                    const formatTarikh = `${d}/${m}/${y} (${hari.toUpperCase()})`;
+                    const formatTarikh = `${d} ${mNames[m - 1].toUpperCase()} ${y} (${hari.toUpperCase()})`;
+                    
                     let locText = "";
-                    if(data.loc === 'sekolah') locText = u.sekolah || "SEKOLAH SANDARAN"; 
-                    else if(data.loc === 'ppd') locText = u.ppd || "PPD"; 
-                    else if(data.loc === 'iab') locText = "IAB"; 
-                    else if(data.loc === 'cuti') locText = "-";
-                    let catatan = data.loc === 'cuti' ? "CUTI REHAT" : "";
+                    let mentorSign = "";
 
-                    tableRows += `<tr><td style="text-align:center;">${bil++}</td><td>${formatTarikh}</td><td>${locText.toUpperCase()}</td><td></td><td>${catatan}</td></tr>`;
+                    if(data.loc === 'sekolah') {
+                        locText = u.sekolah || "SEKOLAH SANDARAN";
+                        if(data.status === 'approved') {
+                            const namaMentorSek = u.mentorSekolah || u.mentor_sekolah || "Mentor Sekolah";
+                            mentorSign = `<div style="line-height:1.2;">
+                                            <span style="color:#059669; font-weight:bold; font-size:10px;">✓ DISAHKAN DIGITAL</span><br>
+                                            <span style="font-size:8.5px; color:#475569;">(${namaMentorSek.toUpperCase()})</span>
+                                          </div>`;
+                        } else {
+                            mentorSign = `<span style="color:#d97706; font-size:9px; font-style:italic;">Menunggu Pengesahan</span>`;
+                        }
+                    } else if(data.loc === 'ppd') {
+                        locText = u.ppd || "PPD";
+                        if(data.status === 'approved') {
+                            const namaMentorPpd = u.mentorPpd || u.mentor_ppd || "Mentor PPD";
+                            mentorSign = `<div style="line-height:1.2;">
+                                            <span style="color:#059669; font-weight:bold; font-size:10px;">✓ DISAHKAN DIGITAL</span><br>
+                                            <span style="font-size:8.5px; color:#475569;">(${namaMentorPpd.toUpperCase()})</span>
+                                          </div>`;
+                        } else {
+                            mentorSign = `<span style="color:#d97706; font-size:9px; font-style:italic;">Menunggu Pengesahan</span>`;
+                        }
+                    } else if(data.loc === 'iab') {
+                        locText = "IAB";
+                        mentorSign = `<span style="font-size:10px; color:#64748b;">-</span>`;
+                    } else if(data.loc === 'cuti') {
+                        locText = "-";
+                        mentorSign = `<span style="font-size:10px; color:#64748b;">-</span>`;
+                    }
+
+                    let catatan = data.loc === 'cuti' ? "CUTI REHAT / UMUM" : "";
+
+                    tableRows += `<tr>
+                                    <td style="text-align:center;">${bil++}</td>
+                                    <td>${formatTarikh}</td>
+                                    <td>${locText.toUpperCase()}</td>
+                                    <td style="text-align:center; padding: 4px;">${mentorSign}</td>
+                                    <td>${catatan}</td>
+                                  </tr>`;
                 }
             });
 
@@ -1471,15 +1506,32 @@
                     <h3 style="font-weight: bold; font-size: 16px; margin-bottom: 5px; text-align: center;">LAMPIRAN B</h3>
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">PROGRAM PENINGKATAN PROFESIONALISME PENGURUSAN DAN KEPIMPINAN SEKOLAH (PROPKES)</h2>
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px;">TAHUN 2026</h2>
+                    <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 2px;">FASA 1 / 2</h2>
                     <h2 style="font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 20px; text-decoration: underline;">LOG KEHADIRAN PESERTA</h2>
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px;">
                         <tr><td style="padding: 5px; width: 15%; font-weight: bold;">NAMA PESERTA</td><td style="padding: 5px;">: ${nama}</td></tr>
                         <tr><td style="padding: 5px; font-weight: bold;">SEKOLAH / PPD</td><td style="padding: 5px;">: ${(u.sekolah || '-').toUpperCase()} / ${(u.ppd || '-').toUpperCase()}</td></tr>
                     </table>
                     <table class="print-table">
-                        <thead><tr><th style="width: 8%;">BIL.</th><th style="width: 25%;">TARIKH & HARI</th><th style="width: 35%;">LOKASI BERTUGAS</th><th style="width: 16%;">TANDATANGAN</th><th style="width: 16%;">CATATAN</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th style="width: 5%;">BIL.</th>
+                                <th style="width: 25%;">TARIKH & HARI</th>
+                                <th style="width: 30%;">LOKASI BERTUGAS</th>
+                                <th style="width: 20%;">TANDATANGAN MENTOR</th>
+                                <th style="width: 20%;">CATATAN</th>
+                            </tr>
+                        </thead>
                         <tbody>${tableRows}</tbody>
                     </table>
+                    
+                    <!-- NOTA PENGESAHAN INTEGRITI DIGITAL -->
+                    <div style="margin-top: 15px; border: 1px dashed #64748b; padding: 10px; border-radius: 6px; font-size: 9.5px; color: #334155; line-height: 1.4;">
+                        <strong>PERAKUAN SISTEM DIGITAL (ORBIX-P):</strong><br>
+                        Dokumen log kehadiran ini dijana secara digital melalui <em>Sistem Bersepadu PROPKES (O.R.B.I.X-P)</em>. 
+                        Entri bertanda <strong>✓ DISAHKAN DIGITAL</strong> telah disemak serta diluluskan secara dalam talian oleh Mentor Sekolah atau Mentor PPD yang dinamakan berdasarkan peranan seliaan masing-masing. 
+                        Tandatangan fizikal pada setiap baris tarikh tidak diperlukan selaras dengan inisiatif pendigitalan latihan KPM.
+                    </div>
                 </div>`;
             window.print();
             setTimeout(() => { document.getElementById('printSection').innerHTML = ''; }, 1000);
