@@ -314,7 +314,6 @@
         window.loadMentorData = async function() {
             try {
                 const dbRef = ref(db);
-                // 1. Tarik profil asas mentor
                 const userSnap = await get(child(dbRef, `propkes_accounts/${currentUser}`));
                 let myNameLower = "";
                 
@@ -337,7 +336,6 @@
                     myNameLower = window.profileData.name.trim().toLowerCase();
                 }
 
-                // 2. Tarik senarai semua peserta untuk padankan mentor
                 const allUsersSnap = await get(child(dbRef, 'propkes_accounts'));
                 const tbody = document.getElementById("menteeTableBody");
                 tbody.innerHTML = "";
@@ -440,9 +438,11 @@
             }
         };
 
-        // --- PENGESAHAN LOG HARIAN OLEH MENTOR ---
+        // --- PENGESAHAN LOG HARIAN OLEH MENTOR DENGAN KAWALAN BIDANG KUASA LOKASI ---
         window.viewLog = async (id) => {
-            const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta', mentorType: 'Sekolah' };
+            const mentee = window.menteesList.find(x => x.id === id) || { name: 'Peserta', mentorType: 'Sekolah', mentorKey: 'sekolah' };
+            const mKey = mentee.mentorKey || (mentee.mentorType === 'PPD' ? 'ppd' : 'sekolah');
+
             document.getElementById('logModalTitle').textContent = "Pengesahan Log Harian (Lampiran C)";
             document.getElementById('logModalSubtitle').textContent = `Peserta: ${mentee.name} | Kuasa Pengesahan Anda: Mentor ${mentee.mentorType || 'Sekolah'}`;
             const body = document.getElementById('logModalBody');
@@ -462,6 +462,10 @@
                     Object.keys(logs).sort().reverse().forEach(date => {
                         const l = logs[date];
                         let locStr = l.loc || "Sekolah Sandaran"; 
+                        const rekodLoc = (l.loc || "").toLowerCase();
+
+                        // KAWALAN BIDANG KUASA: HANYA BOLEH SAHKAN JIKA LOKASI BERTUGAS SAMA DENGAN PERANAN MENTOR
+                        const canApprove = (mKey === 'sekolah' && rekodLoc === 'sekolah') || (mKey === 'ppd' && rekodLoc === 'ppd');
                         
                         let statusBadge = "";
                         let actionBtn = "";
@@ -470,8 +474,17 @@
                             statusBadge = `<span class="text-[9px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">Telah Disahkan Digital</span>`;
                             actionBtn = `<button disabled class="bg-emerald-600/10 text-emerald-500 border border-emerald-500/20 px-3 py-1.5 rounded text-xs opacity-50 cursor-not-allowed">Selesai</button>`;
                         } else {
-                            statusBadge = `<span class="text-[9px] text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">Menunggu Sah</span>`;
-                            actionBtn = `<button onclick="window.approveLog('${id}', '${date}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded text-xs font-bold transition-colors outline-none cursor-pointer shadow-lg shadow-emerald-600/30">Sahkan Digital</button>`;
+                            if (rekodLoc === 'cuti' || rekodLoc === 'iab') {
+                                statusBadge = `<span class="text-[9px] text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700">Tiada Pengesahan</span>`;
+                                actionBtn = `<span class="text-slate-500 text-[10px] italic">Rekod ${rekodLoc.toUpperCase()}</span>`;
+                            } else if (canApprove) {
+                                statusBadge = `<span class="text-[9px] text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">Menunggu Sah</span>`;
+                                actionBtn = `<button onclick="window.approveLog('${id}', '${date}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded text-xs font-bold transition-colors outline-none cursor-pointer shadow-lg shadow-emerald-600/30">Sahkan Digital</button>`;
+                            } else {
+                                const pihakSepatutnya = rekodLoc === 'sekolah' ? 'Mentor Sekolah' : 'Mentor PPD';
+                                statusBadge = `<span class="text-[9px] text-slate-500 bg-slate-800/60 px-1.5 py-0.5 rounded border border-slate-700">Menunggu Sah</span>`;
+                                actionBtn = `<button disabled class="bg-slate-800/80 text-slate-500 border border-slate-700/80 px-2.5 py-1.5 rounded text-[10px] cursor-not-allowed" title="Pengesahan ini adalah di bawah kuasa ${pihakSepatutnya}">Bidang Kuasa ${pihakSepatutnya}</button>`;
+                            }
                         }
 
                         html += `<tr><td class="py-4 text-white font-medium align-top w-1/4">${date}<br><span class="text-slate-400 uppercase text-[10px]">${locStr}</span><br>${statusBadge}</td><td class="py-4 align-top w-2/4"><p class="text-slate-300 mb-1"><strong>Aktiviti:</strong> ${l.aktiviti || "-"}</p><p class="text-slate-400 text-[10px]"><strong>Refleksi:</strong> ${l.refleksi || "-"}</p></td><td class="py-4 align-top text-center w-1/4">${actionBtn}</td></tr>`;
@@ -568,7 +581,6 @@
             if (!menteeId) return;
 
             try {
-                // Cek format standard huruf kecil (sekolah/ppd) dan sokongan format lama
                 let snap = await get(child(ref(db), `propkes_feedback_mentor/${menteeId}/${mKey}/${fasa}`));
                 if (!snap.exists()) {
                     snap = await get(child(ref(db), `propkes_feedback_mentor/${menteeId}/${mType}/${fasa}`));
@@ -618,7 +630,6 @@
             };
 
             try {
-                // Disimpan dalam format huruf kecil (sekolah/ppd) untuk dibaca peserta & admin, serta format huruf besar untuk keserasian
                 await set(ref(db, `propkes_feedback_mentor/${menteeId}/${mKey}/${fasa}`), payload);
                 await set(ref(db, `propkes_feedback_mentor/${menteeId}/${mType}/${fasa}`), payload);
                 window.showToast(`Maklum Balas Lampiran F (${fasa}) berjaya disimpan.`);
